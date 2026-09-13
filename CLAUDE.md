@@ -75,6 +75,11 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   boilerplate. Say so explicitly each time — the user runs and inspects it but isn't expected to
   defend it in an interview yet. Topics 45-46 include returning to rewrite it for real
   understanding.
+- Before Topic 9 (Docker — Architecture, Images, Containers) begins, if `project/app/` is still
+  empty, write the initial boilerplate application there first — a minimal app with at least one
+  real endpoint (a health check is enough) so Docker, and everything after it, containerizes and
+  deploys something real rather than a disposable "hello world." This is the concrete trigger for
+  the exception above; don't leave it to happen "whenever it seems natural."
 - Wherever a topic's hands-on work can reasonably apply inside `project/` instead of a disposable
   practice folder, do that — progress toward the live project should be continuous.
 - Day 0 (before Session 1): if `project/` isn't already scaffolded, initialize the repo, create
