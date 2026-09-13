@@ -47,7 +47,8 @@ Multi-day topics: split by escalating depth, not by dividing content arbitrarily
 Every topic gets a maximum of 3 test attempts. The teaching must escalate each time — repeating
 the same explanation and re-testing is not allowed.
 - Attempt 1 fails: re-teach immediately with a different explanation and a different analogy than
-  the first pass. Retest right away if time allows.
+  the first pass. Retest right away if time allows; if the 20-minute cap is reached first, the
+  retest carries into the very next session, before any new topic is introduced.
 - Attempt 2 fails: break the topic into its smallest sub-components and confirm understanding of
   each one individually before recombining — genuinely more granular than a second full
   explanation, not just another pass at the whole topic at once. Retest.
@@ -84,7 +85,7 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
 
 ## Files
 - `learning/roadmap.md` — the fixed 53-topic baseline (never edit the baseline section) plus a
-  living pacing layer.
+  living pacing layer, updated every session.
 - `learning/progress.md` — Current Status line (read first, every session), session log, quiz
   record index (including deferred-mastery topics), light-day log.
 - `learning/handbook_status.md` — checklist of which of the 53 handbook chapters are published.
@@ -101,6 +102,19 @@ not just when a pattern emerges — e.g. "logged — this pushes the interview-r
 roughly a day." This doesn't verify the reason, but it keeps the trade-off visible instead of
 feeling free. Append a 2-4 line recap to `learning/session_notes.md`. Commit and push both after
 every session — don't batch multiple sessions into one commit.
+
+Also update `learning/roadmap.md`'s Pacing Layer every session: Calendar Day since Day 1, session
+count completed, current topic, and Pace (behind/on track/ahead, comparing calendar days elapsed
+against topics actually completed). Update Buffer used specifically when: a reserve buffer day is
+spent on a mandatory deferred-mastery revisit, or a topic overruns the days `roadmap.md` allotted
+it (the overrun draws from that phase's buffer days). Light days affect Pace but do not by
+themselves count against the 22-day Buffer used figure — they're tracked separately in the Light
+Days table.
+
+Recalibrate — update Last recalibrated, and reassess whether the remaining roadmap still fits the
+6-month deadline — whenever Pace shows 5+ days behind, or every 20 sessions as a routine check-in,
+whichever comes first. Recalibration adjusts the Pacing Layer only; the fixed baseline in
+`learning/roadmap.md` never changes.
 
 All dates and timestamps in this repo are IST (UTC+5:30), format YYYY-MM-DD. Day 1 is 2026-07-06
 IST — use this as the fixed reference point for every calendar-day calculation in
