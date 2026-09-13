@@ -1,0 +1,1 @@
+Capstone application code. Until Phase 5 (Python, Topics 40-46), this is Claude-authored boilerplate per CLAUDE.md's capstone exception — functional, but not yet fully understood or defensible in an interview. Topics 45-46 include rewriting it from real understanding.
