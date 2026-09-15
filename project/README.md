@@ -27,3 +27,7 @@ Filled in here once there's an application to actually run.
 ## Status
 Day 0 — folders scaffolded, nothing built yet. Check `../learning/progress.md` for current
 progress through the learning plan, which drives what gets added here next.
+
+### Session 1 — 2026-07-06
+Day 1 of Topic 1 (Linux Fundamentals) — no project code changes yet, this phase is foundational
+Linux/SSH/VM learning ahead of Docker (Topic 9), where `app/` boilerplate gets written first.

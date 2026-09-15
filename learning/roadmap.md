@@ -98,10 +98,12 @@
 - Outer deadline: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- Last recalibrated: —
-- Calendar Day since Day 1: —
-- Session count completed: —
-- Current topic: —
-- Pace: on track / behind by — days / ahead by — days
-- Buffer used: — of 22
-- Notes: —
+- Last recalibrated: — (not yet due — first session)
+- Calendar Day since Day 1: 2 (2026-07-07)
+- Session count completed: 1
+- Current topic: Topic 1 — Linux Fundamentals, Filesystem, SSH, VMs (day 1 of 2, in progress)
+- Pace: on track
+- Buffer used: 0 of 22
+- Notes: Day 1 covered filesystem/permissions, navigation, SSH concepts, VM core concepts.
+  SSH hands-on (local sshd) deferred — corporate network/proxy blocks outbound WSL traffic;
+  retry via AWS sandbox VM. Session ran long with an overnight break for night-shift fatigue.
