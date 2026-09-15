@@ -5,11 +5,12 @@
 > what was hard, what to remember.
 
 ## Session 1 — 2026-07-06
-Day 1 done — got real depth on Linux permissions (rwx, octal, ownership, `stat`'s four
-timestamps) and filesystem navigation, understood the SSH key-based challenge-response mechanism
-solidly, and finally got VM vs container (kernel sharing, isolation boundaries) to click after
-some back-and-forth confusion. Hit a genuine real-world snag: corporate network/proxy blocks WSL
-from installing `openssh-server`, so the hands-on SSH connection is deferred to the AWS sandbox
-VM. Long session with an overnight break for night-shift fatigue — worth remembering for pacing.
+VM vs container took two full passes to actually click — first explanation didn't land, the
+apartment/foundation analogy is what finally made it stick. Also caught myself asking for
+double-checks before running `chmod`/`rm` on my own files even though the risk was near zero —
+good instinct to keep, don't let it fade once things feel routine. The network/proxy dead-end was
+frustrating but worth sitting with rather than skipping past. Was already tired from a long
+stretch since last night — watch for this pattern once night shifts start this month; may need to
+split sessions shorter rather than push through fatigue like this one.
 
 <!-- Copy the block above for each new session -->
