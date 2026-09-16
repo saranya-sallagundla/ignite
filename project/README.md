@@ -31,3 +31,8 @@ progress through the learning plan, which drives what gets added here next.
 ### Session 1 — 2026-07-06
 Day 1 of Topic 1 (Linux Fundamentals) — no project code changes yet, this phase is foundational
 Linux/SSH/VM learning ahead of Docker (Topic 9), where `app/` boilerplate gets written first.
+
+### Session 2 — 2026-07-07
+Topic 1 complete (quiz passed) — still no project code yet, but the VM/container isolation
+reasoning covered here directly informs why this project's future architecture runs containers
+on EC2 (VMs) rather than bare metal, once Topics 9+ (Docker) and 20+ (AWS) are reached.

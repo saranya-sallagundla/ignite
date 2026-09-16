@@ -28,6 +28,34 @@ Key top-level directories:
 
 Commands run: `pwd`, `whoami`, `ls -la ~`, `ls /`
 
+**Syntax**: `ls [OPTIONS] [PATH]` — `-l` = long/detailed format, `-a` = include hidden (dotfiles)
+
+**Output — `ls -la ~`**:
+```
+total 40
+drwxr-x--- 6 devuser devuser 4096 Jul  6 14:28 .
+drwxr-xr-x 3 root    root    4096 Mar 15 10:59 ..
+lrwxrwxrwx 1 devuser devuser   25 Jun 26 07:08 .aws -> /mnt/c/Users/devuser/.aws
+lrwxrwxrwx 1 devuser devuser   27 Jun 26 07:08 .azure -> /mnt/c/Users/devuser/.azure
+-rw------- 1 devuser devuser   16 Apr 26 04:35 .bash_history
+-rw-r--r-- 1 devuser devuser  220 Mar 15 10:59 .bash_logout
+-rw-r--r-- 1 devuser devuser 3771 Mar 15 10:59 .bashrc
+drwx------ 3 devuser devuser 4096 Jul  6 14:28 .cache
+drwx------ 3 devuser devuser 4096 Jul  6 14:28 .copilot
+drwxr-xr-x 4 devuser devuser 4096 Jun 26 07:08 .docker
+-rw-rw-r-- 1 devuser devuser    0 Jul  6 13:50 .motd_shown
+-rw-r--r-- 1 devuser devuser  807 Mar 15 10:59 .profile
+drwxr-xr-x 5 devuser devuser 4096 Jul  6 14:28 .vscode-server
+```
+Note `.aws` and `.azure` are symlinks (`l`) into `/mnt/c/Users/devuser/...` — Windows integration
+sharing AWS/Azure credentials between WSL and Windows tools.
+
+**Output — `ls /`**:
+```
+Docker  bin.usr-is-merged  dev  home  lib                lib64       media  opt   root  sbin                snap  sys  usr  wslCPjKBG  wslHJKJEJ  wslaBBPlp  wslhenGkp  wslkoPokp
+bin     boot               etc  init  lib.usr-is-merged  lost+found  mnt    proc  run   sbin.usr-is-merged  srv   tmp  var  wslGGfecp  wslMeLiEJ  wslhdaeDJ  wslkgkBIj  wslpBiAAJ
+```
+
 ### 2. Permissions — reading `ls -la` output
 
 Example output style:
@@ -55,6 +83,21 @@ world-readable, any other user on a shared machine could read it and lift secret
 — scripts, binaries, or (for directories) permission to `cd` into them. Irrelevant on a plain
 data file like `.bash_history`.
 
+**Syntax**: `ls -la /etc | head -5` (pipe `ls` output into `head` to see only the first 5 lines)
+
+**Output**:
+```
+total 820
+drwxr-xr-x 88 root root       4096 Jul  6 14:31 .
+drwxr-xr-x 33 root root       4096 Jul  6 14:30 ..
+-rw-------  1 root root          0 Feb  9 19:54 .pwd.lock
+-rw-r--r--  1 root root        862 Feb  9 19:54 .resolv.conf.systemd-resolved.bak
+```
+`.pwd.lock` — zero-byte lock file; its mere existence signals another process is mid-edit on
+password-related files (common pattern: empty files used purely as a signal/flag).
+`.resolv.conf.systemd-resolved.bak` — a DNS resolver config backup, world-readable (not sensitive)
+but root-only to modify.
+
 **Ownership** — files in `/etc` are owned by `root`, not the regular user, because `/etc` is
 system-wide config. If any user could edit it, they could reconfigure the whole machine. Root
 ownership + restrictive permissions forces `sudo` for system changes — a deliberate safety gate.
@@ -65,8 +108,21 @@ ownership + restrictive permissions forces `sudo` for system changes — a delib
 - Used constantly: `cd ..` (go up one level), `./script.sh` (run a script in the current dir)
 
 **`stat` command** — deeper metadata than `ls -l`:
+
+**Syntax**: `stat FILE`
+
+**Example**: `stat ~/.bashrc`
+
+**Output**:
 ```
-stat ~/.bashrc
+  File: /home/devuser/.bashrc
+  Size: 3771            Blocks: 8          IO Block: 4096   regular file
+Device: 8,48    Inode: 46478       Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ devuser)   Gid: ( 1000/ devuser)
+Access: 2026-07-06 13:50:46.463647672 -0400
+Modify: 2026-03-15 10:59:06.565696864 -0400
+Change: 2026-03-15 10:59:06.565696864 -0400
+ Birth: 2026-03-15 10:59:06.565696864 -0400
 ```
 - `Inode` — the filesystem's real internal ID for a file's data; the filename is just a label
   pointing at it (why renames are instant, and how hard links work).
@@ -76,10 +132,41 @@ stat ~/.bashrc
   - **Change** — last time *metadata* changed (permissions, owner) — NOT content
   - **Birth** — creation time, never changes after
 
-**Verified hands-on**: ran `chmod 700 ~/.bash_logout` then `chmod 644` back, checking `stat`
-before/after each. Confirmed: `Modify` and `Birth` stayed identical (content untouched), `Change`
-updated on each `chmod` (metadata changed), `Access` didn't reliably update on a plain `stat` read
-(many Linux setups mount with `relatime`/`noatime` for performance, throttling Access updates).
+**Syntax**: `chmod MODE FILE` (verify with `ls -l FILE` or `stat FILE`)
+
+**Verified hands-on** — ran `chmod 700 ~/.bash_logout` then `chmod 644` back, checking `stat`
+before/after each:
+```
+$ chmod 700 ~/.bash_logout && ls -l ~/.bash_logout
+-rwx------ 1 devuser devuser 220 Mar 15 10:59 /home/devuser/.bash_logout
+
+$ stat ~/.bash_logout
+  File: /home/devuser/.bash_logout
+  Size: 220             Blocks: 8          IO Block: 4096   regular file
+Device: 8,48    Inode: 1236        Links: 1
+Access: (0700/-rwx------)  Uid: ( 1000/ devuser)   Gid: ( 1000/ devuser)
+Access: 2026-07-06 17:25:03.251284111 -0400
+Modify: 2026-03-15 10:59:06.565696864 -0400
+Change: 2026-07-06 17:24:37.354927872 -0400
+ Birth: 2026-03-15 10:59:06.565696864 -0400
+
+$ chmod 644 ~/.bash_logout && ls -l ~/.bash_logout
+-rw-r--r-- 1 devuser devuser 220 Mar 15 10:59 /home/devuser/.bash_logout
+
+$ stat ~/.bash_logout
+  File: /home/devuser/.bash_logout
+  Size: 220             Blocks: 8          IO Block: 4096   regular file
+Device: 8,48    Inode: 1236        Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ devuser)   Gid: ( 1000/ devuser)
+Access: 2026-07-06 17:25:03.251284111 -0400
+Modify: 2026-03-15 10:59:06.565696864 -0400
+Change: 2026-07-06 17:26:48.552676456 -0400
+ Birth: 2026-03-15 10:59:06.565696864 -0400
+```
+**Confirmed**: `Modify` and `Birth` stayed identical across both changes (content untouched),
+`Change` updated on each `chmod` (metadata changed — exactly what `Change` tracks), `Access`
+didn't reliably update on a plain `stat` read (many Linux setups mount with `relatime`/`noatime`
+for performance, throttling Access updates).
 
 **WSL ↔ Windows File Explorer**: WSL's Linux filesystem is browsable from Windows at
 `Linux → Ubuntu → home → <user>` in File Explorer's left sidebar (a separate top-level section,
@@ -88,14 +175,51 @@ Windows can browse into via a special protocol.
 
 ### 3. Filesystem navigation & manipulation
 
-- **`cd`** — absolute path (`cd /etc`, works from anywhere) vs relative path (`cd ..`, `cd
-  projects`, relative to current location).
-- **`mkdir`** — `mkdir test1` creates a folder. **`mkdir -p a/b/c`** creates the whole nested
-  chain in one shot, including missing parents, and doesn't error if directories already exist.
-  Verified hands-on: `mkdir a/b/c` (no `-p`) failed with "No such file or directory" since `a`
-  didn't exist yet; `mkdir -p a/b/c` succeeded and created all three nested levels.
-- **`cp source dest`** — copy a file (`-r` for a directory tree).
-- **`mv source dest`** — move, and also how Linux renames a file (no separate `rename` command).
+**Syntax**: `cd [PATH]` — absolute path (starts with `/`, works from anywhere) vs relative path
+(starts from wherever you currently are)
+
+**Verified hands-on**:
+```
+$ cd /tmp && pwd
+/tmp
+$ cd ~ && pwd
+/home/devuser
+$ cd .. && pwd
+/home
+```
+(third command run from `/home/devuser` — `..` correctly moved up exactly one level to `/home`)
+
+**Syntax**: `mkdir [-p] PATH`
+
+**Example**: `mkdir test1` creates a folder in the current directory. `mkdir -p a/b/c` creates the
+whole nested chain in one shot, including missing parents, and doesn't error if directories
+already exist.
+
+**Verified hands-on**: bare `mkdir a/b/c` (no `-p`) failed since `a` didn't exist yet
+(`mkdir: cannot create directory 'a/b/c': No such file or directory` — standard error shape;
+exact wording not logged verbatim in-session). `mkdir -p a/b/c` then succeeded, creating all
+three nested levels in one command — confirmed via `ls -la a` and `ls -la a/b` showing the
+nested folders in place.
+
+**Syntax**: `cp [-r] SOURCE DEST` — copy a file (`-r` for a directory tree)
+**Syntax**: `mv SOURCE DEST` — move, and also how Linux renames a file (no separate `rename`
+command)
+
+**Verified hands-on** — filesystem manipulation sequence:
+```
+$ cd ~ && mkdir -p practice/subdir && cd practice
+$ echo "hello linux" > file1.txt
+$ cp file1.txt file2.txt
+$ mv file2.txt renamed.txt
+$ ls -la
+total 16
+drwxr-xr-x 2 devuser devuser 4096 Jul  6 18:37 .
+drwxr-x--- 7 devuser devuser 4096 Jul  6 18:34 ..
+-rw-r--r-- 1 devuser devuser   12 Jul  6 18:37 file1.txt
+-rw-r--r-- 1 devuser devuser   12 Jul  6 18:37 renamed.txt
+```
+(`subdir` doesn't appear — it was separately created and removed with `rm -r subdir` to test
+deletion, confirmed clean with no trace left)
 - **`rm file`** — deletes a file. **`rm folder` alone fails** — it refuses to delete directories
   without `-r`. **`rm -r folder`** deletes a folder and everything inside, recursively,
   permanently.
@@ -249,4 +373,238 @@ pre-installed and this local-install problem doesn't apply.
 
 ## Day 2 — 2026-07-07 (harder scenarios + quiz)
 
-_To be filled in as Day 2 progresses._
+### 1. Permission troubleshooting — solved independently
+
+**Scenario**: created a script, ran it, got `Permission denied`.
+
+```
+$ echo 'echo "hello from script"' > myscript.sh
+$ ./myscript.sh
+bash: ./myscript.sh: Permission denied
+
+$ ls -l myscript.sh
+-rw-r--r-- 1 devuser devuser 27 Jul  7 ... myscript.sh
+```
+
+**Diagnosis**: `>` redirection creates files with default `644` (`rw-r--r--`) — read/write, no
+execute for anyone. Editing/opening works (needs read/write), running fails (needs execute).
+
+**Syntax**: `chmod OCTAL FILE` — recompute the octal digit-by-digit: `read=4, write=2, execute=1`.
+Owner needed `rw-` (`6`) → add execute → `7`. Group/others stay `r--` (`4`) each, unchanged.
+
+**Fix**: `chmod 744 myscript.sh` → `rwxr--r--` → confirmed working:
+```
+$ chmod 744 myscript.sh
+$ ls -l myscript.sh
+-rwxr--r-- 1 devuser devuser 27 Jul  7 ... myscript.sh
+$ ./myscript.sh
+hello from script
+```
+(Initial guess was `711` — rejected on review: it *does* add owner execute, but also strips
+group/others' existing read and grants them execute instead, changing things that weren't asked
+to change. `744` is the precise fix — add only what's missing, leave the rest untouched.)
+
+### 2. Hard links vs. symbolic links — the inode model, proven hands-on
+
+**The core idea**: a file's *name* and its *data* are different things. The name is a label
+pointing at an **inode** (the filesystem's real internal ID for the data — see Day 1's `stat`
+section). Multiple names can point at the same inode.
+
+**Syntax**: `ln TARGET LINK_NAME` (hard link — TARGET must exist, LINK_NAME must not already
+exist unless `-f` is used) · `ln -s TARGET LINK_NAME` (symlink — same rule)
+
+**Verified hands-on — creating both**:
+```
+$ echo "original content" > original.txt
+$ ln original.txt hardlink.txt
+$ ln -s original.txt symlink.txt
+$ ls -li original.txt hardlink.txt symlink.txt
+50105 -rw-r--r-- 2 devuser devuser 17 Jul  7 16:09 hardlink.txt
+50105 -rw-r--r-- 2 devuser devuser 17 Jul  7 16:09 original.txt
+50106 lrwxrwxrwx 1 devuser devuser 12 Jul  7 16:09 symlink.txt -> original.txt
+```
+`original.txt` and `hardlink.txt` share inode `50105`, link count `2` — genuinely the same file,
+two names. `symlink.txt` has its own separate inode `50106`, type `l`, and just stores the path
+text `original.txt` (12 bytes — the length of that path string).
+
+**Verified hands-on — deleting the original**:
+```
+$ rm original.txt
+$ cat hardlink.txt
+original content
+$ cat symlink.txt
+cat: symlink.txt: No such file or directory
+```
+`hardlink.txt` survives — the data isn't freed until the link count hits `0`, and one name
+(`hardlink.txt`) still points at it. `symlink.txt` breaks (**dangling symlink**) — it only ever
+stored a path, and that path no longer resolves to anything.
+
+**Discovery — a hard link to a symlink links to the symlink itself, not its target**:
+```
+$ ln symlink.txt hardlink2.txt
+$ ls -li symlink.txt hardlink2.txt
+50106 lrwxrwxrwx 2 devuser devuser 12 Jul  7 16:09 hardlink2.txt -> original.txt
+50106 lrwxrwxrwx 2 devuser devuser 12 Jul  7 16:09 symlink.txt -> original.txt
+```
+`ln` (no `-s`) does **not** dereference/follow a symlink source — it hard-links directly to the
+symlink's own inode. Since that inode's data *is* "I am a symlink pointing at `original.txt`,"
+the new name is *also* a symlink with the same broken target — proven by both showing type `l`
+and the same `-> original.txt`.
+
+**Discovery — `ln -f` can silently destroy the last copy of real data**:
+```
+$ cat hardlink.txt
+original content
+$ ln symlink.txt hardlink.txt
+ln: failed to create hard link 'hardlink.txt': File exists
+$ ln -f symlink.txt hardlink.txt
+$ cat hardlink.txt
+cat: hardlink.txt: No such file or directory
+```
+At this point `hardlink.txt` (inode `50105`) was the **only** remaining name holding the real
+`"original content"` data (link count `1`). `ln -f` removed that name first (to make room for the
+new link), dropping the count to `0` — permanently freeing the data — then relinked `hardlink.txt`
+to the symlink's inode (`50106`) instead. Net effect: identical to what `-f` was warned about
+earlier — it can delete-then-recreate a name, discarding whatever the name used to point to, with
+no confirmation and no recovery.
+
+**Follow-up — `ln -s` (not `-f` alone) creates a genuinely new symlink, chained**:
+```
+$ ln -s symlink.txt hardlink.txt
+ln: failed to create symbolic link 'hardlink.txt': File exists
+$ ln -fs symlink.txt hardlink.txt
+$ cat hardlink.txt
+cat: hardlink.txt: No such file or directory
+```
+This created a **new, separate inode** for `hardlink.txt` (unlike the plain `ln` case above) that
+stores the path `symlink.txt` — a two-hop chain: `hardlink.txt` → `symlink.txt` → `original.txt`
+(missing). Broken at the final hop for the same underlying reason. `ls -li` would show a
+**different** inode number for `hardlink.txt` here vs. the earlier plain-`ln` case, confirming
+`-s` always creates a new file rather than reusing an existing inode.
+
+**Key mental model, confirmed by direct test** — editing through *either* name of a hard-linked
+pair changes the *one* shared file, visible via both names immediately:
+```
+$ echo "hello" > book.txt
+$ ln book.txt card2.txt
+$ echo "edited via card2" > card2.txt
+$ cat book.txt
+edited via card2
+$ cat card2.txt
+edited via card2
+$ ls -li book.txt card2.txt
+50107 -rw-r--r-- 2 devuser devuser 17 Jul  7 18:28 book.txt
+50107 -rw-r--r-- 2 devuser devuser 17 Jul  7 18:28 card2.txt
+```
+(Note: `>` here *overwrote* rather than appended, replacing "hello" entirely — see `>` vs `>>`
+below. The point still stands: both names show identical content because they're the same inode.)
+
+**`>` vs `>>`**:
+
+**Syntax**: `command > file` (overwrite — replaces all existing content) · `command >> file`
+(append — adds to the end, keeping existing content)
+```
+echo "line 1" > file.txt      # file.txt: line 1
+echo "line 2" > file.txt      # file.txt: line 2   (line 1 is gone)
+echo "line 3" >> file.txt     # file.txt: line 2 / line 3
+```
+
+**Practical difference table — hard link vs. symlink**:
+| | Hard link | Symlink |
+|---|---|---|
+| What it is | 2nd name, same inode | separate file storing a path string |
+| Target moves to another drive | can't even be created cross-drive | can be created cross-drive, but breaks if the path it stores stops resolving |
+| Target deleted | survives (until link count hits 0) | breaks (dangling) |
+| Target moved (same or different drive) | not applicable (no separate "target" — same file) | breaks (dangling) — a symlink only stores a fixed path, it doesn't track the file if it moves |
+
+### 3. `rm` and links — precision correction
+
+`rm` doesn't directly "delete data" — it removes **one name** and decrements that inode's link
+count by 1. Data is only actually freed once the count reaches **0** (every name pointing at it
+is gone). For an ordinary file with only one name, this looks identical to instant deletion — but
+the mechanism underneath is always "unlink a name," which is exactly what made the `ln -f`
+data-loss scenario above possible without ever running `rm` directly.
+
+### 4. SSH — key generation (hands-on)
+
+**Syntax**: `ssh-keygen -t TYPE -f FILEPATH`
+- `-t` — key type/algorithm. Chose `ed25519` deliberately (not RSA) — smaller, faster, and the
+  current best-practice recommendation over older RSA/ECDSA, unless a legacy system requires RSA.
+- `-f` — output path; produces two files: `FILEPATH` (private key) and `FILEPATH.pub` (public key)
+
+**Example**: `ssh-keygen -t ed25519 -f ~/.ssh/id_test` (passphrase skipped with Enter/Enter for
+this practice run — production keys would normally set one)
+
+**Verified hands-on**: confirmed via `ls -la ~/.ssh/` (private key contents intentionally never
+pasted/viewed in chat — correct practice) — `id_test` shows `600` (`rw-------`, owner-only, as
+expected for a private key) and `id_test.pub` shows `644` (`rw-r--r--`, freely readable, as
+expected for a public key).
+
+### 5. SSH — `known_hosts` and `~/.ssh/config`
+
+**`known_hosts`** — a *file* (not a folder) inside `~/.ssh/`, created automatically the first
+time you connect to any new remote server. On first connection, SSH shows the server's
+fingerprint and asks for confirmation (protects against man-in-the-middle attacks); once
+accepted, that server's identity is appended as a new line. Future connections are silently
+checked against this — if a server's identity ever doesn't match, SSH refuses and warns loudly.
+
+**`~/.ssh/config`** — connection shortcuts, one block per host:
+```
+Host myserver
+    HostName 1.2.3.4
+    User ec2-user
+    IdentityFile ~/.ssh/id_test
+```
+Turns `ssh -i ~/.ssh/id_test ec2-user@1.2.3.4` into just `ssh myserver`. (Deferred full hands-on
+until AWS sandbox access is ready — the value of this will click faster once actually typing the
+long form repeatedly.)
+
+**`-i` flag** (identity file): tells `ssh` which private key to use, since custom key filenames
+(like `id_test`) aren't in the small set `ssh` tries automatically by default.
+
+### 6. VM/container isolation — real project tie-in
+
+**Scenario**: the project will run containers on Kubernetes, on EC2 (VMs), on AWS. Why not
+containers directly on bare physical servers, skipping the VM layer entirely?
+
+**Answer, reached with follow-up pushback**: AWS physical hardware is **multi-tenant** — multiple
+unrelated customers' workloads can share the same physical machine. If containers ran directly on
+bare metal with no VM boundary, all tenants on that machine would share **one kernel** — a kernel
+exploit letting one tenant's container escape could let an attacker reach every other tenant's
+containers on that same kernel (a real, documented **container escape / cross-tenant attack**
+class). The VM layer gives each AWS customer their **own separate kernel** — a hard boundary that
+survives even a full container compromise inside another customer's VM. Within *your own* VM, your
+own containers still share *your* VM's kernel with each other, which is fine, since they're all
+yours.
+
+**Interview-answer lesson learned this session**: naming the right general concept ("privacy",
+"a hardwall") isn't sufficient — an interviewer pushes for the specific mechanism. Full-credit
+shape: *name the concept → trace the actual mechanism step by step → name the concrete
+consequence.* E.g. "kernel-sharing" isn't enough on its own; "a kernel exploit lets an attacker
+escape their container and reach the shared kernel, which other tenants' containers also run on"
+is the complete answer.
+
+---
+
+## Day 2 Quiz — Topic 1 (Filesystem, SSH, VMs) — PASS, attempt 1
+
+Interview-style, open-ended, no multiple choice. Ran ~32 minutes (over the 20-min cap — allowed
+to finish in progress rather than cut mid-question).
+
+1. **Decode `-rwxr-xr-- 1 alice devs 2048 Jan 5 10:00 deploy.sh` fully** — passed after correcting
+   two points: `alice`/`devs` are two separate fields (owner vs. group, not one merged label), and
+   the timestamp shown is **Modify** time, not creation/Birth time (`stat` is what exposes Birth).
+2. **A root cron job runs `/opt/scripts/backup.sh`, permissions `777`, owned by root — the fix?**
+   — passed after correcting an intermediate answer of `600` (no execute — cron couldn't run it at
+   all, same lesson as exercise 1 above) to the correct `700` (owner rwx, group/others nothing).
+3. **Hard link `B` to `A`, then `rm A` — what happens at the filesystem level?** — passed cleanly,
+   correct inode/link-count reasoning first try.
+4. **Full SSH key-based auth mechanism, step by step** — passed cleanly, first try.
+5. **Why separate VMs over separate containers for two untrusted customers on shared hardware?**
+   — passed after two follow-up nudges to move from "privacy"/"hardwall" to naming the specific
+   shared resource (**kernel**) and the specific attack path (container escape into the shared
+   kernel).
+6. **Hard link vs. symlink: file moves to another drive / file gets deleted** — passed after
+   correcting a conflation: a symlink *can be created* pointing across drives, but if the target
+   subsequently *moves* (not just "is on another drive"), the symlink breaks exactly like a
+   deletion would, since it only stores a fixed path.

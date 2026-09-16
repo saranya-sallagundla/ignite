@@ -13,4 +13,12 @@ frustrating but worth sitting with rather than skipping past. Was already tired 
 stretch since last night — watch for this pattern once night shifts start this month; may need to
 split sessions shorter rather than push through fatigue like this one.
 
+## Session 2 — 2026-07-07
+Hard links vs symlinks didn't click from explanation alone — needed to actually break things
+(force-overwrite a real link and watch data disappear) before it stuck for real. Good sign: kept
+pushing back on my own answers ("privacy" wasn't good enough, kept digging until I could name
+"kernel" specifically) instead of accepting a vague-but-safe answer — that's the interview muscle
+actually building. First quiz passed on attempt 1, but ran way over the 20-min cap — worth
+watching whether that becomes a pattern as topics get harder, or if it's just first-quiz jitters.
+
 <!-- Copy the block above for each new session -->
