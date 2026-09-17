@@ -36,3 +36,8 @@ Linux/SSH/VM learning ahead of Docker (Topic 9), where `app/` boilerplate gets w
 Topic 1 complete (quiz passed) — still no project code yet, but the VM/container isolation
 reasoning covered here directly informs why this project's future architecture runs containers
 on EC2 (VMs) rather than bare metal, once Topics 9+ (Docker) and 20+ (AWS) are reached.
+
+### Session 3 — 2026-07-08
+Topic 2 Day 1 (Top 50 Shell Commands) — no project code yet, still pre-Docker. The
+`grep | cut | sort | uniq -c | sort -nr | head` log-analysis pipeline practiced here is directly
+reusable later for real log triage once `monitoring/` and actual app logs exist.

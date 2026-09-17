@@ -7,12 +7,11 @@
 
 > One line, overwritten every session — not appended to. This is what gets read first.
 
-Topic 1 — COMPLETE (day 2 of 2). Day 2 covered: permission troubleshooting (independent),
-hard links vs symlinks (inode/link-count model, proven hands-on incl. `ln -f` data-loss case),
-SSH key generation (`ssh-keygen`), `known_hosts`/`~/.ssh/config`, VM/container multi-tenant
-isolation tied to the project's EC2→K8s architecture. Quiz: PASS, attempt 1 (see quiz record
-below). SSH live connection still deferred to AWS sandbox VM (local `sshd` install blocked by
-corporate network — see Day 1 note). Next: Topic 2 — Linux Top 50 Shell Commands (2 days).
+Topic 1 — COMPLETE (quiz PASS, attempt 1). Topic 2 — Linux, Top 50 Shell Commands — day 1 of 2,
+covered: file viewing (`head`/`tail`/`less`), search (`grep` incl. case-sensitivity gotcha,
+`find` vs `grep` distinction), text processing (`sort`/`uniq`/`wc`/`cut`), and a combined
+real-world pipeline exercise (`grep | cut | sort | uniq -c | sort -nr | head`). No quiz yet
+(non-final day). SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -44,6 +43,15 @@ corporate network — see Day 1 note). Next: Topic 2 — Linux Top 50 Shell Comm
   `learning/notes/topic-01-linux-fundamentals.md`.
 - Check-in: 2026-07-07 22:19 IST — Check-out: 2026-07-08 05:25 IST (quiz itself ran ~32 minutes,
   over the 20-minute cap — allowed to finish in progress rather than cut mid-question)
+
+## Session 3 — 2026-07-08
+- Topic in progress: Topic 2 — Linux, Top 50 Shell Commands (day 1 of 2)
+- Covered: file viewing (`head`, `tail`, `less`), search (`grep` with case-sensitivity and `-v`
+  gotchas, `find` vs `grep` content-vs-filename distinction), text processing (`sort`, `uniq`,
+  `wc`, `cut`), and a combined real-world log-analysis pipeline exercise built incrementally
+  (`grep | cut | sort | uniq -c | sort -nr | head`).
+- Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
+- Check-in: 2026-07-08 22:35 IST — Check-out: 2026-07-09 05:58 IST
 
 ## Quiz record index
 

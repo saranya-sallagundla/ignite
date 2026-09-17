@@ -21,4 +21,12 @@ pushing back on my own answers ("privacy" wasn't good enough, kept digging until
 actually building. First quiz passed on attempt 1, but ran way over the 20-min cap — worth
 watching whether that becomes a pattern as topics get harder, or if it's just first-quiz jitters.
 
+## Session 3 — 2026-07-08
+Genuinely enjoyed chaining commands into one pipeline at the end — that felt like the first time
+something clicked as "this is what the job actually looks like" rather than isolated flashcard
+facts. Tripped on `-v` with a case-sensitivity mismatch and initially misread `uniq` as comparing
+words-on-a-line instead of whole-lines — both cleared up fast once tested directly rather than
+just re-explained. Good habit forming: testing predictions against real output before trusting an
+assumption, instead of just accepting the first plausible-sounding answer.
+
 <!-- Copy the block above for each new session -->
