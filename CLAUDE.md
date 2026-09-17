@@ -93,8 +93,16 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   living pacing layer, updated every session.
 - `learning/progress.md` — Current Status line (read first, every session), session log, quiz
   record index (including deferred-mastery topics), light-day log.
-- `learning/handbook_status.md` — checklist of which of the 53 handbook chapters are published.
-  Checked off manually, not tied to any particular session.
+- `learning/handbook_status.md` — checklist of all 53 topics. Checked off automatically by
+  Claude Code the moment a topic's quiz passes (not tied to publishing on the external handbook
+  site — that's a separate, unrelated action the user takes on their own timeline). Each checked
+  line carries a score out of 100 (Quiz /40 + Hands-on /30 + Depth of understanding /30) plus a
+  compact one-line reason, computed fresh per topic from that topic's actual session history —
+  never copy a prior topic's score.
+- `learning/notes/topic-NN-name.md` — one detailed study notebook per topic, built up day by day:
+  full explanations, commands actually run, real outputs, troubleshooting logs. The lasting
+  reference distinct from `progress.md` (tracking) and `session_notes.md` (short reflection).
+  Always show a command's general syntax pattern before the concrete example.
 - `learning/session_notes.md` — personal recap per session, for review only, not used for logic.
 
 ## Logging, after every session
