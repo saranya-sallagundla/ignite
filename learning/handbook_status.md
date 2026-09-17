@@ -3,10 +3,11 @@
 > Checked off automatically by Claude Code the moment a topic's quiz passes — separate from
 > publishing to the handbook site, which the user does manually, on their own timeline.
 > Score out of 100: Quiz /40 + Hands-on /30 + Depth of understanding /30, computed fresh per
-> topic, with a compact one-line reason.
+> topic, with a compact one-line reason on its own line below (end the score line with two
+> trailing spaces for a real markdown line break, not a lazy-continuation wrap).
 > Site: https://saranya-sallagundla.github.io/ignite/handbook
 
-- [x] 1. Linux Fundamentals — Filesystem, SSH, VMs — **90/100**
+- [x] 1. Linux Fundamentals — Filesystem, SSH, VMs — **90/100**  
   Quiz 36/40 · Hands-on 27/30 · Depth 27/30 — solved permission & proxy issues solo; VM/container took 2 passes; quiz needed nudges to sharpen vague answers.
 - [ ] 2. Linux — Top 50 Shell Commands
 - [ ] 3. Linux — Shell Scripting Basics
