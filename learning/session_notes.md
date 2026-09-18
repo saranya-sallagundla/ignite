@@ -39,4 +39,13 @@ which is a better kind of learning than being told a fact upfront. Quiz was noti
 exact syntax (grep -r flag placement, find scope) than Topic 1's quiz — watch whether that's
 fatigue from the length of the session or a real gap to reinforce next time shell commands come up.
 
+## Session 5 — 2026-07-10
+`classify.sh` was a genuine grind — real, distinct syntax mistakes one after another (else/fi
+separators, merged blocks, then a nano-vs-printf `\n` mixup that broke everything in a confusing
+new way). Kept wanting to just be handed the answer partway through, but pushing through to write
+it myself paid off — the final self-debugged syntax error (fixed by reading the line number bash
+pointed to) felt like the first "real" debugging moment of this whole plan, not a guided exercise.
+Worth remembering next time something feels this frustrating: it's often exactly the sign that
+real learning is happening, not that something's wrong.
+
 <!-- Copy the block above for each new session -->

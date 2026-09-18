@@ -7,11 +7,12 @@
 
 > One line, overwritten every session — not appended to. This is what gets read first.
 
-Topic 1 — COMPLETE (quiz PASS, attempt 1, 90/100). Topic 2 — Linux, Top 50 Shell Commands —
-COMPLETE (quiz PASS, attempt 1, 84/100). Day 2 covered process/signal handling (`ps`/`kill`/
-SIGTERM vs SIGKILL), system resources (`df`/`du`/`free`/`uptime`), networking (`ping`/`ss`, incl.
-a real ICMP-vs-TCP firewall discovery), and archiving (`tar`). SSH live connection still deferred
-to AWS sandbox VM. Next: Topic 3 — Linux, Shell Scripting Basics (2 days).
+Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — Linux, Shell Scripting
+Basics — day 1 of 2, covered: shebang line, variables, positional arguments, conditionals
+(string + numeric), arithmetic expansion (modulo), and a combined `classify.sh` exercise written
+from scratch with real, self-debugged syntax errors (else/fi structure, nano's Enter-vs-literal-
+`\n` distinction). No quiz yet (non-final day). SSH live connection still deferred to AWS
+sandbox VM.
 
 ## Session log
 
@@ -64,6 +65,16 @@ to AWS sandbox VM. Next: Topic 3 — Linux, Shell Scripting Basics (2 days).
   `learning/notes/topic-02-top-50-shell-commands.md`.
 - Check-in: 2026-07-09 23:24 IST — Check-out: 2026-07-10 05:39 IST (quiz ran ~28 minutes, over
   the 20-minute cap — allowed to finish in progress)
+
+## Session 5 — 2026-07-10
+- Topic in progress: Topic 3 — Linux, Shell Scripting Basics (day 1 of 2)
+- Covered: shebang line, variables, positional arguments (`$1`/`$#`), conditionals (`if`/`elif`/
+  `else`/`fi`, string and numeric operators), arithmetic expansion (`$(( ))`, modulo), and a
+  combined `classify.sh` exercise (sign + odd/even) written entirely from scratch — including
+  real, independently-debugged syntax errors (missing `else`/`fi` separators, merged `fi`/`if`
+  blocks, and a `nano`-vs-`printf` `\n` handling mixup that briefly broke the shebang line).
+- Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
+- Check-in: 2026-07-10 22:02 IST — Check-out: 2026-07-11 04:14 IST
 
 ## Quiz record index
 

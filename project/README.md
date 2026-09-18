@@ -46,3 +46,8 @@ reusable later for real log triage once `monitoring/` and actual app logs exist.
 Topic 2 complete (quiz passed) — no project code yet, but `ps`/`kill`/signals, `df`/`du`/`free`,
 and `tar` are exactly the toolkit for operating this project's future EC2 instances and
 Kubernetes nodes day-to-day, once Topics 20+ (AWS) and 12+ (Kubernetes) are reached.
+
+### Session 5 — 2026-07-10
+Topic 3 Day 1 (Shell Scripting Basics) — no project code yet, but this is the first topic that
+feeds `scripts/` directly: the conditional/variable fundamentals practiced today are exactly
+what real automation scripts in that folder will be built from.
