@@ -9,7 +9,8 @@
 
 - [x] 1. Linux Fundamentals — Filesystem, SSH, VMs — **90/100**  
   Quiz 36/40 · Hands-on 27/30 · Depth 27/30 — solved permission & proxy issues solo; VM/container took 2 passes; quiz needed nudges to sharpen vague answers.
-- [ ] 2. Linux — Top 50 Shell Commands
+- [x] 2. Linux — Top 50 Shell Commands — **84/100**  
+  Quiz 34/40 · Hands-on 26/30 · Depth 24/30 — passed attempt 1, but more syntax slips than Topic 1 (grep -r placement, find scope); strong independent reasoning on the ICMP-vs-TCP firewall discovery.
 - [ ] 3. Linux — Shell Scripting Basics
 - [ ] 4. Linux Deep Dive — Process, Log, Disk Management
 - [ ] 5. Linux — Networking Fundamentals

@@ -29,4 +29,14 @@ words-on-a-line instead of whole-lines — both cleared up fast once tested dire
 just re-explained. Good habit forming: testing predictions against real output before trusting an
 assumption, instead of just accepting the first plausible-sounding answer.
 
+## Session 4 — 2026-07-09
+Said out loud "I'm not able to remember everything" partway through a dense command-heavy
+session — worth remembering that's a normal reaction to volume, not a sign of falling behind;
+the notebook exists precisely so memorization isn't the job right now, repetition across future
+topics is. The ping-vs-curl discovery (ICMP allowed, TCP blocked on the same network) was the
+best moment of the day — genuinely surprised me and then made complete sense once explained,
+which is a better kind of learning than being told a fact upfront. Quiz was noticeably shakier on
+exact syntax (grep -r flag placement, find scope) than Topic 1's quiz — watch whether that's
+fatigue from the length of the session or a real gap to reinforce next time shell commands come up.
+
 <!-- Copy the block above for each new session -->

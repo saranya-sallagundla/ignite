@@ -254,6 +254,197 @@ count, no concept of original line position at all).
 
 ---
 
-## Day 2 — TBD
+## Day 2 — 2026-07-09 (process/system monitoring, networking, archiving)
 
-_To be filled in as Day 2 progresses._
+### 1. Process monitoring — `ps`, `top`, `kill`, signals
+
+**Syntax**: `ps aux` — list every process, all users, detailed format. Actually 3 flags combined:
+`a` = all users' processes, `u` = user-oriented detailed columns, `x` = include processes with
+no controlling terminal (background/daemon services).
+
+**Syntax**: `top` — live-updating interactive process view (`q` to quit)
+
+**Syntax**: `kill [-SIGNAL] PID` — send a signal to a process by PID.
+- Default (`kill PID`) = **SIGTERM** (signal 15) — a polite request to stop. The process **can**
+  catch this and run its own cleanup code first (close files, save state), or even ignore it.
+- `kill -9 PID` = **SIGKILL** — the kernel forcibly removes the process immediately. The process
+  **cannot catch, block, or ignore** SIGKILL — no cleanup chance at all. Last resort, used when a
+  process is frozen/hung and won't respond to SIGTERM.
+
+**Verified hands-on** — full lifecycle: start a background process, find it, stop it:
+```
+$ sleep 300 &
+$ ps aux | grep sleep
+devuser   244173  0.0  0.0   3128  1792 pts/5    S    17:16   0:00 sleep 300
+devuser   244225  0.0  0.0   4092  2048 pts/5    S+   17:16   0:00 grep --color=auto sleep
+```
+**Gotcha**: `grep`'s own process line matched the search pattern "sleep" (since its own command
+line contains that text) — a very common real annoyance. Fix: bracket one letter of the pattern
+so grep's own invocation no longer contains the literal substring:
+```
+$ ps aux | grep [s]leep
+devuser   244173  0.0  0.0   3128  1792 pts/5    S    17:16   0:00 sleep 300
+
+$ kill 244173
+[1]+  Terminated              sleep 300
+
+$ ps aux | grep [s]leep
+(nothing — confirmed gone)
+```
+
+### 2. System resource commands — `df`, `du`, `free`, `uptime`
+
+**Syntax**: `df -h` — disk free space per mounted filesystem, human-readable sizes
+**Syntax**: `du -sh PATH` — disk usage of a specific path, `-s` = summary total (not every file)
+**Syntax**: `free -h` — RAM usage (total/used/free/swap)
+**Syntax**: `uptime` — how long since last boot, plus load average
+
+**Verified hands-on**:
+```
+$ df -h
+...
+/dev/sdd       1007G  2.4G  954G   1% /
+...
+C:\             475G  237G  239G  50% /mnt/c
+```
+`C:\` mounted at `/mnt/c` is literally the Windows drive, live confirmation of Topic 1's
+single-tree/mount concept — same disk, viewed from inside WSL.
+
+```
+$ du -sh ~/practice
+44K     /home/devuser/practice
+
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           7.6Gi       1.0Gi       6.6Gi       3.6Mi       193Mi       6.6Gi
+Swap:          2.0Gi          0B       2.0Gi
+
+$ uptime
+ 17:26:18 up 1 day, 10:20,  1 user,  load average: 0.00, 0.00, 0.00
+```
+
+**Load average** — the average number of processes actively **waiting for CPU time** (not idle)
+over the last 1/5/15 minutes respectively. `0.00, 0.00, 0.00` = essentially idle system, nothing
+competing for CPU. A high number relative to core count = overloaded; comparing the three values
+shows whether a load spike is rising or easing off over time.
+
+**`df` vs. `du` — practical difference, and why they can occasionally disagree**: `df` reports
+at the whole-filesystem/mount level; `du` sums actual usage of specific files/paths you point it
+at. They can genuinely diverge: a **deleted file still held open by a running process** still
+occupies real disk space at the filesystem level (`df` counts it as used) — but since it no
+longer has a directory entry/filename, `du` can't traverse to it and won't count it at all. A
+disk shown as nearly full by `df`, with no `du` total anywhere close to accounting for that
+space, points at exactly this — find and restart whatever process is holding a deleted file open.
+
+### 3. Networking — `ping`, `curl` (recap), `ss`
+
+**Syntax**: `ping -c N HOST` — send N test packets (ICMP echo) to test reachability/latency.
+Without `-c`, runs forever until `Ctrl+C`. `127.0.0.1` = loopback, always "this machine itself."
+
+**Key real-world discovery — ICMP vs. TCP are independently firewalled**:
+```
+$ ping -c 4 127.0.0.1        → 0% packet loss (loopback, always works)
+$ ping -c 4 google.com       → 0% packet loss (!)
+$ ping -c 4 claude.com       → 0% packet loss (!)
+```
+This initially seemed to contradict Topic 1's finding that `curl`/`apt` timed out on this same
+corporate network. The resolution: **`ping` uses ICMP** (a lightweight "are you there?"
+diagnostic protocol); **`curl`/web traffic uses TCP** on specific ports (80/443). A corporate
+firewall commonly allows ICMP through for basic network diagnostics while still blocking or
+restricting direct outbound TCP on 80/443 unless routed through an approved proxy — these are
+independently controlled. This is a real, common interview/on-the-job scenario: *"ping works but
+the app/website doesn't load"* — the answer is almost always exactly this distinction. `telnet`
+and `curl` both rely on TCP as their transport, unlike `ping`.
+
+**`ping` output, decoded**:
+```
+64 bytes from ...: icmp_seq=1 ttl=117 time=27.9 ms
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 27.415/28.096/28.973/0.560 ms
+```
+- `icmp_seq` — sequence number per packet, lets you spot loss/reordering
+- `ttl` (Time To Live) — hop-counter, decremented by 1 per router hop. Common OS defaults: `64`
+  (Linux/Unix), `128` (Windows), `255` (older Unix/networking gear). Working backward from the
+  observed value to the nearest common default gives a rough hop count and an educated (not
+  certain) guess at the remote host's OS — a lightweight technique called OS fingerprinting.
+  `ttl=117` → nearest default `128` → ~11 hops → likely Windows-family or Windows-mimicking config.
+  Note: this TTL reflects the **remote** host's OS (the one replying), not the local machine.
+- `rtt min/avg/max/mdev` — round-trip time stats; `mdev` = mean deviation (consistency of
+  latency — low is stable, high suggests an unstable connection)
+- packet loss % — did every sent packet get a reply back
+
+**Syntax**: `ss -tuln` — show listening network sockets
+- `-t` TCP, `-u` UDP, `-l` listening only (not active connections), `-n` numeric (skip name
+  resolution)
+
+**Verified hands-on**:
+```
+$ ss -tuln
+...
+tcp    LISTEN   0   511   127.0.0.1:38027   0.0.0.0:*
+...
+(no port 22 anywhere in the output)
+```
+Confirms directly what Topic 1's troubleshooting already established: `sshd` never finished
+installing (blocked by the corporate proxy), since port 22 isn't listening at all — `ss -tuln` is
+the tool to verify "is this service actually running," not just "did the install command exit
+without error."
+
+### 4. Archiving — `tar`
+
+**Syntax**: `tar -czvf ARCHIVE.tar.gz PATH` — create an archive
+- `-c` create, `-z` compress with gzip, `-v` verbose (print each file as added), `-f` filename
+  (must immediately precede the archive name)
+- Name origin: **t**ape **ar**chive, from 1970s magnetic tape backups — name stuck, tool didn't.
+
+**Syntax**: `tar -xzvf ARCHIVE.tar.gz` — extract (`-x`, same other flags)
+**Syntax**: `tar -tzvf ARCHIVE.tar.gz` — list/table of contents **without** extracting
+
+**Verified hands-on**:
+```
+$ cd ~
+$ tar -czvf practice-backup.tar.gz practice/
+practice/
+practice/app.log
+...
+practice/logs/
+practice/logs/log2.txt
+...
+
+$ tar -tzvf practice-backup.tar.gz | head -5
+drwxr-xr-x devuser/devuser   0 2026-07-08 20:07 practice/
+-rw-r--r-- devuser/devuser 125 2026-07-08 18:17 practice/app.log
+lrwxrwxrwx devuser/devuser   0 2026-07-07 16:09 practice/hardlink2.txt -> original.txt
+...
+
+$ ls -lh practice-backup.tar.gz
+-rw-r--r-- 1 devuser devuser 1014 Jul  9 19:23 practice-backup.tar.gz
+```
+Confirms: archiving is recursive (includes the `logs/` subfolder), symlinks are preserved as
+symlinks inside the archive (not copied as regular files — the `->` arrow notation survives),
+and the original `practice/` folder is completely untouched — `tar` only reads to build the new
+archive file, placed whichever directory you ran the command from (here, `~`, since `-f` was
+given a bare filename with no path prefix). Compression is real: `1014` bytes vs. `44K`
+uncompressed (`du -sh` earlier) — text compresses very well due to repeated patterns.
+
+---
+
+## Day 2 Quiz — Topic 2 (all commands, both days) — PASS, attempt 1
+
+Interview-style, open-ended, no multiple choice. Ran ~28 minutes (over the 20-min cap — allowed
+to finish in progress).
+
+1. **Find the memory-heavy process, force-kill a hung one by name** — passed after two syntax
+   precision nudges: exact `kill -9 PID` form, and `ps aux | grep "[s]tuck-service"` combining
+   process listing with the bracket self-match trick.
+2. **"Ping works, so the app must be reachable" — true or false?** — passed cleanly after one
+   nudge to name the actual mechanism (ICMP vs. TCP) rather than stopping at "different rules."
+3. **`uniq` isn't removing visible duplicates — why?** — passed cleanly, first try (adjacency,
+   fix with `sort` first).
+4. **`grep` for content vs. `find` for filename, scoped to `/var/log`** — passed after two
+   corrections: fixing invalid `-/var/log` syntax to proper `-r` recursive flag, and narrowing
+   `find /` to the more precise `find /var/log`.
+5. **`df` vs. `du` disagreement — why can they differ?** — correct on the basic distinction;
+   the deleted-open-file edge case was explained directly rather than pushed on, since it went
+   beyond what was explicitly taught this session.

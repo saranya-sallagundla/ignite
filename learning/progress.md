@@ -7,11 +7,11 @@
 
 > One line, overwritten every session — not appended to. This is what gets read first.
 
-Topic 1 — COMPLETE (quiz PASS, attempt 1). Topic 2 — Linux, Top 50 Shell Commands — day 1 of 2,
-covered: file viewing (`head`/`tail`/`less`), search (`grep` incl. case-sensitivity gotcha,
-`find` vs `grep` distinction), text processing (`sort`/`uniq`/`wc`/`cut`), and a combined
-real-world pipeline exercise (`grep | cut | sort | uniq -c | sort -nr | head`). No quiz yet
-(non-final day). SSH live connection still deferred to AWS sandbox VM.
+Topic 1 — COMPLETE (quiz PASS, attempt 1, 90/100). Topic 2 — Linux, Top 50 Shell Commands —
+COMPLETE (quiz PASS, attempt 1, 84/100). Day 2 covered process/signal handling (`ps`/`kill`/
+SIGTERM vs SIGKILL), system resources (`df`/`du`/`free`/`uptime`), networking (`ping`/`ss`, incl.
+a real ICMP-vs-TCP firewall discovery), and archiving (`tar`). SSH live connection still deferred
+to AWS sandbox VM. Next: Topic 3 — Linux, Shell Scripting Basics (2 days).
 
 ## Session log
 
@@ -53,6 +53,18 @@ real-world pipeline exercise (`grep | cut | sort | uniq -c | sort -nr | head`). 
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-08 22:35 IST — Check-out: 2026-07-09 05:58 IST
 
+## Session 4 — 2026-07-09
+- Topic completed: Topic 2 — Linux, Top 50 Shell Commands (day 2 of 2, FINAL DAY)
+- Covered: process/signal handling (`ps aux`, `top`, `kill`/`kill -9`, SIGTERM vs SIGKILL
+  catchability), system resource commands (`df -h`, `du -sh`, `free -h`, `uptime`/load average),
+  networking (`ping`, `ss -tuln`) including a real discovery that ICMP (ping) and TCP (curl/apt)
+  are independently firewalled — resolving an apparent contradiction with Topic 1's proxy
+  findings — and archiving (`tar -czvf`/`-xzvf`/`-tzvf`).
+- Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days. Full record in
+  `learning/notes/topic-02-top-50-shell-commands.md`.
+- Check-in: 2026-07-09 23:24 IST — Check-out: 2026-07-10 05:39 IST (quiz ran ~28 minutes, over
+  the 20-minute cap — allowed to finish in progress)
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -61,6 +73,7 @@ real-world pipeline exercise (`grep | cut | sort | uniq -c | sort -nr | head`). 
 | Topic # | Topic name | Attempt 1 | Attempt 2 | Attempt 3 | Status |
 |---|---|---|---|---|---|
 | 1 | Linux Fundamentals — Filesystem, SSH, VMs | PASS | — | — | Cleared |
+| 2 | Linux — Top 50 Shell Commands | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 

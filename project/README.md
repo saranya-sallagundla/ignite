@@ -41,3 +41,8 @@ on EC2 (VMs) rather than bare metal, once Topics 9+ (Docker) and 20+ (AWS) are r
 Topic 2 Day 1 (Top 50 Shell Commands) — no project code yet, still pre-Docker. The
 `grep | cut | sort | uniq -c | sort -nr | head` log-analysis pipeline practiced here is directly
 reusable later for real log triage once `monitoring/` and actual app logs exist.
+
+### Session 4 — 2026-07-09
+Topic 2 complete (quiz passed) — no project code yet, but `ps`/`kill`/signals, `df`/`du`/`free`,
+and `tar` are exactly the toolkit for operating this project's future EC2 instances and
+Kubernetes nodes day-to-day, once Topics 20+ (AWS) and 12+ (Kubernetes) are reached.
