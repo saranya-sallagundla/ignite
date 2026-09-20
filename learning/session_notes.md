@@ -61,4 +61,14 @@ explanation. Also: took a real fatigue-driven pause mid-session and came back re
 pushing through, then had the energy to push through a full retest same night — both were the
 right calls at the time they were made.
 
+## Session 7 — 2026-07-12
+Genuinely satisfying session — no major stuck points like Topic 3's functions, just steady
+building on real curiosity (kept asking to filter by more STAT modifiers than asked, which paid
+off). The `/proc`/`fd` exploration finally explained `2>&1` from Topic 3, which felt like a real
+payoff for sticking with the material instead of just memorizing it at the time. Forgot the sudo
+password mid-session and fixed it without panic, once reassured it wouldn't touch any files —
+good to remember that account/credential stuff feels riskier than it usually is. Best moment: the
+NTP timeout logs turning out to be the same corporate proxy issue from Topic 1, and then proving
+myself right by re-searching with a different keyword instead of accepting an empty result.
+
 <!-- Copy the block above for each new session -->

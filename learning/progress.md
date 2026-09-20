@@ -8,9 +8,12 @@
 > One line, overwritten every session — not appended to. This is what gets read first.
 
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
-in 2 attempts — attempt 1 failed on functions, re-taught via concrete tracing instead of
-analogy, attempt 2 passed cleanly on all-new questions same session). Next: Topic 4 — Linux Deep
-Dive, Process/Log/Disk Management (2 days). SSH live connection still deferred to AWS sandbox VM.
+in 2 attempts). Topic 4 — Linux Deep Dive, Process/Log/Disk Management — day 1 of 2, covered:
+process states, `awk` filtering, `/proc` filesystem, `pstree`, `nice`/`renice` priority (incl. a
+real sudo-password recovery), and log management (`/var/log` rotation, `journalctl`) — with a
+real discovery that the same corporate-network block from Topic 1 shows up again in
+`systemd-timesyncd` NTP timeout logs. No quiz yet (non-final day). SSH live connection still
+deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -88,6 +91,18 @@ Dive, Process/Log/Disk Management (2 days). SSH live connection still deferred t
 - Check-in: 2026-07-11 22:26 IST — Check-out: 2026-07-12 10:02 IST (long session incl. a
   fatigue-driven pause partway through; Attempt 1 quiz ran ~32 minutes, Attempt 2 retest ~23
   minutes, both over the 20-minute cap but allowed to finish in progress)
+
+## Session 7 — 2026-07-12
+- Topic in progress: Topic 4 — Linux Deep Dive, Process/Log/Disk Management (day 1 of 2)
+- Covered: process states (R/S/D/Z/T + modifiers), `awk` column extraction/filtering (new tool),
+  the `/proc` filesystem (per-process info, file descriptors — directly explaining Topic 3's
+  `2>&1` syntax), `pstree` process hierarchy, `nice`/`renice` process priority (incl. a real
+  sudo-password recovery via `wsl -u root`), and log management (`/var/log` rotation seen live,
+  `journalctl`). Real discovery: the corporate-network block from Topic 1 reappeared in
+  `systemd-timesyncd` NTP timeout log entries. Combined exercise closed with a genuine lesson
+  about keyword-limited log searching (a real issue missed by one search term, caught by another).
+- Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
+- Check-in: 2026-07-12 22:35 IST — Check-out: 2026-07-13 01:17 IST
 
 ## Quiz record index
 

@@ -56,3 +56,9 @@ what real automation scripts in that folder will be built from.
 Topic 3 complete (quiz cleared in 2 attempts) — no project code yet, but the `checkall.sh`
 pattern built today (function + loop + exit code, checking multiple folders at once) is directly
 the shape of a real pre-deployment sanity-check script for `scripts/` later.
+
+### Session 7 — 2026-07-12
+Topic 4 Day 1 (Process/Log/Disk Management) — no project code yet, but `journalctl`/`/var/log`
+log-searching skills practiced today are exactly what `monitoring/`'s future log aggregation
+setup will build on, and `nice`/`renice` will matter once real workloads run on shared EC2/K8s
+compute later.
