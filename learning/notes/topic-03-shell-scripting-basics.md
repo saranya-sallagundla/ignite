@@ -205,6 +205,236 @@ Used here because multi-line scripts are more natural to write in a real editor 
 
 ---
 
-## Day 2 — TBD
+## Day 2 — 2026-07-11 / 2026-07-12 (loops, functions, exit codes — quiz deferred on functions)
 
-_To be filled in as Day 2 progresses._
+### 1. Loops — `for` and `while`
+
+**Syntax**: `for VAR in ITEM1 ITEM2 ITEM3; do ... done` — iterate over a fixed list
+**Syntax**: `for VAR in "$@"; do ... done` — iterate over however many arguments were passed to
+the script, whatever they are (combines with Day 1's positional-argument knowledge)
+**Syntax**: `while [ CONDITION ]; do ... done` — repeats as long as the condition stays true
+
+**Verified hands-on — `for` over arguments**:
+```
+$ printf '#!/bin/bash\nfor fruit in "$@"; do\n    echo "I like $fruit"\ndone\n' > fruits_loop.sh
+$ chmod +x fruits_loop.sh
+$ ./fruits_loop.sh apple bannana cherry
+I like apple
+I like bannana
+I like cherry
+$ ./fruits_loop.sh kiwi
+I like kiwi
+```
+Adapts to however many arguments are given — no hardcoded list.
+
+**Verified hands-on — `while` counter, including a real self-debugged bug**:
+```
+count=1
+while [ $count -le 5 ]; do
+    echo "Count: $count"
+    count=$(( count + 1 ))
+done
+```
+**Gotcha, hit for real**: wrote the increment as `number=$(( count + 1 ))` — assigning to the
+correct variable (`number`) but reading from the *wrong* one (`count`, which was undefined,
+evaluating to `0`), so `number` stayed stuck at `1` forever. Root cause of an infinite loop:
+**the loop's condition variable never actually changes**, so the condition never becomes false.
+Fixed to `number=$(( number + 1 ))` — same variable on both sides. `Ctrl+C` (sends `SIGINT`) is
+how you'd stop a genuinely stuck loop running in a terminal.
+
+**`$@` vs `"$@"` — a real distinction, explained directly (goes past what was explicitly taught,
+surfaced during the Day 2 quiz)**: `"$@"` (quoted) treats each argument as one distinct item,
+even if an argument itself contains spaces. `$@` (unquoted) triggers word-splitting — an argument
+like `"my folder"` would incorrectly split into two separate loop items (`my` and `folder`). Real
+bug risk with paths/names containing spaces; always quote `"$@"`.
+
+### 2. Functions
+
+**Syntax**: `function_name() { commands }` — define once; call later just by name:
+`function_name`. Arguments passed to a function are read the same way as script arguments
+(`$1`, `$2`) — but scoped only to that specific function call.
+
+**Verified hands-on**:
+```
+#!/bin/bash
+greet() {
+    echo "Hello, $1!"
+}
+greet "Alice"
+greet "Bob"
+```
+→ `Hello, Alice!` then `Hello, Bob!`
+
+**Combined with a script-level conditional** (two independently-scoped `$1`s in one script):
+```
+#!/bin/bash
+greet() {
+    echo "Hello, $1!"
+}
+if [ "$1" -eq 1 ]; then
+    greet "Alice"
+elif [ "$1" -eq 2 ]; then
+    greet "Bob"
+fi
+```
+→ `./function.sh 1` → `Hello, Alice!` · `./function.sh 2` → `Hello, Bob!`
+
+**⚠ Attempt 1 quiz gap — function scoping did not click this session, despite several
+different explanations (office/tray analogy, step-by-step value tracing).** The core fact:
+`$1` inside the `if` line refers to the *script's own* first argument; `$1` inside `greet()` is
+a *completely separate*, independently-scoped variable, holding only whatever was explicitly
+handed to that specific function call — the two never merge or share state, even though they
+have the identical label `$1`. **To revisit next session, before Topic 4, with a fresh approach**
+— likely worth trying real side-by-side `echo` tracing (printing both `$1`s at each step of an
+actual run) rather than another analogy, since analogies didn't land after multiple attempts.
+
+**Also missed on the Day 2 quiz**: a function that's *defined* but never *called* anywhere in the
+script produces no output and no error — defining a function is like writing a recipe card, it
+doesn't "cook" anything until something explicitly invokes it (`function_name` on its own line,
+outside the definition).
+
+### 3. Exit codes and error handling
+
+**Syntax**: `$?` — holds the exit code of the **most recently run** command. `0` = success;
+any non-zero value = some kind of failure (the specific number is defined by whichever program
+ran — e.g., `ls` uses `2` for "path doesn't exist," not just a generic `1`).
+
+**Verified hands-on**:
+```
+$ ls /etc
+... (real output) ...
+$ echo $?
+0
+$ ls /nonexsistent-folder
+ls: cannot access '/nonexsistent-folder': No such file or directory
+$ echo $?
+2
+```
+
+**Using it in a script**:
+```
+#!/bin/bash
+ls "$1" > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "Folder exists"
+else
+    echo "Folder does not exist"
+fi
+```
+`> /dev/null` discards normal output; `2>&1` redirects error output the same way (full
+explanation of the `2>&1` numbering deferred to Topic 5). Combo means "run it, but suppress all
+output — we only care about the exit code."
+
+**Verified hands-on**:
+```
+$ ./checkfolder.sh /etc
+Folder exists
+$ ./checkfolder.sh /fake
+Folder does not exist
+```
+
+### 4. Combined exercise — `checkall.sh` (function + loop + exit code, tied to the project)
+
+Goal: check multiple folders at once, reusing one function per folder — directly useful later in
+`project/scripts/` for verifying expected directories exist before a deployment step runs.
+
+**Final working script, built in two steps (wrap existing logic into a function, then loop over
+it)**:
+```bash
+#!/bin/bash
+check_folder() {
+    ls "$1" > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "$1 exists"
+    else
+        echo "$1 does not exist"
+    fi
+}
+
+for folder in "$@"; do
+    check_folder "$folder"
+done
+```
+
+**Verified hands-on**:
+```
+$ ./checkall.sh /etc /fake1 /tmp
+/etc exists
+/fake1 does not exist
+/tmp exists
+```
+Real self-debugging along the way: filename mismatches (script initially saved under a different
+name, then a typo rename to `.ah` instead of `.sh`) — both caught and fixed independently using
+`mv`, without needing correction.
+
+---
+
+## Day 2 Quiz — Topic 3 (all of shell scripting) — Attempt 1: FAIL, Attempt 2: PASS
+
+### Attempt 1 — FAIL (functions)
+
+Interview-style, open-ended. Ran ~32 minutes (over the 20-min cap).
+
+1. **Debug `if [$1 -gt 10]`, missing-bracket-space error** — passed cleanly, correct full
+   mechanism (token merging, attempted execution of the literal merged word).
+2. **Infinite `while` loop — cause and how to stop it live** — passed cleanly, correct on both
+   the root cause (counter never increments) and the fix (`Ctrl+C`/`SIGINT`).
+3. **`$1` scoping: script-level vs. function-level** — **did not land**, even after multiple
+   distinct explanations. Got the surface-level branching outcome right but could not
+   articulate that the two `$1`s are entirely separate, independently-scoped variables. Flagged
+   for deferred mastery (see above) — revisit before Topic 4.
+4. **A defined-but-never-called function produces no output** — missed entirely ("no idea");
+   explained directly. Real gap: functions must be explicitly invoked, not just defined.
+5. **`"$@"` vs. `$@` (quoting/word-splitting)** — went beyond what was explicitly taught this
+   session; explained directly, not held against the score, since introducing it live in the
+   quiz is fair when it wasn't covered beforehand.
+
+**Verdict on Attempt 1**: conditionals, loops, and exit codes solid; functions (invocation +
+scoping) did not land, even after multiple analogy-based re-explanations in the moment.
+
+### Re-teach — concrete tracing instead of analogy
+
+Rather than another analogy, built and ran a real script printing `$1` at three points — before,
+inside, and after a function call — so the independent scoping could be **observed directly**:
+```bash
+#!/bin/bash
+echo "outer value before: $1"
+greet() {
+    echo "inside function value: $1"
+}
+greet "Alice"
+echo "outer value after: $1"
+```
+```
+$ ./trace.sh 99
+outer value before: 99
+inside function value: Alice
+outer value after: 99
+```
+Watching the outer `99` stay unchanged before *and* after the function call — never becoming
+`Alice`, never affected by it — made the independent-scoping concept land where analogies (the
+office/tray comparison, tried multiple ways) hadn't. Two quick verification questions
+(predicting `./trace.sh 500`'s output; explaining why a defined-but-never-called function
+produces nothing) both passed immediately afterward.
+
+### Attempt 2 — full retest, all-new questions — PASS
+
+Ran ~23 minutes. Five fresh interview-style questions, not repeats of Attempt 1:
+1. **`-eq` vs. `=`** (numeric vs. string comparison) — passed cleanly.
+2. **`"$@"` vs. a hardcoded list — practical tradeoff** — passed cleanly, correctly identified
+   flexibility vs. when a fixed list is actually preferable.
+3. **Function scoping, fresh scenario** (`multiply()` using `$1`/`$2`, an outer variable `x`
+   untouched by the call) — passed cleanly, correctly traced both the function's local
+   computation and the outer variable's independence. The exact gap from Attempt 1, now solid.
+4. **Stopping a multi-step script on failure** — introduced `exit [CODE]` directly (not
+   explicitly taught before this point), then correctly traced that a failed step's `exit 1`
+   prevents every subsequent step from running at all. Also correctly reasoned that different
+   exit codes per failure point (`exit 1`, `exit 2`, `exit 3`) is better practice than reusing `1`
+   everywhere, once the idea was raised.
+5. **Combined for-loop + function + even-check reasoning** — correctly predicted output (`2` and
+   `4`) for a described (not shown) script run against `2 3 4 5`.
+
+**Final verdict: Topic 3 — CLEARED in 2 attempts.** Lesson for future topics, worth remembering:
+if a concept doesn't land after 2-3 varied explanations in the moment, **switch to concrete
+tracing (run real code, watch the actual values) rather than trying yet another analogy** — this
+unblocked things noticeably faster than continuing to reason abstractly.

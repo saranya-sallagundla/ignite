@@ -48,4 +48,17 @@ pointed to) felt like the first "real" debugging moment of this whole plan, not 
 Worth remembering next time something feels this frustrating: it's often exactly the sign that
 real learning is happening, not that something's wrong.
 
+## Session 6 — 2026-07-11 / 2026-07-12
+First real quiz miss of the whole program — function scoping genuinely didn't land on attempt 1,
+even after several analogies. Said "it's not going inside my brain" out loud instead of pretending
+it clicked — the right instinct, and directly led to trying something different: a real script
+that prints `$1` at three points, watching actual values instead of reasoning abstractly. That
+worked almost immediately. Asked to retake the *entire* quiz fresh rather than just retest the
+weak spot — good call, and it passed cleanly across the board, including the exact concept that
+failed an hour earlier. Big lesson to hold onto: when an explanation isn't landing, switch to
+"run it and watch" much sooner instead of trying a fourth variation of the same kind of
+explanation. Also: took a real fatigue-driven pause mid-session and came back rested rather than
+pushing through, then had the energy to push through a full retest same night — both were the
+right calls at the time they were made.
+
 <!-- Copy the block above for each new session -->

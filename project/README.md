@@ -51,3 +51,8 @@ Kubernetes nodes day-to-day, once Topics 20+ (AWS) and 12+ (Kubernetes) are reac
 Topic 3 Day 1 (Shell Scripting Basics) — no project code yet, but this is the first topic that
 feeds `scripts/` directly: the conditional/variable fundamentals practiced today are exactly
 what real automation scripts in that folder will be built from.
+
+### Session 6 — 2026-07-11 / 2026-07-12
+Topic 3 complete (quiz cleared in 2 attempts) — no project code yet, but the `checkall.sh`
+pattern built today (function + loop + exit code, checking multiple folders at once) is directly
+the shape of a real pre-deployment sanity-check script for `scripts/` later.

@@ -98,13 +98,18 @@
 - Outer deadline: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- Last recalibrated: — (not yet due — 5 sessions completed)
-- Calendar Day since Day 1: 6 (2026-07-11)
-- Session count completed: 5
-- Current topic: Topic 3 — Linux, Shell Scripting Basics (day 1 of 2, in progress)
-- Pace: on track
+- Last recalibrated: — (not yet due — 6 sessions completed)
+- Calendar Day since Day 1: 7 (2026-07-12)
+- Session count completed: 6
+- Current topic: Topic 4 — Linux Deep Dive, Process/Log/Disk Management (not started, 2 days
+  allotted)
+- Pace: on track (Topic 3 cleared within its 2-day/2-session allotment — attempt 1 failed and
+  attempt 2 passed same session, so no overrun, no buffer drawn)
 - Buffer used: 0 of 22
-- Notes: Topic 1 and Topic 2 both cleared (90/100, 84/100). Topic 3 Day 1 covered script
-  structure/variables/conditionals with real independent debugging practice. SSH hands-on
-  (local sshd) still deferred — corporate network/proxy blocks outbound WSL traffic; retry via
-  AWS sandbox VM once access is ready.
+- Notes: Topic 1, 2, and 3 all cleared (90/100, 84/100, 80/100). Topic 3 hit the program's first
+  real quiz miss — functions (invocation + `$1` scoping) didn't land on attempt 1 despite several
+  analogy-based re-explanations, but cleared cleanly on attempt 2 after switching to concrete
+  tracing (running real code, watching actual values) instead of another analogy — worth
+  reaching for that approach faster next time a concept doesn't land. SSH hands-on (local sshd)
+  still deferred — corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM
+  once access is ready.

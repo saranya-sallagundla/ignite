@@ -7,12 +7,10 @@
 
 > One line, overwritten every session — not appended to. This is what gets read first.
 
-Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — Linux, Shell Scripting
-Basics — day 1 of 2, covered: shebang line, variables, positional arguments, conditionals
-(string + numeric), arithmetic expansion (modulo), and a combined `classify.sh` exercise written
-from scratch with real, self-debugged syntax errors (else/fi structure, nano's Enter-vs-literal-
-`\n` distinction). No quiz yet (non-final day). SSH live connection still deferred to AWS
-sandbox VM.
+Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
+in 2 attempts — attempt 1 failed on functions, re-taught via concrete tracing instead of
+analogy, attempt 2 passed cleanly on all-new questions same session). Next: Topic 4 — Linux Deep
+Dive, Process/Log/Disk Management (2 days). SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -76,6 +74,21 @@ sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-10 22:02 IST — Check-out: 2026-07-11 04:14 IST
 
+## Session 6 — 2026-07-11 / 2026-07-12
+- Topic: Topic 3 — Linux, Shell Scripting Basics (day 2 of 2, FINAL DAY)
+- Covered: loops (`for`, `while`, incl. a real self-debugged infinite-loop bug), functions
+  (definition + invocation), exit codes/error handling (`$?`, redirecting output to suppress it),
+  and a combined `checkall.sh` exercise (function + loop + exit code, tied to `project/scripts/`
+  use later).
+- Quiz: **Attempt 1 — FAIL** (functions: invocation and `$1` scoping; all other areas —
+  conditionals, loops, exit codes — passed cleanly). Re-taught functions using concrete tracing
+  (a real script printing `$1` at three points) instead of another analogy, then **Attempt 2 —
+  full retest, all-new questions — PASS**, same session, after a short break. **Topic 3 CLEARED
+  in 2 attempts.** Full record in `learning/notes/topic-03-shell-scripting-basics.md`.
+- Check-in: 2026-07-11 22:26 IST — Check-out: 2026-07-12 10:02 IST (long session incl. a
+  fatigue-driven pause partway through; Attempt 1 quiz ran ~32 minutes, Attempt 2 retest ~23
+  minutes, both over the 20-minute cap but allowed to finish in progress)
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -85,6 +98,8 @@ sandbox VM.
 |---|---|---|---|---|---|
 | 1 | Linux Fundamentals — Filesystem, SSH, VMs | PASS | — | — | Cleared |
 | 2 | Linux — Top 50 Shell Commands | PASS | — | — | Cleared |
+| 3 | Linux — Shell Scripting Basics | FAIL (functions) | PASS | — | Cleared |
+| 3 | Linux — Shell Scripting Basics | FAIL (functions) | pending — next session | — | Retest due before Topic 4 |
 
 ## Deferred mastery topics
 
