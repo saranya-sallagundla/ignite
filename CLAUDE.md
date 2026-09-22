@@ -99,10 +99,11 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   line carries a score out of 100 (Quiz /40 + Hands-on /30 + Depth of understanding /30) plus a
   compact one-line reason, computed fresh per topic from that topic's actual session history —
   never copy a prior topic's score.
-- `learning/notes/topic-NN-name.md` — one detailed study notebook per topic, built up day by day:
-  full explanations, commands actually run, real outputs, troubleshooting logs. The lasting
-  reference distinct from `progress.md` (tracking) and `session_notes.md` (short reflection).
-  Always show a command's general syntax pattern before the concrete example.
+- `learning/notes/phase-N-name/topic-NN-name.md` — one detailed study notebook per topic, filed
+  under its phase's subfolder (matching `roadmap.md`'s 7 phases), built up day by day: full
+  explanations, commands actually run, real outputs, troubleshooting logs. The lasting reference
+  distinct from `progress.md` (tracking) and `session_notes.md` (short reflection). Always show a
+  command's general syntax pattern before the concrete example.
 - `learning/session_notes.md` — personal recap per session, for review only, not used for logic.
 
 ## Logging, after every session
