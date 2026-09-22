@@ -98,14 +98,16 @@
 - Outer deadline: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- Last recalibrated: — (not yet due — 7 sessions completed)
-- Calendar Day since Day 1: 8 (2026-07-13)
-- Session count completed: 7
-- Current topic: Topic 4 — Linux Deep Dive, Process/Log/Disk Management (day 1 of 2, in progress)
+- Last recalibrated: — (not yet due — 8 sessions completed)
+- Calendar Day since Day 1: 9 (2026-07-14)
+- Session count completed: 8
+- Current topic: Topic 4 — COMPLETE (88/100). Topic 5 — Linux Networking Fundamentals not yet
+  started.
 - Pace: on track
 - Buffer used: 0 of 22
-- Notes: Topic 1, 2, and 3 all cleared (90/100, 84/100, 80/100). Topic 4 Day 1 covered process
-  states, `/proc`, `pstree`, `nice`/`renice`, and log management, with the same corporate-network
-  block from Topic 1 resurfacing in NTP timeout logs. SSH hands-on (local sshd) still deferred —
-  corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM once access is
-  ready.
+- Notes: Topics 1-4 all cleared (90/100, 84/100, 80/100, 88/100). Topic 4 Day 2 covered
+  partitions/mounting, a loop-mounted practice disk built end-to-end, `fsck`/`df` distinction
+  (incl. a real production `df`-timeout alert correctly reasoned through), and a persistent
+  `/etc/fstab` entry written independently and verified via `mount -a`. SSH hands-on (local sshd)
+  still deferred — corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM
+  once access is ready.

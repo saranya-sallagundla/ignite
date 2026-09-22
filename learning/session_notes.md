@@ -71,4 +71,14 @@ good to remember that account/credential stuff feels riskier than it usually is.
 NTP timeout logs turning out to be the same corporate proxy issue from Topic 1, and then proving
 myself right by re-searching with a different keyword instead of accepting an empty result.
 
+## Session 8 — 2026-07-13 / 2026-07-14
+Real production carryover felt great — connecting the "df timing out" alert my own team actually
+gets to the liveness-vs-corruption distinction we just learned made the material click
+immediately, more than any invented scenario would have. Got genuinely confused re-reading back a
+sequence of commands mid-session (worried something had broken when nothing had) — asking for a
+plain step-by-step retrace cleared it up fast, worth doing that sooner next time instead of
+sitting with the confusion. Reasoned through the inode-vs-block exhaustion scenario correctly with
+just a small hint rather than a direct answer — good sign the "why" behind concepts is sticking,
+not just command syntax. Topic 4 cleared on quiz attempt 1, best score yet on hands-on quality.
+
 <!-- Copy the block above for each new session -->

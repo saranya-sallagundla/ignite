@@ -8,12 +8,13 @@
 > One line, overwritten every session — not appended to. This is what gets read first.
 
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
-in 2 attempts). Topic 4 — Linux Deep Dive, Process/Log/Disk Management — day 1 of 2, covered:
-process states, `awk` filtering, `/proc` filesystem, `pstree`, `nice`/`renice` priority (incl. a
-real sudo-password recovery), and log management (`/var/log` rotation, `journalctl`) — with a
-real discovery that the same corporate-network block from Topic 1 shows up again in
-`systemd-timesyncd` NTP timeout logs. No quiz yet (non-final day). SSH live connection still
-deferred to AWS sandbox VM.
+in 2 attempts). Topic 4 — COMPLETE (88/100). Day 2 covered partitions/mounting concepts,
+`lsblk`/UUIDs, a real WSL2 discovery that `sda`/`sdb` are internally busy/read-only and unsafe to
+mount directly, a loop-mounted virtual practice disk built end-to-end (`fallocate`/`losetup`/
+`mkfs.ext4`/`mount`), `fsck` vs `df` (incl. a real production `df`-timeout alert correctly
+reinterpreted as a liveness/stale-mount issue, not corruption), a persistent `/etc/fstab` entry
+written and verified via `mount -a`, and a combined inode-vs-block-exhaustion scenario reasoned
+through correctly. Quiz passed attempt 1. SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -104,6 +105,25 @@ deferred to AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-12 22:35 IST — Check-out: 2026-07-13 01:17 IST
 
+## Session 8 — 2026-07-13 / 2026-07-14
+- Topic completed: Topic 4 — Linux Deep Dive, Process/Log/Disk Management (day 2 of 2, FINAL DAY)
+- Covered: partitions/mounting concepts (land/lot/driveway analogy), `lsblk`/UUIDs, a real
+  discovery that WSL2's `sda`/`sdb` disks are internally busy/read-only in a hidden namespace
+  (`sda: Can't mount, would change RO state` — the same "busy/blocked isn't always visible to
+  you" lesson as Topic 1's proxy discovery), a loop-mounted virtual practice disk built fully
+  hands-on (`fallocate` → `losetup` → `mkfs.ext4` → `mount`), `fsck` vs `df` (incl. a real
+  production alert — `df` timing out — correctly reinterpreted as a liveness/stale-mount issue,
+  not filesystem corruption), a persistent `/etc/fstab` entry written independently (correct on
+  first attempt) and verified via `mount -a` without rebooting, and a combined inode-vs-block
+  exhaustion scenario reasoned through correctly with minimal hinting.
+- Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (zombie process
+  reaping, inode/block exhaustion, `fstab`/UUID persistence and boot-failure risk, `nice`/`renice`
+  fairness reasoning, and the `df`-timeout production scenario), two of five needed a follow-up
+  push for full precision but were ultimately correct. Full record in
+  `learning/notes/topic-04-process-log-disk-management.md`. **Topic 4 CLEARED, 88/100
+  (Quiz 34/40, Hands-on 28/30, Depth 26/30).**
+- Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -114,7 +134,7 @@ deferred to AWS sandbox VM.
 | 1 | Linux Fundamentals — Filesystem, SSH, VMs | PASS | — | — | Cleared |
 | 2 | Linux — Top 50 Shell Commands | PASS | — | — | Cleared |
 | 3 | Linux — Shell Scripting Basics | FAIL (functions) | PASS | — | Cleared |
-| 3 | Linux — Shell Scripting Basics | FAIL (functions) | pending — next session | — | Retest due before Topic 4 |
+| 4 | Linux Deep Dive — Process, Log, Disk Management | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 

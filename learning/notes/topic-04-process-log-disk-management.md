@@ -266,6 +266,257 @@ don't always know in advance how a problem will be phrased.
 
 ---
 
-## Day 2 — TBD
+## Day 2 — 2026-07-13 (disk management: partitions, mounting)
 
-_To be filled in as Day 2 progresses._
+### 1. The land/lot/driveway analogy
+
+- **Partition** = drawing boundaries on raw land into separate lots (`/dev/sda1`, etc.)
+- **Filesystem (`mkfs`)** = pouring a foundation with a specific blueprint on a lot, so files can
+  be organized on it at all
+- **Mount** = building the driveway connecting a lot to the existing road network (attaching it
+  to a folder in the existing filesystem tree) — without this, a partition/filesystem exists but
+  is completely invisible; you can't `cd` into it or see its files through the normal tree.
+
+### 2. `lsblk` and UUIDs
+
+**Syntax**: `lsblk [-f] [-a]` — `-f` shows filesystem type + UUID; `-a` includes empty devices.
+Read-only, safe.
+
+**UUID** — a permanent, randomly-generated ID stamped onto a filesystem at creation time
+(`mkfs`). Device names (`/dev/sda1`) can shift if disks are added/removed; the UUID never
+changes for that filesystem's life. Analogy: device name = parking spot number (can be
+reassigned); UUID = the car's VIN (permanently tied to that one filesystem). This is exactly what
+`/etc/fstab` uses for persistent mounts, instead of device names.
+
+**Verified hands-on**:
+```
+$ lsblk -f
+NAME  FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+sda   ext4   1.0
+sdb   ext4   1.0
+sdc   swap   1           e614c30d-6feb-4222-95a0-6de3c2a2befc                [SWAP]
+sdd   ext4   1.0         b33832f5-02a1-439b-ba34-78a309a1d7e6  953.2G     0% /mnt/wslg/distro
+                                                                              /
+```
+- No `sda1`/`sda2` sub-entries under `sda`/`sdb` — WSL2's virtual disks aren't partitioned in the
+  traditional sense; each whole disk *is* one pre-made filesystem, no partition table on top.
+- `sdd` shows **two mountpoints on wrapped lines** (`/mnt/wslg/distro` and `/`) — a single
+  filesystem genuinely can be mounted at more than one path at once (a bind mount). First read
+  looked like a contradiction against `df -h`; re-reading the raw wrapped output resolved it —
+  another real "verify, don't just trust the first read" moment.
+
+**Cross-checked with `df -h`**: confirmed `sdd` is the actual root filesystem (`/`), `sdc` is
+swap, and `sda`/`sdb` are genuinely unmounted — not attached anywhere in the visible folder tree.
+
+### 3. `fdisk` — actually creating/modifying partitions
+
+**Syntax**: `fdisk -l [device]` — list partitions (safe, read-only)
+**Syntax**: `fdisk [device]` — interactive mode, create/delete/modify partitions (destructive)
+
+Not run destructively this session — WSL2's real disks (`sda`/`sdb`/`sdd`) aren't safe to
+experiment on directly (see below), so partition creation itself was deferred to a virtual
+practice disk instead.
+
+### 4. Attempting to mount an "unused" disk — real permission and busy errors
+
+```
+$ mount /dev/sda /mnt/test
+```
+Predicted correctly beforehand that `/mnt/test` must already exist (`mount` never creates the
+folder itself) — but hit real errors in sequence:
+```
+$ mkdir -p /mnt/test
+mkdir: cannot create directory '/mnt/test': Permission denied      # needed sudo — self-diagnosed
+$ sudo mkdir -p /mnt/test
+$ sudo mount /dev/sda /mnt/test
+mount: /mnt/test: /dev/sda already mounted or mount point busy.
+```
+Investigated with `sudo dmesg | tail -20` instead of guessing:
+```
+[ 1969.447667] sda: Can't mount, would change RO state
+```
+**Real lesson**: the kernel already considers `sda` "busy" — mounted somewhere in a namespace
+not visible via `lsblk`/`df -h` (almost certainly WSL2 using it internally, e.g. as a read-only
+base disk image for another installed distro or utility-VM internals). Attempting to mount it
+read-write was rejected because that would change a read-only state something else depends on.
+Same *shape* of lesson as Topic 1's corporate-proxy discovery: a tool reporting "busy"/blocked
+doesn't mean the cause is visible to you — another process/namespace can hold a resource you
+can't see directly.
+
+### 5. Practicing safely with a loop-mounted virtual disk
+
+Since the real spare disks weren't safe to experiment on, used the standard technique for
+practicing partition/filesystem/mount work without a spare physical disk: back a loop device
+with an ordinary file.
+
+**Syntax and why, each command**:
+- `fallocate -l <size> <path>` — creates a file of a given size instantly; stands in for raw
+  disk space ("blank land").
+- `losetup -fP <path>` — attaches a regular file to a loop device (`/dev/loop0`), making the
+  kernel treat the file as if it were a real block device (`-f` = auto-pick free loop device,
+  `-P` = scan for partitions on it).
+- `mkfs.ext4 <device>` — formats the device with ext4 (pours the foundation).
+- `mkdir -p` + `mount` — as before.
+
+**Verified hands-on, full pipeline**:
+```
+$ sudo fallocate -l 100M /root/practice.img
+$ sudo losetup -fP /root/practice.img
+$ losetup -a
+/dev/loop0: []: (/root/practice.img)
+
+$ sudo mkfs.ext4 /dev/loop0
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 25600 4k blocks and 25600 inodes
+Creating journal (1024 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+$ sudo mkdir -p /mnt/test
+$ sudo mount /dev/loop0 /mnt/test
+
+$ df -h /mnt/test
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/loop0       90M   24K   83M   1% /mnt/test
+
+$ lsblk -f
+loop0 ext4   1.0         57ea35a9-50ee-422f-b798-7cd4e839274f   82.7M     0% /mnt/test
+
+$ sudo touch /mnt/test/hello.txt
+$ ls -l /mnt/test
+-rw-r--r-- 1 root root     0 Jul 13 17:54 hello.txt
+drwx------ 2 root root 16384 Jul 13 17:51 lost+found
+```
+Fully verified end-to-end: file → loop device → formatted filesystem → mounted → usable (created
+a real file on it), not just cosmetically attached.
+
+**`mkfs.ext4` output explained**:
+- **4k blocks** — disk space divided into 4KB chunks, the basic storage unit.
+- **inodes** — max number of files/directories the filesystem can ever hold; each file needs one
+  inode for its metadata (permissions, timestamps, pointers to data blocks) — ties back to
+  Topic 1's `stat` discussion.
+- **journal** — reserved area logging pending writes before committing, so a power loss mid-write
+  doesn't corrupt the filesystem; this is what makes ext4 a *journaling* filesystem.
+
+**`lost+found`** — created automatically by `mkfs.ext4` on every ext4 filesystem, not something
+created manually. Reserved space where `fsck` puts recovered file fragments if the filesystem
+gets corrupted and files need reattaching to a name.
+
+### 6. `fsck` — the actual filesystem checker
+
+Analogy: filesystem metadata (inodes, block pointers, directory entries) is like a library card
+catalog — every card should point to exactly one real book, every book should have exactly one
+card. `fsck` walks the whole structure checking for mismatches (orphaned data, double-allocated
+blocks, missing entries) and repairs what it can.
+
+- Runs automatically at boot if a filesystem was marked "unclean" (crash/power loss instead of
+  clean shutdown), or manually: `fsck <device>` — **never on a mounted filesystem**, unmount
+  first, since checking something actively being written to gives false results.
+- Journaling (above) exists specifically to reduce how often a *full* `fsck` scan is needed —
+  normally just replaying the journal is enough after a crash; full scans are the fallback.
+
+**`df` vs `fsck` — genuinely different checks**:
+- `df` = liveness/reachability + usage stats. Reads cached metadata almost instantly. Says
+  nothing about internal structural integrity — a structurally corrupted filesystem can still
+  show up fine in `df` as long as it's mounted and superficially responding.
+- `fsck` = structural integrity. The only way to verify the metadata itself is consistent.
+
+**Production tie-in (real team context, not textbook)**: an alert like *"CRITICAL: filesystem
+checker timed out: df took more than 60 sec to complete"* is **not actually running `fsck`**
+despite the name — it's a monitoring plugin (e.g. Nagios/Icinga `check_disk`) timing a plain
+`df`/`statfs()` call. `df` normally returns near-instantly since it reads cached metadata; a
+60+ second hang means the call itself is stuck — almost always a **stale NFS/network mount**
+(remote server unreachable but the mount still "there"), a **failing/overloaded disk**, or a
+kernel-level I/O deadlock. This is a **liveness/responsiveness** problem, not a structural
+corruption one — the practical next step is checking for a stale network mount or hardware I/O
+errors (`dmesg`), not jumping to `fsck` (which usually can't even run cleanly against a hung
+mount without a force-unmount or reboot first).
+
+### 7. `/etc/fstab` — persistent mounts
+
+A manual `mount` is runtime-only — it does not survive a reboot. `/etc/fstab` ("filesystem
+table") is what the kernel reads at boot to remount things automatically.
+
+**General syntax**, 6 fields per line:
+```
+<device or UUID>   <mount point>   <filesystem type>   <options>   <dump>   <pass>
+```
+- device/UUID — prefer UUID (see §2) since device names can shift
+- mount point — where to attach it
+- fs type — ext4, swap, etc.
+- options — `defaults` is the common case
+- dump — legacy backup flag, almost always `0`
+- pass — `fsck` order at boot: `0` = skip, `1` = check first (root), `2` = check after root
+
+**Note**: `cat /etc/fstab` on this WSL2 system showed only `# UNCONFIGURED FSTAB FOR BASE
+SYSTEM` — WSL2 doesn't rely on the traditional boot-time `fstab` process for its own drives
+(`/mnt/c`, etc. are handled by its own `wsl.conf`/automount mechanism instead), so the real file
+is left essentially untouched. On a real server/VM this file would normally have real entries.
+
+**Verified hands-on — writing and testing a real entry, without rebooting**:
+```
+$ sudo blkid /dev/loop0
+/dev/loop0: UUID="57ea35a9-50ee-422f-b798-7cd4e839274f" BLOCK_SIZE="4096" TYPE="ext4"
+
+$ echo 'UUID=57ea35a9-50ee-422f-b798-7cd4e839274f /mnt/test ext4 defaults 0 2' | sudo tee -a /etc/fstab
+
+$ sudo umount /mnt/test
+$ sudo mount -a
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+
+$ df -h /mnt/test
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/loop0       90M   24K   83M   1% /mnt/test
+```
+Wrote the full 6-field line independently and correctly on the first attempt (`defaults 0 2`).
+`mount -a` reads every entry in `/etc/fstab` and mounts anything not already mounted — exactly
+what happens automatically at boot, so a successful `mount -a` proves the entry is correct
+without needing an actual reboot to test it. The systemd hint was a harmless cache-staleness
+warning, not a failure — confirmed by `df -h` showing the mount genuinely active.
+
+### 8. Combined scenario — inode exhaustion vs. block exhaustion
+
+**Scenario posed**: an application team reports their service crashed with `"No space left on
+device,"` but `df -h /` shows only 40% used. What explains a disk-full error despite `df`
+showing plenty of free space?
+
+**Reasoned through correctly, with one hint** (pointed back to `mkfs.ext4`'s own output listing
+both blocks *and* inodes as separate fixed quantities): the filesystem can run out of **inodes**
+independently of running out of **blocks** — `df -h` only reports block/space usage, not inode
+usage. Root cause named correctly: millions of tiny files (e.g. a logging bug writing one file
+per request instead of appending, an uncleaned cache/session-file directory) each consume one
+inode regardless of size, and inode count was fixed permanently at `mkfs` time.
+
+**Diagnostic command**: `df -i` — shows `IUsed`/`IFree`/`IUse%` per filesystem; `IUse%` at 100%
+while `df -h`'s `Use%` stays low confirms this exact scenario.
+
+---
+
+## Topic 4 Quiz — both days combined — Attempt 1: PASS
+
+Interview-style, open-ended, 5 questions covering Day 1 and Day 2 material together.
+
+1. **Zombie process — what it is, and what cleans it up** — correct after two follow-ups: named
+   the state description immediately, then correctly identified `wait()` as the specific
+   collecting call once asked, then correctly explained reparenting to `init`/PID 1 as what
+   reaps an orphaned zombie whose original parent died first.
+2. **Inode vs. block exhaustion** ("no space left on device" despite low `df -h` usage) — correct
+   on both halves: identified inodes as the separate resource, and correctly reasoned that
+   millions of tiny files is the real-world cause.
+3. **`fstab`/UUID persistence, including boot-failure consequences** — correctly explained why
+   `fstab` (not a manual `mount`) is required for persistence and why UUID is preferred over a
+   device name; correctly reasoned that a bad entry (wrong UUID/device) can hang boot and require
+   manual intervention (emergency/maintenance shell), not just silently skip the mount.
+4. **`nice`/`renice` — why regular users can only increase niceness, never decrease it** —
+   needed a follow-up to sharpen the reasoning from "the CPU might hang" to the correct framing:
+   preventing all users racing to maximize their own priority and starving others' processes on a
+   shared system (fairness, not literal system hang).
+5. **Production `df`-timeout alert — what it does/doesn't tell you, and first diagnostic steps** —
+   passed cleanly and completely: correctly distinguished liveness/responsiveness from structural
+   corruption, and correctly reasoned that `fsck` isn't the right first move (and often can't even
+   run cleanly) against a filesystem that's hung rather than corrupted.
+
+**Verdict**: **Topic 4 CLEARED, attempt 1, 88/100** (Quiz 34/40 — 2 of 5 answers needed a
+follow-up nudge for full precision but were ultimately correct; Hands-on 28/30 — real,
+independently-diagnosed errors throughout, not just guided steps; Depth 26/30 — strong
+production tie-in, correct reasoning through the combined scenario with minimal hinting).

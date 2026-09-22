@@ -62,3 +62,8 @@ Topic 4 Day 1 (Process/Log/Disk Management) — no project code yet, but `journa
 log-searching skills practiced today are exactly what `monitoring/`'s future log aggregation
 setup will build on, and `nice`/`renice` will matter once real workloads run on shared EC2/K8s
 compute later.
+
+### Session 8 — 2026-07-13 / 2026-07-14
+Topic 4 complete, quiz passed (Process/Log/Disk Management) — no project code yet, but disk
+partitioning/mounting and `fsck`/`df` health checks practiced today are exactly what operating
+this project's future EC2 storage and EKS persistent volumes will require later.

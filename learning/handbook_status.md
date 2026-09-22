@@ -13,7 +13,8 @@
   Quiz 34/40 · Hands-on 26/30 · Depth 24/30 — passed attempt 1, but more syntax slips than Topic 1 (grep -r placement, find scope); strong independent reasoning on the ICMP-vs-TCP firewall discovery.
 - [x] 3. Linux — Shell Scripting Basics — **80/100**  
   Quiz 30/40 · Hands-on 28/30 · Depth 22/30 — cleared in 2 attempts; functions didn't land until re-taught via concrete tracing instead of analogy, then passed a full fresh retest cleanly.
-- [ ] 4. Linux Deep Dive — Process, Log, Disk Management
+- [x] 4. Linux Deep Dive — Process, Log, Disk Management — **88/100**  
+  Quiz 34/40 · Hands-on 28/30 · Depth 26/30 — passed attempt 1; excellent hands-on (loop-mounted practice disk, real `fstab` entry) and strong production reasoning on the `df`-timeout scenario, two answers needed a follow-up nudge for full precision.
 - [ ] 5. Linux — Networking Fundamentals
 - [ ] 6. Git Fundamentals — Commits, Branches, Merges
 - [ ] 7. Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies
