@@ -8,13 +8,11 @@
 > One line, overwritten every session — not appended to. This is what gets read first.
 
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
-in 2 attempts). Topic 4 — COMPLETE (88/100). Day 2 covered partitions/mounting concepts,
-`lsblk`/UUIDs, a real WSL2 discovery that `sda`/`sdb` are internally busy/read-only and unsafe to
-mount directly, a loop-mounted virtual practice disk built end-to-end (`fallocate`/`losetup`/
-`mkfs.ext4`/`mount`), `fsck` vs `df` (incl. a real production `df`-timeout alert correctly
-reinterpreted as a liveness/stale-mount issue, not corruption), a persistent `/etc/fstab` entry
-written and verified via `mount -a`, and a combined inode-vs-block-exhaustion scenario reasoned
-through correctly. Quiz passed attempt 1. SSH live connection still deferred to AWS sandbox VM.
+in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100, official score from a
+voluntary retest after an initial 74/100 pass). Covered IP addressing/CIDR, ports (`ss -tuln`),
+DNS (`dig`, round-robin), routing (`ip route`), firewalls conceptually, `0.0.0.0`/`127.0.0.1`
+binding vs. reserved addresses, and live `curl` verification distinguishing refused/no-route/
+timed-out failures. SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -124,6 +122,30 @@ through correctly. Quiz passed attempt 1. SSH live connection still deferred to 
   (Quiz 34/40, Hands-on 28/30, Depth 26/30).**
 - Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
 
+## Session 9 — 2026-07-14 / 2026-07-16
+- Topic completed: Topic 5 — Linux Networking Fundamentals (both days, single session)
+- Covered: IP addressing/private-vs-public ranges, CIDR notation (full table reasoned through
+  down to `/1`), ports and `ss -tuln`, DNS resolution (`dig`) and round-robin load balancing
+  (incl. installing `bind9-dnsutils` — succeeded fully, unlike Topic 1's blocked SSH install,
+  with an unresolved theory that a separate Ubuntu Pro/ESM background check, not the main package
+  mirrors, produced the harmless timeout messages seen), routing (`ip route`), firewalls at a
+  conceptual level, and a combined unreachable-service diagnostic scenario (ping → `ss -tuln` →
+  bind address → firewall). Both days were intentionally kept high-level/faster-paced at the
+  user's request. After Attempt 1 passed but "didn't click," did a full voluntary revision pass:
+  a simplified mail-analogy recap table, extended concept-check questions, real-world scenarios
+  (subnet sizing, DNS record migration, single-IP tradeoffs), and live `curl -v` verification
+  distinguishing "connection refused" / "no route to host" / "timed out" failure signatures —
+  genuinely clarified the `0.0.0.0`/`127.0.0.1`/reserved-address distinction that didn't land the
+  first time. Full record in
+  `learning/notes/phase-1-linux-git-version-control/topic-05-linux-networking-fundamentals.md`.
+- Quiz: **Attempt 1 — PASS, 74/100** — 4 interview-style questions, 3 of 4 needed a follow-up
+  nudge. Followed by a **voluntary full retest after the revision pass — PASS, 82/100** — 5
+  fresh questions, stronger hands-on-verified answers. **Topic 5 CLEARED — official score
+  82/100 (Quiz 30/40, Hands-on 26/30, Depth 26/30)**, the retest score used as the record since
+  it reflects the deeper understanding reached after revision.
+- Check-in: 2026-07-14 23:47 IST — Check-out: 2026-07-16 05:02 IST (session spanned across days
+  with breaks; not continuous active work time)
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -135,6 +157,7 @@ through correctly. Quiz passed attempt 1. SSH live connection still deferred to 
 | 2 | Linux — Top 50 Shell Commands | PASS | — | — | Cleared |
 | 3 | Linux — Shell Scripting Basics | FAIL (functions) | PASS | — | Cleared |
 | 4 | Linux Deep Dive — Process, Log, Disk Management | PASS | — | — | Cleared |
+| 5 | Linux — Networking Fundamentals | PASS (74/100) | PASS, voluntary retest (82/100, official) | — | Cleared |
 
 ## Deferred mastery topics
 

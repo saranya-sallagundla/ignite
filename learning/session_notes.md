@@ -81,4 +81,16 @@ sitting with the confusion. Reasoned through the inode-vs-block exhaustion scena
 just a small hint rather than a direct answer — good sign the "why" behind concepts is sticking,
 not just command syntax. Topic 4 cleared on quiz attempt 1, best score yet on hands-on quality.
 
+## Session 9 — 2026-07-14 / 2026-07-16
+Honest moment worth remembering: asked to move fast through Topic 5 to fit both days in one
+sitting, passed the quiz (74/100), but admitted afterward "the 1st time doesn't work that great
+with me" instead of just moving on — and that was the right call. The revision pass (simpler
+analogy table, real `curl -v` tests to actually *see* refused vs. no-route vs. timeout side by
+side) made things land far better than the original faster-paced pass did, and the retest score
+(82/100) proved it wasn't just a feeling. Real lesson to keep: speed and depth are a genuine
+trade-off, not free — when something's rushed and it shows, saying so and looping back beats
+pretending it's fine. Also good instinct catching "wait, aren't 127.0.0.1 and 0.0.0.0 both
+non-private, so shouldn't they be public?" — a sharp question that surfaced a genuinely missing
+third category (reserved/special addresses) rather than accepting an incomplete rule.
+
 <!-- Copy the block above for each new session -->

@@ -98,16 +98,16 @@
 - Outer deadline: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- Last recalibrated: — (not yet due — 8 sessions completed)
-- Calendar Day since Day 1: 9 (2026-07-14)
-- Session count completed: 8
-- Current topic: Topic 4 — COMPLETE (88/100). Topic 5 — Linux Networking Fundamentals not yet
-  started.
+- Last recalibrated: — (not yet due — 9 sessions completed)
+- Calendar Day since Day 1: 11 (2026-07-16)
+- Session count completed: 9
+- Current topic: Topic 5 — COMPLETE (82/100). Topic 6 — Git Fundamentals not yet started.
 - Pace: on track
 - Buffer used: 0 of 22
-- Notes: Topics 1-4 all cleared (90/100, 84/100, 80/100, 88/100). Topic 4 Day 2 covered
-  partitions/mounting, a loop-mounted practice disk built end-to-end, `fsck`/`df` distinction
-  (incl. a real production `df`-timeout alert correctly reasoned through), and a persistent
-  `/etc/fstab` entry written independently and verified via `mount -a`. SSH hands-on (local sshd)
+- Notes: Topics 1-5 all cleared (90/100, 84/100, 80/100, 88/100, 82/100). Topic 5 covered IP
+  addressing/CIDR, ports, DNS, routing, and firewalls conceptually, both days in one session at
+  reduced initial depth, followed by a voluntary revision pass and retest that raised the score
+  from 74 to 82 once hands-on `curl` verification and the reserved-address distinction genuinely
+  landed. SSH hands-on (local sshd)
   still deferred — corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM
   once access is ready.

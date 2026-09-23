@@ -67,3 +67,8 @@ compute later.
 Topic 4 complete, quiz passed (Process/Log/Disk Management) — no project code yet, but disk
 partitioning/mounting and `fsck`/`df` health checks practiced today are exactly what operating
 this project's future EC2 storage and EKS persistent volumes will require later.
+
+### Session 9 — 2026-07-14 / 2026-07-16
+Topic 5 complete, quiz passed (Linux Networking Fundamentals) — no project code yet, but IP/CIDR,
+DNS, ports, and routing practiced today are exactly what configuring this project's future VPC,
+security groups, and service-to-service networking on AWS will require later.

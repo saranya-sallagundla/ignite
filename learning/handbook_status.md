@@ -15,7 +15,8 @@
   Quiz 30/40 · Hands-on 28/30 · Depth 22/30 — cleared in 2 attempts; functions didn't land until re-taught via concrete tracing instead of analogy, then passed a full fresh retest cleanly.
 - [x] 4. Linux Deep Dive — Process, Log, Disk Management — **88/100**  
   Quiz 34/40 · Hands-on 28/30 · Depth 26/30 — passed attempt 1; excellent hands-on (loop-mounted practice disk, real `fstab` entry) and strong production reasoning on the `df`-timeout scenario, two answers needed a follow-up nudge for full precision.
-- [ ] 5. Linux — Networking Fundamentals
+- [x] 5. Linux — Networking Fundamentals — **82/100**  
+  Quiz 30/40 · Hands-on 26/30 · Depth 26/30 — first pass (74/100) was kept intentionally light and didn't fully land; a voluntary revision pass with real `curl` verification (refused/no-route/timeout) and a retest raised the score, the official record used here.
 - [ ] 6. Git Fundamentals — Commits, Branches, Merges
 - [ ] 7. Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies
 - [ ] 8. GitHub — PRs, Actions Intro, Repo Management
