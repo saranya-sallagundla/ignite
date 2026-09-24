@@ -17,7 +17,8 @@
   Quiz 34/40 · Hands-on 28/30 · Depth 26/30 — passed attempt 1; excellent hands-on (loop-mounted practice disk, real `fstab` entry) and strong production reasoning on the `df`-timeout scenario, two answers needed a follow-up nudge for full precision.
 - [x] 5. Linux — Networking Fundamentals — **82/100**  
   Quiz 30/40 · Hands-on 26/30 · Depth 26/30 — first pass (74/100) was kept intentionally light and didn't fully land; a voluntary revision pass with real `curl` verification (refused/no-route/timeout) and a retest raised the score, the official record used here.
-- [ ] 6. Git Fundamentals — Commits, Branches, Merges
+- [x] 6. Git Fundamentals — Commits, Branches, Merges — **84/100**  
+  Quiz 30/40 · Hands-on 28/30 · Depth 26/30 — passed attempt 1; excellent hands-on including a real merge conflict deliberately set up and resolved via VS Code's UI, 2 of 5 quiz answers needed a real follow-up correction.
 - [ ] 7. Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies
 - [ ] 8. GitHub — PRs, Actions Intro, Repo Management
 - [ ] 9. Docker — Architecture, Images, Containers

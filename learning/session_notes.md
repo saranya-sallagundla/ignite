@@ -93,4 +93,14 @@ pretending it's fine. Also good instinct catching "wait, aren't 127.0.0.1 and 0.
 non-private, so shouldn't they be public?" — a sharp question that surfaced a genuinely missing
 third category (reserved/special addresses) rather than accepting an incomplete rule.
 
+## Session 10 — 2026-07-16
+First topic done outside WSL — deliberately practiced Git from Windows PowerShell/VS Code since
+that's the actual real-world setup for GitHub work, and it paid off immediately (VS Code's
+built-in merge-conflict UI made resolving a real conflict far more intuitive than manual markers
+would have been). Genuinely good moment: the first attempt at engineering a merge conflict didn't
+actually conflict, and instead of just being told why, worked through the reasoning myself for
+why "branch then immediately merge" can never diverge, then correctly re-set up a real one
+requiring edits on both sides after the branch point. That kind of self-correction stuck better
+than if I'd just been handed the fix. Quiz went well, best hands-on score yet.
+
 <!-- Copy the block above for each new session -->

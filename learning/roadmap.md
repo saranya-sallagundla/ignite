@@ -98,16 +98,15 @@
 - Outer deadline: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- Last recalibrated: — (not yet due — 9 sessions completed)
+- Last recalibrated: — (not yet due — 10 sessions completed)
 - Calendar Day since Day 1: 11 (2026-07-16)
-- Session count completed: 9
-- Current topic: Topic 5 — COMPLETE (82/100). Topic 6 — Git Fundamentals not yet started.
+- Session count completed: 10
+- Current topic: Topic 6 — COMPLETE (84/100). Topic 7 — Git Deep Dive not yet started.
 - Pace: on track
 - Buffer used: 0 of 22
-- Notes: Topics 1-5 all cleared (90/100, 84/100, 80/100, 88/100, 82/100). Topic 5 covered IP
-  addressing/CIDR, ports, DNS, routing, and firewalls conceptually, both days in one session at
-  reduced initial depth, followed by a voluntary revision pass and retest that raised the score
-  from 74 to 82 once hands-on `curl` verification and the reserved-address distinction genuinely
-  landed. SSH hands-on (local sshd)
+- Notes: Topics 1-6 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100). Topic 6 covered
+  the three-stage model, branching, a real merge conflict set up and resolved via VS Code's UI,
+  `.gitignore`, and `git diff` — practiced from Windows PowerShell/VS Code, matching the user's
+  actual GitHub workflow. SSH hands-on (local sshd)
   still deferred — corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM
   once access is ready.

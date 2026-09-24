@@ -8,11 +8,11 @@
 > One line, overwritten every session — not appended to. This is what gets read first.
 
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
-in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100, official score from a
-voluntary retest after an initial 74/100 pass). Covered IP addressing/CIDR, ports (`ss -tuln`),
-DNS (`dig`, round-robin), routing (`ip route`), firewalls conceptually, `0.0.0.0`/`127.0.0.1`
-binding vs. reserved addresses, and live `curl` verification distinguishing refused/no-route/
-timed-out failures. SSH live connection still deferred to AWS sandbox VM.
+in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
+(84/100). Covered the three-stage model, `git init`/`add`/`commit`/`log`, branches, a fast-forward
+merge, a genuine merge conflict set up and resolved via VS Code's UI, `.gitignore`, and
+`git diff` — practiced from Windows PowerShell/VS Code directly, not WSL, matching the user's
+actual GitHub workflow going forward. SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -146,6 +146,23 @@ timed-out failures. SSH live connection still deferred to AWS sandbox VM.
 - Check-in: 2026-07-14 23:47 IST — Check-out: 2026-07-16 05:02 IST (session spanned across days
   with breaks; not continuous active work time)
 
+## Session 10 — 2026-07-16
+- Topic completed: Topic 6 — Git Fundamentals: Commits, Branches, Merges (both days, single
+  session, practiced from Windows PowerShell/VS Code directly, not WSL, matching the user's
+  actual GitHub workflow)
+- Covered: the three-stage model (working directory/staging/committed history), `git init`/
+  `add`/`commit`/`log`, `HEAD` and branch switching, a fast-forward merge (and a second one,
+  after realizing the first "conflict" setup didn't actually diverge and correctly re-doing it),
+  a genuine merge conflict deliberately set up and resolved via VS Code's built-in merge UI,
+  `.gitignore`, `git diff` (incl. reading hunk headers), and a combined shared-file merge
+  scenario. Full record in
+  `learning/notes/phase-1-linux-git-version-control/topic-06-git-fundamentals.md`.
+- Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (staging-area
+  purpose, `HEAD` behavior, fast-forward conditions, conflict marker order/meaning, and the
+  branches-vs-direct-commits problem), 2 of 5 needed a real follow-up correction. **Topic 6
+  CLEARED, 84/100 (Quiz 30/40, Hands-on 28/30, Depth 26/30).**
+- Check-in: 2026-07-16 23:38 IST — Check-out: 2026-07-17 01:45 IST
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -158,6 +175,7 @@ timed-out failures. SSH live connection still deferred to AWS sandbox VM.
 | 3 | Linux — Shell Scripting Basics | FAIL (functions) | PASS | — | Cleared |
 | 4 | Linux Deep Dive — Process, Log, Disk Management | PASS | — | — | Cleared |
 | 5 | Linux — Networking Fundamentals | PASS (74/100) | PASS, voluntary retest (82/100, official) | — | Cleared |
+| 6 | Git Fundamentals — Commits, Branches, Merges | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 

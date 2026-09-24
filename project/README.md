@@ -72,3 +72,8 @@ this project's future EC2 storage and EKS persistent volumes will require later.
 Topic 5 complete, quiz passed (Linux Networking Fundamentals) — no project code yet, but IP/CIDR,
 DNS, ports, and routing practiced today are exactly what configuring this project's future VPC,
 security groups, and service-to-service networking on AWS will require later.
+
+### Session 10 — 2026-07-16
+Topic 6 complete, quiz passed (Git Fundamentals) — no project code yet, but branching/merging
+practiced today (incl. a real resolved conflict) is exactly the workflow this project's own repo
+will use once multiple features/phases are being built and merged going forward.
