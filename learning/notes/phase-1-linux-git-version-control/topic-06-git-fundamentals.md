@@ -63,8 +63,13 @@ folder storing all history).
 ```
 PS C:\CloudOps\git-practice> git init
 Initialized empty Git repository in C:/CloudOps/git-practice/.git/
-PS> ls -Force
-d--h-  ...  .git
+PS> ls -force
+
+    Directory: C:\CloudOps\git-practice
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d--h-           7/16/2026  2:21 PM                .git
 ```
 
 ### 5. `git status`, `git add`, `git commit` — the basic workflow
@@ -77,13 +82,25 @@ d--h-  ...  .git
 ```
 PS> "hello.git" > readme.txt
 PS> git status
+On branch master
+
+No commits yet
+
 Untracked files:
+  (use "git add <file>..." to include in what will be committed)
         readme.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
 
 PS> git add readme.txt
 warning: in the working copy of 'readme.txt', CRLF will be replaced by LF the next time Git touches it
 PS> git status
+On branch master
+
+No commits yet
+
 Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
         new file:   readme.txt
 
 PS> git commit -m "Add readme file"
@@ -109,12 +126,20 @@ PS> "hello.git, second line" >> readme.txt
 PS> git add readme.txt
 PS> git commit -m "Add 2nd line to readme"
 [master b2a0446] Add 2nd line to readme
+ 1 file changed, 1 insertion(+)
 
 PS> git log
 commit b2a04469245e2eb042bd3d8d7bb50b63f6106ffc (HEAD -> master)
-...
+Author: Saranya Sallagundla <user@example.com>
+Date:   Thu Jul 16 15:06:17 2026 -0400
+
+    Add 2nd line to readme
+
 commit 9925f299c623efb1722e7b77d075dd1542d31b9b
-...
+Author: Saranya Sallagundla <user@example.com>
+Date:   Thu Jul 16 14:54:34 2026 -0400
+
+    Add readme file
 ```
 **`HEAD`** — a special pointer marking "where you currently are." Right now it points at
 `master`, which itself points at the latest commit. As new commits happen, `HEAD` and the branch
@@ -145,6 +170,7 @@ PS> "new feature line" >> readme.txt
 PS> git add readme.txt
 PS> git commit -m "add feature line"
 [feature-branch 714ab7c] add feature line
+ 1 file changed, 1 insertion(+)
 
 PS> git checkout master
 Switched to branch 'master'
@@ -183,10 +209,31 @@ hello.git
 hello.git, second line
 new feature line
 ```
-**Confirmed via `git log`**: both `master` and `feature-branch` ended up pointing at the *same*
-commit (`(HEAD -> master, feature-branch)` on one line) — the literal definition of a
-fast-forward: `master` had zero new commits since the branch point, so Git simply moved its
-pointer forward to match, no real "combining" needed.
+**Confirmed via `git log`** — both `master` and `feature-branch` ended up pointing at the *same*
+commit:
+```
+PS> git log
+commit 714ab7c901b6f554e2f4ee786719ccc642371b17 (HEAD -> master, feature-branch)
+Author: Saranya Sallagundla <user@example.com>
+Date:   Thu Jul 16 15:13:59 2026 -0400
+
+    add feature line
+
+commit b2a04469245e2eb042bd3d8d7bb50b63f6106ffc
+Author: Saranya Sallagundla <user@example.com>
+Date:   Thu Jul 16 15:06:17 2026 -0400
+
+    Add 2nd line to readme
+
+commit 9925f299c623efb1722e7b77d075dd1542d31b9b
+Author: Saranya Sallagundla <user@example.com>
+Date:   Thu Jul 16 14:54:34 2026 -0400
+
+    Add readme file
+```
+`(HEAD -> master, feature-branch)` on one line — the literal definition of a fast-forward:
+`master` had zero new commits since the branch point, so Git simply moved its pointer forward to
+match, no real "combining" needed.
 
 ---
 
@@ -194,29 +241,64 @@ pointer forward to match, no real "combining" needed.
 
 ### 1. Why the first "conflict" attempt wasn't actually a conflict
 
-**First attempt** (didn't produce a conflict, and this was a useful real lesson): created
-`conflict-branch` from a commit, edited line 1 there, merged back into `master` with **no new
-commits made on `master` in between** → another fast-forward, not a conflict. **Root lesson**:
-a genuine conflict requires **both** branches to change **after diverging**, specifically editing
-the **same line** differently — simply branching and editing on one side is not enough.
+**First attempt** (didn't produce a conflict, and this was a useful real lesson):
+
+```
+PS> git checkout master
+Switched to branch 'master'
+PS> "master line" >> readme.txt
+PS> git add readme.txt
+PS> git commit -m "Add master-only line"
+[master 300c00a] Add master-only line
+ 1 file changed, 1 insertion(+)
+
+PS> git checkout -b conflict-branch
+Switched to a new branch 'conflict-branch'
+... edited line 1 via VS Code ...
+PS> git add readme.txt
+PS> git commit -m "edit 1st line on conflict-branch"
+[conflict-branch e9e86c7] edit 1st line on conflict-branch
+
+PS> git checkout master
+Switched to branch 'master'
+PS> git merge conflict-branch
+Updating 300c00a..e9e86c7
+Fast-forward
+ readme.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+Created `conflict-branch` from a commit, edited line 1 there, merged back into `master` with **no
+new commits made on `master` in between** → another fast-forward, not a conflict. **Root
+lesson**: a genuine conflict requires **both** branches to change **after diverging**,
+specifically editing the **same line** differently — simply branching and editing on one side is
+not enough.
 
 ### 2. Setting up and resolving a real conflict
 
-**Correct setup**: made a new commit on `master` first, *then* branched off (`real-conflict`),
-edited line 1 differently on each side, so both branches diverged from the same starting point
-with conflicting edits to the identical line.
+**Correct setup**: branched off `real-conflict` from `master`'s current tip and committed an edit
+there *first*, then switched **back** to `master` and made a **new, separate commit** there
+*after* branching off — that second commit on `master` is what created genuine divergence (both
+branches now have a commit the other doesn't), with both edits landing on the identical line.
 
 **Verified hands-on — the conflict occurring**:
 ```
 PS> git checkout -b real-conflict
-... edited line 1 to hello.git "EDITED ON REAL-CONFLICT BRANCH" via VS Code ...
+Switched to a new branch 'real-conflict'
+PS> code readme.txt
+... edited line 1 to hello.git "EDITED ON REAL-CONFLICT BRANCH" ...
+PS> git add readme.txt
 PS> git commit -m "edit 1st line on real-conflict branch"
 [real-conflict 85fd936] edit 1st line on real-conflict branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 PS> git checkout master
-... edited line 1 to hello.git "edited on Master" via VS Code ...
+Switched to branch 'master'
+PS> code readme.txt
+... edited line 1 to hello.git "edited on Master" ...
+PS> git add readme.txt
 PS> git commit -m "edit line 1 on master"
 [master 1f6d20d] edit line 1 on master
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 PS> git merge real-conflict
 Auto-merging readme.txt
@@ -284,8 +366,11 @@ plain-text file listing patterns Git should ignore.
 PS> "*.log" > .gitignore
 PS> "secret.txt" >> .gitignore
 PS> git add .gitignore
+warning: in the working copy of '.gitignore', CRLF will be replaced by LF the next time Git touches it
 PS> git commit -m "add gitignore"
 [master 2a5302c] add gitignore
+ 1 file changed, 2 insertions(+)
+ create mode 100644 .gitignore
 ```
 
 ### 4. `git diff`
@@ -297,6 +382,7 @@ staged yet.
 ```
 PS> "one more line" >> readme.txt
 PS> git diff
+warning: in the working copy of 'readme.txt', CRLF will be replaced by LF the next time Git touches it
 diff --git a/readme.txt b/readme.txt
 index 3345eaa..afbf2f9 100644
 --- a/readme.txt
@@ -324,11 +410,8 @@ requiring manual resolution (exactly what was just practiced). If **different li
 changed → Git auto-merges cleanly (matches both fast-forward merges done earlier, and the
 resolved conflict which only collided on one specific line).
 
-**Follow-up — why use branches over direct commits to a shared `master` at all?**: without
-branches, two developers committing directly to the same shared branch risk one silently
-overwriting the other's changes with no warning at all. Branches keep each developer's work
-isolated during active development, and any conflict only surfaces **at merge time**
-(integration), rather than silently clobbering shared history the moment either person commits.
+(The related "why use branches over direct commits to a shared `master`" question came up
+separately, as Quiz Question 5 below — not part of this pre-quiz scenario discussion.)
 
 ---
 
