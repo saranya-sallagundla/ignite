@@ -89,6 +89,7 @@ Changes to be committed:
 PS> git commit -m "Add readme file"
 [master (root-commit) 9925f29] Add readme file
  1 file changed, 1 insertion(+)
+ create mode 100644 readme.txt
 ```
 - **"Untracked"** → Git sees the file exists but isn't tracking it at all yet.
 - **CRLF warning** — a real, common cross-platform Git quirk: Windows text files traditionally
@@ -140,10 +141,10 @@ PS> git branch
 
 **Proven hands-on — branches are genuinely isolated**:
 ```
-PS> "New feature line" >> readme.txt
+PS> "new feature line" >> readme.txt
 PS> git add readme.txt
-PS> git commit -m "Add feature line"
-[feature-branch 714ab7c] Add feature line
+PS> git commit -m "add feature line"
+[feature-branch 714ab7c] add feature line
 
 PS> git checkout master
 Switched to branch 'master'
@@ -159,12 +160,24 @@ The "new feature line" is **absent** on `master` even though it was just committ
 **Syntax**: `git merge BRANCH_NAME` — while standing on the target branch, pull in another
 branch's changes.
 
-**Verified hands-on**:
+**Verified hands-on** — included an extra, unprompted verification step (checking the file's
+content on `feature-branch` again right before merging, confirming exactly what would be pulled
+in) before actually merging:
 ```
+PS> git switch feature-branch
+Switched to branch 'feature-branch'
+PS> cat readme.txt
+hello.git
+hello.git, second line
+new feature line
+
+PS> git checkout master
+Switched to branch 'master'
 PS> git merge feature-branch
 Updating b2a0446..714ab7c
 Fast-forward
  readme.txt | 1 +
+ 1 file changed, 1 insertion(+)
 PS> cat readme.txt
 hello.git
 hello.git, second line
@@ -196,12 +209,14 @@ with conflicting edits to the identical line.
 **Verified hands-on — the conflict occurring**:
 ```
 PS> git checkout -b real-conflict
-... edited line 1 to "hello.git - EDITED ON REAL-CONFLICT BRANCH" via VS Code ...
-PS> git commit -m "Edit line 1 on real-conflict branch"
+... edited line 1 to hello.git "EDITED ON REAL-CONFLICT BRANCH" via VS Code ...
+PS> git commit -m "edit 1st line on real-conflict branch"
+[real-conflict 85fd936] edit 1st line on real-conflict branch
 
 PS> git checkout master
-... edited line 1 to "hello.git - EDITED ON MASTER" via VS Code ...
-PS> git commit -m "Edit line 1 on master"
+... edited line 1 to hello.git "edited on Master" via VS Code ...
+PS> git commit -m "edit line 1 on master"
+[master 1f6d20d] edit line 1 on master
 
 PS> git merge real-conflict
 Auto-merging readme.txt
@@ -269,7 +284,7 @@ plain-text file listing patterns Git should ignore.
 PS> "*.log" > .gitignore
 PS> "secret.txt" >> .gitignore
 PS> git add .gitignore
-PS> git commit -m "Add gitignore"
+PS> git commit -m "add gitignore"
 [master 2a5302c] add gitignore
 ```
 
