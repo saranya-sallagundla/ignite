@@ -306,38 +306,36 @@ CONFLICT (content): Merge conflict in readme.txt
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-**The actual conflict markers, seen directly in the file** (shown here with a leading `|` on each
-marker line so this notebook itself doesn't get mistaken for an unresolved conflict by an
-editor's merge-conflict detector — a real gotcha hit once already while writing these notes):
+**The actual conflict markers, exactly as VS Code's editor displayed them** (shown here with a
+leading `|` on each marker line so this notebook itself doesn't get mistaken for an unresolved
+conflict by an editor's merge-conflict detector — a real gotcha hit once already while writing
+these notes):
 ```
-| <<<<<<< HEAD
+| <<<<<<< HEAD (Current Change)
 hello.git "edited on Master"
 | =======
 hello.git "EDITED ON REAL-CONFLICT BRANCH"
-| >>>>>>> real-conflict
+| >>>>>>> real-conflict (Incoming Change)
 hello.git, second line
 new feature line
 master line
 ```
 - **`<<<<<<< HEAD`** (start-of-conflict marker) — opens with the **current branch's** version
-  (`master`, since `HEAD` points there).
-- Content between the `<<<<<<< HEAD` line and the `=======` line — master's version of the line.
+  (`master`, since `HEAD` points there). VS Code highlights this down to `=======` in one color
+  and appends the `(Current Change)` label itself — that label is editor annotation, not real
+  Git output.
 - **`=======`** (divider marker) — separates the two conflicting versions.
-- Content between the `=======` line and the `>>>>>>> real-conflict` line — the **incoming**
-  branch's version.
-- **`>>>>>>> real-conflict`** (end-of-conflict marker) — closes with the incoming branch's label.
-
-**What this actually looked like in VS Code** (static screenshot — safe to view, nothing
-clickable/functional in this image, unlike the live version above):
-
-![VS Code merge conflict UI, showing the colored current/incoming blocks and the Accept Current Change / Accept Incoming Change / Accept Both Changes / Compare Changes links](images/topic-06-merge-conflict-vscode.png)
-
-**Resolution — via VS Code's built-in merge conflict UI** (not manual marker-deleting), which
-shows clickable inline links above the conflict block:
-- **Accept Current Change** — keep `HEAD`'s version, discard incoming
-- **Accept Incoming Change** — keep the incoming version, discard current
-- **Accept Both Changes** — keep both, one after another
-- **Compare Changes** — side-by-side diff view
+- **`>>>>>>> real-conflict`** (end-of-conflict marker) — closes with the **incoming** branch's
+  version. VS Code highlights this section in a second color and appends `(Incoming Change)` the
+  same way.
+- A clickable text row floats directly above the conflict block, each option doing exactly what
+  it says (not manual marker-deleting):
+  - **Accept Current Change** — keep `HEAD`'s version, discard incoming
+  - **Accept Incoming Change** — keep the incoming version, discard current
+  - **Accept Both Changes** — keep both, one after another
+  - **Compare Changes** — side-by-side diff view
+- A separate **"Resolve in Merge Editor"** button sits off to the side, opening a dedicated
+  side-by-side comparison view instead of resolving inline.
 
 Chose **Accept Current Change** (kept master's version) — a real, common resolution choice: one
 side is simply judged correct and the other dropped.
