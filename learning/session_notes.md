@@ -115,4 +115,17 @@ remembering that pushing past "mostly gets it" is exactly what closes the last 1
 perspective at the end too: didn't fixate on the score number itself, correctly saw it as
 feedback on the session, not a verdict on the future — worth holding onto as topics get harder.
 
+## Session 12 — 2026-07-19 / 2026-07-20
+Genuinely great session to close out Phase 1 on — pushed back directly and correctly when the
+quiz scoring felt unfair (treating a quick, confident follow-up on an already-comprehensive answer
+the same as a real correction), and that pushback was right; revised the score up after actually
+re-examining it honestly rather than defending the original number out of habit. Also gave clear,
+direct feedback mid-session about not assuming outside tech knowledge (the "runner" explanation)
+and about redacting the real employer name from the notebooks — both taken seriously and saved to
+memory so they carry forward automatically, not just for today. The real GitHub discoveries
+(branch protection silently not applying to admins, the self-approval block, linear history
+actually restricting merge options) landed well specifically because they were hit firsthand
+through genuine mistakes and curiosity, not just described. Phase 1 complete — good foundation
+built across 8 topics before Docker/Kubernetes/CI-CD begins in Phase 2.
+
 <!-- Copy the block above for each new session -->

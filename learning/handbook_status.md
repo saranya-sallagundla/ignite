@@ -21,7 +21,8 @@
   Quiz 30/40 · Hands-on 28/30 · Depth 26/30 — passed attempt 1; excellent hands-on including a real merge conflict deliberately set up and resolved via VS Code's UI, 2 of 5 quiz answers needed a real follow-up correction.
 - [x] 7. Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies — **82/100**  
   Quiz 28/40 · Hands-on 30/30 · Depth 24/30 — passed attempt 1; excellent hands-on (real rebase conflict, a real conflict-resolution mistake caught and fixed via `git commit --amend`), 3 of 4 quiz answers needed a real follow-up push, one a full redirect.
-- [ ] 8. GitHub — PRs, Actions Intro, Repo Management
+- [x] 8. GitHub — PRs, Actions Intro, Repo Management — **94/100**  
+  Quiz 36/40 · Hands-on 30/30 · Depth 28/30 — passed attempt 1; the richest hands-on session yet (a real self-diagnosed PR mistake fixed via `git log`/`merge-base`, a working GitHub Actions run inspected in full, three genuine branch-protection discoveries), only 1 of 4 quiz answers needed real redirection. **Phase 1 complete.**
 - [ ] 9. Docker — Architecture, Images, Containers
 - [ ] 10. Docker — Networking, Volumes, Docker Compose
 - [ ] 11. Docker — Multi-Stage Builds & Best Practices

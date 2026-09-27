@@ -98,15 +98,19 @@
 - Outer deadline: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- Last recalibrated: — (not yet due — 11 sessions completed)
-- Calendar Day since Day 1: 14 (2026-07-19)
-- Session count completed: 11
-- Current topic: Topic 7 — COMPLETE (82/100). Topic 8 — GitHub not yet started.
+- Last recalibrated: — (not yet due — 12 sessions completed)
+- Calendar Day since Day 1: 15 (2026-07-20)
+- Session count completed: 12
+- Current topic: Topic 8 — COMPLETE (94/100). **PHASE 1 COMPLETE.** Topic 9 — Docker not yet
+  started.
 - Pace: on track
 - Buffer used: 0 of 22
-- Notes: Topics 1-7 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100, 82/100). Topic 7
-  covered rebase, cherry-pick, and branching strategies, including a real rebase conflict and a
-  real conflict-resolution mistake (unresolved markers committed despite `git add`) caught and
-  fixed via `git commit --amend`. SSH hands-on (local sshd)
-  still deferred — corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM
-  once access is ready.
+- Notes: Topics 1-8 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100, 82/100, 94/100).
+  Phase 1 (Linux, Git & Version Control) is now fully complete. Topic 8 covered remotes, PRs
+  (incl. a real mis-based-branch mistake diagnosed and fixed), GitHub Actions (incl. a real
+  runner execution inspected in full), and branch protection (incl. the bypass-by-default gotcha,
+  self-approval block, and linear history restricting merge options). Per CLAUDE.md's Parallel
+  hands-on rule: before Topic 9 (Docker) begins, `project/app/` needs its initial boilerplate
+  application written first, if still empty. SSH hands-on (local sshd) still deferred —
+  corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM once access is
+  ready.

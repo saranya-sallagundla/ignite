@@ -82,3 +82,8 @@ will use once multiple features/phases are being built and merged going forward.
 Topic 7 complete, quiz passed (Git Deep Dive) — no project code yet, but rebase/cherry-pick and
 branching-strategy reasoning practiced today are exactly what keeping this project's own repo
 history clean will require once real feature work starts landing here.
+
+### Session 12 — 2026-07-19 / 2026-07-20
+Topic 8 complete, quiz passed (GitHub: PRs, Actions, Repo Management) — **Phase 1 complete.** No
+project code yet, but PRs, GitHub Actions, and branch protection practiced today are exactly the
+workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kubernetes/CI-CD) begins.

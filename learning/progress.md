@@ -9,10 +9,11 @@
 
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
 in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
-(84/100). Topic 7 — COMPLETE (82/100). Covered rebase (incl. a real conflict), cherry-pick (incl.
-a real mistake — unresolved conflict markers committed despite `git add` — caught and fixed via
-`git commit --amend`), and branching strategies (Git Flow/trunk-based/GitHub Flow). SSH live
-connection still deferred to AWS sandbox VM.
+(84/100). Topic 7 — COMPLETE (82/100). Topic 8 — COMPLETE (94/100). **PHASE 1 (Linux, Git &
+Version Control) COMPLETE.** Topic 8 covered remotes, PRs (incl. a real mis-based-branch mistake
+diagnosed via `git log`/`merge-base` and fixed), GitHub Actions (incl. watching a real runner
+execute), and branch protection (incl. the bypass-by-default gotcha, self-approval block, and
+linear history restricting merge options). SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -186,6 +187,33 @@ connection still deferred to AWS sandbox VM.
 - Check-in: 2026-07-18 00:56 IST — Check-out: 2026-07-19 11:11 IST (session spanned across days
   with breaks; not continuous active work time)
 
+## Session 12 — 2026-07-19 / 2026-07-20
+- Topic completed: Topic 8 — GitHub: PRs, Actions Intro, Repo Management (single-day topic per
+  the roadmap, final topic in Phase 1)
+- Covered: remotes (`git remote add`/`push`/`pull`), a real self-diagnosed PR mistake (a branch
+  accidentally created off the wrong base after a session-start branch mix-up, diagnosed via
+  `git log --graph --all`/`git merge-base` rather than guessed, then deleted and correctly
+  recreated), merge strategy choice reasoning, GitHub Actions (a real workflow written, pushed,
+  and its actual run inspected in full log detail — runner OS/region, `GITHUB_TOKEN`
+  permissions, step output, teardown), a from-scratch explanation of what a "runner" is (grounded
+  in Topic 1's VM concept per explicit user feedback to never assume outside tech knowledge), why
+  `ubuntu-latest` is the default choice over `windows-latest`/`macos-latest` (cost, licensing,
+  hardware constraints, speed), real GitHub Actions security considerations (`GITHUB_TOKEN`
+  scope/lifespan, three real risks, mitigations), and branch protection rules — including three
+  genuine real discoveries: classic branch protection doesn't apply to repo admins by default
+  (bypassed silently until "Do not allow bypassing" was enabled), a self-approval block genuinely
+  preventing merge on a solo repo, and "Require linear history" actually removing "Create a merge
+  commit" from the available merge options. Full record in
+  `learning/notes/phase-1-linux-git-version-control/topic-08-github.md`.
+- Quiz: **PASS, attempt 1** — 4 interview-style questions (Git vs. GitHub, the PR mistake's root
+  cause, merge/squash/rebase strategies tied to linear history, and `GITHUB_TOKEN` security),
+  1 of 4 needed real redirection (root-cause reasoning), the other 2 follow-ups were quick
+  extensions of already-correct, comprehensive answers rather than corrections — score reassessed
+  upward after the user pushed back on treating all follow-ups as one flat category, a fair and
+  correct correction. **Topic 8 CLEARED, 94/100 (Quiz 36/40, Hands-on 30/30, Depth 28/30).**
+  **PHASE 1 (Linux, Git & Version Control) COMPLETE.**
+- Check-in: 2026-07-19 22:11 IST — Check-out: 2026-07-20 01:27 IST
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -200,6 +228,7 @@ connection still deferred to AWS sandbox VM.
 | 5 | Linux — Networking Fundamentals | PASS (74/100) | PASS, voluntary retest (82/100, official) | — | Cleared |
 | 6 | Git Fundamentals — Commits, Branches, Merges | PASS | — | — | Cleared |
 | 7 | Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies | PASS | — | — | Cleared |
+| 8 | GitHub — PRs, Actions Intro, Repo Management | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 
