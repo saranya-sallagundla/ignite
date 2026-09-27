@@ -9,10 +9,10 @@
 
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
 in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
-(84/100). Covered the three-stage model, `git init`/`add`/`commit`/`log`, branches, a fast-forward
-merge, a genuine merge conflict set up and resolved via VS Code's UI, `.gitignore`, and
-`git diff` — practiced from Windows PowerShell/VS Code directly, not WSL, matching the user's
-actual GitHub workflow going forward. SSH live connection still deferred to AWS sandbox VM.
+(84/100). Topic 7 — COMPLETE (82/100). Covered rebase (incl. a real conflict), cherry-pick (incl.
+a real mistake — unresolved conflict markers committed despite `git add` — caught and fixed via
+`git commit --amend`), and branching strategies (Git Flow/trunk-based/GitHub Flow). SSH live
+connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -163,6 +163,29 @@ actual GitHub workflow going forward. SSH live connection still deferred to AWS 
   CLEARED, 84/100 (Quiz 30/40, Hands-on 28/30, Depth 26/30).**
 - Check-in: 2026-07-16 23:38 IST — Check-out: 2026-07-17 01:45 IST
 
+## Session 11 — 2026-07-18 / 2026-07-19
+- Topic completed: Topic 7 — Git Deep Dive: Rebase, Cherry-Pick, Branching Strategies
+  (single-day topic per the roadmap)
+- Covered: rebase (incl. a real conflict during `git rebase master`, resolved via Accept Both
+  Changes, and confirmed via hash change that rebase creates brand-new commits rather than moving
+  originals), cherry-pick (incl. a real mistake — conflict markers left in the file despite
+  `git add`+`--continue` succeeding, caught by checking `cat` afterward and fixed via
+  `git commit --amend --no-edit`, needing two attempts since the first fix left a stray leftover
+  fragment), verification methods beyond `cat` (`git diff --check`, PowerShell's `Select-String`
+  as the non-WSL equivalent of `grep`), and branching strategies (Git Flow/trunk-based/GitHub
+  Flow, incl. a hotfix scenario walked through under all three, and the `develop`-branch
+  distinction which took real back-and-forth to land). A real unrecognized commit found via
+  `git log --graph` was investigated with `git show` rather than ignored — traced to leftover
+  content from Topic 6's `git diff` demo, accidentally committed later via VS Code's Source
+  Control panel. Full record in
+  `learning/notes/phase-1-linux-git-version-control/topic-07-git-deep-dive.md`.
+- Quiz: **PASS, attempt 1** — 4 interview-style questions (merge vs. rebase mechanics,
+  safe conflict-resolution habits, cherry-pick tradeoffs, and the Git Flow/GitHub Flow
+  `develop`-branch distinction), 3 of 4 needed a real follow-up push, including one full redirect.
+  **Topic 7 CLEARED, 82/100 (Quiz 28/40, Hands-on 30/30, Depth 24/30).**
+- Check-in: 2026-07-18 00:56 IST — Check-out: 2026-07-19 11:11 IST (session spanned across days
+  with breaks; not continuous active work time)
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -176,6 +199,7 @@ actual GitHub workflow going forward. SSH live connection still deferred to AWS 
 | 4 | Linux Deep Dive — Process, Log, Disk Management | PASS | — | — | Cleared |
 | 5 | Linux — Networking Fundamentals | PASS (74/100) | PASS, voluntary retest (82/100, official) | — | Cleared |
 | 6 | Git Fundamentals — Commits, Branches, Merges | PASS | — | — | Cleared |
+| 7 | Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 

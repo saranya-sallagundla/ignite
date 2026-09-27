@@ -103,4 +103,16 @@ why "branch then immediately merge" can never diverge, then correctly re-set up 
 requiring edits on both sides after the branch point. That kind of self-correction stuck better
 than if I'd just been handed the fix. Quiz went well, best hands-on score yet.
 
+## Session 11 — 2026-07-18 / 2026-07-19
+Real mistake worth remembering long-term: resolved a cherry-pick conflict, ran `git add` and
+`--continue`, assumed it was done — but the markers were still literally sitting in the file.
+`git add` never actually checks your work, it just trusts you. Caught it by checking `cat`
+afterward instead of assuming success, exactly the "verify, don't just trust" habit that's shown
+up all program long. Took two tries to actually clean it up properly, which was a little
+frustrating but a good real lesson in itself. Also asked good clarifying questions on branching
+strategies (the `develop`-branch confusion) instead of nodding along at 90% understanding — worth
+remembering that pushing past "mostly gets it" is exactly what closes the last 10%. Good
+perspective at the end too: didn't fixate on the score number itself, correctly saw it as
+feedback on the session, not a verdict on the future — worth holding onto as topics get harder.
+
 <!-- Copy the block above for each new session -->

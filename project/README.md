@@ -77,3 +77,8 @@ security groups, and service-to-service networking on AWS will require later.
 Topic 6 complete, quiz passed (Git Fundamentals) — no project code yet, but branching/merging
 practiced today (incl. a real resolved conflict) is exactly the workflow this project's own repo
 will use once multiple features/phases are being built and merged going forward.
+
+### Session 11 — 2026-07-18 / 2026-07-19
+Topic 7 complete, quiz passed (Git Deep Dive) — no project code yet, but rebase/cherry-pick and
+branching-strategy reasoning practiced today are exactly what keeping this project's own repo
+history clean will require once real feature work starts landing here.
