@@ -93,24 +93,43 @@
 
 ## Pacing Layer (LIVING — only section that changes)
 
-- Day 1: 2026-07-06 (IST, UTC+5:30). All dates and calendar-day counts below use IST regardless
-  of the timezone Claude Code's host machine defaults to.
-- Outer deadline: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
+- **Day 1**: 2026-07-06 (IST, UTC+5:30). All dates and calendar-day counts below use IST
+  regardless of the timezone Claude Code's host machine defaults to.
+- **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- Last recalibrated: — (not yet due — 12 sessions completed)
-- Calendar Day since Day 1: 15 (2026-07-20)
-- Session count completed: 12
-- Current topic: Topic 8 — COMPLETE (94/100). **PHASE 1 COMPLETE.** Topic 9 — Docker not yet
+- **Last recalibrated**: — (not yet due — 12 sessions completed)
+- **Calendar Day since Day 1**: 15 (2026-07-20)
+- **Session count completed**: 12
+- **Active calendar days**: 14 of 15 (1 gap day: 2026-07-17)
+- **Roadmap days used**: 14 of 120 (Topics 1-8, per fixed baseline allocation)
+- **Current topic**: Topic 8 — COMPLETE (94/100). **PHASE 1 COMPLETE.** Topic 9 — Docker not yet
   started.
-- Pace: on track
-- Buffer used: 0 of 22
-- Notes: Topics 1-8 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100, 82/100, 94/100).
-  Phase 1 (Linux, Git & Version Control) is now fully complete. Topic 8 covered remotes, PRs
-  (incl. a real mis-based-branch mistake diagnosed and fixed), GitHub Actions (incl. a real
-  runner execution inspected in full), and branch protection (incl. the bypass-by-default gotcha,
-  self-approval block, and linear history restricting merge options). Per CLAUDE.md's Parallel
-  hands-on rule: before Topic 9 (Docker) begins, `project/app/` needs its initial boilerplate
-  application written first, if still empty. SSH hands-on (local sshd) still deferred —
-  corporate network/proxy blocks outbound WSL traffic; retry via AWS sandbox VM once access is
-  ready.
+- **Pace**: on track
+- **Buffer used** (overall, the real constraint): 0 of 22
+- **Buffer used per phase** (informational only — the 22-day pool above is shared across all
+  phases, not siloed; this breakdown just shows where any usage happened, not a separate limit
+  per phase. The 7 figures below sum to 17 — matching each phase's own buffer count as listed in
+  the fixed baseline table above — not 22; the remaining 5 days are a separate, cross-cutting
+  "Extra Reserve Buffer" not tied to any single phase, per the baseline's closing note. The
+  baseline table's own "+N buffer" wording per phase is kept as-is, unedited, but should not be
+  read as a phase-locked limit — this note is the authoritative interpretation, matching
+  `CLAUDE.md`'s rule):
+    - `Phase 1 (Linux, Git & Version Control)`: 0 of 3 — not used
+    - `Phase 2 (Containers, Kubernetes & CI/CD)`: 0 of 3 — not started yet
+    - `Phase 3 (AWS Cloud Platform)`: 0 of 4 — not started yet
+    - `Phase 4 (Terraform Deep Dive)`: 0 of 2 — not started yet
+    - `Phase 5 (Python for DevOps)`: 0 of 2 — not started yet
+    - `Phase 6 (Observability)`: 0 of 2 — not started yet
+    - `Phase 7 (AI for DevOps)`: 0 of 1 — not started yet
+- **Notes**:
+  - Topics 1-8 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100, 82/100, 94/100).
+  - Phase 1 (Linux, Git & Version Control) is now fully complete.
+  - Topic 8 covered remotes, PRs (incl. a real mis-based-branch mistake diagnosed and fixed),
+    GitHub Actions (incl. a real runner execution inspected in full), and branch protection
+    (incl. the bypass-by-default gotcha, self-approval block, and linear history restricting
+    merge options).
+  - Per CLAUDE.md's Parallel hands-on rule: before Topic 9 (Docker) begins, `project/app/` needs
+    its initial boilerplate application written first, if still empty.
+  - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
+    traffic; retry via AWS sandbox VM once access is ready.

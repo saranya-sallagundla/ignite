@@ -121,9 +121,12 @@ Also update `learning/roadmap.md`'s Pacing Layer every session: Calendar Day sin
 count completed, current topic, and Pace (behind/on track/ahead, comparing calendar days elapsed
 against topics actually completed). Update Buffer used specifically when: a reserve buffer day is
 spent on a mandatory deferred-mastery revisit, or a topic overruns the days `roadmap.md` allotted
-it (the overrun draws from that phase's buffer days). Light days affect Pace but do not by
-themselves count against the 22-day Buffer used figure — they're tracked separately in the Light
-Days table.
+it — the overrun draws from the overall 22-day buffer pool (shared across the whole journey, not
+siloed per phase, even though the fixed baseline table lists each phase's own buffer count for
+reference). The Pacing Layer's per-phase buffer breakdown is informational only, showing where
+usage happened — not a separate limit each phase is boxed into. Light days affect Pace but do not
+by themselves count against the 22-day Buffer used figure — they're tracked separately in the
+Light Days table.
 
 Recalibrate — update Last recalibrated, and reassess whether the remaining roadmap still fits the
 6-month deadline — whenever Pace shows 5+ days behind, or every 20 sessions as a routine check-in,

@@ -242,4 +242,5 @@ linear history restricting merge options). SSH live connection still deferred to
 ## Light days log
 
 | Date | Reason given |
-|---|---|
+|------|--------------|
+| 2026-07-17 | Already ahead of schedule — Sessions 9 and 10 had efficiently covered Topic 5 and Topic 6 (each a 2-day topic in the baseline) within continuous sessions on 07-14/16, so this day was taken as a rest day without falling behind. Logged retroactively during a later review, since it wasn't captured in the moment. Pacing cost: none — Topics 1-8 still landed at exactly their planned 14 roadmap days total, zero overrun. |
