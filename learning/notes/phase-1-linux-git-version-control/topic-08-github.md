@@ -135,6 +135,18 @@ to repo events, via a workflow file GitHub watches for automatically.
 
 **Location**: `.github/workflows/*.yml`
 
+**General shape**:
+```yaml
+name: WORKFLOW_NAME
+on: TRIGGER
+jobs:
+  JOB_ID:
+    runs-on: RUNNER
+    steps:
+      - name: STEP_NAME
+        run: SHELL_COMMAND
+```
+
 **Workflow written and explained line by line**:
 ```yaml
 name: Hello World Workflow
