@@ -5,9 +5,10 @@ This is the real, demo-able DevOps project built alongside the 6-month learning 
 so its structure fills in over time rather than existing complete from day one.
 
 ## What it will be, end to end
-A containerized application, deployed through a CI/CD pipeline, running on Kubernetes, on AWS
+A containerized application, deployed through a CI/CD pipeline, running on Kubernetes, on
 infrastructure provisioned by Terraform, with monitoring and alerting in place. Each of those
-pieces gets added as the corresponding phase of the learning plan is reached.
+pieces gets added as the corresponding phase of the learning plan is reached. See
+[`docs/concept.md`](docs/concept.md) for the specific project concept and architecture.
 
 ## Folder guide
 - `app/` — the application itself. Until the Python phase of the learning plan, code here is
