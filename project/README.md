@@ -26,8 +26,10 @@ pieces gets added as the corresponding phase of the learning plan is reached. Se
 Filled in here once there's an application to actually run.
 
 ## Status
-Day 0 — folders scaffolded, nothing built yet. Check `../learning/progress.md` for current
-progress through the learning plan, which drives what gets added here next.
+No application code yet — `project/app/` gets its initial boilerplate just before Topic 9
+(Docker) begins. 12 learning sessions in and Phase 1 (Linux, Git & Version Control) is complete;
+check `../learning/progress.md` for current progress through the learning plan, which drives what
+gets added here next.
 
 ### Session 1 — 2026-07-06
 Day 1 of Topic 1 (Linux Fundamentals) — no project code changes yet, this phase is foundational

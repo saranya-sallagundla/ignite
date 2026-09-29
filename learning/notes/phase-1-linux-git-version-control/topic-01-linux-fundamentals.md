@@ -613,3 +613,10 @@ to finish in progress rather than cut mid-question).
    correcting a conflation: a symlink *can be created* pointing across drives, but if the target
    subsequently *moves* (not just "is on another drive"), the symlink breaks exactly like a
    deletion would, since it only stores a fixed path.
+
+**Verdict**: **Topic 1 CLEARED, attempt 1, 90/100** (Quiz 36/40 — 4 of 6 answers needed a real
+correction or follow-up nudge (permission decoding's two-field/timestamp mixup, the cron-script
+fix, VM-vs-container justification, hard link/symlink edge case), 2 passed cleanly; Hands-on
+27/30 — real corporate-proxy troubleshooting and independent permission fixes, though the actual
+SSH connection stayed deferred; Depth 27/30 — solid VM/container isolation reasoning, though it
+took two full explanation passes to land).

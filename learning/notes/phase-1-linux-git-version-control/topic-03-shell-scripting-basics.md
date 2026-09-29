@@ -434,7 +434,11 @@ Ran ~23 minutes. Five fresh interview-style questions, not repeats of Attempt 1:
 5. **Combined for-loop + function + even-check reasoning** — correctly predicted output (`2` and
    `4`) for a described (not shown) script run against `2 3 4 5`.
 
-**Final verdict: Topic 3 — CLEARED in 2 attempts.** Lesson for future topics, worth remembering:
+**Final verdict: Topic 3 — CLEARED in 2 attempts, 80/100** (Quiz 30/40 — Attempt 1 failed on
+function invocation/`$1` scoping, all other areas passed cleanly; Attempt 2 full retest passed
+cleanly, all-new questions; Hands-on 28/30 — real, independently-debugged syntax errors throughout
+`classify.sh`; Depth 22/30 — functions didn't land until re-taught via concrete tracing instead of
+analogy). Lesson for future topics, worth remembering:
 if a concept doesn't land after 2-3 varied explanations in the moment, **switch to concrete
 tracing (run real code, watch the actual values) rather than trying yet another analogy** — this
 unblocked things noticeably faster than continuing to reason abstractly.

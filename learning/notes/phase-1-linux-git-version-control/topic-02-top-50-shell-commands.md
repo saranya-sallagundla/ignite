@@ -448,3 +448,8 @@ to finish in progress).
 5. **`df` vs. `du` disagreement — why can they differ?** — correct on the basic distinction;
    the deleted-open-file edge case was explained directly rather than pushed on, since it went
    beyond what was explicitly taught this session.
+
+**Verdict**: **Topic 2 CLEARED, attempt 1, 84/100** (Quiz 34/40 — 3 of 5 answers needed a
+correction (`kill` syntax precision, `grep`/`find` flag and scope fixes), 2 passed cleanly;
+Hands-on 26/30 — more syntax slips than Topic 1 (`grep -r` placement, `find` scope); Depth 24/30 —
+strong independent reasoning on the ICMP-vs-TCP firewall discovery).
