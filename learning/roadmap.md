@@ -98,13 +98,14 @@
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- **Last recalibrated**: — (not yet due — 12 sessions completed)
-- **Calendar Day since Day 1**: 15 (2026-07-20)
-- **Session count completed**: 12
-- **Active calendar days**: 14 of 15 (1 gap day: 2026-07-17)
-- **Roadmap days used**: 14 of 120 (Topics 1-8, per fixed baseline allocation)
-- **Current topic**: Topic 8 — COMPLETE (94/100). **PHASE 1 COMPLETE.** Topic 9 — Docker not yet
-  started.
+- **Last recalibrated**: — (not yet due — 13 sessions completed)
+- **Calendar Day since Day 1**: 16 (2026-07-21)
+- **Session count completed**: 13
+- **Active calendar days**: 15 of 16 (1 gap day: 2026-07-17)
+- **Roadmap days used**: 15 of 120 (Topics 1-8 complete + Topic 9 Day 1 of 2, per fixed baseline
+  allocation)
+- **Current topic**: Topic 9 — Docker: Architecture, Images, Containers — **day 1 of 2 complete**.
+  Day 2 (harder/independent tasks, edge cases, quiz) still ahead.
 - **Pace**: on track
 - **Buffer used** (overall, the real constraint): 0 of 22
 - **Buffer used per phase** (informational only — the 22-day pool above is shared across all
@@ -124,12 +125,13 @@
     - `Phase 7 (AI for DevOps)`: 0 of 1 — not started yet
 - **Notes**:
   - Topics 1-8 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100, 82/100, 94/100).
-  - Phase 1 (Linux, Git & Version Control) is now fully complete.
-  - Topic 8 covered remotes, PRs (incl. a real mis-based-branch mistake diagnosed and fixed),
-    GitHub Actions (incl. a real runner execution inspected in full), and branch protection
-    (incl. the bypass-by-default gotcha, self-approval block, and linear history restricting
-    merge options).
-  - Per CLAUDE.md's Parallel hands-on rule: before Topic 9 (Docker) begins, `project/app/` needs
-    its initial boilerplate application written first, if still empty.
+  - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,
+    Kubernetes & CI/CD) is now underway, starting with Topic 9.
+  - Per CLAUDE.md's Parallel hands-on rule: `project/app/` boilerplate (Flask app + `/health`
+    endpoint) was written just before Topic 9 began, since it was still empty.
+  - Topic 9 Day 1 covered Docker architecture/terminology, images vs. containers (proven
+    hands-on), a real Dockerfile written/built/run against `project/app/` (verified live via
+    `/health`), container lifecycle commands, and exit code 137 tied back to Topic 2's signals
+    content. Day 2 (harder/independent tasks, edge cases, quiz) still ahead.
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
     traffic; retry via AWS sandbox VM once access is ready.

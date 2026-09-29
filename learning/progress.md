@@ -10,10 +10,10 @@
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
 in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
 (84/100). Topic 7 — COMPLETE (82/100). Topic 8 — COMPLETE (94/100). **PHASE 1 (Linux, Git &
-Version Control) COMPLETE.** Topic 8 covered remotes, PRs (incl. a real mis-based-branch mistake
-diagnosed via `git log`/`merge-base` and fixed), GitHub Actions (incl. watching a real runner
-execute), and branch protection (incl. the bypass-by-default gotcha, self-approval block, and
-linear history restricting merge options). SSH live connection still deferred to AWS sandbox VM.
+Version Control) COMPLETE.** Topic 9 — Docker: Architecture, Images, Containers — **day 1 of 2**,
+covered architecture/terminology, images vs. containers, writing/building/running a real
+Dockerfile against `project/app/`, and container lifecycle commands. Day 2 (harder/independent
+tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -215,6 +215,30 @@ linear history restricting merge options). SSH live connection still deferred to
   correct correction. **Topic 8 CLEARED, 94/100 (Quiz 36/40, Hands-on 30/30, Depth 28/30).**
   **PHASE 1 (Linux, Git & Version Control) COMPLETE.**
 - Check-in: 2026-07-19 22:11 IST — Check-out: 2026-07-20 01:27 IST
+
+## Session 13 — 2026-07-20 / 2026-07-21
+- Topic in progress: Topic 9 — Docker: Architecture, Images, Containers (Day 1 of 2, per the
+  roadmap)
+- Parallel hands-on: `project/app/` boilerplate written just before Topic 9 began per
+  `CLAUDE.md`'s trigger rule — a minimal Flask app (`app.py`) with a real `/health` endpoint plus
+  `requirements.txt`, replacing the empty placeholder. Claude-authored per the Phase 5 exception;
+  not yet defensible in an interview.
+- Covered: client/daemon/registry/image/container terms (taught basics-first, then connected to
+  real output per explicit user feedback); the client/server split in `docker version`; the full
+  pull → image → container flow traced line-by-line against real `docker run hello-world` output;
+  images vs. containers proven hands-on (`docker images`, `docker ps -a` showing one image with
+  two separate containers after running `hello-world` twice); where images/containers actually
+  live (Docker Desktop's Linux VM backend, tied back to Topic 1's VM concept); wrote a real
+  5-instruction Dockerfile (`FROM`/`WORKDIR`/`COPY`/`RUN`/`CMD`) for `project/app/` line by line;
+  built it (`docker build -t mission-control-app .`) and ran it (`docker run -d -p 5000:5000`),
+  verified live via `http://localhost:5000/health` returning `{"status":"ok"}`; container
+  lifecycle commands (`docker logs`, `docker stop`, `docker ps -a`); a real discovered detail —
+  `mission-control-app`'s container exited with code 137 (`128 + SIGKILL`) after `docker stop`,
+  vs. `hello-world`'s clean `Exited (0)`, tied directly back to Topic 2's signals/`kill -9`
+  content. Full record in
+  `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-09-docker-architecture-images-containers.md`.
+- No quiz today — non-final day of a multi-day topic, per `CLAUDE.md`.
+- Check-in: 2026-07-20 22:37 IST — Check-out: 2026-07-21 10:50 IST
 
 ## Quiz record index
 

@@ -26,10 +26,11 @@ pieces gets added as the corresponding phase of the learning plan is reached. Se
 Filled in here once there's an application to actually run.
 
 ## Status
-No application code yet — `project/app/` gets its initial boilerplate just before Topic 9
-(Docker) begins. 12 learning sessions in and Phase 1 (Linux, Git & Version Control) is complete;
-check `../learning/progress.md` for current progress through the learning plan, which drives what
-gets added here next.
+`app/` now has its initial boilerplate (a Flask app with a `/health` endpoint) plus a Dockerfile,
+built and run successfully as a real container. 13 learning sessions in, Phase 1 complete and
+Phase 2 (Containers, Kubernetes & CI/CD) underway with Topic 9 (Docker); check
+`../learning/progress.md` for current progress through the learning plan, which drives what gets
+added here next.
 
 ### Session 1 — 2026-07-06
 Day 1 of Topic 1 (Linux Fundamentals) — no project code changes yet, this phase is foundational
@@ -90,3 +91,8 @@ history clean will require once real feature work starts landing here.
 Topic 8 complete, quiz passed (GitHub: PRs, Actions, Repo Management) — **Phase 1 complete.** No
 project code yet, but PRs, GitHub Actions, and branch protection practiced today are exactly the
 workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kubernetes/CI-CD) begins.
+
+### Session 13 — 2026-07-20 / 2026-07-21
+Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` got its first real code (Flask
++ `/health`) and its first Dockerfile, built into `mission-control-app:latest` and run as a live
+container, verified serving `{"status":"ok"}` over HTTP. Day 2 still ahead before Topic 9 clears.

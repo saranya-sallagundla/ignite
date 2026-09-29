@@ -128,4 +128,13 @@ actually restricting merge options) landed well specifically because they were h
 through genuine mistakes and curiosity, not just described. Phase 1 complete — good foundation
 built across 8 topics before Docker/Kubernetes/CI-CD begins in Phase 2.
 
+## Session 13 — 2026-07-20 / 2026-07-21
+Docker Day 1 needed a genuinely slower pace than usual — asked twice to hold off on context until
+basic terms landed one at a time on their own first (recipe-card analogy for image vs. container
+is what made it click), and to get a same-day agenda up front before diving in. Both are now
+standing habits going forward, not just for today. Best moment: getting a real `{"status":"ok"}`
+from a browser hitting a container built from a Dockerfile written line by line, and then
+independently reasoning through exit code 137 (128 + SIGKILL) using only Topic 2's signals
+knowledge, without being told the formula first.
+
 <!-- Copy the block above for each new session -->
