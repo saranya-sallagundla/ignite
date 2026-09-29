@@ -33,6 +33,22 @@ This also resolves the org-vs-personal-account portability question: since the l
 on LocalStack/k3s (no cloud account of any kind involved), nothing tied to an account needs to
 move if the org repo is deleted — only code moves to a personal GitHub repo.
 
+## Development environment safety net (deferred)
+The machine this project is built on is a work laptop, not a personal one — so losing access to
+it would mean losing all local compute for this project, not just this specific setup. **GitHub
+Codespaces** is the planned fallback: a free, permanent tier (60 core-hours + 15GB storage/month
+on a personal account) that runs Docker-based dev environments from any browser, so
+k3s/LocalStack/Ollama could run entirely inside Codespaces with no local install needed.
+
+The catch: this repo currently lives under the `your-org` org, accessed via a
+corporate-provisioned GitHub identity — a Codespace built against that org repo/identity would
+likely become unreachable at the exact moment it's needed. To actually work as a safety net, it
+needs to run against a genuinely personal GitHub account and a personal mirror of this repo
+instead — the same personal-repo move already planned above for portability.
+
+**Not set up yet, on purpose** — deferred to the end of the full 53-topic learning journey, the
+same checkpoint as this document's own capstone-idea revisit above.
+
 ## Supersedes
 An earlier "learning progress tracker" idea (modeling this repo's own tracking system as a
 deployable app), considered and dropped before Topic 9 began.
