@@ -72,6 +72,8 @@ d rwx r-x ---
 type (d=directory, -=file, l=symlink)
 ```
 
+**Syntax**: `chmod MODE FILE`
+
 **Octal notation** — `chmod 700` etc: each digit sums `read=4, write=2, execute=1`.
 `7 = 4+2+1 = rwx`, `0 = ---`. So `700` = owner full access, group/others nothing.
 
@@ -83,7 +85,9 @@ world-readable, any other user on a shared machine could read it and lift secret
 — scripts, binaries, or (for directories) permission to `cd` into them. Irrelevant on a plain
 data file like `.bash_history`.
 
-**Syntax**: `ls -la /etc | head -5` (pipe `ls` output into `head` to see only the first 5 lines)
+**Syntax**: `head -N FILE` (or piped: `COMMAND | head -N`) — show only the first N lines
+
+**Example**: `ls -la /etc | head -5` (pipe `ls` output into `head` to see only the first 5 lines)
 
 **Output**:
 ```
@@ -338,7 +342,8 @@ escalation via a writable execution path, a real, common security-audit finding.
 
 **Diagnosis steps**:
 1. `which sshd` → empty, confirmed `sshd` wasn't installed yet.
-2. `curl -v --max-time 10 https://google.com` and the `http://` variant → **DNS resolved fine**
+2. **`curl -v --max-time <n> <url>`** — ran `curl -v --max-time 10 https://google.com` and the
+   `http://` variant → **DNS resolved fine**
    (got both IPv4 and IPv6 addresses back), but the actual **TCP connection timed out** on the
    IPv4 address, and IPv6 failed instantly with "Network is unreachable" (WSL has no IPv6 route
    out at all — separate, minor issue).

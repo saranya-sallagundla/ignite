@@ -23,8 +23,10 @@ ignite/
 ├── learning/
 │   ├── roadmap.md         — fixed 53-topic/120-day baseline + live pacing
 │   ├── progress.md        — session log, quiz record, deferred-mastery tracker
-│   ├── handbook_status.md — which of the 53 handbook chapters are published
-│   └── session_notes.md   — personal recap per session
+│   ├── handbook_status.md — quiz-passed tracker per topic (separate from publishing to the
+│   │                         handbook site, which happens on its own timeline)
+│   ├── session_notes.md   — personal recap per session
+│   └── notes/              — per-topic study notebooks, filed under phase-N-name/ subfolders
 └── project/
     ├── README.md          — describes the DevOps project itself
     ├── app/

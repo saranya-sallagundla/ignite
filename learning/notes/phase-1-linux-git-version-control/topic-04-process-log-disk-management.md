@@ -161,7 +161,7 @@ $ renice 19 -p 70478                    # increase, no sudo needed — succeeded
 $ sudo renice 0 -p 70478                # decrease, sudo required — succeeded
 70478 (process ID) old priority 19, new priority 0
 
-$ renice 5 -p 70478                     # decrease, no sudo — failed as expected
+$ renice -5 -p 70478                    # decrease, no sudo — failed as expected
 renice: failed to set priority for 70478 (process ID): Permission denied
 ```
 `$!` — special variable holding the PID of the most recently backgrounded process, a shortcut
@@ -207,8 +207,8 @@ Jul 12 15:17:01 ... CRON[71177]: (root) CMD (cd / && run-parts --report /etc/cro
 Jul 12 15:20:35 ... systemd-timesyncd[114]: Timed out waiting for reply from ... (ntp.ubuntu.com)
 ```
 - The `sudo` entry is literally the `renice` command from earlier, showing up in the real log.
-- **`cron(175)` vs. `CRON[71176]`**: `cron(175)` (seen in `pstree` output) is the persistent
-  background **daemon** always watching the clock; `CRON[71176]` is a **short-lived child
+- **`cron(175)` vs. `CRON[71176]`**: `cron(175)` (an illustrative PID, not from the `pstree` run
+  above) is the persistent background **daemon** always watching the clock; `CRON[71176]` is a **short-lived child
   process** spawned each time a scheduled task actually runs, exiting once done. One watcher,
   many temporary instances.
 - **`systemd-timesyncd` timeout messages** — the system failing to reach an NTP time server.
@@ -266,7 +266,7 @@ don't always know in advance how a problem will be phrased.
 
 ---
 
-## Day 2 — 2026-07-13 (disk management: partitions, mounting)
+## Day 2 — 2026-07-13 / 2026-07-14 (disk management: partitions, mounting)
 
 ### 1. The land/lot/driveway analogy
 
@@ -318,6 +318,8 @@ experiment on directly (see below), so partition creation itself was deferred to
 practice disk instead.
 
 ### 4. Attempting to mount an "unused" disk — real permission and busy errors
+
+**Syntax**: `mount DEVICE MOUNTPOINT` (or `mount -a` to mount everything listed in `/etc/fstab`)
 
 ```
 $ mount /dev/sda /mnt/test

@@ -6,7 +6,7 @@
 
 ---
 
-## 2026-07-17/18 — Rebase, cherry-pick, branching strategies
+## 2026-07-18/19 — Rebase, cherry-pick, branching strategies
 
 Practiced in the same `C:\CloudOps\git-practice` folder from Topic 6, Windows PowerShell/VS Code.
 
@@ -16,6 +16,8 @@ Analogy: **merge** is like joining two roads at an intersection (both paths stil
 converging point marked with a merge commit). **Rebase** picks up one road and re-lays it
 starting from further down the other road — as if it were built that way from the start, no
 intersection visible at all. Produces clean, linear history instead of a branching one.
+
+**Syntax**: `git rebase BRANCH` (replays the current branch's commits onto the tip of `BRANCH`)
 
 **Setup — creating real divergence to rebase**:
 ```

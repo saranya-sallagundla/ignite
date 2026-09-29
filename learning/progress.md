@@ -42,7 +42,7 @@ linear history restricting merge options). SSH live connection still deferred to
   the project's future EC2→Kubernetes architecture.
 - Quiz: **PASS, attempt 1** — 6 interview-style questions, open-ended, no multiple choice. Full
   question-by-question record in the Quiz record index below and in
-  `learning/notes/topic-01-linux-fundamentals.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-01-linux-fundamentals.md`.
 - Check-in: 2026-07-07 22:19 IST — Check-out: 2026-07-08 05:25 IST (quiz itself ran ~32 minutes,
   over the 20-minute cap — allowed to finish in progress rather than cut mid-question)
 
@@ -63,7 +63,7 @@ linear history restricting merge options). SSH live connection still deferred to
   are independently firewalled — resolving an apparent contradiction with Topic 1's proxy
   findings — and archiving (`tar -czvf`/`-xzvf`/`-tzvf`).
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days. Full record in
-  `learning/notes/topic-02-top-50-shell-commands.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-02-top-50-shell-commands.md`.
 - Check-in: 2026-07-09 23:24 IST — Check-out: 2026-07-10 05:39 IST (quiz ran ~28 minutes, over
   the 20-minute cap — allowed to finish in progress)
 
@@ -87,7 +87,8 @@ linear history restricting merge options). SSH live connection still deferred to
   conditionals, loops, exit codes — passed cleanly). Re-taught functions using concrete tracing
   (a real script printing `$1` at three points) instead of another analogy, then **Attempt 2 —
   full retest, all-new questions — PASS**, same session, after a short break. **Topic 3 CLEARED
-  in 2 attempts.** Full record in `learning/notes/topic-03-shell-scripting-basics.md`.
+  in 2 attempts.** Full record in
+  `learning/notes/phase-1-linux-git-version-control/topic-03-shell-scripting-basics.md`.
 - Check-in: 2026-07-11 22:26 IST — Check-out: 2026-07-12 10:02 IST (long session incl. a
   fatigue-driven pause partway through; Attempt 1 quiz ran ~32 minutes, Attempt 2 retest ~23
   minutes, both over the 20-minute cap but allowed to finish in progress)
@@ -119,7 +120,8 @@ linear history restricting merge options). SSH live connection still deferred to
   reaping, inode/block exhaustion, `fstab`/UUID persistence and boot-failure risk, `nice`/`renice`
   fairness reasoning, and the `df`-timeout production scenario), two of five needed a follow-up
   push for full precision but were ultimately correct. Full record in
-  `learning/notes/topic-04-process-log-disk-management.md`. **Topic 4 CLEARED, 88/100
+  `learning/notes/phase-1-linux-git-version-control/topic-04-process-log-disk-management.md`.
+  **Topic 4 CLEARED, 88/100
   (Quiz 34/40, Hands-on 28/30, Depth 26/30).**
 - Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
 

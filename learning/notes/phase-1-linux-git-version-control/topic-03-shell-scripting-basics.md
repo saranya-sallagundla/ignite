@@ -149,7 +149,7 @@ corrected in turn):
    (`fi [ ... ]; then` — missing a fresh `if` keyword), and separately, forgot the `fi` between
    the two independent blocks entirely. Fix: **two completely separate `if...fi` pairs**, one
    fully closed before the next begins — nothing shared or merged between them.
-5. **`nano` vs. `printf`'s `\n` handling** — typed literal backslash-`n` characters into `nano`
+5. **`nano` (`nano FILENAME`) vs. `printf`'s `\n` handling** — typed literal backslash-`n` characters into `nano`
    expecting them to become line breaks (works in `printf`, since `printf` specifically
    interprets `\n`; **`nano` does not** — it needs the actual **Enter key**, not typed-out `\n`
    text). Result: the entire script became one garbled line, and the shebang line absorbed the
@@ -322,7 +322,7 @@ else
 fi
 ```
 `> /dev/null` discards normal output; `2>&1` redirects error output the same way (full
-explanation of the `2>&1` numbering deferred to Topic 5). Combo means "run it, but suppress all
+explanation of the `2>&1` numbering deferred to Topic 4). Combo means "run it, but suppress all
 output — we only care about the exit code."
 
 **Verified hands-on**:

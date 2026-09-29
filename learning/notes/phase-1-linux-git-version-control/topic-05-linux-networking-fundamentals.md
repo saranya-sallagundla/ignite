@@ -5,7 +5,7 @@
 
 ---
 
-## Day 1 & Day 2 — 2026-07-14 / 2026-07-15 (both days covered in one session, at reduced depth
+## Day 1 & Day 2 — 2026-07-14 / 2026-07-16 (both days covered in one session, at reduced depth
 by request, followed by a full second revision pass same session)
 
 Note on pacing: both days were intentionally kept high-level/faster-paced the first time through,
@@ -51,6 +51,8 @@ only that specific 16-31 slice is reserved, not all of `172.x.x.x`). Anything el
 - **`0.0.0.0`** — a wildcard/unspecified address. Not a real destination at all. Meaningful only
   as (1) a *bind* address meaning "accept connections on every interface," or (2) in a routing
   table meaning "the default route for anything unmatched."
+
+**Syntax**: `ip addr show [dev IFACE]`
 
 **Verified hands-on**: `ip addr show` on this WSL2 machine:
 ```
@@ -252,6 +254,8 @@ guidance) across both passes:
      block at all. The app is genuinely "listening to itself" only.
 
 ### 9. `curl` hands-on — distinguishing refused / no-route / timed-out (real verification)
+
+**Syntax**: `curl -v [--max-time N] URL`
 
 Real commands run to observe the actual different failure signatures, not just described:
 
