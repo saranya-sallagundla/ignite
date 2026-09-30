@@ -373,24 +373,58 @@ name, then a typo rename to `.ah` instead of `.sh`) — both caught and fixed in
 
 ### Attempt 1 — FAIL (functions)
 
-Interview-style, open-ended. Ran ~32 minutes (over the 20-min cap).
+Interview-style, open-ended. Ran ~32 minutes (over the 20-min cap). 5 questions, question and
+full correct answer for each:
 
-1. **Debug `if [$1 -gt 10]`, missing-bracket-space error** — passed cleanly, correct full
-   mechanism (token merging, attempted execution of the literal merged word).
-2. **Infinite `while` loop — cause and how to stop it live** — passed cleanly, correct on both
-   the root cause (counter never increments) and the fix (`Ctrl+C`/`SIGINT`).
-3. **`$1` scoping: script-level vs. function-level** — **did not land**, even after multiple
-   distinct explanations. Got the surface-level branching outcome right but could not
-   articulate that the two `$1`s are entirely separate, independently-scoped variables. Flagged
-   for deferred mastery (see above) — revisit before Topic 4.
-4. **A defined-but-never-called function produces no output** — missed entirely ("no idea");
-   explained directly. Real gap: functions must be explicitly invoked, not just defined.
-5. **`"$@"` vs. `$@` (quoting/word-splitting)** — went beyond what was explicitly taught this
-   session; explained directly, not held against the score, since introducing it live in the
-   quiz is fair when it wasn't covered beforehand.
+1. **Debug this: `if [$1 -gt 10]` throws an error — what's wrong and why?**
+   The problem is the missing spaces around `[` and `]`. `[` isn't just punctuation — it's
+   actually a command (the test command), and `]` is its required closing argument, so bash needs
+   whitespace on both sides to recognize them as separate tokens. Written as `[$1`, bash instead
+   sees one single merged word — after variable expansion (e.g. `$1` = `5`) it becomes the literal
+   token `[5`, and bash tries to run a command literally named `[5`, which doesn't exist, producing
+   a "command not found"-style error rather than doing the comparison. The fix is to always put
+   spaces around the brackets and quote the variable: `if [ "$1" -gt 10 ]; then`.
 
-**Verdict on Attempt 1**: conditionals, loops, and exit codes solid; functions (invocation +
-scoping) did not land, even after multiple analogy-based re-explanations in the moment.
+2. **An infinite `while` loop is running live — what caused it, and how do you stop it?**
+   The root cause of an infinite `while` loop is that the condition variable never actually
+   changes value, so the loop's test condition never becomes false. This happens in practice when
+   the increment line assigns to the wrong variable — e.g. `number=$(( count + 1 ))` updates
+   `number` but reads from `count`, leaving the loop's real condition variable frozen. The fix is
+   making sure the same variable is both tested and incremented (`count=$(( count + 1 ))`). To stop
+   a loop that's already stuck running in the terminal, `Ctrl+C` sends the process a `SIGINT`
+   signal, interrupting it immediately.
+
+3. **What's the real relationship between the script's `$1` (used in an `if` check) and a
+   function's own `$1` (e.g. inside `greet()`) in the same script?**
+   They are two entirely separate, independently-scoped variables that just happen to share the
+   identical label `$1` — they never merge, share state, or affect one another. The script-level
+   `$1` always refers to the first argument passed to the script itself on the command line. A
+   function's `$1` refers only to whatever argument was explicitly passed to that specific function
+   call (e.g. `greet "Alice"` gives `greet`'s own `$1` the value `"Alice"`, regardless of what the
+   script's `$1` currently holds). This was proven directly with a trace script that printed the
+   script's `$1` before calling `greet`, printed `greet`'s own `$1` from inside the function, then
+   printed the script's `$1` again after the call returned — the outer value stayed completely
+   unchanged across the whole run, confirming the two variables never interact.
+
+4. **What happens if a function is defined in a script but never called anywhere?**
+   Nothing happens — no output and no error. Defining a function (`function_name() { ... }`) is
+   like writing a recipe card: it just stores the instructions for later, it doesn't execute
+   anything by itself. A function only actually runs when something explicitly invokes it by name
+   on its own line (e.g. `function_name`), outside of the definition block. A script that defines a
+   function but never calls it will run to completion having done nothing with that function at
+   all.
+
+5. **What's the actual difference between `"$@"` and `$@` in a `for` loop?**
+   `"$@"` (quoted) preserves each argument as one distinct item, even if that argument itself
+   contains spaces. `$@` (unquoted) triggers word-splitting, so an argument like `"my folder"`
+   would incorrectly be split into two separate loop items (`my` and `folder`) instead of staying
+   one. This is a real bug risk whenever arguments might contain spaces (paths, names), so `"$@"`
+   should always be quoted in practice.
+
+**How Attempt 1 actually went**: Q1 and Q2 passed cleanly. Q3 (the `$1` scoping question) did not
+land despite multiple analogy-based explanations, and was flagged for deferred mastery. Q4 was
+missed entirely ("no idea"). Q5 went beyond what had been explicitly taught this session, so it
+was explained directly rather than held against the score.
 
 ### Re-teach — concrete tracing instead of analogy
 
@@ -419,22 +453,58 @@ produces nothing) both passed immediately afterward.
 
 ### Attempt 2 — full retest, all-new questions — PASS
 
-Ran ~23 minutes. Five fresh interview-style questions, not repeats of Attempt 1:
-1. **`-eq` vs. `=`** (numeric vs. string comparison) — passed cleanly.
-2. **`"$@"` vs. a hardcoded list — practical tradeoff** — passed cleanly, correctly identified
-   flexibility vs. when a fixed list is actually preferable.
-3. **Function scoping, fresh scenario** (`multiply()` using `$1`/`$2`, an outer variable `x`
-   untouched by the call) — passed cleanly, correctly traced both the function's local
-   computation and the outer variable's independence. The exact gap from Attempt 1, now solid.
-4. **Stopping a multi-step script on failure** — introduced `exit [CODE]` directly (not
-   explicitly taught before this point), then correctly traced that a failed step's `exit 1`
-   prevents every subsequent step from running at all. Also correctly reasoned that different
-   exit codes per failure point (`exit 1`, `exit 2`, `exit 3`) is better practice than reusing `1`
-   everywhere, once the idea was raised.
-5. **Combined for-loop + function + even-check reasoning** — correctly predicted output (`2` and
-   `4`) for a described (not shown) script run against `2 3 4 5`.
+Ran ~23 minutes. Five fresh interview-style questions, not repeats of Attempt 1, question and
+full correct answer for each:
 
-**Final verdict: Topic 3 — CLEARED in 2 attempts, 80/100** (Quiz 30/40 — Attempt 1 failed on
+1. **What's the actual difference between `-eq` and `=`?**
+   `-eq` is one of the numeric comparison operators (alongside `-ne`, `-gt`, `-lt`, `-ge`, `-le`)
+   — it compares its two operands as integer numbers. `=` (or `==`) is the string comparison
+   operator — it compares its two operands as literal text, character by character. Using the
+   wrong one for the data type being compared either errors out or gives a misleading result, so
+   picking the operator has to match whether you're actually comparing numbers or strings.
+
+2. **When would you use `"$@"` in a loop versus just hardcoding a fixed list of items — what's
+   the practical tradeoff?**
+   A hardcoded list (`for VAR in ITEM1 ITEM2 ITEM3; do ... done`) only works for a fixed,
+   known-in-advance set of items — it's simple, but the script has to be edited any time the set
+   of items changes. `"$@"` instead iterates over whatever arguments were actually passed to the
+   script at runtime, so the exact same script adapts to any number of inputs without any code
+   changes — proven earlier with `fruits_loop.sh`, which handled both a 3-fruit run and a 1-fruit
+   run with no modification. The tradeoff: a hardcoded list is fine only when the set of items
+   genuinely never changes; `"$@"` is the better choice whenever the script needs to stay reusable
+   across different runs with different inputs.
+
+3. **Fresh scenario: a function `multiply()` uses `$1` and `$2` internally, and the script also
+   has its own outer variable `x`. Does calling `multiply` affect `x`?**
+   No — this is the same independent-scoping principle from the `$1` scoping question: `multiply`'s
+   `$1` and `$2` are parameters local to that one function call, existing only for as long as that
+   call is running, and they have no relationship whatsoever to any variable in the outer script,
+   even one also referenced as `$1` or named similarly. The outer variable `x` keeps whatever value
+   it already had, completely untouched by the function call, exactly like the outer script's `$1`
+   stayed unchanged before and after `greet` was called in the earlier trace exercise.
+
+4. **How do you stop a multi-step script from continuing after one of its steps fails?**
+   The `exit CODE` command immediately terminates the running script at that exact line — nothing
+   after it executes — and `CODE` becomes the script's own exit status, retrievable afterward via
+   `$?`. In a multi-step script, placing `exit 1` (or another non-zero code) right after a failed
+   step's check stops every subsequent step from running at all, instead of pressing on with work
+   that depends on a step that already failed. It's also better practice to use a different exit
+   code per distinct failure point (`exit 1`, `exit 2`, `exit 3`, ...) rather than reusing `1`
+   everywhere, since the specific number then tells you (or anything checking `$?` afterward)
+   exactly which step failed, not just that something, somewhere, failed.
+
+5. **Given a script that loops over `"$@"`, calls a function, and only prints even numbers, what
+   would it output when run against `2 3 4 5`?**
+   `2` then `4`. Walking through it one argument at a time using the odd/even check from earlier
+   (`$(( $1 % 2 ))` — remainder `0` means even, remainder `1` means odd): `2 % 2 = 0` → even →
+   printed; `3 % 2 = 1` → odd → skipped; `4 % 2 = 0` → even → printed; `5 % 2 = 1` → odd → skipped.
+   So only `2` and `4` get printed, in that order.
+
+**How Attempt 2 actually went**: Q1 and Q2 passed cleanly. Q3 passed cleanly — the exact gap from
+Attempt 1, now solid. Q4 introduced `exit CODE` live (not explicitly taught before this point) and
+was reasoned through correctly once raised. Q5 passed cleanly with the correct predicted output.
+
+**Verdict**: **Topic 3 CLEARED, in 2 attempts, 80/100** (Quiz 30/40 — Attempt 1 failed on
 function invocation/`$1` scoping, all other areas passed cleanly; Attempt 2 full retest passed
 cleanly, all-new questions; Hands-on 28/30 — real, independently-debugged syntax errors throughout
 `classify.sh`; Depth 22/30 — functions didn't land until re-taught via concrete tracing instead of

@@ -330,24 +330,62 @@ gotcha discovered firsthand earlier in the session.
 
 ## Topic 8 Quiz — Attempt 1: PASS, 94/100
 
-Interview-style, open-ended, 4 questions.
+Interview-style, open-ended, 4 questions. Question and full correct answer for each:
 
-1. **Git vs. GitHub, the core distinction** — passed cleanly, first try: Git is the tool working
-   with local files, GitHub is the hosting layer for maintaining/sharing that content online.
-2. **Root cause of the `add-notes` PR's unexpected conflict/commit** — first answer restated the
-   symptom (branched from `real-conflict` instead of `master`) rather than the cause; needed real
-   redirection to reach it: not switching to `master` before creating the branch. The one genuine
-   gap in this quiz.
-3. **Merge commit vs. squash vs. rebase, and why linear history eliminates one option** — gave a
-   full, accurate description of all three strategies and correctly identified "Create a merge
-   commit" as eliminated immediately; one quick follow-up extended the answer with the precise
-   reason (a merge commit has two parents, breaking a single line) — not a correction, an
-   extension of an already-correct answer.
-4. **`GITHUB_TOKEN` security risk with untrusted third-party Actions** — immediately and
-   correctly listed all four real mitigations (minimum permissions, pinning to a trusted commit
-   hash, never printing secrets to logs, manual approval for external/fork PRs) with no
-   hesitation; one quick follow-up added the precise danger/mechanism itself (a compromised
-   Action runs with the job's real token/permissions) — again an extension, not a correction.
+1. **What's the core distinction between Git and GitHub?**
+   Git is the actual version control tool — it runs locally, works entirely offline, and is what
+   tracks commits, branches, and history on a machine's own files. GitHub is one company's hosting
+   service built on top of Git: a remote place to store, share, and collaborate on Git
+   repositories online (via remotes, pull requests, Actions, branch protection, etc.). Git doesn't
+   need GitHub to function; GitHub is a layer added on top for hosting and collaboration.
+
+2. **What was the actual root cause of the `add-notes` PR showing an unexpected conflict and an
+   extra commit?**
+   The branch was created with `git checkout -b add-notes` without first switching back to
+   `master`. At the start of the session, the local repo was still sitting on whatever branch had
+   been last checked out at the *end* of the previous topic (`real-conflict`) — nothing had
+   explicitly run `git checkout master` first. Because "current branch" silently carries over
+   between sessions, `add-notes` ended up branching off `real-conflict`'s tip (`dc448e5`) instead
+   of `master`'s actual current tip. Diagnosing it with `git log --oneline --graph --all` and
+   `git merge-base add-notes master` confirmed the branch's true common ancestor with `master` was
+   `85fd936` — far behind `master`'s later commits — which is why the PR showed an unrelated extra
+   commit and a conflict. The fix was deleting the branch (`git branch -D add-notes` plus deleting
+   the remote branch, which auto-closed the PR) and recreating it correctly from `master` after
+   checking out `master` first. The lesson: always confirm which branch you're actually on
+   (`git branch`) before creating a new one.
+
+3. **What are the three GitHub merge strategies, and why does enabling "Require linear history"
+   eliminate one of them?**
+   GitHub offers three merge options on a PR: **Create a merge commit** — the standard option,
+   keeps the full commit history plus adds a new merge commit that has two parent commits;
+   **Squash and merge** — combines every commit in the PR into a single clean commit on the target
+   branch, useful when a PR has many messy intermediate commits; and **Rebase and merge** —
+   replays the PR's commits directly onto the tip of the target branch, producing linear history
+   with no merge commit at all. "Require linear history" forbids regular merge commits entirely,
+   because a merge commit has two parent commits, which breaks a single straight line of history.
+   With that rule enabled, "Create a merge commit" disappears from the merge button's dropdown
+   entirely, leaving only "Squash and merge" and "Rebase and merge" as options.
+
+4. **What's the security risk with `GITHUB_TOKEN` when a workflow uses untrusted third-party
+   Actions, and what mitigates it?**
+   `GITHUB_TOKEN` is a real, automatically-generated credential that GitHub Actions creates fresh
+   for every workflow run — scoped only to the specific repo the workflow runs in, and expiring as
+   soon as the job finishes. The risk: workflows commonly use pre-built Actions written by other
+   people or organizations, and if one of those Actions is malicious or gets compromised, it runs
+   with that same job's token and permissions — meaning it can act on the repo (e.g. stealing
+   secrets, pushing malicious code) with the job's real access, without the user's knowledge. This
+   is a genuine, documented supply-chain attack vector. The real mitigations: pin third-party
+   Actions to a specific trusted commit hash rather than a floating tag like `@latest`; grant the
+   token only the minimum permissions actually needed rather than the full default set; never
+   print secrets to workflow logs (anyone who can view the logs can see them); and require manual
+   approval before running workflows triggered by pull requests from outside/fork contributors.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 passed
+cleanly, first try. Q2 initially restated the symptom (branched from `real-conflict` instead of
+`master`) rather than the cause, and needed real redirection to reach it — the one genuine gap in
+this quiz. Q3 was answered fully and correctly, then extended with one follow-up adding the
+precise reason a merge commit breaks linearity. Q4 immediately and correctly listed all four
+mitigations, then extended with one follow-up adding the precise danger mechanism itself.
 
 **Score: 94/100** (Quiz 36/40 — genuinely 1 real gap out of 4 (Q2), not 3; Q3 and Q4 were both
 comprehensive and correct on the first pass, only extended with one more precise sentence each,
@@ -360,5 +398,4 @@ detail, and thorough branch-protection testing uncovering three separate real di
 — strong real-world reasoning throughout, correct diagnoses backed by direct evidence rather than
 assumptions).
 
-**Final verdict: Topic 8 CLEARED, attempt 1, 94/100 — Phase 1 (Linux, Git & Version Control)
-complete.**
+**Verdict**: **Topic 8 CLEARED, attempt 1, 94/100** — Phase 1 (Linux, Git & Version Control) complete.

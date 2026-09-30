@@ -496,27 +496,71 @@ while `df -h`'s `Use%` stays low confirms this exact scenario.
 
 ## Topic 4 Quiz — both days combined — Attempt 1: PASS
 
-Interview-style, open-ended, 5 questions covering Day 1 and Day 2 material together.
+Interview-style, open-ended, 5 questions covering Day 1 and Day 2 material together. Question and
+full correct answer for each:
 
-1. **Zombie process — what it is, and what cleans it up** — correct after two follow-ups: named
-   the state description immediately, then correctly identified `wait()` as the specific
-   collecting call once asked, then correctly explained reparenting to `init`/PID 1 as what
-   reaps an orphaned zombie whose original parent died first.
-2. **Inode vs. block exhaustion** ("no space left on device" despite low `df -h` usage) — correct
-   on both halves: identified inodes as the separate resource, and correctly reasoned that
-   millions of tiny files is the real-world cause.
-3. **`fstab`/UUID persistence, including boot-failure consequences** — correctly explained why
-   `fstab` (not a manual `mount`) is required for persistence and why UUID is preferred over a
-   device name; correctly reasoned that a bad entry (wrong UUID/device) can hang boot and require
-   manual intervention (emergency/maintenance shell), not just silently skip the mount.
-4. **`nice`/`renice` — why regular users can only increase niceness, never decrease it** —
-   needed a follow-up to sharpen the reasoning from "the CPU might hang" to the correct framing:
-   preventing all users racing to maximize their own priority and starving others' processes on a
-   shared system (fairness, not literal system hang).
-5. **Production `df`-timeout alert — what it does/doesn't tell you, and first diagnostic steps** —
-   passed cleanly and completely: correctly distinguished liveness/responsiveness from structural
-   corruption, and correctly reasoned that `fsck` isn't the right first move (and often can't even
-   run cleanly) against a filesystem that's hung rather than corrupted.
+1. **Zombie process — what it is, and what cleans it up.**
+   A zombie (state code `Z`) is a process that has already finished executing but still has an
+   entry in the process table because its parent hasn't collected its exit status yet. The
+   specific mechanism that cleans it up is the parent calling the `wait()` system call — that's
+   what actually collects the exit status and lets the kernel remove the zombie's table entry. If
+   the original parent dies before ever calling `wait()`, the orphaned zombie gets reparented to
+   `init` (PID 1), which automatically reaps zombies reparented to it — so a zombie doesn't linger
+   forever just because its real parent is gone.
+
+2. **Inode vs. block exhaustion** ("no space left on device" despite `df -h /` showing only 40%
+   used).
+   `df -h` only reports block/space usage — it says nothing about inode usage, which is a
+   separate, independently exhaustible resource. Every filesystem gets a fixed number of inodes
+   permanently set at `mkfs` time (seen directly in `mkfs.ext4`'s own output listing "blocks" and
+   "inodes" as two separate quantities), and every file consumes exactly one inode for its
+   metadata regardless of the file's size. So a filesystem can run completely out of inodes while
+   still having plenty of free block space, producing a genuine "No space left on device" error
+   that `df -h` alone won't explain. The real-world cause is typically millions of tiny files —
+   e.g. a logging bug writing one file per request instead of appending to one file, or an
+   uncleaned cache/session-file directory. The diagnostic command to confirm it is `df -i`, which
+   shows `IUsed`/`IFree`/`IUse%`; seeing `IUse%` at 100% while `df -h`'s `Use%` stays low is the
+   signature of this exact scenario.
+
+3. **`fstab`/UUID persistence, including boot-failure consequences.**
+   A manual `mount` command only affects the running system — it does not survive a reboot.
+   `/etc/fstab` is what the kernel reads at boot time to remount filesystems automatically, so
+   persistence requires an `fstab` entry, not just a one-off `mount`. Within that entry, a UUID is
+   preferred over a device name (e.g. `/dev/sda1`) because device names can shift if disks are
+   added or removed, while the UUID is a permanent ID stamped onto the filesystem at creation time
+   and never changes for that filesystem's life. Consequence of a bad entry: a wrong UUID or
+   device name in `fstab` isn't silently skipped — it can hang the boot process entirely and
+   require manual intervention through an emergency/maintenance shell to fix, since the kernel
+   expects that entry to be mountable during boot.
+
+4. **`nice`/`renice` — why regular users can only increase niceness, never decrease it.**
+   Niceness ranges from `-20` (highest priority) to `19` (lowest priority), default `0`. A regular
+   user is permitted to raise their own niceness value (lower their process's priority — e.g.
+   `0→10`, `10→19`) but is blocked from lowering it (raising priority — e.g. `10→5`), even moving
+   between two positive numbers; only `sudo`/root can decrease niceness, regardless of the
+   starting point. The reasoning is fairness on a shared system: if any regular user could freely
+   decrease their own niceness, everyone would have an incentive to keep bumping their own
+   processes to maximum priority, and the result would be every user's processes racing to starve
+   everyone else's — not one process literally hanging the CPU, but a fairness/resource-starvation
+   problem across all users sharing the machine.
+
+5. **Production `df`-timeout alert** ("CRITICAL: filesystem checker timed out: df took more than
+   60 sec to complete") **— what it does/doesn't tell you, and first diagnostic steps.**
+   Despite the alert's wording ("filesystem checker"), this is not `fsck` running — it's a
+   monitoring plugin (e.g. Nagios/Icinga `check_disk`) timing a plain `df`/`statfs()` call. `df`
+   normally returns almost instantly because it reads cached metadata; a 60+ second hang means the
+   call itself got stuck. This points to a liveness/responsiveness problem, not structural
+   corruption — `df` can't detect corruption either way, since it doesn't walk filesystem
+   structure the way `fsck` does. The most likely causes are a stale NFS/network mount (remote
+   server unreachable but the mount entry still present), a failing or overloaded disk, or a
+   kernel-level I/O deadlock. The correct first diagnostic steps are checking for a stale network
+   mount and checking `dmesg` for hardware I/O errors — not jumping to `fsck`, which usually can't
+   even run cleanly against a hung mount without a force-unmount or reboot first.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 needed two
+follow-ups to reach `wait()` and reparenting-to-init; Q2 passed cleanly on both halves; Q3 passed
+cleanly; Q4 needed a follow-up to sharpen "the CPU might hang" into the correct fairness framing;
+Q5 passed cleanly and completely.
 
 **Verdict**: **Topic 4 CLEARED, attempt 1, 88/100** (Quiz 34/40 — 2 of 5 answers needed a
 follow-up nudge for full precision but were ultimately correct; Hands-on 28/30 — real,

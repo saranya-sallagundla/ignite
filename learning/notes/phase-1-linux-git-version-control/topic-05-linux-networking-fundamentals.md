@@ -298,17 +298,55 @@ understanding)
 
 ### Attempt 1 — PASS, 74/100
 
-Interview-style, open-ended, 4 questions (kept shorter, matching the session's faster pace):
-1. **CIDR `/24` vs `/16` — why smaller number = bigger network** — needed a full reset after
-   initially conflating the two networks' host-bit counts, but recovered cleanly once separated
-   step by step.
-2. **Round-robin DNS — why `google.com` returns 6 IPs** — correct on the mechanism (failover,
-   load spreading) immediately; needed one nudge to name the actual term.
-3. **Why `ping` succeeding doesn't prove a port is reachable** — passed cleanly, first try,
-   correct ICMP-vs-TCP/UDP reasoning.
-4. **Two root causes for "port listening but still unreachable," and how they differ** — named
-   one cause (app-binding) unprompted, needed a nudge for the second (firewall), then correctly
-   distinguished network-level vs. app-level once both were named.
+Interview-style, open-ended, 4 questions (kept shorter, matching the session's faster pace).
+Question and full correct answer for each:
+
+1. **CIDR `/24` vs `/16` — why does the smaller number after the `/` mean a bigger network?**
+   The number after the `/` is how many of the 32 total bits in an IPv4 address are the fixed
+   **network** portion; the rest are free **host** bits, and the number of addresses available
+   equals `2^(host bits)`. A `/24` leaves 8 host bits free → `2^8` = 256 addresses. A `/16` leaves
+   16 host bits free → `2^16` = 65,536 addresses. Because host bits free = 32 − network bits, a
+   *smaller* number after the `/` leaves *more* bits free for hosts, which means *more* addresses —
+   i.e. a bigger network. That's why `/16` is a much larger network than `/24`, even though 16 is
+   numerically less than 24.
+
+2. **Round-robin DNS — why does `google.com` return 6 different IPs from one `dig` query?**
+   Large-scale services run many identical servers behind the scenes, and DNS hands out multiple
+   valid IPs for the one name so that (1) load is spread across different servers instead of every
+   request hitting the same machine, and (2) if one server/IP goes down, the client can simply try
+   the next IP in the list — real failover with no special client-side logic required. This
+   pattern is called **round-robin DNS**. The `dig google.com` output demonstrated it directly: a
+   single query returned six separate `A` records (six IPs) for the same name.
+
+3. **Why doesn't `ping` succeeding prove that a specific port (e.g. `8080`) is reachable?**
+   `ping` uses **ICMP**, a protocol completely separate from the TCP/UDP traffic that actual
+   applications use. A firewall, security group, or host can allow ICMP through while blocking a
+   specific TCP/UDP port (or vice versa) — the two are controlled independently. So a successful
+   ping only proves the machine itself responds at the network layer; it says nothing about
+   whether any particular application/port is listening or reachable. Confirming a port requires
+   checking that port and protocol specifically (e.g. `ss -tuln` on the server, or a direct
+   connection attempt like `curl` against that port).
+
+4. **Two root causes for "the port is listening but the service is still unreachable," and how do
+   they differ?**
+   - **Firewall/security group blocking the port** — a **network-level** block. Something along
+     the path (local firewall, corporate network, cloud security group) stops the traffic before
+     it ever reaches the app, even though the app itself is fine and listening.
+   - **App bound to `127.0.0.1` instead of `0.0.0.0`** — an **app-level** configuration choice, not
+     a network block at all. A `127.0.0.1` bind only accepts connections from the same machine;
+     `ss -tuln` will still show the app as "listening," but literally no one else, from anywhere,
+     can reach it. The app is genuinely "listening to itself" only.
+
+   The key distinction: one is the network actively refusing to deliver traffic that the app would
+   otherwise accept; the other is the app itself only ever accepting traffic from itself, with
+   nothing in the network blocking anything.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 needed a full
+reset after initially conflating the two networks' host-bit counts, then recovered cleanly once
+separated step by step; Q2 was correct on the mechanism immediately, with one nudge needed to name
+the actual term "round-robin DNS"; Q3 passed cleanly, first try; Q4 named app-binding unprompted,
+needed a nudge for the firewall cause, then correctly distinguished network-level vs. app-level
+once both were named.
 
 **Score: 74/100** (Quiz 28/40 — correct throughout, but 3 of 4 needed a follow-up nudge; Hands-on
 24/30 — real commands run and interpreted correctly, but intentionally lighter/faster-paced than
@@ -324,24 +362,67 @@ migration, single-IP tradeoff), and the live `curl` verification of refused/no-r
 
 ### Retest — full fresh quiz, all-new questions — PASS, 82/100 (official score)
 
-1. **`172.16.5.20/12` — private/public + address count** — passed cleanly, first try, both parts
-   correct in one answer.
-2. **Single-IP app vs. multi-IP round-robin — is one IP a problem?** — correct on "not inherently
-   a problem," needed one nudge to name the redundancy/failover tradeoff explicitly.
-3. **`0.0.0.0` vs `127.0.0.1` in `ss -tuln` output** — initial answer incorrectly called both
-   "the public IP"; corrected via the reserved-address-category explanation, then correctly
-   self-summarized as the app "listening to itself" for the `127.0.0.1` case.
-4. **Full diagnostic order for an unreachable service** — passed with hints needed for the last
-   two steps (bind address, then firewall) after naming the first two independently.
-5. **What "Connection refused" rules in/out** — ruled in correctly, first try (nothing listening,
-   target reachable); needed one nudge to articulate why it also rules out a firewall block
-   specifically (firewalls drop silently rather than actively refuse).
+Full fresh quiz, all-new questions. Question and full correct answer for each:
+
+1. **`172.16.5.20/12` — is it private or public, and how many addresses does that `/12` cover?**
+   Private/public check for `172.x.x.x`: it's private only when the second octet is between 16
+   and 31 inclusive. `172.16.5.20`'s second octet is `16`, which falls in that range, so it's
+   **private**. Address count: `/12` means 12 fixed network bits out of 32, leaving `32 − 12 = 20`
+   host bits free → `2^20` = **1,048,576 addresses**.
+
+2. **Is a single IP returned for an app (vs. multiple IPs in round-robin DNS) a problem?**
+   Not inherently — it's proportional to scale, not a defect; a small app simply doesn't need
+   multiple servers behind it. The real tradeoff is redundancy: with only one IP/server, there is
+   **no built-in failover** — if that one server goes down, the whole app becomes unreachable. A
+   multi-IP round-robin setup, by contrast, can route around a single failed server by having the
+   client simply try the next IP in the list. So the difference isn't "wrong vs. right," it's
+   "no failover vs. has failover."
+
+3. **What do `0.0.0.0` and `127.0.0.1` mean when they show up in `ss -tuln` output?**
+   Both are *bind* addresses — what a listening app has chosen to accept connections from — not
+   "the app's IP address" or "the public IP." `127.0.0.1` is the reserved loopback address, meaning
+   "this machine talking to itself"; an app bound to it accepts connections **only from the same
+   machine**, not even from other machines on the same local network. `0.0.0.0` is a
+   wildcard/unspecified address; as a bind address it means the app accepts connections on
+   **every interface the machine has** — local network and internet too, if a public IP and open
+   firewall exist. Practically, this matters because an app bound to `127.0.0.1` still shows as
+   "listening" in `ss -tuln` — yet no one else, from anywhere, can ever reach it. This is a common
+   real bug: a dev server works fine locally (`localhost` = `127.0.0.1`) then mysteriously "doesn't
+   work" once deployed, purely because the bind address was never changed to `0.0.0.0`.
+
+4. **Walk through the full diagnostic order for a service a teammate can't reach.**
+   1. **`ping` the IP** — a basic reachability check, but success here does **not** prove the
+      target port is reachable, since ICMP and TCP/UDP are controlled independently.
+   2. **`ss -tuln` on the server itself** (not the teammate's machine) — confirms whether the app
+      is actually listening on that port at all.
+   3. **If listening but still unreachable, check two distinct causes**: a firewall/security group
+      blocking the port at the **network level** (most common), or the app being bound to
+      `127.0.0.1` instead of `0.0.0.0` (an **app-level** configuration choice, not a network block
+      at all).
+
+5. **What does a "Connection refused" result rule in, and what does it rule out?**
+   It **rules in** that the target machine was reached and nothing is listening on that port — the
+   OS itself actively responded with a TCP `RST`, which is why it comes back almost instantly (2 ms
+   in the real `curl -v` test). It **rules out** a firewall block specifically, because a firewall
+   would silently drop the packet rather than send an active refusal back; a firewall block instead
+   produces the "connection timed out" case — total silence, waiting the full timeout with nothing
+   returned. So "refused" is actually more informative than "timed out": it confirms the target is
+   reachable and simply means no app is bound to that port, whereas "timed out" gives no
+   information at all.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 passed cleanly,
+first try, both parts correct in one answer; Q2 was correct on "not inherently a problem," needed
+one nudge to name the redundancy/failover tradeoff explicitly; Q3's initial answer incorrectly
+called both addresses "the public IP," corrected via the reserved-address-category explanation;
+Q4 passed with hints needed for the last two steps (bind address, then firewall) after naming the
+first two independently; Q5 ruled in correctly first try, needed one nudge to articulate why it
+also rules out a firewall block specifically.
 
 **Score: 82/100** (Quiz 30/40 — all 5 ultimately correct, 3 needed a follow-up nudge; Hands-on
 26/30 — real `curl -v` tests run and correctly interpreted to verify the refused/no-route
 distinction live, stronger verification than Attempt 1; Depth 26/30 — correctly reasoned through
 the reserved-address category, which went beyond what was explicitly taught, with guidance).
 
-**Final verdict: Topic 5 CLEARED, official score 82/100** — the retest score supersedes Attempt
+**Verdict**: **Topic 5 CLEARED, official score, 82/100** — the retest score supersedes Attempt
 1's 74/100 as the logged record, reflecting the stronger, hands-on-verified understanding reached
 after the revision pass.

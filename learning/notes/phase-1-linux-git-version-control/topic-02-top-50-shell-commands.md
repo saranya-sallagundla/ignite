@@ -435,19 +435,74 @@ uncompressed (`du -sh` earlier) — text compresses very well due to repeated pa
 Interview-style, open-ended, no multiple choice. Ran ~28 minutes (over the 20-min cap — allowed
 to finish in progress).
 
-1. **Find the memory-heavy process, force-kill a hung one by name** — passed after two syntax
-   precision nudges: exact `kill -9 PID` form, and `ps aux | grep "[s]tuck-service"` combining
-   process listing with the bracket self-match trick.
-2. **"Ping works, so the app must be reachable" — true or false?** — passed cleanly after one
-   nudge to name the actual mechanism (ICMP vs. TCP) rather than stopping at "different rules."
-3. **`uniq` isn't removing visible duplicates — why?** — passed cleanly, first try (adjacency,
-   fix with `sort` first).
-4. **`grep` for content vs. `find` for filename, scoped to `/var/log`** — passed after two
-   corrections: fixing invalid `-/var/log` syntax to proper `-r` recursive flag, and narrowing
-   `find /` to the more precise `find /var/log`.
-5. **`df` vs. `du` disagreement — why can they differ?** — correct on the basic distinction;
-   the deleted-open-file edge case was explained directly rather than pushed on, since it went
-   beyond what was explicitly taught this session.
+1. **Find the memory-heavy process, then force-kill a hung one by name.**
+   `ps aux` lists every process on the system, for all users, in a detailed columnar format —
+   this is where you'd look to spot which process is consuming the most memory. Once a specific
+   named process needs to be targeted, searching for it directly (e.g. `ps aux | grep
+   "stuck-service"`) runs into a self-match gotcha: `grep`'s own process line also contains the
+   literal search text, so it shows up as a false match against itself. The fix is bracketing one
+   letter of the pattern — `ps aux | grep "[s]tuck-service"` — which still matches the real target
+   process but no longer matches grep's own command-line text (since `[s]tuck-service` isn't the
+   literal substring `stuck-service`). Once the correct PID is identified, force-killing a hung
+   process — one that isn't responding and needs to be stopped immediately — means `kill -9 PID`:
+   this sends SIGKILL (signal 9), which the kernel enforces right away and which the target
+   process cannot catch, block, or ignore. This is different from the default `kill PID`, which
+   sends SIGTERM (signal 15) — a polite request the process could catch and clean up after, or
+   simply ignore — and is why SIGKILL is the right call specifically when a process is frozen and
+   unresponsive to that polite request.
+2. **"Ping works, so the app must be reachable" — true or false?**
+   False. `ping` tests reachability using ICMP, a lightweight "are you there?" diagnostic
+   protocol — it says nothing about whether actual application traffic can get through. Web
+   traffic (`curl`, browsers, `telnet`) relies on TCP, on specific ports (80/443 for
+   web/HTTPS), which is a completely separate protocol from ICMP. A corporate firewall commonly
+   allows ICMP through for basic network diagnostics while still blocking or restricting direct
+   outbound TCP on those ports unless traffic is routed through an approved proxy — the two are
+   controlled independently, so one working proves nothing about the other. This was directly
+   confirmed hands-on: `ping -c 4 google.com` and `ping -c 4 claude.com` both came back at 0%
+   packet loss on the same corporate network where `curl`/`apt` (TCP-based) had already been found
+   to time out. "Ping works but the app/website doesn't load" is a common real troubleshooting
+   scenario, and the answer is almost always this exact ICMP-vs-TCP distinction.
+3. **`uniq` isn't removing visible duplicates in a file — why?**
+   `uniq` only removes **adjacent** (consecutive) duplicate lines — it compares each line only to
+   the line immediately before it, and has no awareness of duplicates anywhere else in the file.
+   If identical lines are scattered rather than next to each other (e.g. `banana, apple, cherry,
+   apple, banana, apple` — the three `apple` lines aren't consecutive), `uniq` removes nothing,
+   because none of the matching lines are adjacent. The fix is to `sort` the file first, which
+   groups all identical lines together, so a subsequent `uniq` (or `uniq -c` to also get a count
+   of how many times each line occurred) actually catches every duplicate: `sort file.txt | uniq
+   -c`. Separately, `uniq` also only ever compares whole lines to each other, never text within a
+   single line — `"apple apple"` on one line is untouched by `uniq` entirely, since it never looks
+   inside a line, only at adjacent whole lines.
+4. **`grep` for content vs. `find` for filename, scoped to `/var/log`.**
+   `grep` searches file **contents** for a text pattern; `find` locates files by **name** (or other
+   attributes) — they answer fundamentally different questions and aren't interchangeable. To
+   search file contents recursively under `/var/log`: `grep -r "PATTERN" /var/log` — `-r` is the
+   proper recursive flag (not some other syntax), and giving `/var/log` explicitly as the path
+   scopes the search to that directory tree specifically, rather than defaulting to the current
+   directory or searching the whole filesystem. To locate a file by name within the same
+   directory: `find /var/log -name "FILENAME"` (`-iname` for case-insensitive, wildcards like
+   `"*.log"` supported) — scoped to `/var/log` rather than the much slower and noisier `find /`
+   from the filesystem root. The core distinction: `find` answers "which file has this **name**,
+   and where is it?"; `grep -r` answers "which file **contains** this **text**, and where?"
+5. **`df` vs. `du` disagreement — why can they differ?**
+   `df` reports free/used space at the whole-filesystem (mount) level; `du` sums the actual disk
+   usage of specific files or paths you point it at (`-s` gives one summary total rather than
+   listing every file). They usually agree, but can genuinely diverge in one specific scenario: a
+   file that has been **deleted** but is still held open by a running process still occupies real
+   disk space at the filesystem level — `df` counts that space as used, since the underlying data
+   blocks haven't actually been freed yet. But because the file no longer has a directory
+   entry/filename, `du` has no path to traverse to it and won't count it in any total at all. So a
+   disk that `df` shows as nearly full, with no `du` total anywhere close to accounting for that
+   space, points at exactly this: some process is holding a deleted file open, and the fix is
+   finding and restarting that process to actually reclaim the space.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 needed two
+nudges (exact `kill -9 PID` form, and the `ps aux | grep` bracket self-match trick); Q2 passed
+cleanly after one nudge to name the ICMP-vs-TCP mechanism itself; Q3 passed cleanly, first try;
+Q4 needed two corrections (invalid `-/var/log` syntax fixed to proper `-r`, and `find /` narrowed
+to `find /var/log`); Q5 was correct on the basic distinction, with the deleted-open-file edge
+case explained directly rather than pushed on, since it went beyond what was explicitly taught
+this session.
 
 **Verdict**: **Topic 2 CLEARED, attempt 1, 84/100** (Quiz 34/40 — 3 of 5 answers needed a
 correction (`kill` syntax precision, `grep`/`find` flag and scope fixes), 2 passed cleanly;

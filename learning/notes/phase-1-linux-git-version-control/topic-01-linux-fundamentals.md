@@ -594,25 +594,86 @@ is the complete answer.
 ## Day 2 Quiz — Topic 1 (Filesystem, SSH, VMs) — PASS, attempt 1
 
 Interview-style, open-ended, no multiple choice. Ran ~32 minutes (over the 20-min cap — allowed
-to finish in progress rather than cut mid-question).
+to finish in progress rather than cut mid-question). Question and full correct answer for each:
 
-1. **Decode `-rwxr-xr-- 1 alice devs 2048 Jan 5 10:00 deploy.sh` fully** — passed after correcting
-   two points: `alice`/`devs` are two separate fields (owner vs. group, not one merged label), and
-   the timestamp shown is **Modify** time, not creation/Birth time (`stat` is what exposes Birth).
-2. **A root cron job runs `/opt/scripts/backup.sh`, permissions `777`, owned by root — the fix?**
-   — passed after correcting an intermediate answer of `600` (no execute — cron couldn't run it at
-   all, same lesson as exercise 1 above) to the correct `700` (owner rwx, group/others nothing).
-3. **Hard link `B` to `A`, then `rm A` — what happens at the filesystem level?** — passed cleanly,
-   correct inode/link-count reasoning first try.
-4. **Full SSH key-based auth mechanism, step by step** — passed cleanly, first try.
+1. **Decode `-rwxr-xr-- 1 alice devs 2048 Jan 5 10:00 deploy.sh` fully.**
+   The first character `-` is the file type — a regular file (`d` would mean directory, `l` a
+   symlink). The next nine characters split into three groups of three: `rwx` for the **owner**,
+   `r-x` for the **group**, `r--` for **others**. So the owner can read, write, and execute;
+   anyone in the file's group can read and execute but not write; everyone else can only read.
+   `alice` and `devs` are two separate fields, not one merged label — `alice` is the owning user,
+   `devs` is the owning group. `2048` is the file's size in bytes. `Jan 5 10:00` is the **Modify**
+   timestamp — the last time the file's *content* changed — not the file's creation/Birth time;
+   `ls -l` only ever shows Modify time, and only the `stat` command exposes Birth (along with
+   Access and Change) separately. `deploy.sh` is the filename.
+
+2. **A root cron job runs `/opt/scripts/backup.sh`, permissions `777`, owned by root — what's the
+   fix?**
+   `777` means `rwxrwxrwx` — owner, group, and everyone else all have read, write, and execute.
+   The dangerous part is that **anyone on the system can write to this file**, and it's executed
+   automatically and repeatedly by root's cron job. An unprivileged attacker could overwrite the
+   script's contents with malicious code; the next time cron fires, root runs that script and the
+   attacker's code executes with root's own permissions — privilege escalation through a writable
+   execution path. The fix is `chmod 700 /opt/scripts/backup.sh`, giving the owner (root) full
+   `rwx` and stripping every permission from group and others (`---`). Root can still execute it
+   because root itself owns the file and cron runs it as root. `600` is not the fix, even though
+   it also locks out other users — it removes execute entirely, so cron couldn't run the script at
+   all; the fix must add exactly what's missing (owner execute) and remove what's dangerous
+   (group/other write), not just lock everything down indiscriminately.
+
+3. **Hard link `B` to `A`, then `rm A` — what happens at the filesystem level?**
+   `ln A B` creates a second filename, `B`, pointing at the exact same inode as `A` — not a copy,
+   the same underlying data — bringing that inode's link count to `2`. `rm A` does not delete the
+   data; it only removes the name `A` and decrements the inode's link count by one, down to `1`.
+   Since `B` still holds a name pointing at that inode, the actual data is untouched and fully
+   readable through `B`. Data on a Linux filesystem is only actually freed once an inode's link
+   count reaches `0` — i.e., once every name pointing at it is gone.
+
+4. **Full SSH key-based auth mechanism, step by step.**
+   SSH key auth relies on a key pair: a **private key**, which stays secret on your own machine
+   and is never transmitted anywhere, and a **public key**, which is safe to share and gets placed
+   on the remote server. The steps: (1) your public key is copied onto the server, into
+   `~/.ssh/authorized_keys`. (2) When you attempt to connect, the server generates a random
+   challenge value and encrypts it using your public key, then sends that encrypted challenge to
+   you. (3) Your machine uses the matching **private** key to decrypt/sign that challenge and
+   sends the response back to the server. (4) The server verifies the response is correct. Only
+   the holder of the matching private key could have produced a valid response, so this proves
+   your identity — without the private key itself ever crossing the network, only proof that you
+   possess it.
+
 5. **Why separate VMs over separate containers for two untrusted customers on shared hardware?**
-   — passed after two follow-up nudges to move from "privacy"/"hardwall" to naming the specific
-   shared resource (**kernel**) and the specific attack path (container escape into the shared
-   kernel).
-6. **Hard link vs. symlink: file moves to another drive / file gets deleted** — passed after
-   correcting a conflation: a symlink *can be created* pointing across drives, but if the target
-   subsequently *moves* (not just "is on another drive"), the symlink breaks exactly like a
-   deletion would, since it only stores a fixed path.
+   AWS's physical hardware is multi-tenant — unrelated customers can end up sharing the same
+   physical machine. Containers share the kernel of whatever they run on top of. If two untrusted
+   customers' containers ran directly on bare metal with no VM boundary between them, both sets of
+   containers would share **one kernel** — and a kernel exploit that lets an attacker escape their
+   own container would let them reach that shared kernel, and from the kernel, reach the other
+   customer's containers running on it too (a real, documented container-escape / cross-tenant
+   attack class). Putting a VM layer between them gives each customer their **own separate
+   kernel** — a hard boundary that still holds even if an attacker fully compromises a container,
+   because their escape only ever reaches their own VM's kernel, never the other customer's.
+   Within one customer's own VM, their own containers sharing that one VM's kernel with each other
+   is fine, since it's all the same customer's workloads.
+
+6. **Hard link vs. symlink: file moves to another drive / file gets deleted.**
+   A hard link cannot even be *created* pointing across two different drives/filesystems in the
+   first place — hard links work by referencing an inode number directly, and inode numbers are
+   only unique within a single filesystem, so there's no way to hard-link to an inode on a
+   different device. A symlink, by contrast, *can* be created pointing across drives, since it
+   just stores a path string rather than referencing an inode — but if the target file
+   subsequently *moves* (to another location, on the same or a different drive), the symlink
+   breaks (dangling), because it only ever stored a fixed path and has no way to track the file if
+   that path stops resolving. On deletion: a hard link survives the target being deleted, because
+   it's a second name pointing at the same inode, and the data persists as long as the inode's
+   link count is still above `0`. A symlink does not survive — it breaks (dangling) the moment its
+   stored path no longer resolves to anything, since a symlink never held the data itself, only a
+   path to it.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 needed a
+correction on the owner/group split and Modify-vs-Birth timestamp; Q2 needed a correction from an
+initial `600` answer to the correct `700`; Q3 passed cleanly, first try; Q4 passed cleanly, first
+try; Q5 needed two follow-up nudges to move from "privacy"/"hardwall" to the specific shared
+resource (kernel) and attack path (container escape); Q6 needed a correction on conflating
+"created across drives" with "moves after creation."
 
 **Verdict**: **Topic 1 CLEARED, attempt 1, 90/100** (Quiz 36/40 — 4 of 6 answers needed a real
 correction or follow-up nudge (permission decoding's two-field/timestamp mixup, the cron-script

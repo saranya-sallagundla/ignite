@@ -267,25 +267,75 @@ specific commit's changes, without needing the rest of that branch to be ready o
 
 ## Topic 7 Quiz — Attempt 1: PASS, 82/100
 
-Interview-style, open-ended, 4 questions.
+Interview-style, open-ended, 4 questions. Question and full correct answer for each:
 
 1. **Merge vs. rebase — what actually happens to the commits, not just "does it make a merge
-   commit"** — initial answer conflated the two loosely ("rebase merges into main, no new log");
-   sharpened via a direct callback to the real hash change observed (`4907ec6` → `4b2fbee`),
-   correctly concluding rebase creates brand-new commits replaying the same changes, rather than
-   moving the originals.
-2. **Safe conflict-resolution habit, based on today's real mistake** — passed cleanly, correctly
-   named `cat`/`git diff --check` verification before continuing, referencing the actual
-   real mistake made and fixed this session.
-3. **Cherry-pick vs. merge — the tradeoff, concrete risk** — correct on the gain (smaller, clean,
-   targeted change) immediately; needed a follow-up to state the concrete risk precisely
-   (duplicate commits/conflicts if the original branch merges later, since the cherry-picked
-   commit has a different hash than the original).
-4. **Why GitHub Flow has no `develop` branch, Git Flow does** — first answer redirected to the
-   wrong angle (framed around PR usage, not the real differentiator); corrected fully once
-   redirected back to the release-timing/deployability assumption, landing the correct
-   distinction (scheduled batched releases needing a staging branch vs. continuous
-   deploy-on-merge needing none).
+   commit."**
+   A merge joins two branches at a single point by creating a new **merge commit** with two
+   parents — both branches' histories stay intact and visible, like two roads converging at an
+   intersection. A rebase does something structurally different: it takes the current branch's
+   commits and **replays** them one by one on top of the target branch's current tip, as if they
+   had been written there from the start — like picking up a road and re-laying it starting
+   further down the other one, with no intersection left at all. Critically, rebase does **not**
+   move the original commits — each replayed commit is a **brand-new commit** with a new hash,
+   because a commit's hash is derived from its content plus its parent, and the parent has
+   changed. This was proven directly in this session: the original commit `4907ec6` ("rebase
+   branch commit") became a different commit, `4b2fbee`, after `rebase-demo` was rebased onto
+   `master` — same changes, new hash. The original commit still technically exists until Git
+   garbage-collects it; it's just no longer referenced by any branch. The practical payoff is
+   that rebase produces clean, linear history, while merge preserves a branching shape with a
+   visible merge point.
+
+2. **Safe conflict-resolution habit, based on today's real mistake.**
+   The real mistake this session was that `git add` followed by `--continue` (during both a
+   rebase and a cherry-pick) succeeded even though the literal conflict marker text
+   (`<<<<<<<`, `=======`, `>>>>>>>`, plus a stray leftover fragment from the `>>>>>>>` label) was
+   still sitting in the file. The key lesson: `git add` only marks a conflict as
+   staged/"resolved" from Git's bookkeeping perspective — it does not verify the content is
+   actually clean. It trusts the human to have genuinely fixed it, so it's entirely possible to
+   "resolve" a conflict without actually removing the markers. The safe habit is to verify before
+   trusting the add: open the file and read it (`cat`) for small files, and for anything bigger
+   or to make it automatic, run **`git diff --check`** — a built-in Git command that scans
+   staged/working changes and flags leftover conflict markers (and certain whitespace errors)
+   automatically regardless of file size, returning no output when the file is clean. On
+   PowerShell specifically (which has no native `grep`), the equivalent check is
+   **`Select-String -Pattern "<<<<<<<|=======|>>>>>>>" FILE`**. Some teams wire `git diff --check`
+   into a pre-commit hook so a commit containing leftover markers is blocked automatically rather
+   than relying on a human remembering to check.
+
+3. **Cherry-pick vs. merge — the tradeoff, concrete risk.**
+   Cherry-pick copies the changes from **one specific commit** onto the current branch without
+   touching the rest of that commit's original branch — the gain is a smaller, clean, precisely
+   targeted change, useful when you want just one fix (e.g. an urgent bugfix) without pulling in
+   an entire branch that isn't ready yet. The concrete risk is that cherry-pick creates a **new
+   commit with a different hash** than the original, even though it carries the same change. If
+   that original branch is later merged in full anyway, Git has no way of recognizing the
+   cherry-picked commit and the original commit as "the same change" — it sees two different
+   commits. This can produce duplicate application of the same change and, if the surrounding
+   code has shifted, real merge conflicts between the cherry-picked copy and the original when
+   that branch eventually merges.
+
+4. **Why GitHub Flow has no `develop` branch, Git Flow does.**
+   `develop` exists specifically to let multiple in-progress features **wait together** for a
+   shared, scheduled release date — Git Flow's core assumption is that releases happen on a
+   schedule, so finished features accumulate on `develop`, get tested together, and ship as one
+   batch on release day. GitHub Flow has no shared release date at all: every merge into `main`
+   is assumed deployable and deploys on its own, immediately. Since there's nothing to
+   collectively wait for, there's nothing for a staging branch to do. Concretely: under Git Flow,
+   Feature A and Feature B both merge into `develop`, sit together while being tested, and ship
+   together on one scheduled release day. Under GitHub Flow, Feature A merges into `main` and
+   deploys the same day; Feature B merges three days later and deploys separately, never waiting
+   on A. This same distinction shows up in the hotfix scenario: Git Flow needs a hotfix merged
+   into **both** `main` (to deploy immediately) and `develop` (so the fix isn't silently lost
+   when `develop` eventually merges into `main` for the next scheduled release), while GitHub
+   Flow only needs one merge, straight into `main`, since there's no second long-lived branch to
+   keep in sync.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1's first answer
+conflated merge and rebase loosely before being sharpened via the real hash-change evidence; Q2
+passed cleanly first try; Q3 got the gain right immediately but needed a follow-up to state the
+concrete risk precisely; Q4's first answer redirected to the wrong angle (PR usage) before fully
+correcting once pointed back to the release-timing assumption.
 
 **Score: 82/100** (Quiz 28/40 — all 4 ultimately correct, 3 of 4 needed a real follow-up push,
 including one full redirect on Q4; Hands-on 30/30 — genuinely excellent: a real rebase conflict
@@ -295,4 +345,4 @@ independently, and testing both `git diff --check` and `Select-String` as verifi
 Depth 24/30 — good scenario/strategy reasoning, though the branching-strategies material took
 more back-and-forth than other topics to fully solidify).
 
-**Final verdict: Topic 7 CLEARED, attempt 1, 82/100.**
+**Verdict**: **Topic 7 CLEARED, attempt 1, 82/100.**

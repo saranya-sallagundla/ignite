@@ -415,21 +415,88 @@ separately, as Quiz Question 5 below — not part of this pre-quiz scenario disc
 
 ## Topic 6 Quiz — both days combined — Attempt 1: PASS, 84/100
 
-Interview-style, open-ended, 5 questions covering both days.
+Interview-style, open-ended, 5 questions covering both days. Question and full correct answer for
+each:
 
-1. **Three-stage model, and why a separate staging area matters** — correct on the core purpose
-   immediately; needed one follow-up for a concrete example (selectively staging one of two
-   changed files for a clean, separate commit).
-2. **What `HEAD` is, and what happens to it on `git checkout`** — passed cleanly, first try.
-3. **Why a merge showed "Fast-forward" instead of a real merge** — passed cleanly, first try,
-   correctly named the exact condition (master unchanged since the branch point).
-4. **Conflict marker lines — order and meaning** — first answer imprecise (wrong order/labels);
-   corrected cleanly once asked to check against the actual real output from earlier in the
-   session, correctly identifying `<<<<<<< HEAD` as first/current and the `=======`-to-`>>>>>>>`
-   section as incoming.
-5. **Direct commits to shared `master` vs. branches — the real problem and the fix** — correctly
-   named the silent-overwrite risk unprompted; needed one nudge to complete the second half
-   (branches isolate work and surface conflicts only at merge time).
+1. **Three-stage model, and why a separate staging area matters.**
+   The three-stage model describes how Git tracks changes across three areas: the **working
+   directory** (the actual files on disk right now, as edited), the **staging area** ("the
+   index" — a holding area where specific changes are chosen to go into the *next* commit), and
+   the **repository** (the permanent, committed history, once a commit is made). The analogy:
+   packing a box to mail — you choose what goes in the box (staging) before actually sealing and
+   shipping it (committing); items can be added or removed before sealing, but once shipped, that
+   snapshot is permanent.
+
+   A separate staging area matters because it's what makes clean, single-purpose commits
+   possible instead of one commit mixing unrelated changes. Concretely: if two unrelated files
+   are both modified in the working directory, but only one of them should go into the next
+   commit as its own clean, logically separate change, `git add` just that one file — leaving the
+   other file genuinely untouched (modified, but unstaged and uncommitted). Without staging,
+   every changed file would have to be committed together, forcing messy, mixed commits.
+
+2. **What `HEAD` is, and what happens to it on `git checkout`.**
+   `HEAD` is a special pointer marking "where you currently are" in the repository's history.
+   Normally it points at whichever branch is currently checked out (e.g. `master`), and that
+   branch itself points at its latest commit; as new commits happen, `HEAD` and the branch move
+   forward together automatically.
+
+   On `git checkout NAME` (or `git switch NAME`), `HEAD` is what actually moves — it re-points
+   from the old branch to the target branch, which in turn points at that branch's own latest
+   commit. The commits themselves never move; only `HEAD` (and which branch it's attached to)
+   changes. This is exactly why switching branches instantly changes the file contents seen in
+   the working directory — checking out `master` vs. `feature-branch` showed genuinely different
+   `readme.txt` contents, because each branch has its own separate commit history and `HEAD` was
+   pointing at a different one each time.
+
+3. **Why a merge showed "Fast-forward" instead of a real merge.**
+   A "Fast-forward" merge happens specifically when the branch being merged *into* (the one
+   currently checked out, e.g. `master`) has had **zero new commits since the point where the
+   other branch diverged from it**. In that case, `master`'s history is just a strict subset of
+   the other branch's history, so Git doesn't need to combine two divergent histories at all — it
+   simply moves `master`'s pointer forward to match the other branch's latest commit. This was
+   confirmed via `git log` showing both branch names next to the exact same commit hash (e.g.
+   `(HEAD -> master, feature-branch)` on one line) — no new merge commit is created, because
+   nothing needed reconciling. This condition breaks down, producing a real merge or a conflict,
+   only once `master` has gained its own separate commits after the branch point — meaning the
+   two histories have genuinely diverged.
+
+4. **Conflict marker lines — order and meaning.**
+   When both branches change the exact same line differently after diverging, Git can't
+   auto-resolve it and instead writes conflict markers directly into the file for manual
+   resolution. In order:
+   - `<<<<<<< HEAD` opens the conflict block and marks the start of the **current** branch's
+     version — the branch `HEAD` is presently on (`master` in the practiced example). VS Code
+     labels this "Current Change."
+   - The current branch's conflicting content follows directly.
+   - `=======` is the divider marking the boundary between the two versions.
+   - The **incoming** branch's conflicting content follows the divider.
+   - `>>>>>>> branch-name` closes the block, naming the incoming branch and marking the end of
+     its version. VS Code labels this "Incoming Change."
+
+   Resolving means editing the file down to the single intended content and deleting all three
+   marker lines (`<<<<<<<`, `=======`, `>>>>>>>`) entirely, then `git add` and `git commit` to
+   record the resolution. VS Code also offers clickable shortcuts directly above the block —
+   Accept Current Change, Accept Incoming Change, Accept Both Changes, Compare Changes — which do
+   this automatically instead of manually deleting markers.
+
+5. **Direct commits to a shared `master` vs. branches — the real problem and the fix.**
+   Committing directly to a shared `master` with multiple people risks a **silent overwrite**:
+   without an isolated branch, two people's changes to the same file can clash without any clear
+   signal at the time, since there's no separate space where a conflict would have to surface
+   before it lands on the shared branch everyone relies on.
+
+   Branches fix this by giving each person, or each unit of work, an isolated slot to make
+   changes in — separate from `master` and from each other — so work-in-progress can be committed
+   freely without touching shared history. A conflict only actually needs to be surfaced and
+   resolved at the moment that branch is merged back into `master`, not on every individual
+   commit — meaning problems are caught deliberately at one visible integration point, instead of
+   silently landing in shared history as they happen.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 passed on the
+core purpose immediately, needed one follow-up for a concrete example; Q2 passed cleanly, first
+try; Q3 passed cleanly, first try; Q4's first answer had the marker order/labels wrong, corrected
+cleanly once asked to check against the actual real output from earlier in the session; Q5 named
+the silent-overwrite risk unprompted, needed one nudge to complete the second half.
 
 **Score: 84/100** (Quiz 30/40 — correct throughout, 2 of 5 needed a real follow-up correction, not
 just a light nudge; Hands-on 28/30 — genuinely excellent, full real workflow including **two**
@@ -439,4 +506,4 @@ understood and re-set-up properly — plus an actual resolved merge conflict via
 properly setting up a genuine conflict showed real engagement with *why* fast-forward happens,
 not just memorized steps).
 
-**Final verdict: Topic 6 CLEARED, attempt 1, 84/100.**
+**Verdict**: **Topic 6 CLEARED, attempt 1, 84/100.**
