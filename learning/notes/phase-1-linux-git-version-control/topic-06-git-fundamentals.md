@@ -11,6 +11,16 @@ Practiced from Windows PowerShell directly (`C:\CloudOps\git-practice`), not WSL
 identically either way; this environment was chosen since VS Code (native Windows install, not
 WSL) is the tool used for GitHub work going forward.
 
+### Today's agenda
+1. The save-file analogy.
+2. The three-stage model.
+3. Setup and identity check.
+4. `git init` — starting a repository.
+5. `git status`, `git add`, `git commit`.
+6. `git log` and `HEAD`.
+7. Branches.
+8. Merging — fast-forward.
+
 ### 1. The save-file analogy
 
 - **Commit** = a save point — a snapshot of the whole project at one moment, with a message
@@ -250,6 +260,14 @@ match, no real "combining" needed.
 ---
 
 ## Day 2 — 2026-07-16 (harder: real merge conflicts, `.gitignore`, `git diff`, combined scenario)
+
+### Today's agenda
+1. Why the first "conflict" attempt wasn't actually a conflict.
+2. Setting up and resolving a real conflict.
+3. `.gitignore`.
+4. `git diff`.
+5. Combined scenario — shared-file merge outcomes.
+6. The quiz.
 
 ### 1. Why the first "conflict" attempt wasn't actually a conflict
 

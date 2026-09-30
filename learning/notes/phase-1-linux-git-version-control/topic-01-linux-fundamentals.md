@@ -8,6 +8,13 @@
 
 ## Day 1 — 2026-07-06 (heavy scaffolding, guided walkthrough)
 
+### Today's agenda
+1. The Linux filesystem — why it's laid out the way it is.
+2. Permissions — reading `ls -la` output.
+3. Filesystem navigation & manipulation.
+4. SSH — core concepts.
+5. VMs — core concepts.
+
 ### 1. The Linux filesystem — why it looks like it does
 
 Windows gives every drive its own letter (`C:\`, `D:\`). Linux has **one single tree**, starting
@@ -387,6 +394,15 @@ proxy settings into WSL without manual configuration, worth checking if this com
 
 ## Day 2 — 2026-07-07 (harder scenarios + quiz)
 
+### Today's agenda
+1. Permission troubleshooting — solved independently.
+2. Hard links vs. symbolic links — the inode model, proven hands-on.
+3. `rm` and links — precision correction.
+4. SSH — key generation.
+5. SSH — `known_hosts` and `~/.ssh/config`.
+6. VM/container isolation — real project tie-in.
+7. The quiz.
+
 ### 1. Permission troubleshooting — solved independently
 
 **Scenario**: created a script, ran it, got `Permission denied`.
@@ -610,7 +626,7 @@ is the complete answer.
 
 ---
 
-## Day 2 Quiz — Topic 1 (Filesystem, SSH, VMs) — PASS, attempt 1
+## Topic 1 Quiz — both days combined — Attempt 1: PASS, 90/100
 
 Interview-style, open-ended, no multiple choice. Ran ~32 minutes (over the 20-min cap — allowed
 to finish in progress rather than cut mid-question). Question and full correct answer for each:

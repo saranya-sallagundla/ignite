@@ -6,9 +6,16 @@
 
 ---
 
-## 2026-07-18/19 — Rebase, cherry-pick, branching strategies
+## Day 1 — 2026-07-18/19 — Rebase, cherry-pick, branching strategies
 
 Practiced in the same `C:\CloudOps\git-practice` folder from Topic 6, Windows PowerShell/VS Code.
+
+### Today's agenda
+1. Rebase — the core concept.
+2. Cherry-pick.
+3. Branching strategies (conceptual).
+4. Combined scenario.
+5. The quiz.
 
 ### 1. Rebase — the core concept
 

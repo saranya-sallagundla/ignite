@@ -7,7 +7,7 @@
 
 ---
 
-## 2026-07-19/20 — Remotes, Pull Requests, GitHub Actions, repo management
+## Day 1 — 2026-07-19/20 — Remotes, Pull Requests, GitHub Actions, repo management
 
 Practiced using a dedicated, temporary GitHub repo (`your-org/git-practice`) created specifically
 for this topic — intended to be deleted once Topic 8 is complete, since the lasting record lives
@@ -21,6 +21,14 @@ avoids that risk entirely. Also discussed personal-vs-work GitHub account tradeo
 practice repos like this should live. Separately, an "AppID" reference that came up was clarified
 as an org-specific concept tied to this particular organization's setup, not a standard GitHub
 term or feature everyone would encounter.
+
+### Today's agenda
+1. Remotes — connecting local Git to GitHub.
+2. Pull Requests, hands-on.
+3. GitHub Actions — intro.
+4. Repo management — branch protection rules.
+5. Combined scenario.
+6. The quiz.
 
 ### 1. Remotes — connecting local Git to GitHub
 

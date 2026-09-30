@@ -1,8 +1,23 @@
 # Topic 9 — Docker: Architecture, Images, Containers
 
+> Personal study notebook — full teaching content, commands, outputs, and explanations.
+> Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Two-day topic per the roadmap — covered across two sessions, ending in the quiz.
+
+---
+
 ## Day 1 — 2026-07-20 / 2026-07-21
 
-### Precheck, before teaching started
+### Today's agenda
+1. Precheck — Docker verified, `project/app/` boilerplate written, `app.py` walked through.
+2. Core Docker terms — daemon, client, registry, image, container.
+3. `docker run hello-world` — the architecture proven in action.
+4. Images vs. containers, proven hands-on.
+5. Writing, building, and running a real Dockerfile for `project/app/`.
+6. Container lifecycle commands.
+7. Exit codes and signals.
+
+### 1. Precheck, before teaching started
 - Docker Desktop confirmed installed and running (`docker version` client 29.1.5, server engine
   active) before the lesson began.
 - `project/app/` was found still empty (only a placeholder `README.md`) — per `CLAUDE.md`'s
@@ -12,7 +27,7 @@
   exception (not yet defensible in an interview — gets rewritten for real once Python, Topics
   45-46, is reached).
 
-### Walking through `app.py`, line by line
+### 2. Walking through `app.py`, line by line
 The initial boilerplate (before Day 2's later changes) had two endpoints:
 ```python
 from flask import Flask, jsonify
@@ -46,14 +61,14 @@ Taught as a full walkthrough, not just handed over silently:
 - **`if __name__ == "__main__":`** — a standard Python idiom meaning "only run this block if the
   file is executed directly, not if it's imported by something else."
 
-### Why containers exist (tied to Topic 1)
+### 3. Why containers exist (tied to Topic 1)
 Topic 1 covered VMs virtualizing hardware, each carrying a full guest OS kernel. A container is
 narrower: it isolates a *process* using Linux kernel features (namespaces for isolation, cgroups
 for resource limits) while sharing the host's kernel — no kernel boot involved, so containers
 start in milliseconds where VMs take tens of seconds. Docker is the tooling that makes building,
 shipping, and running containers practical.
 
-### Core terms — plain definitions first
+### 4. Core terms — plain definitions first
 Explicitly taught in isolation, one at a time, before any context connecting them together — a
 direct user request mid-lesson ("don't directly go to the terminology, 1st lemme understand what basics
 are then go to the context"), saved to memory as a standing habit going forward:
@@ -80,7 +95,7 @@ kitchen, working in the background, doing everything — fetching recipes, cooki
 have a recipe card on hand. `Flow: you ask → kitchen checks if it has the recipe already → if not,`
 `grabs one from the recipe library → cooks (creates a container) → hands you the finished dish.`
 
-### Checking the installation — `docker --version` vs `docker version`
+### 5. Checking the installation — `docker --version` vs `docker version`
 What these are for: confirming Docker is actually installed and working, and — for the full
 form — seeing the client/server split explained below.
 
@@ -129,7 +144,7 @@ Server: Docker Desktop 4.58.0 (216728)
 The `Server` section reports `OS/Arch: linux/amd64` even though the host is Windows (`Client`
 section shows `windows/amd64`) — the client/server split made visible.
 
-### Where images/containers are actually stored on the PC
+### 6. Where images/containers are actually stored on the PC
 Directly asked and answered: containers need a Linux kernel underneath (namespaces/cgroups are
 Linux kernel features). Windows doesn't have this natively, so Docker Desktop quietly runs a small
 Linux VM in the background — the exact VM concept from Topic 1. The daemon actually lives inside
@@ -140,7 +155,7 @@ single opaque blob Docker Desktop manages. `docker system df` was mentioned as t
 much space they're using without needing to find the raw file (explained, not actually run this
 session).
 
-### `docker run hello-world` — the architecture in action
+### 7. `docker run hello-world` — the architecture in action
 What this command is for: `docker run IMAGE_NAME` creates and starts a **container** from an
 **image**, pulling the image from the **registry** first if it isn't already cached locally.
 `hello-world` is a tiny official test image whose only job is to print a confirmation message —
@@ -190,7 +205,7 @@ Mapped line by line, using the restaurant analogy:
 - `Hello from Docker!` onward → the kitchen actually cooked from that recipe (created a container)
   and handed over the finished dish — this text is that dish.
 
-### Images vs. containers — proven hands-on
+### 8. Images vs. containers — proven hands-on
 Two commands, each explained for what it's *for* before running anything:
 - **`docker images`** — lists every image currently stored locally (the recipe cards sitting on
   the shelf).
@@ -232,7 +247,7 @@ Two separate `CONTAINER ID`s and two different auto-generated `NAMES`, from the 
 predicted correctly ("it would reuse the image, and show two containers") *before* running the
 command, based purely on reasoning from the recipe-card analogy.
 
-### Location note — does the current folder matter?
+### 9. Location note — does the current folder matter?
 Directly asked: can `docker run`/`docker ps -a` be run from any location, specifically from VS
 Code's integrated terminal at `C:\CloudOps\ignite>`? Answer: yes, from anywhere — the client
 doesn't do any work itself, it just sends the request over to the daemon inside the Linux VM, and
@@ -241,7 +256,7 @@ time: `docker build` *does* care about the current folder, since it needs to rea
 Dockerfile and app code) to build the image — it needs to be run from, or pointed at, the folder
 containing them (the "build context").
 
-### The Dockerfile — plain definitions first, written line by line
+### 10. The Dockerfile — plain definitions first, written line by line
 A Dockerfile is a plain text file — a list of instructions Docker reads top to bottom to build an
 image. Five instruction types needed for this simple app, defined one at a time before writing
 anything:
@@ -279,7 +294,7 @@ RUN pip install -r requirements.txt
 CMD ["python", "app.py"]
 ```
 
-### Building the image
+### 11. Building the image
 General syntax:
 ```
 docker build -t IMAGE_NAME PATH
@@ -318,7 +333,7 @@ hello-world:latest           c3cbe1cc1aa5       25.9kB         9.49kB    U
 mission-control-app:latest   3ed884b5a5aa        199MB           49MB
 ```
 
-### Running the container
+### 12. Running the container
 New flags, plain definitions first:
 - **`-d`** ("detached") — runs the container in the background, hands the terminal back
   immediately instead of tying it up.
@@ -345,7 +360,7 @@ And by opening `http://localhost:5000/health` in the browser — real response:
 First real, working containerized app end to end — an actual Flask app, running inside a
 container Docker built from a Dockerfile written line by line, serving real traffic.
 
-### Container lifecycle commands
+### 13. Container lifecycle commands
 ```
 docker logs CONTAINER    # everything the container has printed since it started
 docker stop CONTAINER    # tells a running container to shut down
@@ -382,7 +397,7 @@ telling you "you're using the quick/testing version, don't expose this directly 
 Completely expected right now since we're only testing locally — something to actually fix later
 once deployment topics (CI/CD, Kubernetes) are reached, not today.
 
-### Exit codes — a real discovered detail, tied to Topic 2's signals
+### 14. Exit codes — a real discovered detail, tied to Topic 2's signals
 Ran:
 ```
 docker stop unruffled_greider
@@ -422,7 +437,7 @@ Contrast kept explicit: `hello-world`'s `Exited (0)` — that one finished its o
 normally by itself, no signal involved at all. `mission-control-app`'s `Exited (137)` — Flask's dev
 server apparently didn't respond to the polite `SIGTERM` fast enough, so Docker had to escalate.
 
-### Today's agenda, as given up front (per standing habit going forward)
+### 15. Day 1 wrap-up — agenda recap
 1. Finish connecting the 5 terms using the real `hello-world` output.
 2. Images vs. containers, hands-on (run `hello-world` twice, compare).
 3. The Dockerfile — what it is, the 5 instructions needed.
@@ -434,9 +449,11 @@ All six were completed today. Declined the offer to continue into Day 2 material
 meant covering layer/rebuild edge cases, image tagging/versions, a harder independent task, and the
 quiz today) — chose to stop after Day 1's full agenda instead.
 
+---
+
 ## Day 2 — 2026-07-21 / 2026-07-22
 
-### Today's agenda, given up front
+### Today's agenda
 1. Layer/rebuild edge cases — what actually gets reused vs. rebuilt on a code change, and why
    Dockerfile instruction order matters for build speed.
 2. Image tags/versions — moving off the default `:latest`.
@@ -444,7 +461,7 @@ quiz today) — chose to stop after Day 1's full agenda instead.
 4. Tying it deeper into the project.
 5. The quiz — both days together.
 
-### Layer/cache-invalidation edge case
+### 1. Layer/cache-invalidation edge case
 Prediction asked before testing: if `app.py` changes and the image is rebuilt, which Dockerfile
 steps actually rerun? Initial guess: "all of them, since app.py changed" — refined together: `FROM`
 and `WORKDIR` don't touch any files at all, so they're reused from cache regardless; only `COPY`
@@ -486,7 +503,7 @@ trace through where `app.py` would actually exist inside the image at the point 
   .`, and `RUN pip install` **all** showed `CACHED`; only the final `COPY app.py .` re-ran. Exactly
   the intended fix, proven with real timing and real `CACHED` labels, not just theory.
 
-### Image tagging and versions
+### 2. Image tagging and versions
 Directly asked: does relying on the default `:latest` tag cause a rollback problem? Correctly
 reasoned before testing: *"it got overwritten each time, same tag, so i can't rollback."*
 
@@ -532,7 +549,7 @@ containers at all — a container is a fixed snapshot from whatever the image co
 containers that already exist. Tag changes only affect *future* `docker run`/`docker build`
 commands.
 
-### Harder independent task — `/ready` endpoint
+### 3. Harder independent task — `/ready` endpoint
 Context (previewed ahead of Kubernetes, taught fresh): **liveness** ("is the process still alive?")
 vs. **readiness** ("is it actually ready to serve traffic?") are different questions apps expose
 separately. Task: add a `/ready` endpoint to `project/app/app.py`, build/tag/run it independently.
@@ -575,7 +592,9 @@ problem where old content was still wanted), ran it on port 5000, verified in br
 `/health` → `{"status":"ok","version":"2.1"}`, `/ready` → `{"ready":true,"version":"2.1"}` — a
 genuine JSON boolean this time.
 
-### Quiz — Topic 9 (both days), interview-style
+---
+
+## Topic 9 Quiz — both days combined — Attempt 1: PASS, 86/100
 5 open-ended questions, no multiple choice. Question and full correct answer for each:
 
 1. **Walk through `docker run some-image` end to end, naming every component.**

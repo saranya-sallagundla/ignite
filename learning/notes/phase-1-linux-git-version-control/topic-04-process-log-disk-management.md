@@ -9,6 +9,16 @@
 
 Goes deeper than Topic 2's `ps`/`top` basics.
 
+### Today's agenda
+1. Process states.
+2. `awk` — column extraction and filtering.
+3. The `/proc` filesystem.
+4. `pstree` — visualizing parent-child relationships.
+5. `nice` and `renice` — process priority.
+6. Log management.
+7. Analogies used.
+8. Combined exercise — "the system feels slow" scenario.
+
 ### 1. Process states
 
 Every process is always in one specific state:
@@ -289,6 +299,17 @@ don't always know in advance how a problem will be phrased.
 ---
 
 ## Day 2 — 2026-07-13 / 2026-07-14 (disk management: partitions, mounting)
+
+### Today's agenda
+1. The land/lot/driveway analogy.
+2. `lsblk` and UUIDs.
+3. `fdisk` — creating/modifying partitions.
+4. Attempting to mount an "unused" disk.
+5. Practicing safely with a loop-mounted virtual disk.
+6. `fsck` — the filesystem checker.
+7. `/etc/fstab` — persistent mounts.
+8. Combined scenario — inode vs. block exhaustion.
+9. The quiz.
 
 ### 1. The land/lot/driveway analogy
 

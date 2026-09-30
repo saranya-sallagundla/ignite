@@ -10,6 +10,14 @@
 Grouped thematically rather than as a random list, since that's how these get used in practice.
 Skips what Topic 1 already covered: `ls`, `cd`, `mkdir`, `cp`, `mv`, `rm`, `cat`, `chmod`.
 
+### Today's agenda
+1. Viewing large files — `head`, `tail`, `less`.
+2. `grep` — search text by pattern.
+3. `find` — locate files by name.
+4. `sort`, `uniq`, `wc`.
+5. `cut` — extract columns.
+6. Combined pipeline exercise.
+
 ### 1. Viewing large files — `head`, `tail`, `less`
 
 **Syntax**: `head [-n LINES] FILE` — first N lines (default 10)
@@ -263,6 +271,13 @@ count, no concept of original line position at all).
 
 ## Day 2 — 2026-07-09 (process/system monitoring, networking, archiving)
 
+### Today's agenda
+1. Process monitoring — `ps`, `top`, `kill`, signals.
+2. System resource commands — `df`, `du`, `free`, `uptime`.
+3. Networking — `ping`, `curl`, `ss`.
+4. Archiving — `tar`.
+5. The quiz.
+
 ### 1. Process monitoring — `ps`, `top`, `kill`, signals
 
 **Syntax**: `ps aux` — list every process, all users, detailed format. Actually 3 flags combined:
@@ -457,7 +472,7 @@ uncompressed (`du -sh` earlier) — text compresses very well due to repeated pa
 
 ---
 
-## Day 2 Quiz — Topic 2 (all commands, both days) — PASS, attempt 1
+## Topic 2 Quiz — both days combined — Attempt 1: PASS, 84/100
 
 Interview-style, open-ended, no multiple choice. Ran ~28 minutes (over the 20-min cap — allowed
 to finish in progress).

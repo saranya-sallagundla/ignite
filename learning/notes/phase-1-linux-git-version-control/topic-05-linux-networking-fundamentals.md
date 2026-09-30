@@ -5,8 +5,8 @@
 
 ---
 
-## Day 1 & Day 2 — 2026-07-14 / 2026-07-16 (both days covered in one session, at reduced depth
-by request, followed by a full second revision pass same session)
+## Day 1 — 2026-07-14 / 2026-07-16 (both days covered in one session, at reduced depth by
+request, followed by a full second revision pass same session)
 
 Note on pacing: both days were intentionally kept high-level/faster-paced the first time through,
 per an explicit request to move quickly and expand only on request. The material didn't fully
@@ -14,6 +14,18 @@ land on the first pass, so a full second revision pass (with a simpler analogy t
 concept-check questions, real-world scenario questions, and genuine hands-on verification) was
 done in the same session — that full second pass is included below in detail, since it's where
 real understanding actually solidified.
+
+### Today's agenda
+1. The mail analogy — the core mental model.
+2. IP addresses — private vs. public.
+3. CIDR notation.
+4. Ports.
+5. DNS.
+6. Routing.
+7. Firewalls (conceptual).
+8. Combined scenario — unreachable service diagnostic.
+9. `curl` hands-on — refused/no-route/timed-out.
+10. The quiz, plus a revision pass and retest.
 
 ### 1. The mail analogy — the core mental model
 

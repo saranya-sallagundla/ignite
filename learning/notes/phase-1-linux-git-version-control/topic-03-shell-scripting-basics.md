@@ -7,6 +7,15 @@
 
 ## Day 1 — 2026-07-10 (script structure, variables, conditionals)
 
+### Today's agenda
+1. What is a shell script, and the shebang line.
+2. Variables.
+3. Positional arguments.
+4. Conditionals — `if`/`elif`/`else`/`fi`.
+5. Arithmetic expansion.
+6. Combined exercise — `classify.sh`.
+7. `nano` — basic terminal text editor.
+
 ### 1. What is a shell script, and the shebang line
 
 A shell script is a text file containing a sequence of shell commands, saved so they can run
@@ -206,6 +215,13 @@ Used here because multi-line scripts are more natural to write in a real editor 
 ---
 
 ## Day 2 — 2026-07-11 / 2026-07-12 (loops, functions, exit codes — quiz deferred on functions)
+
+### Today's agenda
+1. Loops — `for` and `while`.
+2. Functions.
+3. Exit codes and error handling.
+4. Combined exercise — `checkall.sh`.
+5. The quiz.
 
 **Reset requested mid-session**: explicitly asked to stop and be treated as having zero coding
 background at all — not "new to shell scripting specifically," genuinely no prior exposure to
@@ -430,7 +446,7 @@ name, then a typo rename to `.ah` instead of `.sh`) — both caught and fixed in
 
 ---
 
-## Day 2 Quiz — Topic 3 (all of shell scripting) — Attempt 1: FAIL, Attempt 2: PASS
+## Topic 3 Quiz — both days combined — Attempt 1: FAIL, Attempt 2: PASS, 80/100
 
 ### Attempt 1 — FAIL (functions)
 
