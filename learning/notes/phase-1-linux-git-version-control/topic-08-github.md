@@ -13,6 +13,15 @@ Practiced using a dedicated, temporary GitHub repo (`your-org/git-practice`) cre
 for this topic — intended to be deleted once Topic 8 is complete, since the lasting record lives
 in this notebook, not the throwaway repo.
 
+**Repo-creation logistics, discussed before starting**: considered reusing the existing handbook
+repo instead of creating a new one, but ruled that out — it already had a real `index.html` site
+living in it, and deliberately practicing risky Git operations (force pushes, branch deletion,
+rebase) against it risked actually breaking something real. A fresh, disposable practice repo
+avoids that risk entirely. Also discussed personal-vs-work GitHub account tradeoffs for where
+practice repos like this should live. Separately, an "AppID" reference that came up was clarified
+as an org-specific concept tied to this particular organization's setup, not a standard GitHub
+term or feature everyone would encounter.
+
 ### 1. Remotes — connecting local Git to GitHub
 
 A **remote** is a reference to a copy of the repository hosted elsewhere (GitHub being the most
@@ -261,19 +270,29 @@ workflows triggered by external/fork PRs.
 
 Branch protection rules enforce rules on important branches (e.g., requiring PR review before
 merging, blocking direct pushes, requiring status checks to pass). Location: **Settings →
-Branches → Add classic branch protection rule**.
+Branches**, which offered two paths — the newer **"Add branch ruleset"** system, or **"Add
+classic branch protection rule."** Chose **classic** specifically, since it maps more directly
+to what's being learned conceptually here.
 
 **Options explored, tied to prior topics**:
 - **"Require a pull request before merging"** — enforces the PR workflow already practiced;
-  blocks direct pushes to the protected branch.
+  blocks direct pushes to the protected branch. Checking this auto-checked its sub-option
+  **"Require approvals"** to `1` required approval. Other sub-options ("dismiss stale approvals,"
+  "require review from Code Owners") were left alone — noted as team-only refinements not needed
+  on a solo practice repo.
 - **"Require status checks to pass before merging"** — can require a GitHub Actions workflow
-  (here, the `say-hello` job) to succeed before a PR is allowed to merge.
+  (here, the `say-hello` job) to succeed before a PR is allowed to merge. The screen initially
+  showed "No required checks" — had to manually search for and select `say-hello` from a search
+  box before it took effect.
 - **"Require linear history"** — ties directly to Topic 7's rebase concept — forbids regular
   merge commits entirely (which have two parents, breaking a single line), forcing every merge to
   go through squash or rebase instead.
-- **"Allow force pushes"** / **"Allow deletions"** — deliberately left **unchecked**, since
-  checking them would *permit* the exact risky actions (overwriting shared history, deleting a
-  protected branch) that Topics 6/7 flagged as dangerous.
+- **"Allow force pushes"** / **"Allow deletions"** — **a real mistake, caught and fixed**: these
+  were actually checked (enabled) by mistake alongside "Require linear history," not deliberately
+  left unchecked. Caught directly: checking them would *permit* the exact risky actions
+  (overwriting shared history, deleting a protected branch) that Topics 6/7 flagged as
+  dangerous — the opposite of what a protection rule should do. Unchecked both once the mistake
+  was pointed out.
 
 **Real discovery #1 — branch protection doesn't apply to repo admins by default**:
 ```
@@ -314,6 +333,13 @@ once unblocked and merging the approval-test PR, the merge button's dropdown sho
 "Squash and merge" and "Rebase and merge"** — "Create a merge commit" was absent entirely,
 confirming "Require linear history" genuinely enforces what was only discussed conceptually in
 Topic 7.
+
+**Real mix-up, resolved — squash-merge sequencing**: after clicking "Squash and merge" for
+`test-pr-approval`, ran local cleanup commands (`git pull` and related) *before* actually
+confirming the squash had gone through — `git pull` reported "Already up to date," which looked
+suspicious. Verified with `git log --oneline origin/master -5` and confirmed the squash commit
+genuinely hadn't landed yet; the sequence had gotten ahead of itself. Correct order: let the
+merge on GitHub actually complete first, *then* pull locally — not the other way around.
 
 ### 5. Combined scenario
 
@@ -387,15 +413,16 @@ this quiz. Q3 was answered fully and correctly, then extended with one follow-up
 precise reason a merge commit breaks linearity. Q4 immediately and correctly listed all four
 mitigations, then extended with one follow-up adding the precise danger mechanism itself.
 
-**Score: 94/100** (Quiz 36/40 — genuinely 1 real gap out of 4 (Q2), not 3; Q3 and Q4 were both
-comprehensive and correct on the first pass, only extended with one more precise sentence each,
-which is meaningfully different from needing an actual correction — reassessed upward after the
-user rightly pushed back on treating "any follow-up" as one flat category; Hands-on 30/30 —
-genuinely the richest session yet: remotes setup, a real self-diagnosed PR mistake fixed via
-`git log`/`merge-base` rather than guessed, a working GitHub Actions run inspected in full log
-detail, and thorough branch-protection testing uncovering three separate real discoveries
-(bypass-by-default, self-approval block, linear history restricting merge options); Depth 28/30
-— strong real-world reasoning throughout, correct diagnoses backed by direct evidence rather than
-assumptions).
+**Score: 94/100**
+- **Quiz 36/40** — genuinely 1 real gap out of 4 (Q2), not 3; Q3 and Q4 were both comprehensive
+  and correct on the first pass, only extended with one more precise sentence each, which is
+  meaningfully different from needing an actual correction.
+- **Hands-on 30/30** — genuinely the richest session yet: remotes setup, a real self-diagnosed PR
+  mistake fixed via `git log`/`merge-base` rather than guessed, a working GitHub Actions run
+  inspected in full log detail, and thorough branch-protection testing uncovering three separate
+  real discoveries (bypass-by-default, self-approval block, linear history restricting merge
+  options).
+- **Depth 28/30** — strong real-world reasoning throughout, correct diagnoses backed by direct
+  evidence rather than assumptions.
 
 **Verdict**: **Topic 8 CLEARED, attempt 1, 94/100** — Phase 1 (Linux, Git & Version Control) complete.

@@ -342,27 +342,36 @@ escalation via a writable execution path, a real, common security-audit finding.
 
 **Diagnosis steps**:
 1. `which sshd` → empty, confirmed `sshd` wasn't installed yet.
-2. **`curl -v --max-time <n> <url>`** — ran `curl -v --max-time 10 https://google.com` and the
+2. **`curl -Is https://google.com`** (quick headers-only check) — ran first, and it just hung
+   indefinitely with a blinking cursor, no output at all, until cancelled with **Ctrl+C**. This
+   itself was diagnostically meaningful: a hang with no response (versus an instant "connection
+   refused") is the classic signature of a **firewall silently dropping outbound packets**
+   rather than actively rejecting them — an active reject would come back fast; a silent drop
+   just leaves you waiting.
+3. **`curl -v --max-time <n> <url>`** — ran `curl -v --max-time 10 https://google.com` and the
    `http://` variant → **DNS resolved fine**
    (got both IPv4 and IPv6 addresses back), but the actual **TCP connection timed out** on the
    IPv4 address, and IPv6 failed instantly with "Network is unreachable" (WSL has no IPv6 route
    out at all — separate, minor issue).
-3. Confirmed Windows browsers (Edge/Chrome) work fine on the same network — ruling out "no
+4. Confirmed Windows browsers (Edge/Chrome) work fine on the same network — ruling out "no
    internet at all," pointing instead at a WSL-specific gap.
-4. Checked Windows proxy config: `netsh winhttp show proxy` → "Direct access (no proxy server)"
+5. Checked Windows proxy config: `netsh winhttp show proxy` → "Direct access (no proxy server)"
    at the system level.
-5. Checked per-user Internet Settings (Settings → Network & Internet → Proxy): "Automatically
+6. Checked per-user Internet Settings (Settings → Network & Internet → Proxy): "Automatically
    detect settings" (WPAD-style auto-discovery) was ON; no static address to read off directly.
-6. Checked `edge://net-internals/#proxy` for the browser's actual effective proxy → no
+7. Checked `edge://net-internals/#proxy` for the browser's actual effective proxy → no
    "Effective proxy settings" section populated, suggesting the browser may be using a **direct**
    connection too, and the actual traffic control is likely a network-level
    firewall/DPI appliance (not a classic HTTP proxy), filtering non-browser traffic like `apt`
    differently from browser TLS traffic.
 
 **Conclusion**: root cause is network-level (corporate firewall), not something fixable from
-within WSL alone — likely needs an IT-provided proxy address or a policy exception. **Deferred**:
-hands-on SSH connection will be done later against an AWS sandbox VM instead, where `sshd` is
-pre-installed and this local-install problem doesn't apply.
+within WSL alone — likely needs an IT-provided proxy address or a policy exception. A possible
+fallback mentioned but not pursued in-session: **WSL2's mirrored networking mode / the
+`autoProxy` feature** — a built-in WSL capability that can automatically mirror Windows' own
+proxy settings into WSL without manual configuration, worth checking if this comes up again.
+**Deferred**: hands-on SSH connection will be done later against an AWS sandbox VM instead, where
+`sshd` is pre-installed and this local-install problem doesn't apply.
 
 **Key command reference from this troubleshooting session**:
 | Command | Purpose |
@@ -472,6 +481,16 @@ new link), dropping the count to `0` — permanently freeing the data — then r
 to the symlink's inode (`50106`) instead. Net effect: identical to what `-f` was warned about
 earlier — it can delete-then-recreate a name, discarding whatever the name used to point to, with
 no confirmation and no recovery.
+
+**Re-teach — the library-book analogy** (built from scratch after confusion resurfaced following
+the `ln -f` experiments above): a **hard link** is like a second catalog card in the library's
+card catalog, pointing at the exact same physical book on the shelf — there's still only one book
+(one inode), just two cards (names) that both lead to it. A **symlink** is like a separate sticky
+note that just says "go check shelf 12B" — it isn't the book and isn't even a catalog card, it's
+only a pointer to where the book is supposed to be. If the actual book gets removed from shelf
+12B, the sticky note is now pointing at nothing (a dangling symlink), while a second catalog card
+for that same book would be unaffected as long as the book itself still physically exists
+somewhere.
 
 **Follow-up — `ln -s` (not `-f` alone) creates a genuinely new symlink, chained**:
 ```
@@ -675,9 +694,13 @@ try; Q5 needed two follow-up nudges to move from "privacy"/"hardwall" to the spe
 resource (kernel) and attack path (container escape); Q6 needed a correction on conflating
 "created across drives" with "moves after creation."
 
-**Verdict**: **Topic 1 CLEARED, attempt 1, 90/100** (Quiz 36/40 — 4 of 6 answers needed a real
-correction or follow-up nudge (permission decoding's two-field/timestamp mixup, the cron-script
-fix, VM-vs-container justification, hard link/symlink edge case), 2 passed cleanly; Hands-on
-27/30 — real corporate-proxy troubleshooting and independent permission fixes, though the actual
-SSH connection stayed deferred; Depth 27/30 — solid VM/container isolation reasoning, though it
-took two full explanation passes to land).
+**Score: 90/100**
+- **Quiz 36/40** — 4 of 6 answers needed a real correction or follow-up nudge (permission
+  decoding's two-field/timestamp mixup, the cron-script fix, VM-vs-container justification, hard
+  link/symlink edge case), 2 passed cleanly.
+- **Hands-on 27/30** — real corporate-proxy troubleshooting and independent permission fixes,
+  though the actual SSH connection stayed deferred.
+- **Depth 27/30** — solid VM/container isolation reasoning, though it took two full explanation
+  passes to land.
+
+**Verdict**: **Topic 1 CLEARED, attempt 1, 90/100.**

@@ -7,9 +7,44 @@
   active) before the lesson began.
 - `project/app/` was found still empty (only a placeholder `README.md`) — per `CLAUDE.md`'s
   trigger rule, the initial boilerplate had to be written before Topic 9 could begin. Wrote a
-  minimal Flask app (`app.py`, one real `/health` endpoint) and `requirements.txt` (`flask==3.1.0`)
-  first, explicitly noted as Claude-authored per the Phase 5 exception (not yet defensible in an
-  interview — gets rewritten for real once Python, Topics 45-46, is reached).
+  minimal Flask app (`app.py`, initially with a `/health` endpoint and a root `/` endpoint) and
+  `requirements.txt` (`flask==3.1.0`) first, explicitly noted as Claude-authored per the Phase 5
+  exception (not yet defensible in an interview — gets rewritten for real once Python, Topics
+  45-46, is reached).
+
+### Walking through `app.py`, line by line
+The initial boilerplate (before Day 2's later changes) had two endpoints:
+```python
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route("/health")
+def health():
+    return jsonify(status="ok"), 200
+
+@app.route("/")
+def index():
+    return jsonify(service="ignite-capstone", message="hello from the capstone app"), 200
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+```
+Taught as a full walkthrough, not just handed over silently:
+- **Flask** — a Python library for building web applications; `Flask(__name__)` creates the
+  actual application object everything else attaches to.
+- **`@app.route("/path")` + a function directly under it** — a pairing: the route declares which
+  URL path this covers, the function immediately below it is what actually runs when that path is
+  requested. The two always go together.
+- **HTTP status codes** — `200` means success; `404` means "not found" — these are the same
+  numbers visible in a browser's dev tools when a page loads (or fails to).
+- **The root route (`/`)** — the URL with nothing after the domain/port at all; here it just
+  returns a simple identifying message for the service.
+- **`app.run(host="0.0.0.0", port=5000)`** — explicitly tied back to Topic 5: `0.0.0.0` as a bind
+  address means "accept connections on every interface," not `127.0.0.1`'s loopback-only
+  restriction — directly reusing that distinction, plus Topic 5's port concept generally.
+- **`if __name__ == "__main__":`** — a standard Python idiom meaning "only run this block if the
+  file is executed directly, not if it's imported by something else."
 
 ### Why containers exist (tied to Topic 1)
 Topic 1 covered VMs virtualizing hardware, each carrying a full guest OS kernel. A container is
@@ -502,6 +537,15 @@ Context (previewed ahead of Kubernetes, taught fresh): **liveness** ("is the pro
 vs. **readiness** ("is it actually ready to serve traffic?") are different questions apps expose
 separately. Task: add a `/ready` endpoint to `project/app/app.py`, build/tag/run it independently.
 
+**Why this distinction concretely matters for Kubernetes** (previewed, not yet formally taught):
+if `/health` fails, Kubernetes **restarts** the container — it assumes the process itself is
+broken. If `/ready` fails instead, Kubernetes **stops routing traffic to it without restarting**
+— it assumes the process is fine but temporarily can't serve requests (e.g. still starting up, or
+a dependency isn't reachable yet). Two different failures need two different responses, which is
+exactly why the two checks exist separately rather than one combined endpoint. Tied explicitly to
+the actual capstone project: Mission Control's own monitoring will poll endpoints like these to
+know what's actually happening inside the app it's watching.
+
 First attempt duplicated `/health`'s exact payload (`status`/`version`, no distinct signal) —
 corrected after being asked to reconsider what a readiness check should actually convey. Second
 attempt: `jsonify(ready="true", version="2.1")` — a real Python bug, `"true"` in quotes is a string,
@@ -585,10 +629,18 @@ until asked; Q3's answer was correct but tangled, clarified with one follow-up; 
 completely and correctly first try; Q5 needed two rounds to stop conflating `hello-world` with
 `docker stop`, which was never run against it.
 
-**Result: PASS, attempt 1. Topic 9 CLEARED, 86/100** (Quiz 32/40, Hands-on 29/30, Depth 25/30).
-Note: the Python string-vs-boolean detail (`ready="true"` vs. `ready=True`) is excluded from
-Hands-on scoring entirely, since Python isn't formally taught until Phase 5.
+**Score: 86/100**
+- **Quiz 32/40** — 2 needed a quick follow-up to surface an already-understood detail, 1 left
+  "why it matters" unaddressed until asked, 1 had a genuine two-round factual mix-up, tagging
+  answered flawlessly.
+- **Hands-on 29/30** — excellent independent Day 2 execution (Dockerfile reorder proved with real
+  before/after build logs, `v1`/`v2` tagging with a live rollback proof, safe `stop`→`rm`→`rmi`
+  cleanup), with two genuine execution gaps (a missing `COPY app.py .`, `/ready` initially
+  duplicating `/health`'s payload). Note: a separate Python string-vs-boolean detail
+  (`ready="true"` vs. `ready=True`) is excluded from this score entirely, since Python isn't
+  formally taught until Phase 5.
+- **Depth 25/30** — tracks the same two quiz gaps, balanced against correctly predicting the
+  "2 containers" outcome before testing and defending a deliberate custom tag-naming choice with
+  sound reasoning.
 
-### Status
-**Verdict**: **Topic 9 CLEARED, attempt 1, 86/100.** Next: Topic 10 — Docker: Networking,
-Volumes, Docker Compose.
+**Verdict**: **Topic 9 CLEARED, attempt 1, 86/100.**

@@ -17,16 +17,21 @@ real understanding actually solidified.
 
 ### 1. The mail analogy — the core mental model
 
-- **IP address** = the street address of a building (which specific machine)
-- **Port** = the apartment/suite number at that address (which specific application on that
-  machine — a machine can run many services, each on its own port)
-- **DNS** = the phone book — translates a human-friendly name (`google.com`) into the actual
-  address (IP)
-- **Routing** = the postal system deciding which roads/hubs a letter passes through
-- **TCP vs UDP** = registered mail with delivery confirmation and reordering (TCP) vs. a postcard
-  dropped in the mail with no guarantee (UDP)
-- **Firewall** = a security guard at the building who can still turn a visitor away, even if the
-  right apartment (port) is genuinely occupied
+Expanded during the revision pass with a "real example from today" column, tying each analogy
+directly to something actually run/observed this session:
+
+| Concept | Mail-world analogy | Real example from today |
+|---|---|---|
+| **IP address** | The street address of a building (which specific machine) | `192.168.180.212` — this machine's own `eth0` address |
+| **Port** | The apartment/suite number at that address (which specific application on that machine — one machine can run many services, each on its own port) | `ss -tuln`'s `Local Address:Port` column (Topic 2) |
+| **DNS** | The phone book — translates a human-friendly name into the actual address | `dig google.com` returning six real IPs for one name |
+| **Routing** | The postal system deciding which roads/hubs a letter passes through | `ip route` showing the actual hop-out gateway |
+| **TCP vs UDP** | Registered mail with delivery confirmation and reordering (TCP) vs. a postcard dropped in the mail with no guarantee (UDP) | `ss -tuln`'s separate TCP/UDP rows |
+| **Firewall** | A security guard at the building who can still turn a visitor away, even if the right apartment (port) is genuinely occupied | the corporate-proxy TCP blocks from Topics 1/2/4 |
+| **Private IP** | An internal apartment/mailroom number only meaningful inside one building, not a real postal address | `192.168.x.x` — not directly reachable from outside |
+| **Public IP** | The building's real street address, the one the outside postal system actually uses | the router's one shared address after NAT |
+| **Ping/ICMP** | Knocking on the building's front door just to check someone's home — says nothing about which apartment/suite answers | `ping` succeeding while a specific port stays unreachable |
+| **TCP/UDP + port check** | Actually asking for a specific apartment by number, not just checking if the building has anyone home at all | `ss -tuln` / `curl` against a specific port |
 
 ### 2. IP addresses — private vs. public
 
@@ -43,6 +48,13 @@ reachable from the internet):
 **Quick check method**: starts with `10` → private. Starts with `192.168` → private. Starts with
 `172`, second number between **16 and 31 inclusive** → private (the one range people get wrong —
 only that specific 16-31 slice is reserved, not all of `172.x.x.x`). Anything else → public.
+
+**Why private IPs can still reach the internet — NAT**: routers **translate** ("NAT" — Network
+Address Translation) between a machine's private IP and a shared public IP whenever traffic
+actually leaves the local network for the internet. This is why a machine can have a private,
+non-globally-unique address and still browse the web — the router swaps addresses at the
+boundary, so the outside world only ever sees the router's one public IP, not every private
+device behind it.
 
 **A third category, distinct from both private and public — reserved/special addresses**:
 - **`127.0.0.0/8`** (loopback, `127.0.0.1` being the common one) — reserved to mean "this same
@@ -62,7 +74,9 @@ only that specific 16-31 slice is reserved, not all of `172.x.x.x`). Anything el
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> ...
     inet 192.168.180.212/20 brd 192.168.191.255 scope global eth0
 ```
-- `192.168.180.212` — private (`192.168.x.x` rule).
+- `192.168.180.212` — private (`192.168.x.x` rule). **First guess on this one was actually
+  "public"** — corrected by walking through the octets digit-by-digit against the private-range
+  rules above until `192.168` was matched.
 - `10.255.255.254` — private range, but `/32` (see below) — WSL2's internal Windows↔WSL2 bridge
   address, not a real "network."
 - `127.0.0.1` — reserved loopback, this machine talking to itself.
@@ -285,6 +299,10 @@ case, matching prior corporate-proxy discoveries — not separately re-tested th
 | **No route to host** | Network itself can't find the destination at all | Fast-ish, active — 3072 ms |
 | **Connection timed out** | Total silence, no response of any kind — classic firewall silently dropping packets | Slow — waits the full timeout with nothing back (this is the shape of the Topic 1/4 corporate-proxy blocks) |
 
+**Wrong first guess, corrected**: asked what a "connection refused" result on port 443 implies,
+the first answer was "may be a firewall issue" — backwards from the actual lesson. Corrected
+before landing on the rule below.
+
 **Key takeaway**: "refused" **rules in** "nothing listening on that port" and **rules out** a
 firewall block specifically, since a firewall would silently drop the packet rather than send an
 active refusal back — a firewall block shows up as the silent "timed out" case instead, which is
@@ -348,9 +366,11 @@ the actual term "round-robin DNS"; Q3 passed cleanly, first try; Q4 named app-bi
 needed a nudge for the firewall cause, then correctly distinguished network-level vs. app-level
 once both were named.
 
-**Score: 74/100** (Quiz 28/40 — correct throughout, but 3 of 4 needed a follow-up nudge; Hands-on
-24/30 — real commands run and interpreted correctly, but intentionally lighter/faster-paced than
-prior topics; Depth 22/30 — solid scenario reasoning, breadth traded for speed this pass).
+**Score: 74/100**
+- **Quiz 28/40** — correct throughout, but 3 of 4 needed a follow-up nudge.
+- **Hands-on 24/30** — real commands run and interpreted correctly, but intentionally
+  lighter/faster-paced than prior topics.
+- **Depth 22/30** — solid scenario reasoning, breadth traded for speed this pass.
 
 ### Revision pass — simplified recap + concept checks + real-world scenarios + hands-on
 
@@ -418,10 +438,12 @@ Q4 passed with hints needed for the last two steps (bind address, then firewall)
 first two independently; Q5 ruled in correctly first try, needed one nudge to articulate why it
 also rules out a firewall block specifically.
 
-**Score: 82/100** (Quiz 30/40 — all 5 ultimately correct, 3 needed a follow-up nudge; Hands-on
-26/30 — real `curl -v` tests run and correctly interpreted to verify the refused/no-route
-distinction live, stronger verification than Attempt 1; Depth 26/30 — correctly reasoned through
-the reserved-address category, which went beyond what was explicitly taught, with guidance).
+**Score: 82/100**
+- **Quiz 30/40** — all 5 ultimately correct, 3 needed a follow-up nudge.
+- **Hands-on 26/30** — real `curl -v` tests run and correctly interpreted to verify the
+  refused/no-route distinction live, stronger verification than Attempt 1.
+- **Depth 26/30** — correctly reasoned through the reserved-address category, which went beyond
+  what was explicitly taught, with guidance.
 
 **Verdict**: **Topic 5 CLEARED, official score, 82/100** — the retest score supersedes Attempt
 1's 74/100 as the logged record, reflecting the stronger, hands-on-verified understanding reached

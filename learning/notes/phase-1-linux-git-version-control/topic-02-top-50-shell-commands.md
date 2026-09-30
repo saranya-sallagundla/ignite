@@ -104,6 +104,13 @@ $ grep -ivn "info" app.log      # CORRECT — added -i
 5:ERROR: connection refused
 ```
 
+**Gotcha — the `^` anchor, a real regex mix-up**: given a `numbers.txt` with lines like `9`, `19`,
+`29`, `90`, `91`, ..., `99`, the initial assumption was that `grep "9" numbers.txt` (no anchor)
+would only match lines *starting* with 9. That's wrong — with no anchor, `grep` matches a `9`
+**anywhere** in the line, so `19` and `29` would match too, not just `9`/`90`-`99`. `^` specifically
+anchors to the start of the line: `grep -n "^9"` matches only lines that *start* with `9` (`9`,
+`90`, `91`, ... `99`), correctly excluding `19`/`29`/`59` where the `9` appears later in the line.
+
 ### 3. `find` — locate files by name (different from `grep`, which searches content)
 
 **Syntax**: `find PATH -name "FILENAME"`
@@ -271,6 +278,12 @@ no controlling terminal (background/daemon services).
   **cannot catch, block, or ignore** SIGKILL — no cleanup chance at all. Last resort, used when a
   process is frozen/hung and won't respond to SIGTERM.
 
+**Analogy — tenant/landlord**: SIGTERM is knocking on the door and saying "please pack up and
+leave" — the tenant can take their time, grab their things, or even ignore the knock entirely.
+SIGKILL is skipping the knock altogether — the landlord physically removes the tenant and
+everything gets tossed out immediately, zero warning, zero chance to grab anything on the way
+out.
+
 **Verified hands-on** — full lifecycle: start a background process, find it, stop it:
 ```
 $ sleep 300 &
@@ -386,6 +399,20 @@ tcp    LISTEN   0   511   127.0.0.1:38027   0.0.0.0:*
 ...
 (no port 22 anywhere in the output)
 ```
+**Column-by-column breakdown**:
+- **`Netid`** — `tcp` or `udp`, which protocol this socket is.
+- **`State`** — for TCP, `LISTEN` means actively waiting for an incoming connection; UDP entries
+  show `UNCONN` instead, since UDP is connectionless — there's no "listening" state the same way,
+  just a socket bound to a port ready to receive datagrams.
+- **`Local Address:Port`** — `127.0.0.1:PORT` means loopback-only (only this machine can connect);
+  `0.0.0.0:PORT` means accepting connections from anywhere.
+- **`Peer Address:Port`** — the remote side of an established connection; `*` for a listening
+  socket, since nothing's connected yet.
+
+Multiple entries on **port 53** in the real output were identified as **`systemd-resolved`** —
+Ubuntu's built-in local DNS resolver, running as its own listening service rather than something
+tied to any specific app being tested.
+
 Confirms directly what Topic 1's troubleshooting already established: `sshd` never finished
 installing (blocked by the corporate proxy), since port 22 isn't listening at all — `ss -tuln` is
 the tool to verify "is this service actually running," not just "did the install command exit
@@ -504,7 +531,10 @@ to `find /var/log`); Q5 was correct on the basic distinction, with the deleted-o
 case explained directly rather than pushed on, since it went beyond what was explicitly taught
 this session.
 
-**Verdict**: **Topic 2 CLEARED, attempt 1, 84/100** (Quiz 34/40 — 3 of 5 answers needed a
-correction (`kill` syntax precision, `grep`/`find` flag and scope fixes), 2 passed cleanly;
-Hands-on 26/30 — more syntax slips than Topic 1 (`grep -r` placement, `find` scope); Depth 24/30 —
-strong independent reasoning on the ICMP-vs-TCP firewall discovery).
+**Score: 84/100**
+- **Quiz 34/40** — 3 of 5 answers needed a correction (`kill` syntax precision, `grep`/`find`
+  flag and scope fixes), 2 passed cleanly.
+- **Hands-on 26/30** — more syntax slips than Topic 1 (`grep -r` placement, `find` scope).
+- **Depth 24/30** — strong independent reasoning on the ICMP-vs-TCP firewall discovery.
+
+**Verdict**: **Topic 2 CLEARED, attempt 1, 84/100.**

@@ -52,6 +52,11 @@ $ ps aux | awk '{print $8}' | sort | uniq -c
       2 Ssl+
 ```
 
+**Gotcha, hit for real — condition order reversed**: first attempt was
+`ps aux | awk '{print $1 $8 $11} ~ /^R/'` — the condition placed *after* the action block.
+`awk` doesn't work that way: the condition always comes first, action second (matching the
+syntax rule above). Corrected to `awk '$8 ~ /^R/ {print $1 $8 $11}'`.
+
 **Verified hands-on — filtering by state/modifier** (special regex chars need escaping, e.g.
 `+` → `\+`; `s`, `l`, `<` are plain, no escaping needed):
 ```
@@ -67,6 +72,9 @@ $ ps aux | awk '$8 ~ /\+/ {print $1 $8 $11}'          # foreground — correctly
                                                          # commands run interactively (ps, bash,
                                                          # awk, sort, uniq)
 ```
+**Extra technique, offered as an aside (not required, but real)**: the leaking header row can be
+excluded cleanly by adding a second condition — `$8 ~ /^S/ && $1 != "USER" {print $1 $8 $11}` —
+"match state S, **and** the first column isn't literally the header text 'USER'."
 
 **Counting**: `sort | uniq -c` gives grouped counts per unique value; add `| wc -l` afterward to
 get the **total number of distinct groups** instead of per-group counts.
@@ -143,10 +151,24 @@ default `0`.
 **Syntax**: `nice -n VALUE COMMAND` — start a new command with a given niceness
 **Syntax**: `renice VALUE -p PID` — change niceness of an already-running process
 
-**Key rule, confirmed via a real permission-denied error**: a regular user can only **increase**
-niceness (lower priority — e.g. `0→10`, `10→19`), never **decrease** it (raise priority — e.g.
-`10→5`), even toward still-positive numbers. Decreasing requires `sudo`/root, regardless of
-starting point — otherwise anyone could incrementally boost their own priority.
+**First attempt, hit a real timing race**: `nice -n 10 sleep 60 &` followed immediately by
+`ps -o pid,ni,cmd -p $!` — but `sleep 60` had already finished by the time `ps` ran, so `$!`
+pointed at a PID that no longer existed and nothing printed. Fixed by using a longer sleep
+(`sleep 300` instead of `60`) to leave enough time to actually inspect it before it exits.
+
+**Repeated PID typo, hit for real**: practicing `renice` against a background process
+(PID `68890`), the actual PID got mistyped as `68990` — transposing the `8` and `9` — three
+separate times in a row (`renice 5 -p 68990`, `renice 10 -p 68990`, ...), each attempt failing
+with "No such process," before the transposition was spotted and corrected to the real `68890`.
+
+**Key rule — stated first as a simplification, then genuinely refined live**: the first pass at
+the rule was just "a regular user can't decrease niceness below 0." That turned out to be
+under-stated — testing `renice 5 -p` against a process already at niceness `10` (a `10→5`
+decrease, both values positive) *also* failed with Permission denied, which shouldn't happen
+under the "below 0" framing alone. The corrected, complete rule: a regular user can only
+**increase** niceness (lower priority — e.g. `0→10`, `10→19`), never **decrease** it (raise
+priority — e.g. `10→5`), **regardless of starting point** — not just "can't go below 0."
+Decreasing requires `sudo`/root, full stop.
 
 **Verified hands-on**:
 ```
@@ -392,7 +414,12 @@ Fully verified end-to-end: file → loop device → formatted filesystem → mou
 a real file on it), not just cosmetically attached.
 
 **`mkfs.ext4` output explained**:
-- **4k blocks** — disk space divided into 4KB chunks, the basic storage unit.
+- **4k blocks** — disk space divided into 4KB chunks, the basic storage unit. Analogy: a hotel
+  only rents out whole rooms, never half a room — even a file that only needs 1KB of actual data
+  still occupies one full 4KB block, with the leftover space inside that block unusable by
+  anything else. This wasted leftover space is called **internal fragmentation**. Math check
+  against the real output: `25600 blocks × 4K = 100MB` — matching exactly the `fallocate -l 100M`
+  size requested, confirming the whole 100MB was carved into 4KB blocks with none left over.
 - **inodes** — max number of files/directories the filesystem can ever hold; each file needs one
   inode for its metadata (permissions, timestamps, pointers to data blocks) — ties back to
   Topic 1's `stat` discussion.
@@ -475,6 +502,16 @@ Wrote the full 6-field line independently and correctly on the first attempt (`d
 what happens automatically at boot, so a successful `mount -a` proves the entry is correct
 without needing an actual reboot to test it. The systemd hint was a harmless cache-staleness
 warning, not a failure — confirmed by `df -h` showing the mount genuinely active.
+
+**Real confusion, fully resolved**: after the sequence above, said directly "still it's
+confusing" about how `umount` → (optionally `fsck`) → editing `/etc/fstab` → `mount -a` all fit
+together. Walked through each command's actual effect on filesystem *state*, one at a time:
+`umount` detaches the device, making it safe to inspect/repair; `fsck` (not run here, since the
+filesystem was healthy) would check/repair the filesystem while it's detached; editing
+`/etc/fstab` only changes what the *next* `mount`/boot will do, it has no effect on anything
+already mounted; `mount -a` is the step that actually re-attaches everything listed in
+`/etc/fstab`, reading the file fresh at that moment. Each command touches a different point in
+that timeline, not overlapping responsibilities.
 
 ### 8. Combined scenario — inode exhaustion vs. block exhaustion
 
@@ -562,7 +599,11 @@ follow-ups to reach `wait()` and reparenting-to-init; Q2 passed cleanly on both 
 cleanly; Q4 needed a follow-up to sharpen "the CPU might hang" into the correct fairness framing;
 Q5 passed cleanly and completely.
 
-**Verdict**: **Topic 4 CLEARED, attempt 1, 88/100** (Quiz 34/40 — 2 of 5 answers needed a
-follow-up nudge for full precision but were ultimately correct; Hands-on 28/30 — real,
-independently-diagnosed errors throughout, not just guided steps; Depth 26/30 — strong
-production tie-in, correct reasoning through the combined scenario with minimal hinting).
+**Score: 88/100**
+- **Quiz 34/40** — 2 of 5 answers needed a follow-up nudge for full precision but were ultimately
+  correct.
+- **Hands-on 28/30** — real, independently-diagnosed errors throughout, not just guided steps.
+- **Depth 26/30** — strong production tie-in, correct reasoning through the combined scenario
+  with minimal hinting.
+
+**Verdict**: **Topic 4 CLEARED, attempt 1, 88/100.**

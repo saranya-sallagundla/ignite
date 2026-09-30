@@ -207,12 +207,41 @@ Used here because multi-line scripts are more natural to write in a real editor 
 
 ## Day 2 — 2026-07-11 / 2026-07-12 (loops, functions, exit codes — quiz deferred on functions)
 
+**Reset requested mid-session**: explicitly asked to stop and be treated as having zero coding
+background at all — not "new to shell scripting specifically," genuinely no prior exposure to
+terms like "variable," "argument," or "function." Rebuilt from scratch, plainly:
+- A **variable** is just a named box that holds a value — you can put something in it, and read
+  it back later by name.
+- An **argument** is a value handed to something (a script or a function) from the outside, at
+  the moment it's run/called — it isn't fixed inside the code itself.
+- A **function** is a named, reusable block of commands — write it once, then run that whole
+  block again later just by saying its name, instead of retyping every command each time.
+
 ### 1. Loops — `for` and `while`
 
 **Syntax**: `for VAR in ITEM1 ITEM2 ITEM3; do ... done` — iterate over a fixed list
 **Syntax**: `for VAR in "$@"; do ... done` — iterate over however many arguments were passed to
 the script, whatever they are (combines with Day 1's positional-argument knowledge)
 **Syntax**: `while [ CONDITION ]; do ... done` — repeats as long as the condition stays true
+
+**Verified hands-on — `for` over a fixed list, including two real wrong attempts before landing
+on the fix**: first attempt was `for fruits in $var1 $var2 $var3; do` — referencing variables
+(`$var1`, `$var2`, `$var3`) that were never actually defined anywhere. Second attempt was
+`for fruit in $apple $banana $cheery; do` — same mistake, still trying to reference undefined
+variables instead of literal words, plus a typo (`$cheery`). The actual fix: the items after
+`in` should just be the literal words themselves, not variable references —
+```
+for fruit in apple banana cherry; do
+    echo "I like $fruit"
+done
+```
+— `fruit` here is the loop's own variable name (assigned automatically each iteration), not
+something that needs a `$` in front of it on the `for` line itself.
+
+**File-location mixup, hit for real**: `fruits_loop.sh` was initially created in the home
+directory out of a Windows-folder habit, then manually cut-and-pasted (rather than using `mv`)
+into the working directory — this silently broke `cat`, `ls -l`, and `find`, all of which failed
+to locate the file until the actual current location was worked out and confirmed with `pwd`.
 
 **Verified hands-on — `for` over arguments**:
 ```
@@ -226,6 +255,14 @@ $ ./fruits_loop.sh kiwi
 I like kiwi
 ```
 Adapts to however many arguments are given — no hardcoded list.
+
+**Verified hands-on — `counter.sh`, a `while` loop counting up to `$1` (the script's own
+argument), including a real bracket-spacing bug**: first attempt was
+`while [$count -le $1]; do` — no spaces around the brackets — producing the real error
+`[1: command not found`. In shell, `[` is actually a command (not just punctuation), so it needs
+a space after it and before the closing `]` to be recognized as a separate word, exactly like any
+other command needs a space before its arguments. Fixed to `while [ $count -le $1 ]; do`, spaces
+on both sides.
 
 **Verified hands-on — `while` counter, including a real self-debugged bug**:
 ```
@@ -292,6 +329,30 @@ actual run) rather than another analogy, since analogies didn't land after multi
 script produces no output and no error — defining a function is like writing a recipe card, it
 doesn't "cook" anything until something explicitly invokes it (`function_name` on its own line,
 outside the definition).
+
+**Active-recall checkpoint** — given a full combined script mixing everything covered so far
+(a function, a variable, a `while` loop, and `"$@"`), asked to identify six specific pieces by
+line, in own words, before moving on. All six answered correctly:
+```
+#!/bin/bash
+greet() {
+    echo "Hello, $1!"
+}
+count=0
+for name in "$@"; do
+    greet "$name"
+    count=$(( count + 1 ))
+done
+echo "Greeted $count people."
+```
+1. The function definition (`greet() { ... }`) — a named, reusable block, not run yet just by
+   being defined.
+2. The function *call* (`greet "$name"`) — the actual point where that block runs.
+3. `"$@"` — every argument the script itself was given, each treated as one whole item.
+4. `count` — a plain variable, initialized to `0` before the loop starts.
+5. `count=$(( count + 1 ))` — the increment, reassigning `count` based on its own current value.
+6. `$1` inside `greet()` — scoped only to that specific call, holding whatever `"$name"` was at
+   that point in the loop, completely separate from the script's own outer arguments.
 
 ### 3. Exit codes and error handling
 
@@ -504,11 +565,13 @@ full correct answer for each:
 Attempt 1, now solid. Q4 introduced `exit CODE` live (not explicitly taught before this point) and
 was reasoned through correctly once raised. Q5 passed cleanly with the correct predicted output.
 
-**Verdict**: **Topic 3 CLEARED, in 2 attempts, 80/100** (Quiz 30/40 — Attempt 1 failed on
-function invocation/`$1` scoping, all other areas passed cleanly; Attempt 2 full retest passed
-cleanly, all-new questions; Hands-on 28/30 — real, independently-debugged syntax errors throughout
-`classify.sh`; Depth 22/30 — functions didn't land until re-taught via concrete tracing instead of
-analogy). Lesson for future topics, worth remembering:
-if a concept doesn't land after 2-3 varied explanations in the moment, **switch to concrete
-tracing (run real code, watch the actual values) rather than trying yet another analogy** — this
-unblocked things noticeably faster than continuing to reason abstractly.
+**Score: 80/100**
+- **Quiz 30/40** — Attempt 1 failed on function invocation/`$1` scoping, all other areas passed
+  cleanly; Attempt 2 full retest passed cleanly, all-new questions.
+- **Hands-on 28/30** — real, independently-debugged syntax errors throughout `classify.sh`.
+- **Depth 22/30** — functions didn't land until re-taught via concrete tracing instead of analogy.
+
+**Verdict**: **Topic 3 CLEARED, in 2 attempts, 80/100.** Lesson for future topics, worth
+remembering: if a concept doesn't land after 2-3 varied explanations in the moment, **switch to
+concrete tracing (run real code, watch the actual values) rather than trying yet another analogy**
+— this unblocked things noticeably faster than continuing to reason abstractly.

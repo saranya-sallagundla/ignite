@@ -72,6 +72,13 @@ Mode                 LastWriteTime         Length Name
 d--h-           7/16/2026  2:21 PM                .git
 ```
 
+**Git vs. GitHub — a real distinction, asked and answered directly**: Git itself is the offline
+version-control tool — everything above (`git init`, commits, history) works completely on its
+own, with no internet connection and no GitHub involved at all. GitHub is just one hosting
+service for Git repositories, letting you back up and share a repo online (GitLab and Bitbucket
+are others that do the same job). Git works fully without ever touching GitHub; GitHub only
+becomes relevant once you want to push a repo somewhere else or collaborate with others.
+
 ### 5. `git status`, `git add`, `git commit` — the basic workflow
 
 **Syntax**: `git status` — shows current state of working directory/staging area
@@ -115,6 +122,11 @@ PS> git commit -m "Add readme file"
   Informational only, not an error.
 - **`(root-commit)`** — flags this as the very first commit in the repo's history (no parent).
 - **`9925f29`** — the commit hash, a unique ID generated from the content itself.
+
+**Branch-naming aside**: notice `On branch master` above — older Git defaults a repo's first
+branch to `master`. GitHub, however, now defaults new repos to `main` instead. Flagged as
+relevant again once Topic 8 (GitHub) is reached, since a locally-initialized repo and a
+freshly-created GitHub repo can genuinely start on differently-named default branches.
 
 ### 6. `git log` and `HEAD`
 
@@ -498,12 +510,15 @@ try; Q3 passed cleanly, first try; Q4's first answer had the marker order/labels
 cleanly once asked to check against the actual real output from earlier in the session; Q5 named
 the silent-overwrite risk unprompted, needed one nudge to complete the second half.
 
-**Score: 84/100** (Quiz 30/40 — correct throughout, 2 of 5 needed a real follow-up correction, not
-just a light nudge; Hands-on 28/30 — genuinely excellent, full real workflow including **two**
-fast-forward merges — one where the "conflict" setup didn't actually conflict, correctly
-understood and re-set-up properly — plus an actual resolved merge conflict via VS Code's UI,
-`.gitignore`, and `git diff`; Depth 26/30 — strong scenario reasoning, and the trial-and-error in
-properly setting up a genuine conflict showed real engagement with *why* fast-forward happens,
-not just memorized steps).
+**Score: 84/100**
+- **Quiz 30/40** — correct throughout, 2 of 5 needed a real follow-up correction, not just a
+  light nudge.
+- **Hands-on 28/30** — genuinely excellent, full real workflow including **two** fast-forward
+  merges — one where the "conflict" setup didn't actually conflict, correctly understood and
+  re-set-up properly — plus an actual resolved merge conflict via VS Code's UI, `.gitignore`, and
+  `git diff`.
+- **Depth 26/30** — strong scenario reasoning, and the trial-and-error in properly setting up a
+  genuine conflict showed real engagement with *why* fast-forward happens, not just memorized
+  steps.
 
 **Verdict**: **Topic 6 CLEARED, attempt 1, 84/100.**

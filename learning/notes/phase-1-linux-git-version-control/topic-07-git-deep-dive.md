@@ -25,6 +25,7 @@ PS> git checkout master
 Already on 'master'
 PS> "rebase demo line" >> readme.txt
 PS> git add readme.txt
+warning: in the working copy of 'readme.txt', CRLF will be replaced by LF the next time Git touches it
 PS> git commit -m "master commit before rebase demo"
 [master cdbaba9] master commit before rebase demo
  1 file changed, 1 insertion(+)
@@ -33,6 +34,7 @@ PS> git checkout -b rebase-demo
 Switched to a new branch 'rebase-demo'
 PS> "rebase branch line" >> readme.txt
 PS> git add readme.txt
+warning: in the working copy of 'readme.txt', CRLF will be replaced by LF the next time Git touches it
 PS> git commit -m "rebase branch commit"
 [rebase-demo 4907ec6] rebase branch commit
  1 file changed, 1 insertion(+)
@@ -41,14 +43,21 @@ PS> git checkout master
 Switched to branch 'master'
 PS> "another master commit" >> readme.txt
 PS> git add readme.txt
+warning: in the working copy of 'readme.txt', CRLF will be replaced by LF the next time Git touches it
 PS> git commit -m "another master commit after branching"
 [master 05bdadd] another master commit after branching
  1 file changed, 1 insertion(+)
 ```
 
+**Real mistake, hit first**: typed `git log --oneline -all -graph` (single dashes) and got a
+real error: `error: switch \`l' expects an integer value with an optional k/m/g suffix` — with a
+single dash, `-all` and `-graph` get parsed as a cluster of short flags (`-a -l -l`, `-g -r -a -p
+-h`), not the long-form flags intended, and one of those short flags (`-l`) expects a number,
+which is exactly what broke.
+
 **Syntax**: `git log --oneline --all --graph` — compact visual of every branch at once (`--all`
 = every branch, not just current; `--graph` = ASCII branch/merge shape; note the double-dash for
-these long-form flags, not single-dash).
+these long-form flags, not single-dash — confirmed by the error above).
 
 **Real discovery — an unrecognized commit found via the graph**: `d94a95b "commit"` appeared,
 not matching anything from Topic 6's documented session. Investigated with `git show d94a95b`
@@ -58,6 +67,13 @@ committed later (likely via VS Code's Source Control panel's default commit butt
 the generic message `"commit"`) — same category of accidental action as the earlier merge-UI
 click mishap. Harmless: confirmed the actual content matched what was already known, nothing
 destructive.
+
+**Reading the graph shape itself, explained separately**: the diamond shape (`|\` / `|`) around
+`0d41a29` is the actual Topic 6 merge commit — that's where two lines genuinely converge back
+into one. Everything before it in a straight single line is the earlier fast-forward merges,
+which never branched at all. From `cdbaba9` onward, `rebase-demo` and `master` have visibly
+diverged into two separate lines — exactly the divergence this session's setup was built to
+create.
 
 **Reinforcing `HEAD` behavior, tested directly across two branches** (extended past what was
 asked, to see it firsthand rather than just being told):
@@ -127,6 +143,11 @@ state while replaying each commit, then moves the branch pointer to match once d
 sits in a single straight line directly on top of `master`'s tip (`05bdadd`) — no more `|`/`|\`
 branching shape for this pair at all, proving the history is now linear.
 
+**Pager tip**: a trailing `~` and `:...skipping...` sometimes showed up at the bottom of
+`git log --graph` output — that means the terminal opened a pager (history didn't fit on one
+screen). Press `q` to exit it cleanly, rather than letting it keep repeating or scrolling
+awkwardly.
+
 **Key confirmed fact (quiz-tested)**: rebase does **not** move the original commit — it
 **creates a brand-new commit** replaying the same changes on the new base. Proof: the original
 commit hash (`4907ec6`) became a different hash (`4b2fbee`) after rebasing — if it were the exact
@@ -187,9 +208,11 @@ keeping the same message) — took **two attempts** to get fully clean:
   size. Returned nothing on the clean file — no output means no issues found. Some teams wire
   this into a pre-commit hook to block commits containing leftover markers automatically.
 - **`Select-String -Pattern "<<<<<<<|=======|>>>>>>>" FILE`** — PowerShell's equivalent of Linux's
-  `grep` (which doesn't exist natively in PowerShell — a real distinction surfaced this session:
-  Linux-tool practice from Topic 2 happens in a separate WSL terminal, this Windows PowerShell
-  folder uses PowerShell-native commands instead).
+  `grep` (which doesn't exist natively in PowerShell — a real distinction surfaced this session by
+  actually trying `grep` here first and hitting the real error:
+  `grep: The term 'grep' is not recognized as a name of a cmdlet, function, script file, or
+  executable program.` — Linux-tool practice from Topic 2 happens in a separate WSL terminal,
+  this Windows PowerShell folder uses PowerShell-native commands instead).
 
 ### 3. Branching strategies (conceptual, no hands-on)
 
@@ -252,6 +275,11 @@ Topic 8): check the Branches tab for `develop`/`release/*`/`hotfix/*` naming (Gi
 long parallel lines (Git Flow) vs. mostly one line with quick side-branches (trunk-based/GitHub
 Flow); check for a `CONTRIBUTING.md` documenting the convention; check release frequency
 (frequent small releases → trunk-based/GitHub Flow, infrequent versioned releases → Git Flow).
+
+**Concrete real-world example, given directly**: Git itself traditionally used something close
+to Git Flow-style long-lived branches, matching its own history of scheduled, versioned
+releases — while many fast-moving SaaS products (GitHub itself being the namesake example)
+popularized GitHub Flow instead, matching their continuous-deploy release rhythm.
 
 ### 4. Combined scenario
 
@@ -337,12 +365,14 @@ passed cleanly first try; Q3 got the gain right immediately but needed a follow-
 concrete risk precisely; Q4's first answer redirected to the wrong angle (PR usage) before fully
 correcting once pointed back to the release-timing assumption.
 
-**Score: 82/100** (Quiz 28/40 — all 4 ultimately correct, 3 of 4 needed a real follow-up push,
-including one full redirect on Q4; Hands-on 30/30 — genuinely excellent: a real rebase conflict
-resolved, a real bad conflict-resolution mistake caught and fixed via `git commit --amend`
-(twice, since the first fix attempt left a stray fragment), a cherry-pick conflict resolved
-independently, and testing both `git diff --check` and `Select-String` as verification methods;
-Depth 24/30 — good scenario/strategy reasoning, though the branching-strategies material took
-more back-and-forth than other topics to fully solidify).
+**Score: 82/100**
+- **Quiz 28/40** — all 4 ultimately correct, 3 of 4 needed a real follow-up push, including one
+  full redirect on Q4.
+- **Hands-on 30/30** — genuinely excellent: a real rebase conflict resolved, a real bad
+  conflict-resolution mistake caught and fixed via `git commit --amend` (twice, since the first
+  fix attempt left a stray fragment), a cherry-pick conflict resolved independently, and testing
+  both `git diff --check` and `Select-String` as verification methods.
+- **Depth 24/30** — good scenario/strategy reasoning, though the branching-strategies material
+  took more back-and-forth than other topics to fully solidify.
 
 **Verdict**: **Topic 7 CLEARED, attempt 1, 82/100.**
