@@ -23,7 +23,8 @@
   Quiz 28/40 · Hands-on 30/30 · Depth 24/30 — passed attempt 1; excellent hands-on (real rebase conflict, a real conflict-resolution mistake caught and fixed via `git commit --amend`), 3 of 4 quiz answers needed a real follow-up push, one a full redirect.
 - [x] 8. GitHub — PRs, Actions Intro, Repo Management — **94/100**  
   Quiz 36/40 · Hands-on 30/30 · Depth 28/30 — passed attempt 1; the richest hands-on session yet (a real self-diagnosed PR mistake fixed via `git log`/`merge-base`, a working GitHub Actions run inspected in full, three genuine branch-protection discoveries), only 1 of 4 quiz answers needed real redirection. **Phase 1 complete.**
-- [ ] 9. Docker — Architecture, Images, Containers
+- [x] 9. Docker — Architecture, Images, Containers — **86/100**  
+  Quiz 32/40 · Hands-on 29/30 · Depth 25/30 — passed attempt 1; Day 2's independent task (Dockerfile layer reorder proved with real build logs, `v1`/`v2` tagging with a live rollback proof, safe `stop`→`rm`→`rmi` cleanup) needed very little steering; quiz had 2 quick one-round clarifications, one real unaddressed gap, and a two-round factual mix-up on exit-code signals, tagging answered flawlessly.
 - [ ] 10. Docker — Networking, Volumes, Docker Compose
 - [ ] 11. Docker — Multi-Stage Builds & Best Practices
 - [ ] 12. Kubernetes — Architecture & Core Concepts

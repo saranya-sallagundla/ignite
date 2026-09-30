@@ -98,14 +98,13 @@
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- **Last recalibrated**: — (not yet due — 13 sessions completed)
-- **Calendar Day since Day 1**: 16 (2026-07-21)
-- **Session count completed**: 13
-- **Active calendar days**: 15 of 16 (1 gap day: 2026-07-17)
-- **Roadmap days used**: 15 of 120 (Topics 1-8 complete + Topic 9 Day 1 of 2, per fixed baseline
-  allocation)
-- **Current topic**: Topic 9 — Docker: Architecture, Images, Containers — **day 1 of 2 complete**.
-  Day 2 (harder/independent tasks, edge cases, quiz) still ahead.
+- **Last recalibrated**: — (not yet due — 14 sessions completed)
+- **Calendar Day since Day 1**: 17 (2026-07-22)
+- **Session count completed**: 14
+- **Active calendar days**: 16 of 17 (1 gap day: 2026-07-17)
+- **Roadmap days used**: 16 of 120 (Topics 1-9 complete, per fixed baseline allocation)
+- **Current topic**: Topic 9 — COMPLETE (86/100). Next: Topic 10 — Docker: Networking, Volumes,
+  Docker Compose.
 - **Pace**: on track
 - **Buffer used** (overall, the real constraint): 0 of 22
 - **Buffer used per phase** (informational only — the 22-day pool above is shared across all
@@ -129,9 +128,11 @@
     Kubernetes & CI/CD) is now underway, starting with Topic 9.
   - Per CLAUDE.md's Parallel hands-on rule: `project/app/` boilerplate (Flask app + `/health`
     endpoint) was written just before Topic 9 began, since it was still empty.
-  - Topic 9 Day 1 covered Docker architecture/terminology, images vs. containers (proven
-    hands-on), a real Dockerfile written/built/run against `project/app/` (verified live via
-    `/health`), container lifecycle commands, and exit code 137 tied back to Topic 2's signals
-    content. Day 2 (harder/independent tasks, edge cases, quiz) still ahead.
+  - Topic 9 (Docker: Architecture, Images, Containers) CLEARED, 86/100, attempt 1. Day 1 covered
+    architecture/terminology, images vs. containers, a real Dockerfile built/run against
+    `project/app/`, and exit code 137 tied to Topic 2's signals. Day 2 covered cache-invalidation
+    edge cases (proved and fixed a real unnecessary `pip install` rerun via Dockerfile reorder),
+    image tagging/rollback (`docker tag`, `:latest` going stale), and an independent task (`/ready`
+    endpoint, self-caught bugs, safe `stop`→`rm`→`rmi` cleanup).
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
     traffic; retry via AWS sandbox VM once access is ready.

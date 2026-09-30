@@ -399,7 +399,196 @@ All six were completed today. Declined the offer to continue into Day 2 material
 meant covering layer/rebuild edge cases, image tagging/versions, a harder independent task, and the
 quiz today) — chose to stop after Day 1's full agenda instead.
 
+## Day 2 — 2026-07-21 / 2026-07-22
+
+### Today's agenda, given up front
+1. Layer/rebuild edge cases — what actually gets reused vs. rebuilt on a code change, and why
+   Dockerfile instruction order matters for build speed.
+2. Image tags/versions — moving off the default `:latest`.
+3. A harder, more independent task.
+4. Tying it deeper into the project.
+5. The quiz — both days together.
+
+### Layer/cache-invalidation edge case
+Prediction asked before testing: if `app.py` changes and the image is rebuilt, which Dockerfile
+steps actually rerun? Initial guess: "all of them, since app.py changed" — refined together: `FROM`
+and `WORKDIR` don't touch any files at all, so they're reused from cache regardless; only `COPY`
+and everything after it reruns.
+
+Proved hands-on with the *original* (single-`COPY`) Dockerfile — changed `app.py`'s `/health`
+response to include `version="1.0"`, then rebuilt:
+```
+docker build -t mission-control-app .
+```
+Real log: `WORKDIR` showed `CACHED`; `COPY . .` and `RUN pip install -r requirements.txt` both
+re-ran (no `CACHED` label on either), confirming `RUN` reran even though `requirements.txt` never
+changed. Directly asked why: **Docker's cache check is deliberately simple — it only asks "did the
+immediately previous layer's output change?", never "does this command's argument only reference
+one specific file?"** It never reads `pip install -r requirements.txt` and reasons about what it
+actually depends on. Since `COPY . .` bundles `app.py` and `requirements.txt` into one layer,
+changing `app.py` breaks that layer's cache, and `RUN` — coming right after — inherits that break
+regardless of relevance. Confirmed this precisely when asked directly: *"something much simpler is
+happening, docker doesn't understand if actually the pip install -r req.txt only needs req.txt
+alone or something else."*
+
+**The fix** — rewritten independently:
+```dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY app.py .
+CMD ["python", "app.py"]
+```
+First attempt omitted the final `COPY app.py .` entirely — self-caught only after being asked to
+trace through where `app.py` would actually exist inside the image at the point `CMD` runs
+("it's not copied anywhere"). Corrected immediately.
+
+**Proved the fix** with two real builds:
+- First build (fresh baseline with the new structure): `13.3s`, all 5 steps ran (nothing to cache
+  yet against this new instruction order).
+- Changed `app.py`'s version to `"1.1"`, rebuilt again: `2.3s` — `WORKDIR`, `COPY requirements.txt
+  .`, and `RUN pip install` **all** showed `CACHED`; only the final `COPY app.py .` re-ran. Exactly
+  the intended fix, proven with real timing and real `CACHED` labels, not just theory.
+
+### Image tagging and versions
+Directly asked: does relying on the default `:latest` tag cause a rollback problem? Correctly
+reasoned before testing: *"it got overwritten each time, same tag, so i can't rollback."*
+
+New command, plain definition first:
+- **`docker tag SOURCE_IMAGE TARGET_IMAGE`** — creates an additional name pointing at an image
+  that already exists, without rebuilding anything.
+
+Two-step proof:
+```
+docker tag mission-control-app:latest mission-control-app:v1
+```
+(labeling the current `version="1.1"` image as `v1`, so it's not only reachable via the disposable
+`latest` tag), then bumped the app to `version="2.0"` and built with an explicit tag instead of the
+bare name:
+```
+docker build -t mission-control-app:v2 .
+```
+`docker images` afterward:
+```
+IMAGE                        ID             ...
+mission-control-app:latest   3791121b6785   ...
+mission-control-app:v1       3791121b6785   ...
+mission-control-app:v2       ca0bb287d44e   ...
+```
+Real, notable detail: `latest` and `v1` share the *exact same* `ID` — `docker tag` just added a
+second name onto the already-existing image. But `latest` was **never updated** to point at `v2` —
+it's still pointing at the old content. This directly disproves the intuitive assumption that
+`:latest` means "the newest build"; it's just a label that only moves when explicitly rebuilt or
+retagged under that exact name — right now it's stale.
+
+**Rollback proven for real** — ran both tagged versions simultaneously on different host ports:
+```
+docker run -d -p 5001:5000 mission-control-app:v1
+docker run -d -p 5002:5000 mission-control-app:v2
+```
+Browser confirmed: `http://localhost:5001/health` → `{"status":"ok","version":"1.1"}`;
+`http://localhost:5002/health` → `{"status":"ok","version":"2.0"}` — two real, distinct versions
+coexisting and independently reachable, proving tagging genuinely preserves rollback capability.
+
+Clarified a related misconception: retagging an image does **not** affect already-running
+containers at all — a container is a fixed snapshot from whatever the image contained the moment
+`docker run` executed; renaming/retagging/even deleting the image afterward never touches
+containers that already exist. Tag changes only affect *future* `docker run`/`docker build`
+commands.
+
+### Harder independent task — `/ready` endpoint
+Context (previewed ahead of Kubernetes, taught fresh): **liveness** ("is the process still alive?")
+vs. **readiness** ("is it actually ready to serve traffic?") are different questions apps expose
+separately. Task: add a `/ready` endpoint to `project/app/app.py`, build/tag/run it independently.
+
+First attempt duplicated `/health`'s exact payload (`status`/`version`, no distinct signal) —
+corrected after being asked to reconsider what a readiness check should actually convey. Second
+attempt: `jsonify(ready="true", version="2.1")` — a real Python bug, `"true"` in quotes is a string,
+not a boolean. Grounded fresh since Python isn't formally taught yet (Phase 5): quotes make
+anything text to Python, even the word "true"; a real boolean is written `True`/`False`, capitalized,
+no quotes. Corrected to `ready=True, version="2.1"`.
+
+Realized mid-task that an image had already been built *before* the fix was saved — confirmed
+this matters: images are frozen snapshots of the files at build time, editing `app.py` afterward
+doesn't retroactively change an already-built image (same lesson as Day 1).
+
+**Safe cleanup of the buggy image** — identified the exact tag via `docker images`
+(`mission-control-app:health-ready`, marked `U` for in-use), found the specific dependent container
+via `docker ps -a` (`869907bb06ca`, `inspiring_dewdney`, still `Up`), then:
+```
+docker stop inspiring_dewdney
+docker rm inspiring_dewdney
+docker rmi mission-control-app:health-ready
+```
+— stopping and removing the container first, since Docker refuses to delete an image still tied to
+an existing container.
+
+**Final build/run/verify**, done independently: rebuilt `mission-control-app:health-ready` clean
+(deliberately reused the same tag name this time, since the old buggy content was already deleted —
+a legitimate descriptive-tag naming choice, not a mistake, distinct from the earlier `:latest`
+problem where old content was still wanted), ran it on port 5000, verified in browser:
+`/health` → `{"status":"ok","version":"2.1"}`, `/ready` → `{"ready":true,"version":"2.1"}` — a
+genuine JSON boolean this time.
+
+### Quiz — Topic 9 (both days), interview-style
+5 open-ended questions, no multiple choice. Question and full correct answer for each:
+
+1. **Walk through `docker run some-image` end to end, naming every component.**
+   The **client** (the `docker` CLI) sends the request to the **daemon** first. The daemon checks
+   whether the **image** already exists locally; if not, it pulls it from the **registry** (e.g.
+   Docker Hub). Once the image is available locally, the daemon creates a new **container** from
+   it and runs it, then streams the output back through the client to the terminal.
+
+2. **The actual difference between an image and a container, and why running the same image
+   3 times matters in practice.**
+   An image is a saved, read-only template — a complete snapshot of an app and everything it needs
+   to run, stored as a file; it doesn't execute anything by itself. A container is a live, running
+   instance created *from* an image. Running `docker run` on the same image 3 times produces 3
+   separate, independent containers from that one image — which matters in practice because it's
+   exactly how you scale an app to handle more traffic (spin up more instances of the same image)
+   or run isolated copies for other purposes, without needing multiple images.
+
+3. **Why did `RUN pip install` rerun even though `requirements.txt` never changed, and how did
+   reordering the Dockerfile fix it?**
+   Docker's build cache check is deliberately simple: for each layer, it only asks "did the layer
+   immediately before me change?" — it never inspects a command's arguments to figure out what it
+   actually depends on. The original Dockerfile's `COPY . .` bundled `app.py` and
+   `requirements.txt` into one layer, so changing `app.py` broke that layer's cache, and `RUN pip
+   install` — coming right after — inherited that break regardless of its own real dependency. The
+   fix: split the copy so only `requirements.txt` is copied (and installed) before `app.py` ever
+   enters the picture — `COPY requirements.txt .` → `RUN pip install -r requirements.txt` → `COPY
+   app.py .`. Now an `app.py`-only change only invalidates the final `COPY`, not the install step.
+
+4. **What actually went wrong relying on the default `:latest` tag, and what a tag fundamentally
+   is.**
+   A tag is just a movable label pointing at a specific image — it isn't glued to one image
+   forever. Every `docker build` without an explicit tag re-points the `latest` label at the newest
+   image built, silently orphaning whatever image `latest` used to point to (that old image still
+   exists, but there's no longer a name to ask for it by). The fix is giving builds explicit
+   version tags (e.g. `v1`, `v2`) so old versions stay reachable and rollback is possible.
+
+5. **The actual difference between `mission-control-app`'s exit code 137 and `hello-world`'s exit
+   code 0.**
+   `docker stop` doesn't kill a container instantly — it first sends a polite `SIGTERM` (signal
+   15, "please exit") and waits (~10s). If the process hasn't exited by then, Docker escalates to
+   a forceful `SIGKILL` (signal 9, "exit now, no cleanup"). Exit code 137 = `128 + 9` — `128` is
+   the fixed Linux/Unix convention marking "this exit code reports a signal, not a self-chosen
+   code," and `9` is the signal that did it. `mission-control-app` exited this way because
+   `docker stop` was run against it and its Flask dev server didn't respond to `SIGTERM` fast
+   enough. `hello-world`, by contrast, was never sent any stop signal at all — it finished its own
+   tiny task and exited normally by itself, which is why its code is a plain `0`.
+
+**How the actual quiz session went** (for context, not the answers themselves): Q1 needed one
+follow-up to add the missing client-initiates step; Q2 left the "why it matters" half unaddressed
+until asked; Q3's answer was correct but tangled, clarified with one follow-up; Q4 was answered
+completely and correctly first try; Q5 needed two rounds to stop conflating `hello-world` with
+`docker stop`, which was never run against it.
+
+**Result: PASS, attempt 1. Topic 9 CLEARED, 86/100** (Quiz 32/40, Hands-on 29/30, Depth 25/30).
+Note: the Python string-vs-boolean detail (`ready="true"` vs. `ready=True`) is excluded from
+Hands-on scoring entirely, since Python isn't formally taught until Phase 5.
+
 ### Status
-Day 1 of 2 complete. No quiz today (non-final day of a multi-day topic, per `CLAUDE.md`). Day 2
-still ahead: layer/rebuild edge cases, image tagging/versions, a harder/more independent task,
-tying deeper into the project build, then the quiz covering both days together.
+**Verdict**: **Topic 9 CLEARED, attempt 1, 86/100.** Next: Topic 10 — Docker: Networking,
+Volumes, Docker Compose.

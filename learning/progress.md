@@ -10,10 +10,8 @@
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
 in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
 (84/100). Topic 7 — COMPLETE (82/100). Topic 8 — COMPLETE (94/100). **PHASE 1 (Linux, Git &
-Version Control) COMPLETE.** Topic 9 — Docker: Architecture, Images, Containers — **day 1 of 2**,
-covered architecture/terminology, images vs. containers, writing/building/running a real
-Dockerfile against `project/app/`, and container lifecycle commands. Day 2 (harder/independent
-tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS sandbox VM.
+Version Control) COMPLETE.** Topic 9 — COMPLETE (86/100). Next: Topic 10 — Docker: Networking,
+Volumes, Docker Compose. SSH live connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -43,6 +41,8 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
 - Quiz: **PASS, attempt 1** — 6 interview-style questions, open-ended, no multiple choice. Full
   question-by-question record in the Quiz record index below and in
   `learning/notes/phase-1-linux-git-version-control/topic-01-linux-fundamentals.md`.
+  **Topic 1 CLEARED**
+  **90/100 (Quiz 36/40, Hands-on 27/30, Depth 27/30)**
 - Check-in: 2026-07-07 22:19 IST — Check-out: 2026-07-08 05:25 IST (quiz itself ran ~32 minutes,
   over the 20-minute cap — allowed to finish in progress rather than cut mid-question)
 
@@ -64,6 +64,8 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
   findings — and archiving (`tar -czvf`/`-xzvf`/`-tzvf`).
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days. Full record in
   `learning/notes/phase-1-linux-git-version-control/topic-02-top-50-shell-commands.md`.
+  **Topic 2 CLEARED**
+  **84/100 (Quiz 34/40, Hands-on 26/30, Depth 24/30)**
 - Check-in: 2026-07-09 23:24 IST — Check-out: 2026-07-10 05:39 IST (quiz ran ~28 minutes, over
   the 20-minute cap — allowed to finish in progress)
 
@@ -78,7 +80,7 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
 - Check-in: 2026-07-10 22:02 IST — Check-out: 2026-07-11 04:14 IST
 
 ## Session 6 — 2026-07-11 / 2026-07-12
-- Topic: Topic 3 — Linux, Shell Scripting Basics (day 2 of 2, FINAL DAY)
+- Topic completed: Topic 3 — Linux, Shell Scripting Basics (day 2 of 2, FINAL DAY)
 - Covered: loops (`for`, `while`, incl. a real self-debugged infinite-loop bug), functions
   (definition + invocation), exit codes/error handling (`$?`, redirecting output to suppress it),
   and a combined `checkall.sh` exercise (function + loop + exit code, tied to `project/scripts/`
@@ -86,9 +88,10 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
 - Quiz: **Attempt 1 — FAIL** (functions: invocation and `$1` scoping; all other areas —
   conditionals, loops, exit codes — passed cleanly). Re-taught functions using concrete tracing
   (a real script printing `$1` at three points) instead of another analogy, then **Attempt 2 —
-  full retest, all-new questions — PASS**, same session, after a short break. **Topic 3 CLEARED
-  in 2 attempts.** Full record in
+  full retest, all-new questions — PASS**, same session, after a short break. Full record in
   `learning/notes/phase-1-linux-git-version-control/topic-03-shell-scripting-basics.md`.
+  **Topic 3 CLEARED, in 2 attempts**
+  **80/100 (Quiz 30/40, Hands-on 28/30, Depth 22/30)**
 - Check-in: 2026-07-11 22:26 IST — Check-out: 2026-07-12 10:02 IST (long session incl. a
   fatigue-driven pause partway through; Attempt 1 quiz ran ~32 minutes, Attempt 2 retest ~23
   minutes, both over the 20-minute cap but allowed to finish in progress)
@@ -121,8 +124,8 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
   fairness reasoning, and the `df`-timeout production scenario), two of five needed a follow-up
   push for full precision but were ultimately correct. Full record in
   `learning/notes/phase-1-linux-git-version-control/topic-04-process-log-disk-management.md`.
-  **Topic 4 CLEARED, 88/100
-  (Quiz 34/40, Hands-on 28/30, Depth 26/30).**
+  **Topic 4 CLEARED**
+  **88/100 (Quiz 34/40, Hands-on 28/30, Depth 26/30)**
 - Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
 
 ## Session 9 — 2026-07-14 / 2026-07-16
@@ -143,9 +146,10 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
   `learning/notes/phase-1-linux-git-version-control/topic-05-linux-networking-fundamentals.md`.
 - Quiz: **Attempt 1 — PASS, 74/100** — 4 interview-style questions, 3 of 4 needed a follow-up
   nudge. Followed by a **voluntary full retest after the revision pass — PASS, 82/100** — 5
-  fresh questions, stronger hands-on-verified answers. **Topic 5 CLEARED — official score
-  82/100 (Quiz 30/40, Hands-on 26/30, Depth 26/30)**, the retest score used as the record since
-  it reflects the deeper understanding reached after revision.
+  fresh questions, stronger hands-on-verified answers. The retest score is used as the record
+  since it reflects the deeper understanding reached after revision.
+  **Topic 5 CLEARED, official score**
+  **82/100 (Quiz 30/40, Hands-on 26/30, Depth 26/30)**
 - Check-in: 2026-07-14 23:47 IST — Check-out: 2026-07-16 05:02 IST (session spanned across days
   with breaks; not continuous active work time)
 
@@ -162,8 +166,9 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
   `learning/notes/phase-1-linux-git-version-control/topic-06-git-fundamentals.md`.
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (staging-area
   purpose, `HEAD` behavior, fast-forward conditions, conflict marker order/meaning, and the
-  branches-vs-direct-commits problem), 2 of 5 needed a real follow-up correction. **Topic 6
-  CLEARED, 84/100 (Quiz 30/40, Hands-on 28/30, Depth 26/30).**
+  branches-vs-direct-commits problem), 2 of 5 needed a real follow-up correction.
+  **Topic 6 CLEARED**
+  **84/100 (Quiz 30/40, Hands-on 28/30, Depth 26/30)**
 - Check-in: 2026-07-16 23:38 IST — Check-out: 2026-07-17 01:45 IST
 
 ## Session 11 — 2026-07-18 / 2026-07-19
@@ -185,7 +190,8 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
 - Quiz: **PASS, attempt 1** — 4 interview-style questions (merge vs. rebase mechanics,
   safe conflict-resolution habits, cherry-pick tradeoffs, and the Git Flow/GitHub Flow
   `develop`-branch distinction), 3 of 4 needed a real follow-up push, including one full redirect.
-  **Topic 7 CLEARED, 82/100 (Quiz 28/40, Hands-on 30/30, Depth 24/30).**
+  **Topic 7 CLEARED**
+  **82/100 (Quiz 28/40, Hands-on 30/30, Depth 24/30)**
 - Check-in: 2026-07-18 00:56 IST — Check-out: 2026-07-19 11:11 IST (session spanned across days
   with breaks; not continuous active work time)
 
@@ -210,9 +216,9 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
 - Quiz: **PASS, attempt 1** — 4 interview-style questions (Git vs. GitHub, the PR mistake's root
   cause, merge/squash/rebase strategies tied to linear history, and `GITHUB_TOKEN` security),
   1 of 4 needed real redirection (root-cause reasoning), the other 2 follow-ups were quick
-  extensions of already-correct, comprehensive answers rather than corrections — score reassessed
-  upward after the user pushed back on treating all follow-ups as one flat category, a fair and
-  correct correction. **Topic 8 CLEARED, 94/100 (Quiz 36/40, Hands-on 30/30, Depth 28/30).**
+  extensions of already-correct, comprehensive answers rather than corrections.
+  **Topic 8 CLEARED**
+  **94/100 (Quiz 36/40, Hands-on 30/30, Depth 28/30)**
   **PHASE 1 (Linux, Git & Version Control) COMPLETE.**
 - Check-in: 2026-07-19 22:11 IST — Check-out: 2026-07-20 01:27 IST
 
@@ -240,6 +246,30 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
 - No quiz today — non-final day of a multi-day topic, per `CLAUDE.md`.
 - Check-in: 2026-07-20 22:37 IST — Check-out: 2026-07-21 10:50 IST
 
+## Session 14 — 2026-07-21 / 2026-07-22
+- Topic completed: Topic 9 — Docker: Architecture, Images, Containers (Day 2 of 2, final day)
+- Covered: layer/cache-invalidation edge case — proved that changing `app.py` forced an
+  unnecessary `RUN pip install` rerun because `COPY . .` bundled it with `requirements.txt` into
+  one layer, and that once a layer's cache breaks, every layer after it reruns regardless of its
+  own actual inputs; independently rewrote the Dockerfile to `COPY requirements.txt .` →
+  `RUN pip install` → `COPY app.py .`, self-caught the missing final `COPY` step, then proved the
+  fix with real build logs (13.3s → 2.3s, `RUN pip install` showing `CACHED`); image tagging —
+  `docker tag`, proved `:latest` silently goes stale (moves to whichever image was built last, not
+  necessarily the newest content) by running `v1`/`v2` simultaneously on different ports and
+  seeing both real, distinct versions; harder independent task — added a `/ready` endpoint
+  (liveness vs. readiness previewed ahead of Kubernetes), self-caught a real Python string-vs-
+  boolean bug (`ready="true"` vs. `ready=True`); safely deleted a buggy image using
+  `stop`→`rm`→`rmi` after identifying the exact dependent container blocking it. Full record in
+  `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-09-docker-architecture-images-containers.md`.
+- Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (architecture flow,
+  image/container semantics, cache invalidation, tagging, exit codes/signals); 2 needed a quick
+  follow-up to surface an already-understood detail, 1 left "why it matters" unaddressed until
+  asked, 1 had a genuine two-round factual mix-up (`docker stop` vs. `hello-world`'s self-exit),
+  tagging answered flawlessly.
+  **Topic 9 CLEARED**
+  **86/100 (Quiz 32/40, Hands-on 29/30, Depth 25/30)**
+- Check-in: 2026-07-21 23:44 IST — Check-out: 2026-07-22 04:47 IST
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -255,6 +285,7 @@ tasks, edge cases, quiz) still ahead. SSH live connection still deferred to AWS 
 | 6 | Git Fundamentals — Commits, Branches, Merges | PASS | — | — | Cleared |
 | 7 | Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies | PASS | — | — | Cleared |
 | 8 | GitHub — PRs, Actions Intro, Repo Management | PASS | — | — | Cleared |
+| 9 | Docker — Architecture, Images, Containers | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 

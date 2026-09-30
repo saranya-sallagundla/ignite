@@ -26,9 +26,9 @@ pieces gets added as the corresponding phase of the learning plan is reached. Se
 Filled in here once there's an application to actually run.
 
 ## Status
-`app/` now has its initial boilerplate (a Flask app with a `/health` endpoint) plus a Dockerfile,
-built and run successfully as a real container. 13 learning sessions in, Phase 1 complete and
-Phase 2 (Containers, Kubernetes & CI/CD) underway with Topic 9 (Docker); check
+`app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a properly-layered Dockerfile,
+built, tagged (`v1`/`v2`), and run as real containers with proven rollback. 14 learning sessions
+in, Phase 1 complete and Topic 9 (Docker: Architecture, Images, Containers) cleared; check
 `../learning/progress.md` for current progress through the learning plan, which drives what gets
 added here next.
 
@@ -96,3 +96,9 @@ workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kuberne
 Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` got its first real code (Flask
 + `/health`) and its first Dockerfile, built into `mission-control-app:latest` and run as a live
 container, verified serving `{"status":"ok"}` over HTTP. Day 2 still ahead before Topic 9 clears.
+
+### Session 14 — 2026-07-21 / 2026-07-22
+Topic 9 Day 2 — Dockerfile reordered so app-code changes no longer force an unnecessary dependency
+reinstall (proved with real build timings), `app/` gained a `/ready` endpoint, and the image is now
+properly version-tagged (`v1`/`v2`) with rollback proven by running both simultaneously. **Topic 9
+CLEARED, 86/100.**

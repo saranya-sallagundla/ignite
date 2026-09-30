@@ -137,4 +137,9 @@ from a browser hitting a container built from a Dockerfile written line by line,
 independently reasoning through exit code 137 (128 + SIGKILL) using only Topic 2's signals
 knowledge, without being told the formula first.
 
+## Session 14 — 2026-07-21 / 2026-07-22
+Docker Day 2 was the strongest independent hands-on session yet — self-caught a missing `COPY
+app.py .` line, a real Python string-vs-boolean bug, and proved the cache-reorder fix with real
+before/after build timings rather than taking it on faith. Topic 9 cleared, 86/100.
+
 <!-- Copy the block above for each new session -->
