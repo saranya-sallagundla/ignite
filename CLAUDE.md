@@ -23,7 +23,10 @@ partner on the real project, in one continuous relationship across sessions. Rea
 anything.
 
 ## Daily session shape
-1. Check `learning/progress.md` for the current topic and any topic mid-remediation.
+1. Check `learning/progress.md` for the current topic and any topic mid-remediation. If the topic
+   that most recently cleared is a multiple of 10 (10, 20, 30, 40, 50) and no matching file exists
+   yet under `learning/audits/`, remind the user to run the periodic repo audit (see below) before
+   starting the next topic.
 2. Teach today's topic: explain the concept, walk through real commands, have the user execute
    them live, correct in real time — not review-after-the-fact.
 3. Test only once the topic is fully complete (see multi-day rule below) — immediately after the
@@ -107,6 +110,49 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   distinct from `progress.md` (tracking) and `session_notes.md` (short reflection). Always show a
   command's general syntax pattern before the concrete example.
 - `learning/session_notes.md` — personal recap per session, for review only, not used for logic.
+- `learning/audits/` — periodic repo-wide professionalism audits (see below), one file per
+  milestone: `topic-N-audit.md`.
+
+## Repo quality standards
+Standing rules, so the repo never drifts back into the kind of issues the Topic 10 audit found:
+- **Employer name**: never appears in file content anywhere in this repo, in any casing (the git
+  remote/metadata is exempt — only file content matters). Check this specifically before
+  committing anything touching `project/docs/`, or any git-log/email example inside a notebook.
+- **Dates**: all narrative dates (headers, logs) are IST, format YYYY-MM-DD. Session/Day headings
+  show only the day the session/day *started* — no date ranges — since Check-in/Check-out lines
+  already carry the full real span and must never be touched for formatting reasons. Raw captured
+  command output and git commit metadata will show the machine's actual local clock (US Eastern
+  here) — that's expected and not an error, but worth a one-line note where it first appears.
+- **Topic names**: always written exactly as `learning/roadmap.md`'s fixed baseline table spells
+  them (em-dash form, e.g. "Docker — Architecture, Images, Containers"), in every file that names
+  a topic — notebook H1 titles, `progress.md`, `project/README.md`, `handbook_status.md`.
+- **Notebooks**: every command shows a general Syntax line before the concrete example; the quiz
+  block ends with `**Verdict**: **Topic N CLEARED, attempt N, XX/100.**`; every claimed "real
+  discovery," technical rule, or formula must be technically verified before being written down —
+  the same rigor applied to the user's own hands-on predictions applies to how it gets recorded.
+- **`project/`** is the interview-facing folder: no debugging/teaching-style comments in its code
+  or config (that belongs in the matching `learning/notes/` entry instead), no internal-scaffolding
+  language ("not yet defensible," references to this file), and no placeholder text that
+  contradicts what's actually built (e.g. "nothing to run yet" once something runs).
+- **Repo hygiene**: the root `.gitignore`/`.gitattributes` and `project/app/.dockerignore` must
+  stay in place and get extended as new languages/folders are added (e.g. Terraform's `.tfstate`,
+  Ansible's retry files, once those phases begin).
+
+## Periodic repo audit
+Every 10 topics (after Topic 10, 20, 30, 40, 50 clear), run a full repo professionalism audit —
+same process as the one done after Topic 10 — before starting the next topic. Findings and fixes
+get saved to `learning/audits/topic-N-audit.md`, with what was fixed and why it matters, not just
+a raw list. Fixes are applied in reviewable batches after the user reviews the findings — never
+silently. Genuinely topic-specific best-practice items (e.g. Dockerfile hardening, which belongs
+to Topic 11) get deferred to when that topic is actually taught, not fixed retroactively, so the
+user learns them hands-on rather than finding a pre-made fix waiting.
+
+Prompt to start the next one (also saved in `learning/audits/README.md`):
+> Check if the whole repo can be maintained even more professionally — check each and every
+> subfolder and subfile, word by word, line by line and sentence by sentence, and let me know what
+> else we can do. Tell me everything, even if it feels like a minute thing, it matters when
+> showing the whole repo to higher officials. Save the audit findings and fixes to
+> `learning/audits/`, and don't apply any fixes until I review the findings first.
 
 ## Logging, after every session
 Append to `learning/progress.md`: overwrite the Current Status line first, then a dated entry
