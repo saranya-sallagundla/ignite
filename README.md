@@ -28,16 +28,18 @@ ignite/
 │   │                         handbook site, which happens on its own timeline)
 │   ├── session_notes.md   — personal recap per session
 │   └── notes/             — per-topic study notebooks, filed under phase-N-name/ subfolders
-└── project/
-    ├── README.md          — describes the DevOps project itself
-    ├── docker-compose.yml — local multi-container dev stack
-    ├── app/
-    ├── k8s/
-    ├── terraform/
-    ├── ansible/
-    ├── monitoring/
-    ├── docs/
-    └── scripts/
+├── project/
+│   ├── README.md          — describes the DevOps project itself
+│   ├── docker-compose.yml — local multi-container dev stack
+│   ├── app/
+│   ├── k8s/
+│   ├── terraform/
+│   ├── ansible/
+│   ├── monitoring/
+│   ├── docs/
+│   └── scripts/
+└── audits/                — periodic full-repo professionalism audits (learning/ + project/
+                              together), one file per milestone
 ```
 
 ## How the learning side works

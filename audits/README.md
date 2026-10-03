@@ -13,8 +13,8 @@ was actually fixed, and why each fix mattered — not just a raw findings dump.
 > Check if the whole repo can be maintained even more professionally — check each and every
 > subfolder and subfile, word by word, line by line and sentence by sentence, and let me know what
 > else we can do. Tell me everything, even if it feels like a minute thing, it matters when
-> showing the whole repo to higher officials. Save the audit findings and fixes to
-> `learning/audits/`, and don't apply any fixes until I review the findings first.
+> showing the whole repo to higher officials. Save the audit findings and fixes to `audits/`, and
+> don't apply any fixes until I review the findings first.
 
 ## Rules for every audit
 - Findings first, fixes only after the user reviews them — never apply silently.
@@ -29,5 +29,5 @@ was actually fixed, and why each fix mattered — not just a raw findings dump.
   section — each audit should check the repo still holds to those, not just find new issues.
 - After the audit report is produced, save an unmodified copy of the raw findings report directly
   under `C:\CloudOps` (not just the scratchpad/temp location the report was originally written to,
-  and not just the permanent `learning/audits/topic-N-audit.md` record). Copy it as-is — do not
-  redact or edit anything (e.g. employer-name instances) in this copy.
+  and not just the permanent `audits/topic-N-audit.md` record). Copy it as-is — do not redact or
+  edit anything (e.g. employer-name instances) in this copy.

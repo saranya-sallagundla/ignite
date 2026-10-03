@@ -12,6 +12,9 @@ polish. Using that slack is normal; it does not count as falling behind.
   notebooks (`notes/`). The scaffolding behind the scenes, not meant to be shown off.
 - `project/` — the actual DevOps project: application code, Kubernetes, Terraform, monitoring.
   The piece meant to be shown in an interview.
+- `audits/` — periodic full-repo professionalism audits, covering both `learning/` and `project/`
+  together (see below). Lives at the repo root, not under `learning/`, since its scope isn't
+  limited to the learning side.
 - This file stays at the repo root, not inside either folder — Claude Code auto-loads CLAUDE.md
   from the directory it's launched in, so keeping it at the repo root guarantees the rules load
   every session regardless of which subfolder the work touches.
@@ -25,8 +28,8 @@ anything.
 ## Daily session shape
 1. Check `learning/progress.md` for the current topic and any topic mid-remediation. If the topic
    that most recently cleared is a multiple of 10 (10, 20, 30, 40, 50) and no matching file exists
-   yet under `learning/audits/`, remind the user to run the periodic repo audit (see below) before
-   starting the next topic.
+   yet under `audits/`, remind the user to run the periodic repo audit (see below) before starting
+   the next topic.
 2. Teach today's topic: explain the concept, walk through real commands, have the user execute
    them live, correct in real time — not review-after-the-fact.
 3. Test only once the topic is fully complete (see multi-day rule below) — immediately after the
@@ -110,8 +113,8 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   distinct from `progress.md` (tracking) and `session_notes.md` (short reflection). Always show a
   command's general syntax pattern before the concrete example.
 - `learning/session_notes.md` — personal recap per session, for review only, not used for logic.
-- `learning/audits/` — periodic repo-wide professionalism audits (see below), one file per
-  milestone: `topic-N-audit.md`.
+- `audits/` — periodic repo-wide professionalism audits (see below), one file per milestone:
+  `topic-N-audit.md`.
 
 ## Repo quality standards
 Standing rules, so the repo never drifts back into the kind of issues the Topic 10 audit found:
@@ -141,18 +144,20 @@ Standing rules, so the repo never drifts back into the kind of issues the Topic 
 ## Periodic repo audit
 Every 10 topics (after Topic 10, 20, 30, 40, 50 clear), run a full repo professionalism audit —
 same process as the one done after Topic 10 — before starting the next topic. Findings and fixes
-get saved to `learning/audits/topic-N-audit.md`, with what was fixed and why it matters, not just
-a raw list. Fixes are applied in reviewable batches after the user reviews the findings — never
+get saved to `audits/topic-N-audit.md`, with what was fixed and why it matters, not just a raw
+list. Fixes are applied in reviewable batches after the user reviews the findings — never
 silently. Genuinely topic-specific best-practice items (e.g. Dockerfile hardening, which belongs
 to Topic 11) get deferred to when that topic is actually taught, not fixed retroactively, so the
-user learns them hands-on rather than finding a pre-made fix waiting.
+user learns them hands-on rather than finding a pre-made fix waiting. After the report is
+produced, also save an unmodified copy of the raw findings report directly under `C:\CloudOps`
+(one level above this repo) — as-is, no redaction or edits applied to that copy.
 
-Prompt to start the next one (also saved in `learning/audits/README.md`):
+Prompt to start the next one (also saved in `audits/README.md`):
 > Check if the whole repo can be maintained even more professionally — check each and every
 > subfolder and subfile, word by word, line by line and sentence by sentence, and let me know what
 > else we can do. Tell me everything, even if it feels like a minute thing, it matters when
-> showing the whole repo to higher officials. Save the audit findings and fixes to
-> `learning/audits/`, and don't apply any fixes until I review the findings first.
+> showing the whole repo to higher officials. Save the audit findings and fixes to `audits/`, and
+> don't apply any fixes until I review the findings first.
 
 ## Logging, after every session
 Append to `learning/progress.md`: overwrite the Current Status line first, then a dated entry
