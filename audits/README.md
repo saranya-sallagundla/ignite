@@ -17,6 +17,11 @@ was actually fixed, and why each fix mattered — not just a raw findings dump.
 > don't apply any fixes until I review the findings first.
 
 ## Rules for every audit
+- **Not limited to the categories/items a past audit already found.** Topic-10-audit.md's findings
+  (A-E, plus the batch structure) are a record of what that specific audit surfaced, not a fixed
+  checklist future audits are confined to re-checking. Each new audit should look at the repo
+  fresh, word by word, and add whatever new issues actually turn up as its own findings — an audit
+  means checking everything, not re-verifying a predefined list.
 - Findings first, fixes only after the user reviews them — never apply silently.
 - Categorize by severity (critical / important / minor / cosmetic) so the user can prioritize.
 - Fix in small, reviewable, individually-committed batches, not one giant commit.
