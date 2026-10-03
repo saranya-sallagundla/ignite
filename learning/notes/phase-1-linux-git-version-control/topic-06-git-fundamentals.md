@@ -1,4 +1,4 @@
-# Topic 6 — Git Fundamentals: Commits, Branches, Merges
+# Topic 6 — Git Fundamentals — Commits, Branches, Merges
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -7,9 +7,10 @@
 
 ## Day 1 — 2026-07-16 (heavy scaffolding: commits, branches, fast-forward merge)
 
-Practiced from Windows PowerShell directly (`C:\CloudOps\git-practice`), not WSL — Git behaves
-identically either way; this environment was chosen since VS Code (native Windows install, not
-WSL) is the tool used for GitHub work going forward.
+Practiced from Windows PowerShell directly (`C:\CloudOps\git-practice`), not WSL — Git's core
+behavior is the same either way (line-ending defaults differ, see the CRLF note below); this
+environment was chosen since VS Code (native Windows install, not WSL) is the tool used for
+GitHub work going forward.
 
 ### Today's agenda
 1. The save-file analogy.
@@ -133,8 +134,10 @@ PS> git commit -m "Add readme file"
 - **`(root-commit)`** — flags this as the very first commit in the repo's history (no parent).
 - **`9925f29`** — the commit hash, a unique ID generated from the content itself.
 
-**Branch-naming aside**: notice `On branch master` above — older Git defaults a repo's first
-branch to `master`. GitHub, however, now defaults new repos to `main` instead. Flagged as
+**Branch-naming aside**: notice `On branch master` above — Git itself still defaults a repo's
+first branch to `master` unless `init.defaultBranch` is configured otherwise (confirmed on this
+same, current Git version). GitHub, however, defaults new repos created through its own UI to
+`main` instead. Flagged as
 relevant again once Topic 8 (GitHub) is reached, since a locally-initialized repo and a
 freshly-created GitHub repo can genuinely start on differently-named default branches.
 

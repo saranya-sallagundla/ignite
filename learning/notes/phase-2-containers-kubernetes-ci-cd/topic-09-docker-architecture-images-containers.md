@@ -1,4 +1,4 @@
-# Topic 9 — Docker: Architecture, Images, Containers
+# Topic 9 — Docker — Architecture, Images, Containers
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -92,8 +92,8 @@ recipe (image), many dishes (containers).
 anything yourself, you place the order and wait. You are the **client**. The **daemon** is the
 kitchen, working in the background, doing everything — fetching recipes, cooking, plating. The
 **registry** is a central recipe library (*Docker Hub*) the kitchen can call if it doesn't already
-have a recipe card on hand. `Flow: you ask → kitchen checks if it has the recipe already → if not,`
-`grabs one from the recipe library → cooks (creates a container) → hands you the finished dish.`
+have a recipe card on hand. *Flow: you ask → kitchen checks if it has the recipe already → if not,
+grabs one from the recipe library → cooks (creates a container) → hands you the finished dish.*
 
 ### 5. Checking the installation — `docker --version` vs `docker version`
 What these are for: confirming Docker is actually installed and working, and — for the full
@@ -101,7 +101,7 @@ form — seeing the client/server split explained below.
 
 General syntax vs. shorthand:
 ```
-docker --version   # shorthand — client version only, one line
+docker --version    # shorthand — client version only, one line
 docker version      # full — shows Client: and Server: as two separate sections
 ```
 
@@ -215,7 +215,7 @@ Two commands, each explained for what it's *for* before running anything:
   currently-running ones. Without it, a finished container like `hello-world` (which runs and
   exits immediately) wouldn't show up at all.
 
-**First check**, right after the single earlier `hello-world` run:
+**First check**, later the same session, after the single earlier `hello-world` run:
 
 `docker images`:
 ```
@@ -429,8 +429,8 @@ Follow-up Q&A on the number itself:
   number**. So `128 + 9` (`SIGKILL`) = `137`. A process killed by `SIGTERM` (signal 15) instead
   would show `143` (`128 + 15`). `128` is the fixed marker; the number added to it is the actual
   signal.
-- Correctly self-confirmed the whole formula unprompted: *"so the ubuntu said 128 and the signal
-  number is 9 so 128+9"* — reasoned through `137 = 128 + 9` independently using only Topic 2's
+- Correctly self-confirmed the whole formula unprompted — 128 marking a signal-based exit, plus
+  signal 9, giving 137 — reasoned through `137 = 128 + 9` independently using only Topic 2's
   signals knowledge, without being handed the formula first.
 
 Contrast kept explicit: `hello-world`'s `Exited (0)` — that one finished its own work and exited
@@ -444,14 +444,15 @@ server apparently didn't respond to the polite `SIGTERM` fast enough, so Docker 
 4. Write a real Dockerfile for `project/app/`.
 5. Build and run it, prove it's serving real traffic via `/health`.
 6. Basic container lifecycle commands — inspect and clean up.
+7. Exit codes and signals — the real `137` vs. `0` contrast.
 
-All six were completed today. Declined the offer to continue into Day 2 material early (would have
+All seven were completed today. Declined the offer to continue into Day 2 material early (would have
 meant covering layer/rebuild edge cases, image tagging/versions, a harder independent task, and the
 quiz today) — chose to stop after Day 1's full agenda instead.
 
 ---
 
-## Day 2 — 2026-07-21 / 2026-07-22
+## Day 2 — 2026-07-21 / 2026-07-22 (final day)
 
 ### Today's agenda
 1. Layer/rebuild edge cases — what actually gets reused vs. rebuilt on a code change, and why

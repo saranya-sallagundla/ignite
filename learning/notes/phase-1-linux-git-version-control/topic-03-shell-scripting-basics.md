@@ -1,4 +1,4 @@
-# Topic 3 — Linux: Shell Scripting Basics
+# Topic 3 — Linux — Shell Scripting Basics
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -29,7 +29,8 @@ repeatably without retyping them.
 - `/bin/bash` — path to the interpreter that executes the rest of the file
 
 Without it, a script can still run via `bash script.sh` (explicitly naming the interpreter), but
-not via `./script.sh` directly, since the OS wouldn't know which interpreter to use.
+running it directly via `./script.sh` is unreliable — without a shebang telling the OS which
+interpreter to use, it may fall back to an unpredictable default rather than definitely failing.
 
 **Verified hands-on**:
 ```
@@ -47,8 +48,9 @@ $ chmod 744 hello.sh
 $ ./hello.sh
 Hello from my first script
 ```
-**New shorthand learned**: `chmod +x FILE` — symbolic mode, adds execute permission (owner/group/
-others) without needing to compute the exact octal number. The common real-world idiom for "just
+**New shorthand learned**: `chmod +x FILE` — symbolic mode, adds execute permission
+(owner/group/others) without needing to compute the exact octal number. The common real-world
+idiom for "just
 make this runnable," used more often than manually computing `744`/`755` for scripts.
 
 **Gotcha, hit and corrected**: running `/hello.sh` (no leading dot) instead of `./hello.sh` —
@@ -107,7 +109,8 @@ a bracket character), `;` before `then`, block closes with `fi` (backwards spell
 convention as `esac` for `case`).
 
 **Operators**: numbers — `-eq -ne -gt -lt -ge -le`; strings — `=` / `==`; `-z STRING` (true if
-empty); `-f FILE` (true if file exists).
+empty); `-f FILE` (true if it exists **and** is a regular file — not a directory; plain existence
+of any kind is `-e`).
 
 **Verified hands-on — string/empty check**:
 ```
@@ -134,7 +137,8 @@ Zero
 ### 5. Arithmetic expansion
 
 **Syntax**: `$(( EXPRESSION ))` — lets bash evaluate math, including `%` (modulo — remainder
-after division). `$1 % 2` is `0` for even numbers, `1` for odd numbers.
+after division). `$1 % 2` is `0` for even numbers, non-zero for odd numbers (note: bash's `%` can
+return a negative remainder for negative odd numbers, e.g. `-3 % 2` is `-1`, not `1`).
 
 ### 6. Combined exercise — `classify.sh` (sign + odd/even), written from scratch with real debugging
 
@@ -266,7 +270,7 @@ to locate the file until the actual current location was worked out and confirme
 ```
 $ printf '#!/bin/bash\nfor fruit in "$@"; do\n    echo "I like $fruit"\ndone\n' > fruits_loop.sh
 $ chmod +x fruits_loop.sh
-$ ./fruits_loop.sh apple bannana cherry
+$ ./fruits_loop.sh apple bannana cherry   # typo in the arg itself, kept verbatim below
 I like apple
 I like bannana
 I like cherry
@@ -291,12 +295,13 @@ while [ $count -le 5 ]; do
     count=$(( count + 1 ))
 done
 ```
-**Gotcha, hit for real**: wrote the increment as `number=$(( count + 1 ))` — assigning to the
-correct variable (`number`) but reading from the *wrong* one (`count`, which was undefined,
-evaluating to `0`), so `number` stayed stuck at `1` forever. Root cause of an infinite loop:
+**Gotcha, hit for real**: wrote the increment as `count=$(( number + 1 ))` — assigning to the
+correct variable (`count`) but reading from the *wrong* one (`number`, which was undefined,
+evaluating to `0`), so `count` stayed stuck at `1` forever. Root cause of an infinite loop:
 **the loop's condition variable never actually changes**, so the condition never becomes false.
-Fixed to `number=$(( number + 1 ))` — same variable on both sides. `Ctrl+C` (sends `SIGINT`) is
-how you'd stop a genuinely stuck loop running in a terminal.
+Fixed to `count=$(( count + 1 ))` — same variable on both sides, matching the working version
+shown above. `Ctrl+C` (sends `SIGINT`) is how you'd stop a genuinely stuck loop running in a
+terminal.
 
 **`$@` vs `"$@"` — a real distinction, explained directly (goes past what was explicitly taught,
 surfaced during the Day 2 quiz)**: `"$@"` (quoted) treats each argument as one distinct item,
@@ -385,7 +390,7 @@ $ ls /etc
 ... (real output) ...
 $ echo $?
 0
-$ ls /nonexsistent-folder
+$ ls /nonexsistent-folder    # typo in the path itself, kept verbatim below
 ls: cannot access '/nonexsistent-folder': No such file or directory
 $ echo $?
 2
@@ -468,9 +473,10 @@ full correct answer for each:
 2. **An infinite `while` loop is running live — what caused it, and how do you stop it?**
    The root cause of an infinite `while` loop is that the condition variable never actually
    changes value, so the loop's test condition never becomes false. This happens in practice when
-   the increment line assigns to the wrong variable — e.g. `number=$(( count + 1 ))` updates
-   `number` but reads from `count`, leaving the loop's real condition variable frozen. The fix is
-   making sure the same variable is both tested and incremented (`count=$(( count + 1 ))`). To stop
+   the increment line assigns to the right variable but reads from the wrong one — e.g.
+   `count=$(( number + 1 ))` correctly updates `count`, but reads from an unrelated, undefined
+   `number` (evaluating to `0`), so `count` never advances past `1`. The fix is making sure the
+   same variable is both tested and incremented: `count=$(( count + 1 ))`. To stop
    a loop that's already stuck running in the terminal, `Ctrl+C` sends the process a `SIGINT`
    signal, interrupting it immediately.
 
@@ -481,10 +487,7 @@ full correct answer for each:
    `$1` always refers to the first argument passed to the script itself on the command line. A
    function's `$1` refers only to whatever argument was explicitly passed to that specific function
    call (e.g. `greet "Alice"` gives `greet`'s own `$1` the value `"Alice"`, regardless of what the
-   script's `$1` currently holds). This was proven directly with a trace script that printed the
-   script's `$1` before calling `greet`, printed `greet`'s own `$1` from inside the function, then
-   printed the script's `$1` again after the call returned — the outer value stayed completely
-   unchanged across the whole run, confirming the two variables never interact.
+   script's `$1` currently holds).
 
 4. **What happens if a function is defined in a script but never called anywhere?**
    Nothing happens — no output and no error. Defining a function (`function_name() { ... }`) is
@@ -502,7 +505,7 @@ full correct answer for each:
    should always be quoted in practice.
 
 **How Attempt 1 actually went**: Q1 and Q2 passed cleanly. Q3 (the `$1` scoping question) did not
-land despite multiple analogy-based explanations, and was flagged for deferred mastery. Q4 was
+land despite multiple analogy-based explanations, and was flagged for re-teach and retest. Q4 was
 missed entirely ("no idea"). Q5 went beyond what had been explicitly taught this session, so it
 was explained directly rather than held against the score.
 

@@ -1,14 +1,19 @@
-# Topic 2 — Linux: Top 50 Shell Commands
+# Topic 2 — Linux — Top 50 Shell Commands
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Organized by topic, filled in day by day as the topic is covered.
 
 ---
 
 ## Day 1 — 2026-07-08 (file viewing, search, text processing)
 
 Grouped thematically rather than as a random list, since that's how these get used in practice.
-Skips what Topic 1 already covered: `ls`, `cd`, `mkdir`, `cp`, `mv`, `rm`, `cat`, `chmod`.
+Skips what Topic 1 already covered: `ls`, `cd`, `mkdir`, `cp`, `mv`, `rm`, `chmod` (`head` and
+`curl` were touched on in Topic 1 too, but get a deeper pass in this topic and later on). Not
+every one of the roadmap's "top 50" lands in this single topic — the rest are folded into later
+topics as they become relevant (e.g. `ss`/networking tools recur in Topic 5, process tools recur
+in Topic 4).
 
 ### Today's agenda
 1. Viewing large files — `head`, `tail`, `less`.
@@ -274,7 +279,7 @@ count, no concept of original line position at all).
 ### Today's agenda
 1. Process monitoring — `ps`, `top`, `kill`, signals.
 2. System resource commands — `df`, `du`, `free`, `uptime`.
-3. Networking — `ping`, `curl`, `ss`.
+3. Networking — `ping`, `ss`.
 4. Archiving — `tar`.
 5. The quiz.
 
@@ -364,12 +369,12 @@ longer has a directory entry/filename, `du` can't traverse to it and won't count
 disk shown as nearly full by `df`, with no `du` total anywhere close to accounting for that
 space, points at exactly this — find and restart whatever process is holding a deleted file open.
 
-### 3. Networking — `ping`, `curl` (recap), `ss`
+### 3. Networking — `ping`, `ss`
 
 **Syntax**: `ping -c N HOST` — send N test packets (ICMP echo) to test reachability/latency.
 Without `-c`, runs forever until `Ctrl+C`. `127.0.0.1` = loopback, always "this machine itself."
 
-**Key real-world discovery — ICMP vs. TCP are independently firewalled**:
+**Real discovery — ICMP vs. TCP are independently firewalled**:
 ```
 $ ping -c 4 127.0.0.1        → 0% packet loss (loopback, always works)
 $ ping -c 4 google.com       → 0% packet loss (!)
@@ -438,7 +443,8 @@ without error."
 **Syntax**: `tar -czvf ARCHIVE.tar.gz PATH` — create an archive
 - `-c` create, `-z` compress with gzip, `-v` verbose (print each file as added), `-f` filename
   (must immediately precede the archive name)
-- Name origin: **t**ape **ar**chive, from 1970s magnetic tape backups — name stuck, tool didn't.
+- Name origin: **t**ape **ar**chive, from 1970s magnetic tape backups — the tapes are gone, the
+  name stuck.
 
 **Syntax**: `tar -xzvf ARCHIVE.tar.gz` — extract (`-x`, same other flags)
 **Syntax**: `tar -tzvf ARCHIVE.tar.gz` — list/table of contents **without** extracting
@@ -466,7 +472,7 @@ $ ls -lh practice-backup.tar.gz
 Confirms: archiving is recursive (includes the `logs/` subfolder), symlinks are preserved as
 symlinks inside the archive (not copied as regular files — the `->` arrow notation survives),
 and the original `practice/` folder is completely untouched — `tar` only reads to build the new
-archive file, placed whichever directory you ran the command from (here, `~`, since `-f` was
+archive file, placed in whichever directory you ran the command from (here, `~`, since `-f` was
 given a bare filename with no path prefix). Compression is real: `1014` bytes vs. `44K`
 uncompressed (`du -sh` earlier) — text compresses very well due to repeated patterns.
 
@@ -475,7 +481,7 @@ uncompressed (`du -sh` earlier) — text compresses very well due to repeated pa
 ## Topic 2 Quiz — both days combined — Attempt 1: PASS, 84/100
 
 Interview-style, open-ended, no multiple choice. Ran ~28 minutes (over the 20-min cap — allowed
-to finish in progress).
+to finish the question in progress rather than cut mid-question).
 
 1. **Find the memory-heavy process, then force-kill a hung one by name.**
    `ps aux` lists every process on the system, for all users, in a detailed columnar format —
@@ -492,6 +498,7 @@ to finish in progress).
    sends SIGTERM (signal 15) — a polite request the process could catch and clean up after, or
    simply ignore — and is why SIGKILL is the right call specifically when a process is frozen and
    unresponsive to that polite request.
+
 2. **"Ping works, so the app must be reachable" — true or false?**
    False. `ping` tests reachability using ICMP, a lightweight "are you there?" diagnostic
    protocol — it says nothing about whether actual application traffic can get through. Web
@@ -504,6 +511,7 @@ to finish in progress).
    packet loss on the same corporate network where `curl`/`apt` (TCP-based) had already been found
    to time out. "Ping works but the app/website doesn't load" is a common real troubleshooting
    scenario, and the answer is almost always this exact ICMP-vs-TCP distinction.
+
 3. **`uniq` isn't removing visible duplicates in a file — why?**
    `uniq` only removes **adjacent** (consecutive) duplicate lines — it compares each line only to
    the line immediately before it, and has no awareness of duplicates anywhere else in the file.
@@ -515,6 +523,7 @@ to finish in progress).
    -c`. Separately, `uniq` also only ever compares whole lines to each other, never text within a
    single line — `"apple apple"` on one line is untouched by `uniq` entirely, since it never looks
    inside a line, only at adjacent whole lines.
+
 4. **`grep` for content vs. `find` for filename, scoped to `/var/log`.**
    `grep` searches file **contents** for a text pattern; `find` locates files by **name** (or other
    attributes) — they answer fundamentally different questions and aren't interchangeable. To
@@ -526,6 +535,7 @@ to finish in progress).
    `"*.log"` supported) — scoped to `/var/log` rather than the much slower and noisier `find /`
    from the filesystem root. The core distinction: `find` answers "which file has this **name**,
    and where is it?"; `grep -r` answers "which file **contains** this **text**, and where?"
+
 5. **`df` vs. `du` disagreement — why can they differ?**
    `df` reports free/used space at the whole-filesystem (mount) level; `du` sums the actual disk
    usage of specific files or paths you point it at (`-s` gives one summary total rather than
@@ -539,17 +549,19 @@ to finish in progress).
    finding and restarting that process to actually reclaim the space.
 
 **How the actual quiz session went** (for context, not the answers themselves): Q1 needed two
-nudges (exact `kill -9 PID` form, and the `ps aux | grep` bracket self-match trick); Q2 passed
-cleanly after one nudge to name the ICMP-vs-TCP mechanism itself; Q3 passed cleanly, first try;
-Q4 needed two corrections (invalid `-/var/log` syntax fixed to proper `-r`, and `find /` narrowed
-to `find /var/log`); Q5 was correct on the basic distinction, with the deleted-open-file edge
-case explained directly rather than pushed on, since it went beyond what was explicitly taught
-this session.
+nudges (exact `kill -9 PID` form, and the `ps aux | grep` bracket self-match trick); Q2 needed
+one nudge to name the ICMP-vs-TCP mechanism itself; Q3 passed cleanly, first try; Q4 needed two
+corrections (invalid `-/var/log` syntax fixed to proper `-r`, and `find /` narrowed to
+`find /var/log`); Q5 was correct on the basic distinction, with the deleted-open-file edge case
+explained directly rather than pushed on, since it had only been covered once, briefly, earlier
+this same session.
 
 **Score: 84/100**
 - **Quiz 34/40** — 3 of 5 answers needed a correction (`kill` syntax precision, `grep`/`find`
   flag and scope fixes), 2 passed cleanly.
 - **Hands-on 26/30** — more syntax slips than Topic 1 (`grep -r` placement, `find` scope).
-- **Depth 24/30** — strong independent reasoning on the ICMP-vs-TCP firewall discovery.
+- **Depth 24/30** — strong independent reasoning on the ICMP-vs-TCP firewall discovery, though
+  the df/du deleted-open-file edge case had to be explained rather than reasoned out
+  independently.
 
 **Verdict**: **Topic 2 CLEARED, attempt 1, 84/100.**

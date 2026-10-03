@@ -1,4 +1,4 @@
-# Topic 8 — GitHub: PRs, Actions Intro, Repo Management
+# Topic 8 — GitHub — PRs, Actions Intro, Repo Management
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -18,9 +18,7 @@ repo instead of creating a new one, but ruled that out — it already had a real
 living in it, and deliberately practicing risky Git operations (force pushes, branch deletion,
 rebase) against it risked actually breaking something real. A fresh, disposable practice repo
 avoids that risk entirely. Also discussed personal-vs-work GitHub account tradeoffs for where
-practice repos like this should live. Separately, an "AppID" reference that came up was clarified
-as an org-specific concept tied to this particular organization's setup, not a standard GitHub
-term or feature everyone would encounter.
+practice repos like this should live.
 
 ### Today's agenda
 1. Remotes — connecting local Git to GitHub.
@@ -69,6 +67,9 @@ out at the *end* of Topic 7 (`real-conflict`), not `master` — nothing explicit
 
 **Diagnosed properly, not guessed**:
 ```
+**Syntax**: `git merge-base BRANCH1 BRANCH2` — find the common-ancestor commit of two branches
+
+```
 PS> git log --oneline --graph --all
 * f4023ce (HEAD -> add-notes, origin/add-notes) add notes file for PR request
 * dc448e5 (real-conflict) add feature line
@@ -91,6 +92,8 @@ change.
 
 **Real lesson**: always verify which branch you're actually on (`git branch`) before creating a
 new one — "current branch" can silently carry over from a previous session's last checkout.
+
+**Syntax**: `git push REMOTE --delete BRANCH` — delete a branch on the remote
 
 **Fixed by deleting and recreating properly**:
 ```
@@ -260,9 +263,11 @@ Topic 1's privilege-escalation lesson (a writable file executed by a more-privil
    token/permissions as your own job — a real, documented supply-chain attack vector. The actual
    danger: a compromised Action can act on the repo with the job's real permissions/access,
    without the user's knowledge (e.g., stealing secrets, pushing malicious code).
-2. **Secrets accidentally shown in the run's log output** — if a command in the workflow outputs
-   a stored password/API key (a "secret") directly, that value becomes visible to anyone who can
-   view the workflow's logs — a very common real mistake.
+2. **Secrets accidentally shown in the run's log output** — GitHub Actions automatically masks
+   any value registered as a secret, printing `***` instead if a workflow command tries to output
+   it directly. The real risk is narrower but still real: a secret that's been transformed first
+   (e.g. base64-encoded, split into pieces, or concatenated with other text) can slip past that
+   automatic masking and print in full — a common real mistake even with masking in place.
 3. **Pull requests from outside contributors** — on "public" repos (ones anyone on the internet
    can view and copy, as opposed to "private" ones only specific people can access), GitHub
    restricts outside contributors' proposed changes from running workflows with full
@@ -270,7 +275,8 @@ Topic 1's privilege-escalation lesson (a writable file executed by a more-privil
    CI to steal secrets or push malicious code.
 
 **Real mitigations teams actually use**: pin third-party Actions to a specific trusted commit
-hash (not just `@latest`), grant the token only the minimum permissions actually needed (not the
+hash (not just a floating tag like `@v4` or branch like `@main`), grant the token only the
+minimum permissions actually needed (not the
 full default list), never print secrets to logs, and require manual approval before running
 workflows triggered by external/fork PRs.
 
@@ -325,8 +331,10 @@ remote: - Required status check "say-hello" is expected.
 error: failed to push some refs to 'https://github.com/your-org/git-practice.git'
 ```
 Genuinely blocked this time — `GH006` is GitHub's specific error code for this rejection, and the
-push was cleanly rejected client-side too (`protected branch hook declined`). Cleaned up the
-local-only test commit with `git reset --hard HEAD~1`, safe since it was never pushed.
+push was cleanly rejected on the **server side** (`[remote rejected]`, `protected branch hook
+declined` — GitHub's own pre-receive check on the remote, not anything checked locally before
+sending). Cleaned up the local-only test commit with `git reset --hard HEAD~1`, safe since it was
+never pushed.
 
 **Real discovery #2 — the self-approval block**: with "Require approvals" (1 required) enabled,
 opened a PR (`test-pr-approval`) and tried to merge immediately without approving — the merge
@@ -433,4 +441,4 @@ mitigations, then extended with one follow-up adding the precise danger mechanis
 - **Depth 28/30** — strong real-world reasoning throughout, correct diagnoses backed by direct
   evidence rather than assumptions.
 
-**Verdict**: **Topic 8 CLEARED, attempt 1, 94/100** — Phase 1 (Linux, Git & Version Control) complete.
+**Verdict**: **Topic 8 CLEARED, attempt 1, 94/100.** Phase 1 (Linux, Git & Version Control) complete.

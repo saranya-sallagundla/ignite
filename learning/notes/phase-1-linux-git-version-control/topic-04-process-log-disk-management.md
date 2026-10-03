@@ -1,4 +1,4 @@
-# Topic 4 — Linux Deep Dive: Process, Log, Disk Management
+# Topic 4 — Linux Deep Dive — Process, Log, Disk Management
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -79,8 +79,8 @@ $ ps aux | awk '$8 ~ /s/ {print $1 $8 $11}'           # session leaders
 $ ps aux | awk '$8 ~ /l/ {print $1 $8 $11}'           # multi-threaded
 $ ps aux | awk '$8 ~ /</ {print $1 $8 $11}'           # higher priority
 $ ps aux | awk '$8 ~ /\+/ {print $1 $8 $11}'          # foreground — correctly matched the exact
-                                                         # commands run interactively (ps, bash,
-                                                         # awk, sort, uniq)
+                                                         # commands run interactively in this
+                                                         # pipeline (ps, bash, awk)
 ```
 **Extra technique, offered as an aside (not required, but real)**: the leaking header row can be
 excluded cleanly by adding a second condition — `$8 ~ /^S/ && $1 != "USER" {print $1 $8 $11}` —
@@ -161,15 +161,17 @@ default `0`.
 **Syntax**: `nice -n VALUE COMMAND` — start a new command with a given niceness
 **Syntax**: `renice VALUE -p PID` — change niceness of an already-running process
 
-**First attempt, hit a real timing race**: `nice -n 10 sleep 60 &` followed immediately by
-`ps -o pid,ni,cmd -p $!` — but `sleep 60` had already finished by the time `ps` ran, so `$!`
-pointed at a PID that no longer existed and nothing printed. Fixed by using a longer sleep
-(`sleep 300` instead of `60`) to leave enough time to actually inspect it before it exits.
+**First attempt, hit a real mixup**: ran `nice -n 10 sleep 60 &`, but an extra command run in
+between backgrounding it and checking `ps -o pid,ni,cmd -p $!` overwrote `$!` with a different
+job's PID, so the lookup pointed at the wrong process and nothing relevant printed. Fixed by
+switching to `sleep 300` and reading `$!` immediately after backgrounding it, with nothing run
+in between, to avoid the mixup entirely.
 
 **Repeated PID typo, hit for real**: practicing `renice` against a background process
-(PID `68890`), the actual PID got mistyped as `68990` — transposing the `8` and `9` — three
-separate times in a row (`renice 5 -p 68990`, `renice 10 -p 68990`, ...), each attempt failing
-with "No such process," before the transposition was spotted and corrected to the real `68890`.
+(PID `68890`), the actual PID got mistyped as `68990` — a single digit swapped (`8`→`9`) in the
+middle — three separate times in a row (`renice 5 -p 68990`, `renice 10 -p 68990`, ...), each
+attempt failing with "No such process," before the typo was spotted and corrected to the real
+`68890`.
 
 **Key rule — stated first as a simplification, then genuinely refined live**: the first pass at
 the rule was just "a regular user can't decrease niceness below 0." That turned out to be
@@ -226,6 +228,8 @@ gzip from Topic 2) — log rotation happening for real, not just a described con
 
 **`journalctl`** — the modern, unified, structured systemd log (`journald`), covering most of
 what used to be scattered across separate plain-text files.
+
+**Syntax**: `journalctl [-n N] [-f] [-u SERVICE_NAME]`
 - `journalctl -n N` — last N entries
 - `journalctl -f` — follow live (like `tail -f`)
 - `journalctl -u SERVICE_NAME` — filter to one service
@@ -303,7 +307,7 @@ don't always know in advance how a problem will be phrased.
 ### Today's agenda
 1. The land/lot/driveway analogy.
 2. `lsblk` and UUIDs.
-3. `fdisk` — creating/modifying partitions.
+3. `fdisk` — listing partitions (creation deferred to the loop-disk exercise, #5).
 4. Attempting to mount an "unused" disk.
 5. Practicing safely with a loop-mounted virtual disk.
 6. `fsck` — the filesystem checker.
@@ -351,7 +355,7 @@ sdd   ext4   1.0         b33832f5-02a1-439b-ba34-78a309a1d7e6  953.2G     0% /mn
 **Cross-checked with `df -h`**: confirmed `sdd` is the actual root filesystem (`/`), `sdc` is
 swap, and `sda`/`sdb` are genuinely unmounted — not attached anywhere in the visible folder tree.
 
-### 3. `fdisk` — actually creating/modifying partitions
+### 3. `fdisk` — listing partitions (creation deferred to §5)
 
 **Syntax**: `fdisk -l [device]` — list partitions (safe, read-only)
 **Syntax**: `fdisk [device]` — interactive mode, create/delete/modify partitions (destructive)
@@ -484,7 +488,8 @@ mount without a force-unmount or reboot first).
 ### 7. `/etc/fstab` — persistent mounts
 
 A manual `mount` is runtime-only — it does not survive a reboot. `/etc/fstab` ("filesystem
-table") is what the kernel reads at boot to remount things automatically.
+table") is what the init system (systemd, via its fstab generator) reads at boot to remount
+things automatically.
 
 **General syntax**, 6 fields per line:
 ```
@@ -503,6 +508,8 @@ SYSTEM` — WSL2 doesn't rely on the traditional boot-time `fstab` process for i
 is left essentially untouched. On a real server/VM this file would normally have real entries.
 
 **Verified hands-on — writing and testing a real entry, without rebooting**:
+
+**Syntax**: `blkid [DEVICE]` — show a device's UUID/type (or every device if none given)
 ```
 $ sudo blkid /dev/loop0
 /dev/loop0: UUID="57ea35a9-50ee-422f-b798-7cd4e839274f" BLOCK_SIZE="4096" TYPE="ext4"
@@ -534,6 +541,12 @@ already mounted; `mount -a` is the step that actually re-attaches everything lis
 `/etc/fstab`, reading the file fresh at that moment. Each command touches a different point in
 that timeline, not overlapping responsibilities.
 
+**Cleanup, tied directly to Q3's own boot-failure warning below**: this loop device
+(`/dev/loop0`, backed by `/root/practice.img`) doesn't persist across a reboot, so leaving its
+test entry in `/etc/fstab` permanently would eventually hang boot exactly the way Q3 describes —
+this test entry was removed from `/etc/fstab` afterward (`sudo sed -i '\|/mnt/test|d' /etc/fstab`)
+once the exercise was done, rather than left in place.
+
 ### 8. Combined scenario — inode exhaustion vs. block exhaustion
 
 **Scenario posed**: an application team reports their service crashed with `"No space left on
@@ -552,7 +565,7 @@ while `df -h`'s `Use%` stays low confirms this exact scenario.
 
 ---
 
-## Topic 4 Quiz — both days combined — Attempt 1: PASS
+## Topic 4 Quiz — both days combined — Attempt 1: PASS, 88/100
 
 Interview-style, open-ended, 5 questions covering Day 1 and Day 2 material together. Question and
 full correct answer for each:
@@ -582,14 +595,14 @@ full correct answer for each:
 
 3. **`fstab`/UUID persistence, including boot-failure consequences.**
    A manual `mount` command only affects the running system — it does not survive a reboot.
-   `/etc/fstab` is what the kernel reads at boot time to remount filesystems automatically, so
-   persistence requires an `fstab` entry, not just a one-off `mount`. Within that entry, a UUID is
-   preferred over a device name (e.g. `/dev/sda1`) because device names can shift if disks are
-   added or removed, while the UUID is a permanent ID stamped onto the filesystem at creation time
-   and never changes for that filesystem's life. Consequence of a bad entry: a wrong UUID or
-   device name in `fstab` isn't silently skipped — it can hang the boot process entirely and
-   require manual intervention through an emergency/maintenance shell to fix, since the kernel
-   expects that entry to be mountable during boot.
+   `/etc/fstab` is what the init system (systemd) reads at boot time to remount filesystems
+   automatically, so persistence requires an `fstab` entry, not just a one-off `mount`. Within
+   that entry, a UUID is preferred over a device name (e.g. `/dev/sda1`) because device names can
+   shift if disks are added or removed, while the UUID is a permanent ID stamped onto the
+   filesystem at creation time and never changes for that filesystem's life. Consequence of a bad
+   entry: a wrong UUID or device name in `fstab` isn't silently skipped — it can hang the boot
+   process entirely and require manual intervention through an emergency/maintenance shell to
+   fix, since systemd expects that entry to be mountable during boot.
 
 4. **`nice`/`renice` — why regular users can only increase niceness, never decrease it.**
    Niceness ranges from `-20` (highest priority) to `19` (lowest priority), default `0`. A regular

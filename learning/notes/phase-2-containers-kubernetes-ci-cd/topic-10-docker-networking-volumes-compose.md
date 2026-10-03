@@ -96,6 +96,15 @@ gained `my-net` too. Re-ran the exact same by-name request — this time it succ
 containers; a user-defined network does. This is exactly why Docker Compose (Day 2) can let
 services call each other by name automatically.
 
+**Real troubleshooting tangent — VPN and `docker network create`**: a prior (unlogged) session
+had hit `docker network create` hanging when connected to a corporate VPN that couldn't be
+disconnected, reportedly needing a full machine restart to recover. Went in cautiously this time
+rather than blindly repeating the same command — with VPN active again, `docker network create
+my-net` (above) was run directly, and it completed normally with no hang. **Lesson**: not every
+environment/VPN combination reproduces this kind of conflict — worth trying the real command
+first (with a plan to disconnect/interrupt quickly if it hangs) rather than assuming the worst
+case every time, but staying aware it's a known failure mode on this network.
+
 ### 3. Port publishing, tied to Topic 5
 
 Container private IPs (like `app-b`'s `172.17.0.3`) are only reachable *inside* the Docker
@@ -187,17 +196,7 @@ storage, not a chosen host path).
 **No `docker volume rename` exists** — unlike containers, volumes can't be renamed directly; the
 real workaround is create-new, copy data across via a temporary container, then delete the old one.
 
-### 6. Real troubleshooting tangent — VPN and `docker network create`
-
-A prior (unlogged) session had hit `docker network create` hanging when connected to a corporate
-VPN that couldn't be disconnected, reportedly needing a full machine restart to recover. Went in
-cautiously this time rather than blindly repeating the same command — with VPN active again,
-`docker network create my-net` was retried directly, and it completed normally with no hang.
-**Lesson**: not every environment/VPN combination reproduces this kind of conflict — worth trying
-the real command first (with a plan to disconnect/interrupt quickly if it hangs) rather than
-assuming the worst case every time, but staying aware it's a known failure mode on this network.
-
-### 7. PowerShell vs. Linux commands
+### 6. PowerShell vs. Linux commands
 
 Wanted to create `docker-compose.yml` from the terminal for real Linux command practice — since
 the actual terminal in use is PowerShell (`PS C:\CloudOps\ignite\project>`), not WSL/bash, several
@@ -222,7 +221,7 @@ real differences surfaced:
 terminal — PowerShell only has partial, alias-based overlap with Linux commands, not the real
 thing, even when a command name looks identical.
 
-### 8. Safely adding a mount to an existing container
+### 7. Safely adding a mount to an existing container
 
 **Reinforced rule**: a running container's mounts (or any creation-time setting) can never be
 changed in place — confirmed again when trying to add `Volume-A` to the already-running `app-a`
@@ -240,7 +239,7 @@ reserved for the bind mount.
    ```bash
    docker inspect app-a --format 'Image: {{.Config.Image}}{{println}}Binds: {{.HostConfig.Binds}}{{println}}Networks: {{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
    # Image: mission-control-app:v2
-   # Bind Mounts: [C:\CloudOps\ignite\project\data:/app/data]
+   # Binds: [C:\CloudOps\ignite\project\data:/app/data]
    # Networks: bridge my-net
    ```
 2. Created `app-a-duplicate` with **both** mounts, plus the same network:
@@ -254,17 +253,18 @@ reserved for the bind mount.
    ```bash
    docker rm -f app-a
    docker rename app-a-duplicate app-a
-   docker network connect my-net app-a
    ```
    **`docker rename OLD NEW`** only changes a container's name — it can't add/change mounts or
    networks, which is exactly why the duplicate had to be a genuinely new container in the first
-   place, not a renamed version of the old one.
+   place, not a renamed version of the old one. It also means the rename carries the duplicate's
+   existing network membership over untouched — `my-net` (connected back in step 2) is still
+   attached after the rename, with nothing further needed.
 
 **Important contrast worth remembering**: mounts/volumes are locked in at creation time, full
 stop — but **networks are not**. `docker network connect`/`docker network disconnect` can be run
-against an already-running container at any time, in any order, which is why the network
-connection was safely re-added *after* the rename above rather than needing to be baked in from
-the very first `docker run`. Same container, two very different rules depending on which setting.
+against an already-running container at any time, in any order — it's just that here, connecting
+`my-net` in step 2 (before the swap) was simplest, since it only needed doing once rather than
+being repeated. Same container, two very different rules depending on which setting.
 
 Repeated the same technique for `app-b` (moving its single volume from `/app/data` to
 `/app/volume-data` for path-naming consistency — not a technical conflict this time, since `app-b`
@@ -275,13 +275,13 @@ intended, not just assumed correct:
 
 | Check | Result |
 |---|---|
-| `app-a` bind mount | `/app/data` ✅ has `proof.txt`, `proof2.txt` |
+| `app-a` bind mount | `/app/data` ✅ has `proof.txt` |
 | `app-a` volume | `/app/volume-data` ✅ has `proof.txt`, `proof2.txt` |
 | `app-a` networks | `bridge` + `my-net` ✅ |
 | `app-b` volume | `/app/volume-data` ✅ has `proof.txt`, `proof2.txt` (no stray bind mount) |
 | `app-b` networks | `bridge` + `my-net` ✅ |
 | `Volume-A` itself | exactly 2 files, matching what both containers see |
-| Host folder (`C:\CloudOps\ignite\project\data`) | exactly 2 files, matching `app-a`'s bind mount |
+| Host folder (`C:\CloudOps\ignite\project\data`) | exactly 1 file (`proof.txt`), matching `app-a`'s bind mount |
 | Volumes on the system | only `Volume-A` — no stray leftover from an abandoned idea earlier |
 | Leftover containers | none — no orphaned `app-c`, `app-d`, or `*-duplicate` containers |
 
@@ -293,7 +293,7 @@ Docker Desktop's **Volumes** tab (click a volume to browse its files) and a cont
 **Files** tab (browse its whole filesystem) give the same information as `docker exec ... ls`,
 just graphically.
 
-### 9. Docker Compose
+### 8. Docker Compose
 
 **Concept**: one file describing every container's build, ports, volumes, and networks, replacing
 manual `docker run`/`docker network create` commands typed by hand. Written in **YAML** — plain
@@ -382,7 +382,7 @@ down`** stops and removes every container/network Compose created from the file 
 (add `-v` to also remove the volumes declared in it) — the reverse operation to `docker compose
 up -d`, useful for a full clean teardown instead of manually removing each piece by hand.
 
-### 10. Combined scenario — diagnosing why a service can't reach another by name
+### 9. Combined scenario — diagnosing why a service can't reach another by name
 
 **Scenario, added after the initial pass** (per `CLAUDE.md`'s rule that the final day should
 include the hardest, most realistic scenario before the quiz — this one was worked through after

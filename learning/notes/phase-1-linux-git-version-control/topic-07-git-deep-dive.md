@@ -1,4 +1,4 @@
-# Topic 7 — Git Deep Dive: Rebase, Cherry-Pick, Branching Strategies
+# Topic 7 — Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -169,7 +169,8 @@ rest of that commit's original branch.
 
 **Syntax**: `git cherry-pick COMMIT_HASH`
 
-**Verified hands-on — including a real conflict, and a real mistake caught and fixed**:
+**Verified hands-on — including a real conflict, and a real mistake caught and fixed** (commit
+`714ab7c` is the "add feature line" commit created on `feature-branch` back in Topic 6):
 ```
 PS> git checkout real-conflict
 PS> git cherry-pick 714ab7c
@@ -202,24 +203,28 @@ master line
 perspective — it does **not** verify the actual content is clean. It trusts the human to have
 genuinely fixed it. This is a real, common mistake.
 
-**Fixed via `git commit --amend --no-edit`** (replaces the last commit with a corrected version,
-keeping the same message) — took **two attempts** to get fully clean:
+**Syntax**: `git commit --amend --no-edit` — replaces the last commit with a corrected version,
+keeping the same message. Fixed via this — took **two attempts** to get fully clean:
 - Attempt 1: removed the `<<<<<<<`/`=======`/`>>>>>>>` marker lines themselves, but left a stray
   leftover fragment behind: `714ab7c (add feature line)` (the commit-hash/message label Git
   appends after `>>>>>>> `, partially deleted).
 - Attempt 2: removed that stray line fully. Confirmed clean via `cat readme.txt`.
 
 **Verifying "clean" at scale, beyond just `cat`-ing a small file**:
-- **`git diff --check`** — built-in Git command that scans staged/working changes and flags
-  leftover conflict markers (and certain whitespace errors) automatically, regardless of file
-  size. Returned nothing on the clean file — no output means no issues found. Some teams wire
-  this into a pre-commit hook to block commits containing leftover markers automatically.
-- **`Select-String -Pattern "<<<<<<<|=======|>>>>>>>" FILE`** — PowerShell's equivalent of Linux's
-  `grep` (which doesn't exist natively in PowerShell — a real distinction surfaced this session by
-  actually trying `grep` here first and hitting the real error:
-  `grep: The term 'grep' is not recognized as a name of a cmdlet, function, script file, or
-  executable program.` — Linux-tool practice from Topic 2 happens in a separate WSL terminal,
-  this Windows PowerShell folder uses PowerShell-native commands instead).
+
+**Syntax**: `git diff --check` — built-in Git command that scans staged/working changes and flags
+leftover conflict markers (and certain whitespace errors) automatically, regardless of file
+size. Returned nothing on the clean file — no output means no issues found. Some teams wire
+this into a pre-commit hook to block commits containing leftover markers automatically.
+
+**Syntax**: `Select-String -Pattern "PATTERN" FILE` — PowerShell's equivalent of Linux's
+`grep` (which doesn't exist natively in PowerShell — a real distinction surfaced this session by
+actually trying `grep` here first and hitting the real error:
+`grep: The term 'grep' is not recognized as a name of a cmdlet, function, script file, or
+executable program.` — Linux-tool practice from Topic 2 happens in a separate WSL terminal,
+this Windows PowerShell folder uses PowerShell-native commands instead).
+
+**Example**: `Select-String -Pattern "<<<<<<<|=======|>>>>>>>" readme.txt`
 
 ### 3. Branching strategies (conceptual, no hands-on)
 
@@ -346,9 +351,10 @@ Interview-style, open-ended, 4 questions. Question and full correct answer for e
    commit with a different hash** than the original, even though it carries the same change. If
    that original branch is later merged in full anyway, Git has no way of recognizing the
    cherry-picked commit and the original commit as "the same change" — it sees two different
-   commits. This can produce duplicate application of the same change and, if the surrounding
-   code has shifted, real merge conflicts between the cherry-picked copy and the original when
-   that branch eventually merges.
+   commits. This leaves a duplicate commit permanently sitting in the history (both the
+   cherry-picked copy and the original, recorded as if they were separate changes) and, if the
+   surrounding code has shifted since, real merge conflicts between the cherry-picked copy and the
+   original when that branch eventually merges.
 
 4. **Why GitHub Flow has no `develop` branch, Git Flow does.**
    `develop` exists specifically to let multiple in-progress features **wait together** for a

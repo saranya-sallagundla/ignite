@@ -1,19 +1,18 @@
-# Topic 5 — Linux: Networking Fundamentals
+# Topic 5 — Linux — Networking Fundamentals
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
 
 ---
 
-## Day 1 — 2026-07-14 / 2026-07-16 (both days covered in one session, at reduced depth by
-request, followed by a full second revision pass same session)
+## Day 1 — 2026-07-14 / 2026-07-16 (both days, single session)
 
 Note on pacing: both days were intentionally kept high-level/faster-paced the first time through,
 per an explicit request to move quickly and expand only on request. The material didn't fully
 land on the first pass, so a full second revision pass (with a simpler analogy table, extra
 concept-check questions, real-world scenario questions, and genuine hands-on verification) was
-done in the same session — that full second pass is included below in detail, since it's where
-real understanding actually solidified.
+done in the same session, right after — that full second pass is included below in detail, since
+it's where real understanding actually solidified.
 
 ### Today's agenda
 1. The mail analogy — the core mental model.
@@ -71,7 +70,8 @@ device behind it.
 **A third category, distinct from both private and public — reserved/special addresses**:
 - **`127.0.0.0/8`** (loopback, `127.0.0.1` being the common one) — reserved to mean "this same
   machine, talking to itself." Never routable to any other machine, on any network. Not private
-  (usable on a LAN), not public (usable on the internet) — a pure self-reference.
+  (i.e., not an address meant for use on a LAN), not public (not usable on the internet either) —
+  a pure self-reference.
 - **`0.0.0.0`** — a wildcard/unspecified address. Not a real destination at all. Meaningful only
   as (1) a *bind* address meaning "accept connections on every interface," or (2) in a routing
   table meaning "the default route for anything unmatched."
@@ -208,10 +208,11 @@ google.com.  221  IN  A  142.250.134.101
 ;; Query time: 32 msec
 ```
 - `status: NOERROR` — query succeeded.
-- `ANSWER: 6` — six different IPs returned for one name.
+- Six `A` records in the `ANSWER SECTION` — six different IPs returned for one name.
 - `SERVER: 10.255.255.254#53` — confirms this query went through the local `systemd-resolved`
   stub identified in `ss -tuln` above.
-- `Query time: 32 msec` — fast, confirms UDP was used.
+- `(UDP)` on the `SERVER` line — confirms UDP was actually used for this query (not inferred from
+  speed; `Query time: 32 msec` is just typical for a fast UDP round-trip, not proof by itself).
 
 **Round-robin DNS — why multiple IPs for one name**: large-scale services run many identical
 servers behind the scenes; DNS hands out multiple valid IPs so that (1) load is spread across
@@ -257,10 +258,12 @@ not installed/run this session, kept at a lighter pace by request.)
 ### 7. Firewalls (brief, conceptual only)
 
 A firewall decides which traffic is allowed in/out, based on rules matching IP/port/protocol.
-Traditional Linux tool: `iptables`; modern simpler wrappers: `ufw`, `nftables`. Not gone hands-on
-here — the key point kept: **every "connection refused"/"timed out" hit across this whole
-program (Topics 1, 4, and today) is a firewall decision somewhere in the path**, whether on the
-local machine, the corporate network, or the remote server.
+Traditional Linux tool: `iptables`; its modern kernel-level replacement: `nftables`; simpler
+front-ends built on top of either: `ufw`, `firewalld`. Not gone hands-on here — the key point
+kept: **every silent "timed out" hit across this whole program (Topics 1, 4, and today) is a
+firewall decision somewhere in the path**, whether on the local machine, the corporate network, or
+the remote server — "connection refused," by contrast, actively rules a firewall block out (see
+§9's key takeaway below).
 
 ### 8. Combined scenario — unreachable service, full diagnostic order
 
@@ -299,9 +302,13 @@ $ curl -v --max-time 5 http://192.168.180.250
 * connect to 192.168.180.250 port 80 from 192.168.180.212 port 57320 failed: No route to host
 * Failed to connect to 192.168.180.250 port 80 after 3072 ms: Couldn't connect to server
 ```
-A router along the way (likely the local gateway) actively responded, saying "no such device
-exists on this network" — an active rejection from the *network infrastructure*, not the
-destination machine.
+`192.168.180.250` is actually on the same local subnet as this machine (`192.168.176.0/20`
+covers `192.168.176.0`–`192.168.191.255`, and `.180.x` falls inside that range) — so no gateway
+is ever consulted at all for this destination; it's an on-link lookup. The real cause: the local
+machine tried to resolve that address via ARP ("who has this IP on our local network?") and
+nothing answered, so the local kernel itself gave up and returned "No route to host" — an active
+local error, distinct from both a remote refusal and a silent firewall drop, but still not
+involving the destination machine at all.
 
 **Full comparison table, built from the two real tests above (timeout is the theoretical third
 case, matching prior corporate-proxy discoveries — not separately re-tested this session)**:
@@ -322,9 +329,10 @@ exactly why it's the hardest of the three to diagnose (no information at all com
 
 ---
 
-## Topic 5 Quiz — both days combined — Attempt 1: PASS (74/100), then a full voluntary retest
-(82/100 — the score used as the official record, since it reflects deeper, hands-on-verified
-understanding)
+## Topic 5 Quiz — both days combined — Attempt 1: PASS (74/100), voluntary retest (82/100, official)
+
+The retest score is used as the official record, since it reflects deeper, hands-on-verified
+understanding reached after the revision pass.
 
 ### Attempt 1 — PASS, 74/100
 
@@ -394,7 +402,7 @@ migration, single-IP tradeoff), and the live `curl` verification of refused/no-r
 
 ### Retest — full fresh quiz, all-new questions — PASS, 82/100 (official score)
 
-Full fresh quiz, all-new questions. Question and full correct answer for each:
+Question and full correct answer for each:
 
 1. **`172.16.5.20/12` — is it private or public, and how many addresses does that `/12` cover?**
    Private/public check for `172.x.x.x`: it's private only when the second octet is between 16
@@ -451,7 +459,8 @@ first two independently; Q5 ruled in correctly first try, needed one nudge to ar
 also rules out a firewall block specifically.
 
 **Score: 82/100**
-- **Quiz 30/40** — all 5 ultimately correct, 3 needed a follow-up nudge.
+- **Quiz 30/40** — all 5 ultimately correct, 4 of 5 needed some help (a nudge, or in Q3's case a
+  real correction).
 - **Hands-on 26/30** — real `curl -v` tests run and correctly interpreted to verify the
   refused/no-route distinction live, stronger verification than Attempt 1.
 - **Depth 26/30** — correctly reasoned through the reserved-address category, which went beyond

@@ -1,4 +1,4 @@
-# Topic 1 — Linux Fundamentals: Filesystem, SSH, VMs
+# Topic 1 — Linux Fundamentals — Filesystem, SSH, VMs
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -67,21 +67,18 @@ bin     boot               etc  init  lib.usr-is-merged  lost+found  mnt    proc
 
 Example output style:
 ```
-drwxr-x--- 6 devuser devuser 4096 Jul  6 14:28 .cache
+drwx------ 3 devuser devuser 4096 Jul  6 14:28 .cache
 -rw------- 1 devuser devuser   16 Apr 26 04:35 .bash_history
 ```
 
-**Permission string breakdown** (`drwxr-x---`):
-```
-d rwx r-x ---
-│ │   │   │
-│ owner group others
-type (d=directory, -=file, l=symlink)
-```
+**Permission string breakdown** (`drwx------`):
+| `d` | `rwx` | `---` | `---` |
+|---|---|---|---|
+| type (`d`=directory, `-`=file, `l`=symlink) | owner | group | others |
 
 **Syntax**: `chmod MODE FILE`
 
-**Octal notation** — `chmod 700` etc: each digit sums `read=4, write=2, execute=1`.
+**Octal notation** (`chmod 700`, etc.): each digit sums `read=4, write=2, execute=1`.
 `7 = 4+2+1 = rwx`, `0 = ---`. So `700` = owner full access, group/others nothing.
 
 **Why `.bash_history` defaults to `600` (owner-only)**: shell history can accidentally contain
@@ -143,8 +140,6 @@ Change: 2026-03-15 10:59:06.565696864 -0400
   - **Change** — last time *metadata* changed (permissions, owner) — NOT content
   - **Birth** — creation time, never changes after
 
-**Syntax**: `chmod MODE FILE` (verify with `ls -l FILE` or `stat FILE`)
-
 **Verified hands-on** — ran `chmod 700 ~/.bash_logout` then `chmod 644` back, checking `stat`
 before/after each:
 ```
@@ -175,9 +170,11 @@ Change: 2026-07-06 17:26:48.552676456 -0400
  Birth: 2026-03-15 10:59:06.565696864 -0400
 ```
 **Confirmed**: `Modify` and `Birth` stayed identical across both changes (content untouched),
-`Change` updated on each `chmod` (metadata changed — exactly what `Change` tracks), `Access`
-didn't reliably update on a plain `stat` read (many Linux setups mount with `relatime`/`noatime`
-for performance, throttling Access updates).
+`Change` updated on each `chmod` (metadata changed — exactly what `Change` tracks). Note `Access`
+itself was untouched by either `chmod` too — `stat` only reads metadata, it never touches a
+file's Access time. Reading a file's actual *content* (e.g. `cat`) is what can bump Access, and
+even then many Linux setups mount with `relatime`/`noatime` for performance, throttling those
+updates.
 
 **WSL ↔ Windows File Explorer**: WSL's Linux filesystem is browsable from Windows at
 `Linux → Ubuntu → home → <user>` in File Explorer's left sidebar (a separate top-level section,
@@ -231,6 +228,7 @@ drwxr-x--- 7 devuser devuser 4096 Jul  6 18:34 ..
 ```
 (`subdir` doesn't appear — it was separately created and removed with `rm -r subdir` to test
 deletion, confirmed clean with no trace left)
+**Syntax**: `rm [-r] PATH`
 - **`rm file`** — deletes a file. **`rm folder` alone fails** — it refuses to delete directories
   without `-r`. **`rm -r folder`** deletes a folder and everything inside, recursively,
   permanently.
@@ -239,6 +237,8 @@ deletion, confirmed clean with no trace left)
   be visible from Windows File Explorer (via WSL) — deleting through WSL's `rm` never routes
   through Windows' NTFS delete APIs, so it never touches the Windows Recycle Bin, regardless of
   visibility from Explorer.
+
+**Syntax**: `touch FILE`
 - **`touch filename`** — creates an empty file if it doesn't exist, or updates timestamps if it
   does. **`> filename`** also creates/truncates a file to empty as a side effect.
 
@@ -252,13 +252,13 @@ plain text over the network. SSH (**S**ecure **SH**ell) encrypts the entire sess
 2. Key-based — the standard. A key pair: **private key** (secret, stays only on your machine) and
    **public key** (safe to share, placed on the remote server).
 
-**Mechanism (challenge-response)**:
+**Mechanism (public-key authentication, signature-based)**:
 1. Your public key is placed on the server in `~/.ssh/authorized_keys`.
-2. On connection attempt, the server generates a random challenge, encrypts it with your public
-   key, sends it to you.
-3. Your machine decrypts/signs it using the **private** key, sends the response back.
-4. Server verifies the response. Proves you hold the private key — the private key itself is
-   **never transmitted**, only proof of possession.
+2. On connection attempt, the server sends a random challenge value tied to this session.
+3. Your machine signs that challenge using the **private** key, sends the signature back.
+4. Server verifies the signature against your known public key. Proves you hold the private
+   key — the private key itself is **never transmitted**, only proof of possession via a valid
+   signature.
 
 **Why swapping public/private keys is dangerous**: the private key is what proves your identity.
 Anyone who obtains it can impersonate you on every server carrying the matching public key — no
@@ -343,9 +343,9 @@ escalation via a writable execution path, a real, common security-audit finding.
 **Goal**: install `openssh-server` in WSL Ubuntu to practice an actual SSH connection.
 
 **Command run**: `sudo apt update && sudo apt install openssh-server`
-**Result**: install itself succeeded for package resolution, but package *downloads* failed —
-`Cannot initiate the connection ... Network is unreachable` (IPv6) and `connection timed out`
-(IPv4 fallback addresses).
+**Result**: package resolution succeeded, but the downloads failed, so the install never
+completed — `Cannot initiate the connection ... Network is unreachable` (IPv6) and
+`connection timed out` (IPv4 fallback addresses).
 
 **Diagnosis steps**:
 1. `which sshd` → empty, confirmed `sshd` wasn't installed yet.
@@ -413,7 +413,7 @@ $ ./myscript.sh
 bash: ./myscript.sh: Permission denied
 
 $ ls -l myscript.sh
--rw-r--r-- 1 devuser devuser 27 Jul  7 ... myscript.sh
+-rw-r--r-- 1 devuser devuser 25 Jul  7 ... myscript.sh
 ```
 
 **Diagnosis**: `>` redirection creates files with default `644` (`rw-r--r--`) — read/write, no
@@ -426,7 +426,7 @@ Owner needed `rw-` (`6`) → add execute → `7`. Group/others stay `r--` (`4`) 
 ```
 $ chmod 744 myscript.sh
 $ ls -l myscript.sh
--rwxr--r-- 1 devuser devuser 27 Jul  7 ... myscript.sh
+-rwxr--r-- 1 devuser devuser 25 Jul  7 ... myscript.sh
 $ ./myscript.sh
 hello from script
 ```
@@ -469,7 +469,7 @@ cat: symlink.txt: No such file or directory
 (`hardlink.txt`) still points at it. `symlink.txt` breaks (**dangling symlink**) — it only ever
 stored a path, and that path no longer resolves to anything.
 
-**Discovery — a hard link to a symlink links to the symlink itself, not its target**:
+**Real discovery — a hard link to a symlink links to the symlink itself, not its target**:
 ```
 $ ln symlink.txt hardlink2.txt
 $ ls -li symlink.txt hardlink2.txt
@@ -481,7 +481,7 @@ symlink's own inode. Since that inode's data *is* "I am a symlink pointing at `o
 the new name is *also* a symlink with the same broken target — proven by both showing type `l`
 and the same `-> original.txt`.
 
-**Discovery — `ln -f` can silently destroy the last copy of real data**:
+**Real discovery — `ln -f` can silently destroy the last copy of real data**:
 ```
 $ cat hardlink.txt
 original content
@@ -553,9 +553,9 @@ echo "line 3" >> file.txt     # file.txt: line 2 / line 3
 | | Hard link | Symlink |
 |---|---|---|
 | What it is | 2nd name, same inode | separate file storing a path string |
-| Target moves to another drive | can't even be created cross-drive | can be created cross-drive, but breaks if the path it stores stops resolving |
-| Target deleted | survives (until link count hits 0) | breaks (dangling) |
-| Target moved (same or different drive) | not applicable (no separate "target" — same file) | breaks (dangling) — a symlink only stores a fixed path, it doesn't track the file if it moves |
+| Can it be created across filesystems/drives? | No — must stay on the same filesystem | Yes — can point across drives |
+| If the target is deleted | Survives (until link count hits 0) — there's no separate "target," just another name for the same data | Breaks (dangling) — the stored path no longer resolves |
+| If the target is moved | Not applicable — same inode, no separate "target" to move | Breaks (dangling) — a symlink only stores a fixed path, it doesn't track the file if it moves |
 
 ### 3. `rm` and links — precision correction
 
@@ -639,8 +639,8 @@ to finish in progress rather than cut mid-question). Question and full correct a
    `alice` and `devs` are two separate fields, not one merged label — `alice` is the owning user,
    `devs` is the owning group. `2048` is the file's size in bytes. `Jan 5 10:00` is the **Modify**
    timestamp — the last time the file's *content* changed — not the file's creation/Birth time;
-   `ls -l` only ever shows Modify time, and only the `stat` command exposes Birth (along with
-   Access and Change) separately. `deploy.sh` is the filename.
+   `ls -l` shows Modify by default, while `stat` shows all four timestamps, including Birth,
+   which `ls` can't show at all. `deploy.sh` is the filename.
 
 2. **A root cron job runs `/opt/scripts/backup.sh`, permissions `777`, owned by root — what's the
    fix?**
@@ -653,8 +653,9 @@ to finish in progress rather than cut mid-question). Question and full correct a
    `rwx` and stripping every permission from group and others (`---`). Root can still execute it
    because root itself owns the file and cron runs it as root. `600` is not the fix, even though
    it also locks out other users — it removes execute entirely, so cron couldn't run the script at
-   all; the fix must add exactly what's missing (owner execute) and remove what's dangerous
-   (group/other write), not just lock everything down indiscriminately.
+   all; the final mode must retain owner execute (so cron can still run it) while stripping
+   group/other write (so no one else can tamper with it), not just lock everything down
+   indiscriminately.
 
 3. **Hard link `B` to `A`, then `rm A` — what happens at the filesystem level?**
    `ln A B` creates a second filename, `B`, pointing at the exact same inode as `A` — not a copy,
@@ -668,13 +669,12 @@ to finish in progress rather than cut mid-question). Question and full correct a
    SSH key auth relies on a key pair: a **private key**, which stays secret on your own machine
    and is never transmitted anywhere, and a **public key**, which is safe to share and gets placed
    on the remote server. The steps: (1) your public key is copied onto the server, into
-   `~/.ssh/authorized_keys`. (2) When you attempt to connect, the server generates a random
-   challenge value and encrypts it using your public key, then sends that encrypted challenge to
-   you. (3) Your machine uses the matching **private** key to decrypt/sign that challenge and
-   sends the response back to the server. (4) The server verifies the response is correct. Only
-   the holder of the matching private key could have produced a valid response, so this proves
-   your identity — without the private key itself ever crossing the network, only proof that you
-   possess it.
+   `~/.ssh/authorized_keys`. (2) When you attempt to connect, the server sends a random challenge
+   value tied to this session. (3) Your machine signs that challenge using the matching
+   **private** key and sends the signature back to the server. (4) The server verifies the
+   signature against your known public key. Only the holder of the matching private key could
+   have produced a valid signature, so this proves your identity — without the private key itself
+   ever crossing the network, only proof that you possess it.
 
 5. **Why separate VMs over separate containers for two untrusted customers on shared hardware?**
    AWS's physical hardware is multi-tenant — unrelated customers can end up sharing the same
