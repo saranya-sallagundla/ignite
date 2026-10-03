@@ -380,6 +380,64 @@ down`** stops and removes every container/network Compose created from the file 
 (add `-v` to also remove the volumes declared in it) — the reverse operation to `docker compose
 up -d`, useful for a full clean teardown instead of manually removing each piece by hand.
 
+### 10. Combined scenario — diagnosing why a service can't reach another by name
+
+**Scenario, added after the initial pass** (per `CLAUDE.md`'s rule that the final day should
+include the hardest, most realistic scenario before the quiz — this one was worked through after
+the fact rather than before): a teammate clones this repo fresh, runs `docker compose up -d`, and
+reports that `app2` can't reach `app` by name, even though it works fine on your own machine. Walk
+through the full diagnostic order.
+
+**Diagnostic order reasoned through, general syntax pattern first, then the specific check:**
+
+1. **Does the custom network actually exist at all?**
+   **Syntax**: `docker network ls`
+   Look for `project_default`. Without it, name-based DNS resolution can't work in the first
+   place — Day 1's core lesson.
+
+2. **Are both containers actually attached to it?**
+   **Syntax**: `docker network inspect NETWORK_NAME`
+   `docker network inspect project_default` — the `Containers` field lists every container
+   genuinely connected, not just assumed to be.
+
+3. **Test the connection directly, by name** — using Python's `urllib`, not `ping` or `curl`.
+   Correctly reasoned through why beforehand: `mission-control-app` is built from
+   `python:3.12-slim`, a minimal image that doesn't include either tool by default (confirmed
+   live below). Also ties back to Topic 5: even if `ping` worked, succeeding would only prove
+   network-layer reachability, not that the actual app on port 5000 is listening and responding.
+
+4. **Is `app` itself even running?**
+   **Syntax**: `docker ps`
+   Confirms the container hasn't exited — but `Up` alone doesn't fully guarantee the app inside
+   is healthy, just that the container process hasn't stopped.
+
+5. **Isolate app-health from network-reachability** — test the endpoint from *inside* `app`'s own
+   container, hitting its own `localhost:5000/health` directly.
+
+**Two real discoveries made while actually testing step 3/5, not just reasoned about:**
+
+- **`curl` genuinely isn't installed** in this image:
+  ```bash
+  docker exec project-app-1 curl localhost:5000/health
+  # OCI runtime exec failed: exec: "curl": executable file not found in $PATH
+  ```
+  Confirmed the earlier prediction (same reasoning as `ping` never being installed) with a real
+  test, not just an assumption.
+
+- **`docker exec` needs the actual container name, not the service name** — a distinction not hit
+  until this exact test:
+  ```bash
+  docker exec app curl localhost:5000/health
+  # Error response from daemon: No such container: app
+  ```
+  `app` is the **service name** — it only works for DNS lookups *between* containers on the
+  network. Host-level commands like `docker exec` need the real **container name**
+  (`project-app-1`, from Compose's auto-naming). Re-ran with the correct name and the right tool:
+  ```bash
+  docker exec project-app-1 python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:5000/health', timeout=3).read())"
+  # → {"status":"ok","version":"2.1"}
+  ```
+
 ## Topic 10 Quiz — both days combined — Attempt 1: PASS, 92/100
 
 Five interview-style, open-ended questions covering both days:
