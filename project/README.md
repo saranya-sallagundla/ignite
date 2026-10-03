@@ -1,4 +1,4 @@
-# The project
+# Mission Control — DevOps Capstone Project
 
 This is the real, demo-able DevOps project built alongside the 6-month learning plan in
 `../learning/`. It's built incrementally, topic by topic, not written all at once at the end —
@@ -22,12 +22,15 @@ pieces gets added as the corresponding phase of the learning plan is reached. Se
 - `docs/` — architecture decisions and runbooks, written as the project grows.
 - `scripts/` — automation scripts, including Python/Boto3 AWS automation.
 
+Other than `app/`, every folder above is currently an empty placeholder — each holds a short
+README noting the phase/topic that will populate it; see that folder's own README for specifics.
+
 ## How to run it
 From `project/`: `docker compose up --build`, then verify with `curl http://localhost:5000/health`
 (expect `{"status":"ok",...}`). Stop with `docker compose down`.
 
 ## Status
-`app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a properly-layered Dockerfile,
+`app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a properly layered Dockerfile,
 built, tagged (`v1`/`v2`), and run as real containers with proven rollback. A `docker-compose.yml`
 now builds and runs the app (with a named volume and a second service) in one command. 16
 learning sessions in, Phase 1 complete and Topics 9-10 (Docker fundamentals through Compose)
@@ -35,11 +38,11 @@ cleared; check `../learning/progress.md` for current progress through the learni
 drives what gets added here next.
 
 ### Session 1 — 2026-07-06
-Day 1 of Topic 1 (Linux Fundamentals) — no project code changes yet, this phase is foundational
+Topic 1 Day 1 (Linux Fundamentals) — no project code changes yet; this phase is foundational
 Linux/SSH/VM learning ahead of Docker (Topic 9), where `app/` boilerplate gets written first.
 
 ### Session 2 — 2026-07-07
-Topic 1 complete (quiz passed) — still no project code yet, but the VM/container isolation
+Topic 1 complete, quiz passed (Linux Fundamentals) — still no project code yet, but the VM/container isolation
 reasoning covered here directly informs why this project's future architecture runs containers
 on EC2 (VMs) rather than bare metal, once Topics 9+ (Docker) and 20+ (AWS) are reached.
 
@@ -49,7 +52,7 @@ Topic 2 Day 1 (Top 50 Shell Commands) — no project code yet, still pre-Docker.
 reusable later for real log triage once `monitoring/` and actual app logs exist.
 
 ### Session 4 — 2026-07-09
-Topic 2 complete (quiz passed) — no project code yet, but `ps`/`kill`/signals, `df`/`du`/`free`,
+Topic 2 complete, quiz passed (Top 50 Shell Commands) — no project code yet, but `ps`/`kill`/signals, `df`/`du`/`free`,
 and `tar` are exactly the toolkit for operating this project's future EC2 instances and
 Kubernetes nodes day-to-day, once Topics 20+ (AWS) and 12+ (Kubernetes) are reached.
 
@@ -59,7 +62,7 @@ feeds `scripts/` directly: the conditional/variable fundamentals practiced today
 what real automation scripts in that folder will be built from.
 
 ### Session 6 — 2026-07-11 / 2026-07-12
-Topic 3 complete (quiz cleared in 2 attempts) — no project code yet, but the `checkall.sh`
+Topic 3 complete, quiz passed (Shell Scripting Basics) — no project code yet, but the `checkall.sh`
 pattern built today (function + loop + exit code, checking multiple folders at once) is directly
 the shape of a real pre-deployment sanity-check script for `scripts/` later.
 
@@ -81,7 +84,7 @@ security groups, and service-to-service networking on AWS will require later.
 
 ### Session 10 — 2026-07-16
 Topic 6 complete, quiz passed (Git Fundamentals) — no project code yet, but branching/merging
-practiced today (incl. a real resolved conflict) is exactly the workflow this project's own repo
+practiced today (including a real resolved conflict) is exactly the workflow this project's own repo
 will use once multiple features/phases are being built and merged going forward.
 
 ### Session 11 — 2026-07-18 / 2026-07-19
@@ -90,12 +93,12 @@ branching-strategy reasoning practiced today are exactly what keeping this proje
 history clean will require once real feature work starts landing here.
 
 ### Session 12 — 2026-07-19 / 2026-07-20
-Topic 8 complete, quiz passed (GitHub: PRs, Actions, Repo Management) — **Phase 1 complete.** No
+Topic 8 complete, quiz passed (GitHub: PRs, Actions Intro, Repo Management) — **Phase 1 complete.** No
 project code yet, but PRs, GitHub Actions, and branch protection practiced today are exactly the
 workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kubernetes/CI-CD) begins.
 
 ### Session 13 — 2026-07-20 / 2026-07-21
-Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` got its first real code, a
+Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` gained its first real code, a
 Flask app with a `/health` endpoint, and its first Dockerfile, built into
 `mission-control-app:latest` and run as a live container, verified serving `{"status":"ok"}`
 over HTTP.
@@ -107,7 +110,7 @@ timings), `app/` gained a `/ready` endpoint, and the image is now properly versi
 (`v1`/`v2`) with rollback proven by running both simultaneously.
 
 ### Session 15 — 2026-07-22 / 2026-07-23
-Topic 10 Day 1 (Docker Networking, Volumes) — no project code yet, but container-to-container
+Topic 10 Day 1 (Docker: Networking, Volumes, Docker Compose) — no project code yet, but container-to-container
 DNS resolution (bridge vs. custom network) and bind-mount persistence proven hands-on today are
 exactly what this project's future multi-container setups (app + database, app + cache) will
 depend on.
@@ -115,5 +118,5 @@ depend on.
 ### Session 16 — 2026-07-23 / 2026-07-24
 Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) — `project/` gained
 its first `docker-compose.yml`, building and running `mission-control-app` in one command instead
-of manual `docker run` flags, extended with a named volume and a second service to prove
-Compose's automatic networking.
+of manual `docker run` flags, extended with a second service to prove Compose's automatic
+networking and a named volume for shared persistence.

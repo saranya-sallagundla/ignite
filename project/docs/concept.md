@@ -13,12 +13,12 @@ escalates with an auto-written incident report.
 
 The whole thing is wrapped in a live "Mission Control" dashboard — a node-graph visualization
 showing an incident being detected, diagnosed, and resolved in real time. Chosen specifically so
-the demo lands with both technical and non-technical audiences (onsite interviews).
+the demo lands with both technical and non-technical audiences (live demos and walkthroughs).
 
 ## Zero-cost architecture
 To guarantee the project costs nothing regardless of AWS Free Tier limits, the pieces that are
-NOT actually free even on Free Tier (EKS control plane, Load Balancer, NAT Gateway, Route 53) are
-avoided entirely:
+**not** actually free even on Free Tier (EKS control plane, Load Balancer, NAT Gateway, Route 53)
+are avoided entirely:
 - Kubernetes runs locally via **k3s/kind** instead of EKS.
 - The project's own AWS-shaped infrastructure (S3, Lambda, DynamoDB, IAM, CloudWatch, SQS/SNS)
   runs against **LocalStack** (a Docker-hosted AWS API emulator) instead of a live account —
@@ -29,26 +29,26 @@ services that genuinely are free (EC2, S3, Lambda, IAM, basic CloudWatch) — on
 own deployed infrastructure moves to LocalStack/k3s, since that's where the non-free services
 would otherwise be required.
 
-This also resolves the org-vs-personal-account portability question: since the live project runs
-on LocalStack/k3s (no cloud account of any kind involved), nothing tied to an account needs to
-move if the org repo is deleted — only code moves to a personal GitHub repo.
+This also keeps the project portable and independent of any single environment or account: since
+the live project runs on LocalStack/k3s (no cloud account of any kind involved), only code would
+ever need to move to a personal GitHub repo.
 
 ## Development environment safety net (deferred)
-The machine this project is built on is a work laptop, not a personal one — so losing access to
-it would mean losing all local compute for this project, not just this specific setup. **GitHub
-Codespaces** is the planned fallback: a free, permanent tier (60 core-hours + 15GB storage/month
+The machine this project is built on is a work laptop, not a personal one, so this project's
+local compute is tied to that one machine today. **GitHub Codespaces** is the planned fallback: a
+free monthly quota (120 core-hours — about 60 hours on a 2-core machine — plus 15 GB storage/month
 on a personal account) that runs Docker-based dev environments from any browser, so
 k3s/LocalStack/Ollama could run entirely inside Codespaces with no local install needed.
 
-The catch: this repo currently lives under a corporate GitHub org, accessed via a
-corporate-provisioned GitHub identity — a Codespace built against that org repo/identity would
-likely become unreachable at the exact moment it's needed. To actually work as a safety net, it
-needs to run against a genuinely personal GitHub account and a personal mirror of this repo
-instead — the same personal-repo move already planned above for portability.
+The constraint: this repo currently lives under a corporate GitHub org, accessed via a
+corporate-provisioned GitHub identity. To keep the project portable and independent of any single
+environment or account, Codespaces would need to run against a genuinely personal GitHub account
+and a personal mirror of this repo instead — the same personal-repo move already planned above
+for portability.
 
 **Not set up yet, on purpose** — deferred to the end of the full 53-topic learning journey, the
 same checkpoint as this document's own capstone-idea revisit above.
 
 ## Supersedes
-An earlier "learning progress tracker" idea (modeling this repo's own tracking system as a
-deployable app), considered and dropped before Topic 9 began.
+This concept supersedes an earlier "learning progress tracker" idea (modeling this repo's own
+tracking system as a deployable app), which was considered and dropped before Topic 9 began.

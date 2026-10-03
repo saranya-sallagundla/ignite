@@ -1,1 +1,3 @@
-Capstone application code. Until Phase 5 (Python, Topics 40-46), this is Claude-authored boilerplate per CLAUDE.md's capstone exception — functional, but not yet fully understood or defensible in an interview. Topics 45-46 include rewriting it from real understanding.
+Minimal Flask service used as the deployment target for the containerization, CI/CD, Kubernetes,
+and Terraform work built throughout this project. Functional, but not yet written from full
+understanding — scheduled for a rewrite during Phase 5 (Python, Topics 40-46).
