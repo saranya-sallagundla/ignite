@@ -9,9 +9,10 @@
 ## Day 1 — 2026-07-22 / 2026-07-23
 
 ### Today's agenda
-1. Docker networking — bridges, container-to-container communication, DNS by name.
-2. Port publishing, tied to Topic 5's private/public IPs.
-3. Docker volumes — bind mounts vs. named volumes.
+1. Docker networking — the bridge concept.
+2. Container-to-container communication, DNS by name.
+3. Port publishing, tied to Topic 5's private/public IPs.
+4. Docker volumes — the problem, and the bind mount fix.
 
 ### 1. The Docker bridge network
 
@@ -146,7 +147,8 @@ only way to change them is delete-and-recreate.
 1. Named volumes.
 2. Safely adding a mount to a running container.
 3. Docker Compose, from scratch.
-4. Quiz — both days together.
+4. Combined scenario — diagnosing an unreachable service.
+5. Quiz — both days together.
 
 **Side fact confirmed**: container names must be unique on a machine. Trying to run a second
 container with a name already in use by an existing one (even a different, unrelated container)
