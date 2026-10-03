@@ -23,7 +23,8 @@ pieces gets added as the corresponding phase of the learning plan is reached. Se
 - `scripts/` — automation scripts, including Python/Boto3 AWS automation.
 
 ## How to run it
-Filled in here once there's an application to actually run.
+From `project/`: `docker compose up --build`, then verify with `curl http://localhost:5000/health`
+(expect `{"status":"ok",...}`). Stop with `docker compose down`.
 
 ## Status
 `app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a properly-layered Dockerfile,

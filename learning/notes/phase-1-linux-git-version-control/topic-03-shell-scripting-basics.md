@@ -150,10 +150,13 @@ corrected in turn):
    takes a condition (that's what `elif` is for — a genuinely different, additional check). Since
    "remainder is 0" vs. "remainder isn't 0" are the only two possibilities, bare `else` already
    covers the second case with no condition needed.
-3. **Missing separator after `else`** — `else echo "..."` on one line errors; needs `else;
-   echo "..."` or `else` on its own line. Same root issue recurred later with `fi` too (`echo
-   "zero" fi` — `fi` on the same line as `echo`'s argument gets treated as literal text being
-   echoed, not the closing keyword).
+3. **Missing separator around `fi`** — `echo "zero" fi` on one line is a real error: without a
+   semicolon or newline before `fi`, it gets swallowed as a literal argument to `echo` instead of
+   being recognized as the closing keyword (reserved words are only recognized in
+   command-starting position). Fix: put `fi` on its own line, or precede it with `;`. Note:
+   `else` itself doesn't have this problem — `else echo "..."` on one line is valid, since `else`
+   (like `then`/`do`) is itself a keyword that marks the start of a new command list, no separator
+   needed.
 4. **Merged `fi`/`if`** — closing one block and opening the next got run together
    (`fi [ ... ]; then` — missing a fresh `if` keyword), and separately, forgot the `fi` between
    the two independent blocks entirely. Fix: **two completely separate `if...fi` pairs**, one

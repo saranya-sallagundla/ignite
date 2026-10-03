@@ -57,9 +57,9 @@ PS> git commit -m "another master commit after branching"
 ```
 
 **Real mistake, hit first**: typed `git log --oneline -all -graph` (single dashes) and got a
-real error: `error: switch \`l' expects an integer value with an optional k/m/g suffix` — with a
-single dash, `-all` and `-graph` get parsed as a cluster of short flags (`-a -l -l`, `-g -r -a -p
--h`), not the long-form flags intended, and one of those short flags (`-l`) expects a number,
+real error: `` error: switch `l' expects an integer value with an optional k/m/g suffix `` — with
+a single dash, `-all` and `-graph` get parsed as a cluster of short flags (`-a -l -l`, `-g -r -a
+-p -h`), not the long-form flags intended, and one of those short flags (`-l`) expects a number,
 which is exactly what broke.
 
 **Syntax**: `git log --oneline --all --graph` — compact visual of every branch at once (`--all`

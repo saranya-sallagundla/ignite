@@ -40,7 +40,7 @@ Codespaces** is the planned fallback: a free, permanent tier (60 core-hours + 15
 on a personal account) that runs Docker-based dev environments from any browser, so
 k3s/LocalStack/Ollama could run entirely inside Codespaces with no local install needed.
 
-The catch: this repo currently lives under the `your-org` org, accessed via a
+The catch: this repo currently lives under a corporate GitHub org, accessed via a
 corporate-provisioned GitHub identity — a Codespace built against that org repo/identity would
 likely become unreachable at the exact moment it's needed. To actually work as a safety net, it
 needs to run against a genuinely personal GitHub account and a personal mirror of this repo
