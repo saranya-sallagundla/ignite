@@ -1,4 +1,4 @@
-# Topic 10 — Docker: Networking, Volumes, Docker Compose
+# Topic 10 — Docker — Networking, Volumes, Docker Compose
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-22
+## Day 1 — 2026-07-22 (bridge networking, container-to-container DNS, bind mounts)
 
 ### Today's agenda
 1. Docker networking — the bridge concept.
@@ -150,7 +150,7 @@ only way to change them is delete-and-recreate.
 
 ---
 
-## Day 2 — 2026-07-23 (final day)
+## Day 2 — 2026-07-23 (named volumes, Docker Compose, combined scenario — final day)
 
 ### Today's agenda
 1. Named volumes.
