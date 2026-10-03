@@ -1,19 +1,20 @@
 # CLAUDE.md — Mission: DevOps (Ignite)
 
 ## Mission
-Interview-ready DevOps/SRE engineer within 6 months, with a live, demo-able project in
+Interview-ready DevOps/SRE engineer within 6 months, with a live, demonstrable project in
 `project/` to show. Day 1 is 2026-07-06 IST; the 6-month outer deadline lands around 2027-01-06.
 The roadmap's day allocations (`learning/roadmap.md`) sum to ~120 aggressive days — the remaining
 ~60 days to the 6-month deadline are deliberate slack for remediation, buffer, and project
-polish. Falling into that slack is normal, not falling behind.
+polish. Using that slack is normal; it does not count as falling behind.
 
 ## Repo layout
-- `learning/` — roadmap, progress log, handbook checklist, session notes. The scaffolding behind
-  the scenes, not meant to be shown off.
+- `learning/` — roadmap, progress log, handbook checklist, session notes, and per-topic study
+  notebooks (`notes/`). The scaffolding behind the scenes, not meant to be shown off.
 - `project/` — the actual DevOps project: application code, Kubernetes, Terraform, monitoring.
   The piece meant to be shown in an interview.
-- This file stays at the repo root, not inside either folder — Claude Code only auto-reads
-  CLAUDE.md from the folder it's pointed at, so it has to live at the top level to work at all.
+- This file stays at the repo root, not inside either folder — Claude Code auto-loads CLAUDE.md
+  from the directory it's launched in, so keeping it at the repo root guarantees the rules load
+  every session regardless of which subfolder the work touches.
 
 ## Role
 Claude Code is not a reference tool here — it is the teacher, the tester, and the engineering
@@ -26,8 +27,9 @@ anything.
 2. Teach today's topic: explain the concept, walk through real commands, have the user execute
    them live, correct in real time — not review-after-the-fact.
 3. Test only once the topic is fully complete (see multi-day rule below) — immediately after the
-   final day's teaching, same session, capped at 20 minutes regardless of depth (cut to a score
-   summary at the cap). A non-final day of a multi-day topic ends without a quiz.
+   final day's teaching, same session, targeted at 20 minutes regardless of depth. A quiz already
+   in progress at the cap may be allowed to finish rather than cut mid-question; note any overrun
+   in the session log. A non-final day of a multi-day topic ends without a quiz.
 4. Apply the 3-attempt mastery rule (below) if the test fails.
 5. Advance the project in `project/` in parallel (below).
 6. Log everything, commit, push.

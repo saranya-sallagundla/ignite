@@ -1,7 +1,7 @@
 # Session notes (personal recap)
 
 > Not used for logic — this file is for your own review.
-> Dates are IST (UTC+5:30), format YYYY-MM-DD. After each session, 2-4 lines: what happened,
+> Dates are IST (UTC+5:30), format YYYY-MM-DD. After each session, a short recap: what happened,
 > what was hard, what to remember.
 
 ## Session 1 — 2026-07-06
@@ -79,7 +79,7 @@ sequence of commands mid-session (worried something had broken when nothing had)
 plain step-by-step retrace cleared it up fast, worth doing that sooner next time instead of
 sitting with the confusion. Reasoned through the inode-vs-block exhaustion scenario correctly with
 just a small hint rather than a direct answer — good sign the "why" behind concepts is sticking,
-not just command syntax. Topic 4 cleared on quiz attempt 1, best score yet on hands-on quality.
+not just command syntax. Topic 4 cleared on quiz attempt 1, tying the best hands-on score so far (28/30).
 
 ## Session 9 — 2026-07-14 / 2026-07-16
 Honest moment worth remembering: asked to move fast through Topic 5 to fit both days in one
@@ -101,7 +101,7 @@ would have been). Genuinely good moment: the first attempt at engineering a merg
 actually conflict, and instead of just being told why, worked through the reasoning myself for
 why "branch then immediately merge" can never diverge, then correctly re-set up a real one
 requiring edits on both sides after the branch point. That kind of self-correction stuck better
-than if I'd just been handed the fix. Quiz went well, best hands-on score yet.
+than if I'd just been handed the fix. Quiz went well, hands-on tied the best score so far (28/30).
 
 ## Session 11 — 2026-07-18 / 2026-07-19
 Real mistake worth remembering long-term: resolved a cherry-pick conflict, ran `git add` and

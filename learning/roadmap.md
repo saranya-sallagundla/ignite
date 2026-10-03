@@ -87,7 +87,7 @@
 | 52 | AI-Assisted DevOps — Prompt Engineering + AIOps Concepts | 1 | Advanced |
 | 53 | Local AI & AI Agents Overview (Ollama, CrewAI) | 1 | Advanced |
 
-**Extra Reserve Buffer:** 5 days — depth on weak topics, harder quizzes, project hardening, system design. Not new tools.
+**Extra Reserve Buffer**: 5 days — depth on weak topics, harder quizzes, project hardening, system design. Not new tools.
 
 ---
 
@@ -97,14 +97,14 @@
   regardless of the timezone Claude Code's host machine defaults to.
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
-  Falling into that slack is normal, not falling behind.
+  Using that slack is normal; it does not count as falling behind.
 - **Last recalibrated**: — (not yet due — 16 sessions completed)
 - **Calendar Day since Day 1**: 19 (2026-07-24)
 - **Session count completed**: 16
 - **Active calendar days**: 18 of 19 (1 gap day: 2026-07-17)
 - **Roadmap days used**: 18 of 120 (Topics 1-10 complete, per fixed baseline allocation)
-- **Current topic**: Topic 10 — COMPLETE (92/100). Next: Topic 11 — Docker: Multi-Stage Builds &
-  Best Practices.
+- **Current topic**: Topic 10 — COMPLETE (92/100). Next: Topic 11 (Docker — Multi-Stage Builds &
+  Best Practices).
 - **Pace**: on track
 - **Buffer used** (overall, the real constraint): 0 of 22
 - **Buffer used per phase** (informational only — the 22-day pool above is shared across all
@@ -126,9 +126,9 @@
   - Topics 1-8 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100, 82/100, 94/100).
   - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,
     Kubernetes & CI/CD) is now underway, starting with Topic 9.
-  - Per CLAUDE.md's Parallel hands-on rule: `project/app/` boilerplate (Flask app + `/health`
+  - Per `CLAUDE.md`'s Parallel hands-on rule: `project/app/` boilerplate (Flask app + `/health`
     endpoint) was written just before Topic 9 began, since it was still empty.
-  - Topic 9 (Docker: Architecture, Images, Containers) CLEARED, 86/100, attempt 1. Day 1 covered
+  - Topic 9 (Docker — Architecture, Images, Containers) CLEARED, 86/100, attempt 1. Day 1 covered
     architecture/terminology, images vs. containers, a real Dockerfile built/run against
     `project/app/`, and exit code 137 tied to Topic 2's signals. Day 2 covered cache-invalidation
     edge cases (proved and fixed a real unnecessary `pip install` rerun via Dockerfile reorder),
@@ -136,11 +136,11 @@
     endpoint, self-caught bugs, safe `stop`→`rm`→`rmi` cleanup).
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
     traffic; retry via AWS sandbox VM once access is ready.
-  - Topic 10 (Docker: Networking, Volumes, Docker Compose) CLEARED, 92/100, attempt 1, across 2
+  - Topic 10 (Docker — Networking, Volumes, Docker Compose) CLEARED, 92/100, attempt 1, across 2
     sessions. Day 1 covered the bridge network concept, container-to-container DNS resolution
     (proven to fail on the default bridge, succeed on a custom network), port publishing tied to
     Topic 5's private/public IP concepts, and volumes introduced via bind mounts. Day 2 covered
     named volumes, a safe duplicate-and-swap technique for updating a running container's mounts,
     and Docker Compose from scratch — a real `docker-compose.yml` for `mission-control-app`,
-    extended with a named volume and a second service to prove Compose's automatic networking and
-    name resolution between services.
+    extended with a second service to prove Compose's automatic networking and a named volume for
+    shared persistence between services.

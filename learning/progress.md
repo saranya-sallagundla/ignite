@@ -11,14 +11,14 @@ Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLE
 in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
 (84/100). Topic 7 — COMPLETE (82/100). Topic 8 — COMPLETE (94/100). **PHASE 1 (Linux, Git &
 Version Control) COMPLETE.** Topic 9 — COMPLETE (86/100). Topic 10 — COMPLETE (92/100). Next:
-Topic 11 — Docker: Multi-Stage Builds & Best Practices. SSH live connection still deferred to
+Topic 11 (Docker — Multi-Stage Builds & Best Practices). SSH live connection still deferred to
 AWS sandbox VM.
 
 ## Session log
 
-<!-- Append one entry per session, in order. Day 1 is 2026-07-06 IST: -->
-## Session 1 — 2026-07-06
-- Topic in progress: Topic 1 — Linux Fundamentals, Filesystem, SSH, VMs (day 1 of 2)
+<!-- Append one entry per session, in order. Day 1 is 2026-07-06 IST. -->
+### Session 1 — 2026-07-06
+- Topic in progress: Topic 1 — Linux Fundamentals — Filesystem, SSH, VMs (day 1 of 2)
 - Covered: filesystem hierarchy & permissions (rwx/octal, ownership, `stat` timestamps),
   navigation/manipulation (`cd`, `mkdir -p`, `cp`/`mv`/`rm`, no-trash-bin concept), SSH concepts
   (asymmetric key pairs, challenge-response mechanism, danger of swapping public/private keys),
@@ -31,8 +31,8 @@ AWS sandbox VM.
 - Check-in: 2026-07-06 23:00 IST — Check-out: 2026-07-07 22:01 IST (includes an overnight break
   taken mid-session due to night-shift fatigue; not continuous active work time)
 
-## Session 2 — 2026-07-07
-- Topic completed: Topic 1 — Linux Fundamentals, Filesystem, SSH, VMs (day 2 of 2, FINAL DAY)
+### Session 2 — 2026-07-07
+- Topic completed: Topic 1 — Linux Fundamentals — Filesystem, SSH, VMs (day 2 of 2, FINAL DAY)
 - Covered: permission troubleshooting solved independently (`chmod` on a non-executable script),
   hard links vs symlinks via the inode/link-count model — proven hands-on including two real
   discoveries (a hard link to a symlink is itself a symlink; `ln -f` can silently free the last
@@ -40,15 +40,16 @@ AWS sandbox VM.
   `~/.ssh/config` concepts, and a VM/container multi-tenant isolation scenario tied directly to
   the project's future EC2→Kubernetes architecture.
 - Quiz: **PASS, attempt 1** — 6 interview-style questions, open-ended, no multiple choice. Full
-  question-by-question record in the Quiz record index below and in
-  `learning/notes/phase-1-linux-git-version-control/topic-01-linux-fundamentals.md`.
+  question-by-question record in
+  `learning/notes/phase-1-linux-git-version-control/topic-01-linux-fundamentals.md`; attempt
+  status tracked in the Quiz record index below.
   **Topic 1 CLEARED**
   **90/100 (Quiz 36/40, Hands-on 27/30, Depth 27/30)**
 - Check-in: 2026-07-07 22:19 IST — Check-out: 2026-07-08 05:25 IST (quiz itself ran ~32 minutes,
   over the 20-minute cap — allowed to finish in progress rather than cut mid-question)
 
-## Session 3 — 2026-07-08
-- Topic in progress: Topic 2 — Linux, Top 50 Shell Commands (day 1 of 2)
+### Session 3 — 2026-07-08
+- Topic in progress: Topic 2 — Linux — Top 50 Shell Commands (day 1 of 2)
 - Covered: file viewing (`head`, `tail`, `less`), search (`grep` with case-sensitivity and `-v`
   gotchas, `find` vs `grep` content-vs-filename distinction), text processing (`sort`, `uniq`,
   `wc`, `cut`), and a combined real-world log-analysis pipeline exercise built incrementally
@@ -56,8 +57,8 @@ AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-08 22:35 IST — Check-out: 2026-07-09 05:58 IST
 
-## Session 4 — 2026-07-09
-- Topic completed: Topic 2 — Linux, Top 50 Shell Commands (day 2 of 2, FINAL DAY)
+### Session 4 — 2026-07-09
+- Topic completed: Topic 2 — Linux — Top 50 Shell Commands (day 2 of 2, FINAL DAY)
 - Covered: process/signal handling (`ps aux`, `top`, `kill`/`kill -9`, SIGTERM vs SIGKILL
   catchability), system resource commands (`df -h`, `du -sh`, `free -h`, `uptime`/load average),
   networking (`ping`, `ss -tuln`) including a real discovery that ICMP (ping) and TCP (curl/apt)
@@ -70,8 +71,8 @@ AWS sandbox VM.
 - Check-in: 2026-07-09 23:24 IST — Check-out: 2026-07-10 05:39 IST (quiz ran ~28 minutes, over
   the 20-minute cap — allowed to finish in progress)
 
-## Session 5 — 2026-07-10
-- Topic in progress: Topic 3 — Linux, Shell Scripting Basics (day 1 of 2)
+### Session 5 — 2026-07-10
+- Topic in progress: Topic 3 — Linux — Shell Scripting Basics (day 1 of 2)
 - Covered: shebang line, variables, positional arguments (`$1`/`$#`), conditionals (`if`/`elif`/
   `else`/`fi`, string and numeric operators), arithmetic expansion (`$(( ))`, modulo), and a
   combined `classify.sh` exercise (sign + odd/even) written entirely from scratch — including
@@ -80,8 +81,8 @@ AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-10 22:02 IST — Check-out: 2026-07-11 04:14 IST
 
-## Session 6 — 2026-07-11 / 2026-07-12
-- Topic completed: Topic 3 — Linux, Shell Scripting Basics (day 2 of 2, FINAL DAY)
+### Session 6 — 2026-07-11 / 2026-07-12
+- Topic completed: Topic 3 — Linux — Shell Scripting Basics (day 2 of 2, FINAL DAY)
 - Covered: loops (`for`, `while`, incl. a real self-debugged infinite-loop bug), functions
   (definition + invocation), exit codes/error handling (`$?`, redirecting output to suppress it),
   and a combined `checkall.sh` exercise (function + loop + exit code, tied to `project/scripts/`
@@ -97,8 +98,8 @@ AWS sandbox VM.
   fatigue-driven pause partway through; Attempt 1 quiz ran ~32 minutes, Attempt 2 retest ~23
   minutes, both over the 20-minute cap but allowed to finish in progress)
 
-## Session 7 — 2026-07-12
-- Topic in progress: Topic 4 — Linux Deep Dive, Process/Log/Disk Management (day 1 of 2)
+### Session 7 — 2026-07-12
+- Topic in progress: Topic 4 — Linux Deep Dive — Process, Log, Disk Management (day 1 of 2)
 - Covered: process states (R/S/D/Z/T + modifiers), `awk` column extraction/filtering (new tool),
   the `/proc` filesystem (per-process info, file descriptors — directly explaining Topic 3's
   `2>&1` syntax), `pstree` process hierarchy, `nice`/`renice` process priority (incl. a real
@@ -109,8 +110,8 @@ AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-12 22:35 IST — Check-out: 2026-07-13 01:17 IST
 
-## Session 8 — 2026-07-13 / 2026-07-14
-- Topic completed: Topic 4 — Linux Deep Dive, Process/Log/Disk Management (day 2 of 2, FINAL DAY)
+### Session 8 — 2026-07-13 / 2026-07-14
+- Topic completed: Topic 4 — Linux Deep Dive — Process, Log, Disk Management (day 2 of 2, FINAL DAY)
 - Covered: partitions/mounting concepts (land/lot/driveway analogy), `lsblk`/UUIDs, a real
   discovery that WSL2's `sda`/`sdb` disks are internally busy/read-only in a hidden namespace
   (`sda: Can't mount, would change RO state` — the same "busy/blocked isn't always visible to
@@ -122,15 +123,15 @@ AWS sandbox VM.
   exhaustion scenario reasoned through correctly with minimal hinting.
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (zombie process
   reaping, inode/block exhaustion, `fstab`/UUID persistence and boot-failure risk, `nice`/`renice`
-  fairness reasoning, and the `df`-timeout production scenario), two of five needed a follow-up
+  fairness reasoning, and the `df`-timeout production scenario), 2 of 5 needed a follow-up
   push for full precision but were ultimately correct. Full record in
   `learning/notes/phase-1-linux-git-version-control/topic-04-process-log-disk-management.md`.
   **Topic 4 CLEARED**
   **88/100 (Quiz 34/40, Hands-on 28/30, Depth 26/30)**
 - Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
 
-## Session 9 — 2026-07-14 / 2026-07-16
-- Topic completed: Topic 5 — Linux Networking Fundamentals (both days, single session)
+### Session 9 — 2026-07-14 / 2026-07-16
+- Topic completed: Topic 5 — Linux — Networking Fundamentals (both days, single session)
 - Covered: IP addressing/private-vs-public ranges, CIDR notation (full table reasoned through
   down to `/1`), ports and `ss -tuln`, DNS resolution (`dig`) and round-robin load balancing
   (incl. installing `bind9-dnsutils` — succeeded fully, unlike Topic 1's blocked SSH install,
@@ -154,8 +155,8 @@ AWS sandbox VM.
 - Check-in: 2026-07-14 23:47 IST — Check-out: 2026-07-16 05:02 IST (session spanned across days
   with breaks; not continuous active work time)
 
-## Session 10 — 2026-07-16
-- Topic completed: Topic 6 — Git Fundamentals: Commits, Branches, Merges (both days, single
+### Session 10 — 2026-07-16
+- Topic completed: Topic 6 — Git Fundamentals — Commits, Branches, Merges (both days, single
   session, practiced from Windows PowerShell/VS Code directly, not WSL, matching the user's
   actual GitHub workflow)
 - Covered: the three-stage model (working directory/staging/committed history), `git init`/
@@ -172,8 +173,8 @@ AWS sandbox VM.
   **84/100 (Quiz 30/40, Hands-on 28/30, Depth 26/30)**
 - Check-in: 2026-07-16 23:38 IST — Check-out: 2026-07-17 01:45 IST
 
-## Session 11 — 2026-07-18 / 2026-07-19
-- Topic completed: Topic 7 — Git Deep Dive: Rebase, Cherry-Pick, Branching Strategies
+### Session 11 — 2026-07-18 / 2026-07-19
+- Topic completed: Topic 7 — Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies
   (single-day topic per the roadmap)
 - Covered: rebase (incl. a real conflict during `git rebase master`, resolved via Accept Both
   Changes, and confirmed via hash change that rebase creates brand-new commits rather than moving
@@ -196,8 +197,8 @@ AWS sandbox VM.
 - Check-in: 2026-07-18 00:56 IST — Check-out: 2026-07-19 11:11 IST (session spanned across days
   with breaks; not continuous active work time)
 
-## Session 12 — 2026-07-19 / 2026-07-20
-- Topic completed: Topic 8 — GitHub: PRs, Actions Intro, Repo Management (single-day topic per
+### Session 12 — 2026-07-19 / 2026-07-20
+- Topic completed: Topic 8 — GitHub — PRs, Actions Intro, Repo Management (single-day topic per
   the roadmap, final topic in Phase 1)
 - Covered: remotes (`git remote add`/`push`/`pull`), a real self-diagnosed PR mistake (a branch
   accidentally created off the wrong base after a session-start branch mix-up, diagnosed via
@@ -223,8 +224,8 @@ AWS sandbox VM.
   **PHASE 1 (Linux, Git & Version Control) COMPLETE.**
 - Check-in: 2026-07-19 22:11 IST — Check-out: 2026-07-20 01:27 IST
 
-## Session 13 — 2026-07-20 / 2026-07-21
-- Topic in progress: Topic 9 — Docker: Architecture, Images, Containers (Day 1 of 2, per the
+### Session 13 — 2026-07-20 / 2026-07-21
+- Topic in progress: Topic 9 — Docker — Architecture, Images, Containers (day 1 of 2, per the
   roadmap)
 - Parallel hands-on: `project/app/` boilerplate written just before Topic 9 began per
   `CLAUDE.md`'s trigger rule — a minimal Flask app (`app.py`) with a real `/health` endpoint plus
@@ -244,35 +245,36 @@ AWS sandbox VM.
   vs. `hello-world`'s clean `Exited (0)`, tied directly back to Topic 2's signals/`kill -9`
   content. Full record in
   `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-09-docker-architecture-images-containers.md`.
-- No quiz today — non-final day of a multi-day topic, per `CLAUDE.md`.
+- Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2 per multi-day topic rule)
 - Check-in: 2026-07-20 22:37 IST — Check-out: 2026-07-21 10:50 IST
 
-## Session 14 — 2026-07-21 / 2026-07-22
-- Topic completed: Topic 9 — Docker: Architecture, Images, Containers (Day 2 of 2, final day)
+### Session 14 — 2026-07-21 / 2026-07-22
+- Topic completed: Topic 9 — Docker — Architecture, Images, Containers (day 2 of 2, FINAL DAY)
 - Covered: layer/cache-invalidation edge case — proved that changing `app.py` forced an
   unnecessary `RUN pip install` rerun because `COPY . .` bundled it with `requirements.txt` into
   one layer, and that once a layer's cache breaks, every layer after it reruns regardless of its
   own actual inputs; independently rewrote the Dockerfile to `COPY requirements.txt .` →
   `RUN pip install` → `COPY app.py .`, self-caught the missing final `COPY` step, then proved the
   fix with real build logs (13.3s → 2.3s, `RUN pip install` showing `CACHED`); image tagging —
-  `docker tag`, proved `:latest` silently goes stale (moves to whichever image was built last, not
-  necessarily the newest content) by running `v1`/`v2` simultaneously on different ports and
-  seeing both real, distinct versions; harder independent task — added a `/ready` endpoint
-  (liveness vs. readiness previewed ahead of Kubernetes), self-caught a real Python string-vs-
-  boolean bug (`ready="true"` vs. `ready=True`); safely deleted a buggy image using
-  `stop`→`rm`→`rmi` after identifying the exact dependent container blocking it. Full record in
+  `docker tag`, proved `:latest` only moves when a build/tag explicitly assigns it — it silently
+  stayed on an older image once builds were tagged `v1`/`v2` instead, so it wasn't necessarily the
+  newest content — by running `v1`/`v2` simultaneously on different ports and seeing both real,
+  distinct versions; harder independent task — added a `/ready` endpoint (liveness vs. readiness
+  previewed ahead of Kubernetes), self-caught a real Python string-vs-boolean bug
+  (`ready="true"` vs. `ready=True`); safely deleted a buggy image using `stop`→`rm`→`rmi` after
+  identifying the exact dependent container blocking it. Full record in
   `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-09-docker-architecture-images-containers.md`.
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (architecture flow,
   image/container semantics, cache invalidation, tagging, exit codes/signals); 2 needed a quick
   follow-up to surface an already-understood detail, 1 left "why it matters" unaddressed until
-  asked, 1 had a genuine two-round factual mix-up (`docker stop` vs. `hello-world`'s self-exit),
-  tagging answered flawlessly.
+  asked, 1 had a genuine two-round factual mix-up (`docker stop` vs. `hello-world`'s self-exit);
+  tagging was answered flawlessly.
   **Topic 9 CLEARED**
   **86/100 (Quiz 32/40, Hands-on 29/30, Depth 25/30)**
 - Check-in: 2026-07-21 23:44 IST — Check-out: 2026-07-22 04:47 IST
 
-## Session 15 — 2026-07-22 / 2026-07-23
-- Topic in progress: Topic 10 — Docker: Networking, Volumes, Docker Compose (Day 1 of 2)
+### Session 15 — 2026-07-22 / 2026-07-23
+- Topic in progress: Topic 10 — Docker — Networking, Volumes, Docker Compose (day 1 of 2)
 - Covered: the bridge network concept via a roads/neighborhoods analogy, `docker network ls`
   (bridge/host/none), `docker network inspect bridge` (real discovery: 3 IPs already "in use" on
   an empty network — the network address, gateway, and broadcast address, none of them
@@ -287,11 +289,11 @@ AWS sandbox VM.
   proving persistence across container deletion by reading the file back from a brand-new
   container. Full record in
   `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-10-docker-networking-volumes-compose.md`.
-- No quiz today — non-final day of a multi-day topic, per `CLAUDE.md`.
+- Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2 per multi-day topic rule)
 - Check-in: 2026-07-22 22:53 IST — Check-out: 2026-07-23 02:12 IST
 
-## Session 16 — 2026-07-23 / 2026-07-24
-- Topic completed: Topic 10 — Docker: Networking, Volumes, Docker Compose (Day 2 of 2, final day)
+### Session 16 — 2026-07-23 / 2026-07-24
+- Topic completed: Topic 10 — Docker — Networking, Volumes, Docker Compose (day 2 of 2, FINAL DAY)
 - Covered: named volumes (`docker volume create`, `docker volume ls`) proven to persist data
   across container deletion the same way bind mounts do, using a real named volume; the rule that
   a running container's mounts can never be changed in place (only at creation) reinforced via a
@@ -301,10 +303,11 @@ AWS sandbox VM.
   and the volume before moving on. Docker Compose introduced from scratch — YAML structure,
   writing a real `docker-compose.yml` for `mission-control-app` (`services`, `build`, `ports`),
   running it with `docker compose up -d`, and verifying `http://localhost:5000/health` live; the
-  file then extended with a named volume and a second service, proving Compose automatically
-  creates its own network (`project_default`) with built-in name-based resolution between
-  services (no manual `docker network create` needed) and that `docker compose up` automatically
-  recreates a service whose config changed while creating new services fresh. Full record in
+  file then extended with a second service, proving Compose automatically creates its own network
+  (`project_default`) with built-in name-based resolution between services (no manual
+  `docker network create` needed), and a named volume proving shared persistence — plus that
+  `docker compose up` automatically recreates a service whose config changed while creating new
+  services fresh. Full record in
   `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-10-docker-networking-volumes-compose.md`.
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (default bridge vs.
   custom network DNS resolution, bind mount vs. named volume, volume lifecycle independence from
@@ -318,8 +321,8 @@ AWS sandbox VM.
 
 ## Quiz record index
 
-> A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
-> (see CLAUDE.md's 3-attempt mastery rule).
+> A topic clears with one passed attempt. Three failed attempts trigger deferred mastery
+> (see `CLAUDE.md`'s 3-attempt mastery rule).
 
 | Topic # | Topic name | Attempt 1 | Attempt 2 | Attempt 3 | Status |
 |---|---|---|---|---|---|
@@ -346,5 +349,5 @@ AWS sandbox VM.
 ## Light days log
 
 | Date | Reason given |
-|------|--------------|
+|---|---|
 | 2026-07-17 | Already ahead of schedule — Sessions 9 and 10 had efficiently covered Topic 5 and Topic 6 (each a 2-day topic in the baseline) within continuous sessions on 07-14/16, so this day was taken as a rest day without falling behind. Logged retroactively during a later review, since it wasn't captured in the moment. Pacing cost: none — Topics 1-8 still landed at exactly their planned 14 roadmap days total, zero overrun. |

@@ -1,6 +1,6 @@
 # Mission: DevOps
 
-A self-paced, 6-month path to interview-ready DevOps/SRE engineer, taught and tested entirely by
+A self-paced, 6-month path to becoming an interview-ready DevOps/SRE engineer, taught and tested entirely by
 Claude Code, with a real, incrementally-built infrastructure project as proof of work by the end.
 
 ## How this repo is organized
@@ -13,8 +13,9 @@ Two folders, kept deliberately separate:
   Terraform infrastructure, CI/CD, monitoring. This is the piece meant to be shown in an
   interview.
 
-`CLAUDE.md` sits at the root, not inside either folder — Claude Code only auto-reads it from the
-folder it's pointed at, so it has to stay at the top level for the automation to work at all.
+`CLAUDE.md` sits at the root, not inside either folder — Claude Code auto-loads it from the
+directory it's launched in, so keeping it at the top level guarantees the rules load every
+session regardless of which subfolder the work touches.
 
 ```
 ignite/
@@ -61,7 +62,7 @@ The project in `project/` is built incrementally, session by session, alongside 
 above rather than as a separate task at the end. Whatever hands-on work a topic produces gets
 applied directly here wherever it reasonably can.
 
-One deliberate exception: until the Python phase (roughly two-thirds through the plan), any
+One deliberate exception: until the Python phase (roughly three-quarters through the plan), any
 application code in `project/app/` is Claude-authored boilerplate — functional, but not yet
 something to defend in an interview. That gets rewritten from real understanding once Python is
 actually covered.
@@ -71,7 +72,8 @@ it's actually built.
 
 ## Timeline
 6 months total. The roadmap's day allocations sum to roughly 120 aggressive days — the remaining
-~60 are intentional slack for remediation and polish, not contingency for falling behind.
+~60 are deliberate slack for remediation, buffer, and polish. Using them is normal, not a sign of
+falling behind.
 
 ## Picking this up on any given day
 Open Claude Code in this folder and say what you're there for. It reads `learning/progress.md`
