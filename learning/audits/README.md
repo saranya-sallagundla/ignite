@@ -27,3 +27,7 @@ was actually fixed, and why each fix mattered — not just a raw findings dump.
   the one thing in this repo whose value depends entirely on being real.
 - The full standing rules this process enforces live in `CLAUDE.md`'s "Repo quality standards"
   section — each audit should check the repo still holds to those, not just find new issues.
+- After the audit report is produced, save an unmodified copy of the raw findings report directly
+  under `C:\CloudOps` (not just the scratchpad/temp location the report was originally written to,
+  and not just the permanent `learning/audits/topic-N-audit.md` record). Copy it as-is — do not
+  redact or edit anything (e.g. employer-name instances) in this copy.
