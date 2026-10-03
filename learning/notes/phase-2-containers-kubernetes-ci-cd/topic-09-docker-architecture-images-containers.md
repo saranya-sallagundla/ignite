@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-20 / 2026-07-21
+## Day 1 — 2026-07-20
 
 ### Today's agenda
 1. Precheck — Docker verified, `project/app/` boilerplate written, `app.py` walked through.
@@ -452,7 +452,7 @@ quiz today) — chose to stop after Day 1's full agenda instead.
 
 ---
 
-## Day 2 — 2026-07-21 / 2026-07-22 (final day)
+## Day 2 — 2026-07-21 (final day)
 
 ### Today's agenda
 1. Layer/rebuild edge cases — what actually gets reused vs. rebuilt on a code change, and why

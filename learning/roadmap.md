@@ -101,7 +101,8 @@
 - **Last recalibrated**: — (not yet due — 16 sessions completed)
 - **Calendar Day since Day 1**: 19 (2026-07-24)
 - **Session count completed**: 16
-- **Active calendar days**: 18 of 19 (1 gap day: 2026-07-17)
+- **Active calendar days**: 18 of 19 (1 gap day: 2026-07-17 — Session 10 ran past midnight into
+  07-17's early hours, but no new session started that day)
 - **Roadmap days used**: 18 of 120 (Topics 1-10 complete, per fixed baseline allocation)
 - **Current topic**: Topic 10 — COMPLETE (92/100). Next: Topic 11 (Docker — Multi-Stage Builds &
   Best Practices).

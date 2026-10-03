@@ -302,7 +302,7 @@ don't always know in advance how a problem will be phrased.
 
 ---
 
-## Day 2 — 2026-07-13 / 2026-07-14 (disk management: partitions, mounting)
+## Day 2 — 2026-07-13 (disk management: partitions, mounting)
 
 ### Today's agenda
 1. The land/lot/driveway analogy.

@@ -221,7 +221,7 @@ Used here because multi-line scripts are more natural to write in a real editor 
 
 ---
 
-## Day 2 — 2026-07-11 / 2026-07-12 (loops, functions, exit codes — quiz deferred on functions)
+## Day 2 — 2026-07-11 (loops, functions, exit codes — quiz deferred on functions)
 
 ### Today's agenda
 1. Loops — `for` and `while`.

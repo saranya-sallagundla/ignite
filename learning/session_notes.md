@@ -49,7 +49,7 @@ exercise.
 Worth remembering next time something feels this frustrating: it's often exactly the sign that
 real learning is happening, not that something's wrong.
 
-## Session 6 — 2026-07-11 / 2026-07-12
+## Session 6 — 2026-07-11
 First real quiz miss of the whole mission — function scoping genuinely didn't land on attempt 1,
 even after several analogies. Said "it's not going inside my brain" out loud instead of pretending
 it clicked — the right instinct, and directly led to trying something different: a real script
@@ -72,7 +72,7 @@ good to remember that account/credential stuff feels riskier than it usually is.
 NTP timeout logs turning out to be the same corporate proxy issue from Topic 1, and then proving
 myself right by re-searching with a different keyword instead of accepting an empty result.
 
-## Session 8 — 2026-07-13 / 2026-07-14
+## Session 8 — 2026-07-13
 Real production carryover felt great — connecting the "df timing out" alert my own team actually
 gets to the liveness-vs-corruption distinction we just learned made the material click
 immediately, more than any invented scenario would have. Got genuinely confused re-reading back a
@@ -82,7 +82,7 @@ sitting with the confusion. Reasoned through the inode-vs-block exhaustion scena
 just a small hint rather than a direct answer — good sign the "why" behind concepts is sticking,
 not just command syntax. Topic 4 cleared on quiz attempt 1, tying the best hands-on score so far (28/30).
 
-## Session 9 — 2026-07-14 / 2026-07-16
+## Session 9 — 2026-07-14
 Honest moment worth remembering: asked to move fast through Topic 5 to fit both days in one
 sitting, passed the quiz (74/100), but admitted afterward "the 1st time doesn't work that great
 with me" instead of just moving on — and that was the right call. The revision pass (simpler
@@ -104,7 +104,7 @@ why "branch then immediately merge" can never diverge, then correctly re-set up 
 requiring edits on both sides after the branch point. That kind of self-correction stuck better
 than if I'd just been handed the fix. Quiz went well, hands-on tied the best score so far (28/30).
 
-## Session 11 — 2026-07-18 / 2026-07-19
+## Session 11 — 2026-07-18
 Real mistake worth remembering long-term: resolved a cherry-pick conflict, ran `git add` and
 `--continue`, assumed it was done — but the markers were still literally sitting in the file.
 `git add` never actually checks your work — it just trusts you. Caught it by checking `cat`
@@ -116,7 +116,7 @@ remembering that pushing past "mostly gets it" is exactly what closes the last 1
 perspective at the end too: didn't fixate on the score number itself, correctly saw it as
 feedback on the session, not a verdict on the future — worth holding onto as topics get harder.
 
-## Session 12 — 2026-07-19 / 2026-07-20
+## Session 12 — 2026-07-19
 Genuinely great session to close out Phase 1 on — pushed back directly and correctly when the
 quiz scoring felt unfair (treating a quick, confident follow-up on an already-comprehensive answer
 the same as a real correction), and that pushback was right; revised the score up after actually
@@ -129,7 +129,7 @@ actually restricting merge options) landed well specifically because they were h
 through genuine mistakes and curiosity, not just described. Phase 1 complete — good foundation
 built across 8 topics before Docker/Kubernetes/CI-CD begins in Phase 2.
 
-## Session 13 — 2026-07-20 / 2026-07-21
+## Session 13 — 2026-07-20
 Docker Day 1 needed a genuinely slower pace than usual — asked twice to hold off on context until
 basic terms landed one at a time on their own first (recipe-card analogy for image vs. container
 is what made it click), and to get a same-day agenda up front before diving in. Both are now
@@ -138,12 +138,12 @@ from a browser hitting a container built from a Dockerfile written line by line,
 independently reasoning through exit code 137 (128 + SIGKILL) using only Topic 2's signals
 knowledge, without being told the formula first.
 
-## Session 14 — 2026-07-21 / 2026-07-22
+## Session 14 — 2026-07-21
 Docker Day 2 was the strongest independent hands-on session yet — self-caught a missing `COPY
 app.py .` line, a real Python string-vs-boolean bug, and proved the cache-reorder fix with real
 before/after build timings rather than taking it on faith. Topic 9 cleared, 86/100.
 
-## Session 15 — 2026-07-22 / 2026-07-23
+## Session 15 — 2026-07-22
 Docker networking finally made the default-bridge-vs-custom-network distinction click by actually
 watching a real name-lookup error (`Name or service not known`) rather than just being told it
 happens — that kind of "break it, then fix it" proof stuck harder than any explanation alone
@@ -154,7 +154,7 @@ total beginner with zero assumed background, and for a same-day agenda plus expl
 "shall I move on?" checkpoints before advancing. Volumes' core lesson (container storage
 disappears without one) landed cleanly once proven hands-on with a real deleted container.
 
-## Session 16 — 2026-07-23 / 2026-07-24
+## Session 16 — 2026-07-23
 Best instinct of the topic: refusing to delete-and-hope when adding a volume to an existing
 container, and instead insisting on a verified duplicate-then-swap approach — checked the new
 container's mounts were correct before ever touching the original. Docker Compose landed well

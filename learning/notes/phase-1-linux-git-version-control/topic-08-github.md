@@ -7,7 +7,7 @@
 
 ---
 
-## Day 1 — 2026-07-19/20 — Remotes, Pull Requests, GitHub Actions, repo management
+## Day 1 — 2026-07-19 — Remotes, Pull Requests, GitHub Actions, repo management
 
 Practiced using a dedicated, temporary GitHub repo (`your-org/git-practice`) created specifically
 for this topic — intended to be deleted once Topic 8 is complete, since the lasting record lives

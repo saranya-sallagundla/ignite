@@ -5,7 +5,7 @@
 
 ---
 
-## Day 1 — 2026-07-14 / 2026-07-16 (both days, single session)
+## Day 1 — 2026-07-14 (both days, single session)
 
 Note on pacing: both days were intentionally kept high-level/faster-paced the first time through,
 per an explicit request to move quickly and expand only on request. The material didn't fully

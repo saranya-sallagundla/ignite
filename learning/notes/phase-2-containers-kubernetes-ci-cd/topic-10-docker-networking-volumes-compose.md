@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-22 / 2026-07-23
+## Day 1 — 2026-07-22
 
 ### Today's agenda
 1. Docker networking — the bridge concept.
@@ -150,7 +150,7 @@ only way to change them is delete-and-recreate.
 
 ---
 
-## Day 2 — 2026-07-23 / 2026-07-24 (final day)
+## Day 2 — 2026-07-23 (final day)
 
 ### Today's agenda
 1. Named volumes.

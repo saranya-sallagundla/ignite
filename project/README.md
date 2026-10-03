@@ -61,7 +61,7 @@ Topic 3 Day 1 (Shell Scripting Basics) — no project code yet, but this is the 
 feeds `scripts/` directly: the conditional/variable fundamentals practiced today are exactly
 what real automation scripts in that folder will be built from.
 
-### Session 6 — 2026-07-11 / 2026-07-12
+### Session 6 — 2026-07-11
 Topic 3 complete, quiz passed (Shell Scripting Basics) — no project code yet, but the `checkall.sh`
 pattern built today (function + loop + exit code, checking multiple folders at once) is directly
 the shape of a real pre-deployment sanity-check script for `scripts/` later.
@@ -72,12 +72,12 @@ log-searching skills practiced today are exactly what `monitoring/`'s future log
 setup will build on, and `nice`/`renice` will matter once real workloads run on shared EC2/K8s
 compute later.
 
-### Session 8 — 2026-07-13 / 2026-07-14
+### Session 8 — 2026-07-13
 Topic 4 complete, quiz passed (Process/Log/Disk Management) — no project code yet, but disk
 partitioning/mounting and `fsck`/`df` health checks practiced today are exactly what operating
 this project's future EC2 storage and EKS persistent volumes will require later.
 
-### Session 9 — 2026-07-14 / 2026-07-16
+### Session 9 — 2026-07-14
 Topic 5 complete, quiz passed (Linux Networking Fundamentals) — no project code yet, but IP/CIDR,
 DNS, ports, and routing practiced today are exactly what configuring this project's future VPC,
 security groups, and service-to-service networking on AWS will require later.
@@ -87,35 +87,35 @@ Topic 6 complete, quiz passed (Git Fundamentals) — no project code yet, but br
 practiced today (including a real resolved conflict) is exactly the workflow this project's own repo
 will use once multiple features/phases are being built and merged going forward.
 
-### Session 11 — 2026-07-18 / 2026-07-19
+### Session 11 — 2026-07-18
 Topic 7 complete, quiz passed (Git Deep Dive) — no project code yet, but rebase/cherry-pick and
 branching-strategy reasoning practiced today are exactly what keeping this project's own repo
 history clean will require once real feature work starts landing here.
 
-### Session 12 — 2026-07-19 / 2026-07-20
+### Session 12 — 2026-07-19
 Topic 8 complete, quiz passed (GitHub: PRs, Actions Intro, Repo Management) — **Phase 1 complete.** No
 project code yet, but PRs, GitHub Actions, and branch protection practiced today are exactly the
 workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kubernetes/CI-CD) begins.
 
-### Session 13 — 2026-07-20 / 2026-07-21
+### Session 13 — 2026-07-20
 Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` gained its first real code, a
 Flask app with a `/health` endpoint, and its first Dockerfile, built into
 `mission-control-app:latest` and run as a live container, verified serving `{"status":"ok"}`
 over HTTP.
 
-### Session 14 — 2026-07-21 / 2026-07-22
+### Session 14 — 2026-07-21
 Topic 9 complete, quiz passed (Docker: Architecture, Images, Containers) — Dockerfile reordered
 so app-code changes no longer force an unnecessary dependency reinstall (proved with real build
 timings), `app/` gained a `/ready` endpoint, and the image is now properly version-tagged
 (`v1`/`v2`) with rollback proven by running both simultaneously.
 
-### Session 15 — 2026-07-22 / 2026-07-23
+### Session 15 — 2026-07-22
 Topic 10 Day 1 (Docker: Networking, Volumes, Docker Compose) — no project code yet, but container-to-container
 DNS resolution (bridge vs. custom network) and bind-mount persistence proven hands-on today are
 exactly what this project's future multi-container setups (app + database, app + cache) will
 depend on.
 
-### Session 16 — 2026-07-23 / 2026-07-24
+### Session 16 — 2026-07-23
 Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) — `project/` gained
 its first `docker-compose.yml`, building and running `mission-control-app` in one command instead
 of manual `docker run` flags, extended with a second service to prove Compose's automatic

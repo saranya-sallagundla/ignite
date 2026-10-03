@@ -1,7 +1,8 @@
 # Progress log
 
 > Read by Claude Code at the start of every session — this is the live state of the plan.
-> All dates are IST (UTC+5:30), format YYYY-MM-DD. Day 1 = 2026-07-06.
+> All dates are IST (UTC+5:30), format YYYY-MM-DD. Day 1 = 2026-07-06. Raw command output and
+> git commit metadata reflect the machine's local clock (US Eastern), not IST.
 
 ## Current status
 
@@ -81,7 +82,7 @@ AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-10 22:02 IST — Check-out: 2026-07-11 04:14 IST
 
-### Session 6 — 2026-07-11 / 2026-07-12
+### Session 6 — 2026-07-11
 - Topic completed: Topic 3 — Linux — Shell Scripting Basics (day 2 of 2, FINAL DAY)
 - Covered: loops (`for`, `while`, incl. a real self-debugged infinite-loop bug), functions
   (definition + invocation), exit codes/error handling (`$?`, redirecting output to suppress it),
@@ -110,7 +111,7 @@ AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2)
 - Check-in: 2026-07-12 22:35 IST — Check-out: 2026-07-13 01:17 IST
 
-### Session 8 — 2026-07-13 / 2026-07-14
+### Session 8 — 2026-07-13
 - Topic completed: Topic 4 — Linux Deep Dive — Process, Log, Disk Management (day 2 of 2, FINAL DAY)
 - Covered: partitions/mounting concepts (land/lot/driveway analogy), `lsblk`/UUIDs, a real
   discovery that WSL2's `sda`/`sdb` disks are internally busy/read-only in a hidden namespace
@@ -130,7 +131,7 @@ AWS sandbox VM.
   **88/100 (Quiz 34/40, Hands-on 28/30, Depth 26/30)**
 - Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
 
-### Session 9 — 2026-07-14 / 2026-07-16
+### Session 9 — 2026-07-14
 - Topic completed: Topic 5 — Linux — Networking Fundamentals (both days, single session)
 - Covered: IP addressing/private-vs-public ranges, CIDR notation (full table reasoned through
   down to `/1`), ports and `ss -tuln`, DNS resolution (`dig`) and round-robin load balancing
@@ -173,7 +174,7 @@ AWS sandbox VM.
   **84/100 (Quiz 30/40, Hands-on 28/30, Depth 26/30)**
 - Check-in: 2026-07-16 23:38 IST — Check-out: 2026-07-17 01:45 IST
 
-### Session 11 — 2026-07-18 / 2026-07-19
+### Session 11 — 2026-07-18
 - Topic completed: Topic 7 — Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies
   (single-day topic per the roadmap)
 - Covered: rebase (incl. a real conflict during `git rebase master`, resolved via Accept Both
@@ -197,7 +198,7 @@ AWS sandbox VM.
 - Check-in: 2026-07-18 00:56 IST — Check-out: 2026-07-19 11:11 IST (session spanned across days
   with breaks; not continuous active work time)
 
-### Session 12 — 2026-07-19 / 2026-07-20
+### Session 12 — 2026-07-19
 - Topic completed: Topic 8 — GitHub — PRs, Actions Intro, Repo Management (single-day topic per
   the roadmap, final topic in Phase 1)
 - Covered: remotes (`git remote add`/`push`/`pull`), a real self-diagnosed PR mistake (a branch
@@ -224,7 +225,7 @@ AWS sandbox VM.
   **PHASE 1 (Linux, Git & Version Control) COMPLETE.**
 - Check-in: 2026-07-19 22:11 IST — Check-out: 2026-07-20 01:27 IST
 
-### Session 13 — 2026-07-20 / 2026-07-21
+### Session 13 — 2026-07-20
 - Topic in progress: Topic 9 — Docker — Architecture, Images, Containers (day 1 of 2, per the
   roadmap)
 - Parallel hands-on: `project/app/` boilerplate written just before Topic 9 began per
@@ -248,7 +249,7 @@ AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2 per multi-day topic rule)
 - Check-in: 2026-07-20 22:37 IST — Check-out: 2026-07-21 10:50 IST
 
-### Session 14 — 2026-07-21 / 2026-07-22
+### Session 14 — 2026-07-21
 - Topic completed: Topic 9 — Docker — Architecture, Images, Containers (day 2 of 2, FINAL DAY)
 - Covered: layer/cache-invalidation edge case — proved that changing `app.py` forced an
   unnecessary `RUN pip install` rerun because `COPY . .` bundled it with `requirements.txt` into
@@ -273,7 +274,7 @@ AWS sandbox VM.
   **86/100 (Quiz 32/40, Hands-on 29/30, Depth 25/30)**
 - Check-in: 2026-07-21 23:44 IST — Check-out: 2026-07-22 04:47 IST
 
-### Session 15 — 2026-07-22 / 2026-07-23
+### Session 15 — 2026-07-22
 - Topic in progress: Topic 10 — Docker — Networking, Volumes, Docker Compose (day 1 of 2)
 - Covered: the bridge network concept via a roads/neighborhoods analogy, `docker network ls`
   (bridge/host/none), `docker network inspect bridge` (real discovery: 3 IPs already "in use" on
@@ -292,7 +293,7 @@ AWS sandbox VM.
 - Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2 per multi-day topic rule)
 - Check-in: 2026-07-22 22:53 IST — Check-out: 2026-07-23 02:12 IST
 
-### Session 16 — 2026-07-23 / 2026-07-24
+### Session 16 — 2026-07-23
 - Topic completed: Topic 10 — Docker — Networking, Volumes, Docker Compose (day 2 of 2, FINAL DAY)
 - Covered: named volumes (`docker volume create`, `docker volume ls`) proven to persist data
   across container deletion the same way bind mounts do, using a real named volume; the rule that
@@ -350,4 +351,4 @@ AWS sandbox VM.
 
 | Date | Reason given |
 |---|---|
-| 2026-07-17 | Already ahead of schedule — Sessions 9 and 10 had efficiently covered Topic 5 and Topic 6 (each a 2-day topic in the baseline) within continuous sessions on 07-14/16, so this day was taken as a rest day without falling behind. Logged retroactively during a later review, since it wasn't captured in the moment. Pacing cost: none — Topics 1-8 still landed at exactly their planned 14 roadmap days total, zero overrun. |
+| 2026-07-17 | Already ahead of schedule — Sessions 9 and 10 had efficiently covered Topic 5 and Topic 6 (each a 2-day topic in the baseline) within continuous sessions starting 2026-07-14 and 2026-07-16, so this day was taken as a rest day without falling behind. Logged retroactively during a later review, since it wasn't captured in the moment. Pacing cost: none — Topics 1-8 still landed at exactly their planned 14 roadmap days total, zero overrun. |

@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-18/19 — Rebase, cherry-pick, branching strategies
+## Day 1 — 2026-07-18 — Rebase, cherry-pick, branching strategies
 
 Practiced in the same `C:\CloudOps\git-practice` folder from Topic 6, Windows PowerShell/VS Code.
 
