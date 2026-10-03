@@ -357,9 +357,7 @@ Re-ran `docker compose up -d`. **Real discovery, directly tying back to Day 1's 
 ```
 `app` (whose config changed — it gained a volume it didn't have before) showed **"Recreated"**,
 while `app2` (brand new) showed **"Created"** — the exact same "mounts are locked at creation"
-rule from Day 1, applied automatically by Compose instead of done by hand. Also note:
-`project_app-data` — Compose auto-prefixes volume/image/container names with the project folder
-name, same pattern throughout.
+rule from Day 1, applied automatically by Compose instead of done by hand.
 
 **Verified both new pieces hands-on**:
 - Name resolution, automatic, no manual network setup:
@@ -381,26 +379,6 @@ name, same pattern throughout.
 down`** stops and removes every container/network Compose created from the file in one command
 (add `-v` to also remove the volumes declared in it) — the reverse operation to `docker compose
 up -d`, useful for a full clean teardown instead of manually removing each piece by hand.
-
-### 10. Command quick reference — Topic 10
-
-| Command | What it does |
-|---|---|
-| `docker network ls` | List all networks (`bridge`, `host`, `none`, plus any custom ones) |
-| `docker network create NAME` | Create a custom, user-defined network |
-| `docker network connect NAME CONTAINER` | Attach a running container to a network |
-| `docker network inspect NAME` | Full details of a network — subnet, gateway, attached containers |
-| `docker inspect -f 'TEMPLATE' CONTAINER` | Print one specific field from a container's full config |
-| `docker volume create NAME` | Create a named volume |
-| `docker volume ls` | List all volumes |
-| `docker volume rm NAME` | Delete a volume (fails if still in use by a container) |
-| `docker run -v HOST_PATH:CONTAINER_PATH ...` | Attach a bind mount |
-| `docker run -v VOLUME_NAME:CONTAINER_PATH ...` | Attach a named volume |
-| `docker run --rm ...` | Auto-delete the container the moment it exits — good for one-off checks |
-| `docker rename OLD NEW` | Rename a container (name only — no other settings change) |
-| `docker rm -f NAME` | Force-stop and remove a container in one step |
-| `docker compose up -d` | Build/create/start everything described in `docker-compose.yml` |
-| `docker compose down` | Stop and remove everything Compose created (add `-v` to also drop volumes) |
 
 ## Topic 10 Quiz — both days combined — Attempt 1: PASS, 92/100
 
