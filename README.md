@@ -38,8 +38,9 @@ ignite/
 │   ├── monitoring/
 │   ├── docs/
 │   └── scripts/
-└── audits/                — periodic full-repo professionalism audits (learning/ + project/
-                              together), one file per milestone
+├── audits/                — periodic full-repo professionalism audits (learning/ + project/
+│                             together), one file per milestone
+└── claude-memory/         — synced copy of Claude Code's cross-session memory for this project
 ```
 
 ## How the learning side works
