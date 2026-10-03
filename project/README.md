@@ -94,23 +94,25 @@ project code yet, but PRs, GitHub Actions, and branch protection practiced today
 workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kubernetes/CI-CD) begins.
 
 ### Session 13 — 2026-07-20 / 2026-07-21
-Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` got its first real code (Flask
-+ `/health`) and its first Dockerfile, built into `mission-control-app:latest` and run as a live
-container, verified serving `{"status":"ok"}` over HTTP. Day 2 still ahead before Topic 9 clears.
+Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` got its first real code, a
+Flask app with a `/health` endpoint, and its first Dockerfile, built into
+`mission-control-app:latest` and run as a live container, verified serving `{"status":"ok"}`
+over HTTP.
 
 ### Session 14 — 2026-07-21 / 2026-07-22
-Topic 9 Day 2 — Dockerfile reordered so app-code changes no longer force an unnecessary dependency
-reinstall (proved with real build timings), `app/` gained a `/ready` endpoint, and the image is now
-properly version-tagged (`v1`/`v2`) with rollback proven by running both simultaneously. **Topic 9
-CLEARED, 86/100.**
+Topic 9 complete, quiz passed (Docker: Architecture, Images, Containers) — Dockerfile reordered
+so app-code changes no longer force an unnecessary dependency reinstall (proved with real build
+timings), `app/` gained a `/ready` endpoint, and the image is now properly version-tagged
+(`v1`/`v2`) with rollback proven by running both simultaneously.
 
 ### Session 15 — 2026-07-22 / 2026-07-23
-Topic 10 Day 1 (Docker Networking, Volumes) — no `project/` code changes yet, but container
-networking (bridge, DNS resolution between containers) and volumes (persisting data past a
-container's lifecycle) practiced today are exactly what this project's future multi-container
-setups (app + database, app + cache) will depend on.
+Topic 10 Day 1 (Docker Networking, Volumes) — no project code yet, but container-to-container
+DNS resolution (bridge vs. custom network) and bind-mount persistence proven hands-on today are
+exactly what this project's future multi-container setups (app + database, app + cache) will
+depend on.
 
 ### Session 16 — 2026-07-23 / 2026-07-24
-Topic 10 Day 2 — `project/` gained its first `docker-compose.yml`, building and running
-`mission-control-app` in one command instead of manual `docker run` flags, extended with a named
-volume and a second service to prove Compose's automatic networking. **Topic 10 CLEARED, 92/100.**
+Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) — `project/` gained
+its first `docker-compose.yml`, building and running `mission-control-app` in one command instead
+of manual `docker run` flags, extended with a named volume and a second service to prove
+Compose's automatic networking.
