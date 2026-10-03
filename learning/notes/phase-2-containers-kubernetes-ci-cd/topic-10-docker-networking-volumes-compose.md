@@ -131,7 +131,7 @@ folder inside the container.
 
 **Syntax**: `docker run -d --name NAME -v HOST_PATH:CONTAINER_PATH IMAGE`
 **Example — verified hands-on**:
-```bash
+```powershell
 mkdir data
 docker run -d --name app-c -v C:\CloudOps\ignite\project\data:/app/data mission-control-app:v2
 docker exec app-c sh -c "echo saved-data > /app/data/proof.txt"
@@ -236,14 +236,14 @@ reserved for the bind mount.
 **Safe technique used** — verify before cutting over, instead of delete-then-hope:
 
 1. Checked `app-a`'s exact current settings first, so nothing would be lost rebuilding it:
-   ```bash
+   ```powershell
    docker inspect app-a --format 'Image: {{.Config.Image}}{{println}}Binds: {{.HostConfig.Binds}}{{println}}Networks: {{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
    # Image: mission-control-app:v2
    # Binds: [C:\CloudOps\ignite\project\data:/app/data]
    # Networks: bridge my-net
    ```
 2. Created `app-a-duplicate` with **both** mounts, plus the same network:
-   ```bash
+   ```powershell
    docker run -d --name app-a-duplicate -v C:\CloudOps\ignite\project\data:/app/data -v Volume-A:/app/volume-data mission-control-app:v2
    docker network connect my-net app-a-duplicate
    ```
@@ -439,6 +439,8 @@ through the full diagnostic order.
   docker exec project-app-1 python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:5000/health', timeout=3).read())"
   # → {"status":"ok","version":"2.1"}
   ```
+
+---
 
 ## Topic 10 Quiz — both days combined — Attempt 1: PASS, 92/100
 

@@ -329,7 +329,7 @@ exactly why it's the hardest of the three to diagnose (no information at all com
 
 ---
 
-## Topic 5 Quiz — both days combined — Attempt 1: PASS (74/100), voluntary retest (82/100, official)
+## Topic 5 Quiz — both days combined — Attempt 1: PASS, 74/100, voluntary retest: PASS, 82/100 (official)
 
 The retest score is used as the official record, since it reflects deeper, hands-on-verified
 understanding reached after the revision pass.

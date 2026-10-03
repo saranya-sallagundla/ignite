@@ -210,7 +210,7 @@ AWS sandbox VM.
   `ubuntu-latest` is the default choice over `windows-latest`/`macos-latest` (cost, licensing,
   hardware constraints, speed), real GitHub Actions security considerations (`GITHUB_TOKEN`
   scope/lifespan, three real risks, mitigations), and branch protection rules — including three
-  genuine real discoveries: classic branch protection doesn't apply to repo admins by default
+  genuine discoveries: classic branch protection doesn't apply to repo admins by default
   (bypassed silently until "Do not allow bypassing" was enabled), a self-approval block genuinely
   preventing merge on a solo repo, and "Require linear history" actually removing "Create a merge
   commit" from the available merge options. Full record in

@@ -5,7 +5,7 @@
 > what was hard, what to remember.
 
 ## Session 1 — 2026-07-06
-VM vs container took two full passes to actually click — first explanation didn't land, the
+VM vs container took two full passes to actually click — first explanation didn't land; the
 apartment/foundation analogy is what finally made it stick. Also caught myself asking for
 double-checks before running `chmod`/`rm` on my own files even though the risk was near zero —
 good instinct to keep, don't let it fade once things feel routine. The network/proxy dead-end was
@@ -25,7 +25,7 @@ watching whether that becomes a pattern as topics get harder, or if it's just fi
 Genuinely enjoyed chaining commands into one pipeline at the end — that felt like the first time
 something clicked as "this is what the job actually looks like" rather than isolated flashcard
 facts. Tripped on `-v` with a case-sensitivity mismatch and initially misread `uniq` as comparing
-words-on-a-line instead of whole-lines — both cleared up fast once tested directly rather than
+words-on-a-line instead of whole lines — both cleared up fast once tested directly rather than
 just re-explained. Good habit forming: testing predictions against real output before trusting an
 assumption, instead of just accepting the first plausible-sounding answer.
 
@@ -36,7 +36,7 @@ the notebook exists precisely so memorization isn't the job right now, repetitio
 topics is. The ping-vs-curl discovery (ICMP allowed, TCP blocked on the same network) was the
 best moment of the day — genuinely surprised me and then made complete sense once explained,
 which is a better kind of learning than being told a fact upfront. Quiz was noticeably shakier on
-exact syntax (grep -r flag placement, find scope) than Topic 1's quiz — watch whether that's
+exact syntax (`grep -r` flag placement, `find` scope) than Topic 1's quiz — watch whether that's
 fatigue from the length of the session or a real gap to reinforce next time shell commands come up.
 
 ## Session 5 — 2026-07-10
@@ -44,12 +44,13 @@ fatigue from the length of the session or a real gap to reinforce next time shel
 separators, merged blocks, then a nano-vs-printf `\n` mixup that broke everything in a confusing
 new way). Kept wanting to just be handed the answer partway through, but pushing through to write
 it myself paid off — the final self-debugged syntax error (fixed by reading the line number bash
-pointed to) felt like the first "real" debugging moment of this whole plan, not a guided exercise.
+pointed to) felt like the first "real" debugging moment of this whole mission, not a guided
+exercise.
 Worth remembering next time something feels this frustrating: it's often exactly the sign that
 real learning is happening, not that something's wrong.
 
 ## Session 6 — 2026-07-11 / 2026-07-12
-First real quiz miss of the whole program — function scoping genuinely didn't land on attempt 1,
+First real quiz miss of the whole mission — function scoping genuinely didn't land on attempt 1,
 even after several analogies. Said "it's not going inside my brain" out loud instead of pretending
 it clicked — the right instinct, and directly led to trying something different: a real script
 that prints `$1` at three points, watching actual values instead of reasoning abstractly. That
@@ -106,9 +107,9 @@ than if I'd just been handed the fix. Quiz went well, hands-on tied the best sco
 ## Session 11 — 2026-07-18 / 2026-07-19
 Real mistake worth remembering long-term: resolved a cherry-pick conflict, ran `git add` and
 `--continue`, assumed it was done — but the markers were still literally sitting in the file.
-`git add` never actually checks your work, it just trusts you. Caught it by checking `cat`
+`git add` never actually checks your work — it just trusts you. Caught it by checking `cat`
 afterward instead of assuming success, exactly the "verify, don't just trust" habit that's shown
-up all program long. Took two tries to actually clean it up properly, which was a little
+up throughout the whole mission. Took two tries to actually clean it up properly, which was a little
 frustrating but a good real lesson in itself. Also asked good clarifying questions on branching
 strategies (the `develop`-branch confusion) instead of nodding along at 90% understanding — worth
 remembering that pushing past "mostly gets it" is exactly what closes the last 10%. Good
