@@ -27,10 +27,11 @@ Filled in here once there's an application to actually run.
 
 ## Status
 `app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a properly-layered Dockerfile,
-built, tagged (`v1`/`v2`), and run as real containers with proven rollback. 14 learning sessions
-in, Phase 1 complete and Topic 9 (Docker: Architecture, Images, Containers) cleared; check
-`../learning/progress.md` for current progress through the learning plan, which drives what gets
-added here next.
+built, tagged (`v1`/`v2`), and run as real containers with proven rollback. A `docker-compose.yml`
+now builds and runs the app (with a named volume and a second service) in one command. 16
+learning sessions in, Phase 1 complete and Topics 9-10 (Docker fundamentals through Compose)
+cleared; check `../learning/progress.md` for current progress through the learning plan, which
+drives what gets added here next.
 
 ### Session 1 — 2026-07-06
 Day 1 of Topic 1 (Linux Fundamentals) — no project code changes yet, this phase is foundational
@@ -102,3 +103,14 @@ Topic 9 Day 2 — Dockerfile reordered so app-code changes no longer force an un
 reinstall (proved with real build timings), `app/` gained a `/ready` endpoint, and the image is now
 properly version-tagged (`v1`/`v2`) with rollback proven by running both simultaneously. **Topic 9
 CLEARED, 86/100.**
+
+### Session 15 — 2026-07-22 / 2026-07-23
+Topic 10 Day 1 (Docker Networking, Volumes) — no `project/` code changes yet, but container
+networking (bridge, DNS resolution between containers) and volumes (persisting data past a
+container's lifecycle) practiced today are exactly what this project's future multi-container
+setups (app + database, app + cache) will depend on.
+
+### Session 16 — 2026-07-23 / 2026-07-24
+Topic 10 Day 2 — `project/` gained its first `docker-compose.yml`, building and running
+`mission-control-app` in one command instead of manual `docker run` flags, extended with a named
+volume and a second service to prove Compose's automatic networking. **Topic 10 CLEARED, 92/100.**

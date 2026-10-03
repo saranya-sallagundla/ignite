@@ -98,13 +98,13 @@
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Falling into that slack is normal, not falling behind.
-- **Last recalibrated**: — (not yet due — 14 sessions completed)
-- **Calendar Day since Day 1**: 17 (2026-07-22)
-- **Session count completed**: 14
-- **Active calendar days**: 16 of 17 (1 gap day: 2026-07-17)
-- **Roadmap days used**: 16 of 120 (Topics 1-9 complete, per fixed baseline allocation)
-- **Current topic**: Topic 9 — COMPLETE (86/100). Next: Topic 10 — Docker: Networking, Volumes,
-  Docker Compose.
+- **Last recalibrated**: — (not yet due — 16 sessions completed)
+- **Calendar Day since Day 1**: 19 (2026-07-24)
+- **Session count completed**: 16
+- **Active calendar days**: 18 of 19 (1 gap day: 2026-07-17)
+- **Roadmap days used**: 18 of 120 (Topics 1-10 complete, per fixed baseline allocation)
+- **Current topic**: Topic 10 — COMPLETE (92/100). Next: Topic 11 — Docker: Multi-Stage Builds &
+  Best Practices.
 - **Pace**: on track
 - **Buffer used** (overall, the real constraint): 0 of 22
 - **Buffer used per phase** (informational only — the 22-day pool above is shared across all
@@ -116,7 +116,7 @@
   read as a phase-locked limit — this note is the authoritative interpretation, matching
   `CLAUDE.md`'s rule):
     - `Phase 1 (Linux, Git & Version Control)`: 0 of 3 — not used
-    - `Phase 2 (Containers, Kubernetes & CI/CD)`: 0 of 3 — not started yet
+    - `Phase 2 (Containers, Kubernetes & CI/CD)`: 0 of 3 — not used
     - `Phase 3 (AWS Cloud Platform)`: 0 of 4 — not started yet
     - `Phase 4 (Terraform Deep Dive)`: 0 of 2 — not started yet
     - `Phase 5 (Python for DevOps)`: 0 of 2 — not started yet
@@ -136,3 +136,11 @@
     endpoint, self-caught bugs, safe `stop`→`rm`→`rmi` cleanup).
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
     traffic; retry via AWS sandbox VM once access is ready.
+  - Topic 10 (Docker: Networking, Volumes, Docker Compose) CLEARED, 92/100, attempt 1, across 2
+    sessions. Day 1 covered the bridge network concept, container-to-container DNS resolution
+    (proven to fail on the default bridge, succeed on a custom network), port publishing tied to
+    Topic 5's private/public IP concepts, and volumes introduced via bind mounts. Day 2 covered
+    named volumes, a safe duplicate-and-swap technique for updating a running container's mounts,
+    and Docker Compose from scratch — a real `docker-compose.yml` for `mission-control-app`,
+    extended with a named volume and a second service to prove Compose's automatic networking and
+    name resolution between services.

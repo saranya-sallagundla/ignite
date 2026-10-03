@@ -10,8 +10,9 @@
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
 in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
 (84/100). Topic 7 — COMPLETE (82/100). Topic 8 — COMPLETE (94/100). **PHASE 1 (Linux, Git &
-Version Control) COMPLETE.** Topic 9 — COMPLETE (86/100). Next: Topic 10 — Docker: Networking,
-Volumes, Docker Compose. SSH live connection still deferred to AWS sandbox VM.
+Version Control) COMPLETE.** Topic 9 — COMPLETE (86/100). Topic 10 — COMPLETE (92/100). Next:
+Topic 11 — Docker: Multi-Stage Builds & Best Practices. SSH live connection still deferred to
+AWS sandbox VM.
 
 ## Session log
 
@@ -270,6 +271,51 @@ Volumes, Docker Compose. SSH live connection still deferred to AWS sandbox VM.
   **86/100 (Quiz 32/40, Hands-on 29/30, Depth 25/30)**
 - Check-in: 2026-07-21 23:44 IST — Check-out: 2026-07-22 04:47 IST
 
+## Session 15 — 2026-07-22 / 2026-07-23
+- Topic in progress: Topic 10 — Docker: Networking, Volumes, Docker Compose (Day 1 of 2)
+- Covered: the bridge network concept via a roads/neighborhoods analogy, `docker network ls`
+  (bridge/host/none), `docker network inspect bridge` (real discovery: 3 IPs already "in use" on
+  an empty network — the network address, gateway, and broadcast address, none of them
+  containers — verified against Topic 5's CIDR math, `2^16 = 65536` total addresses, matching
+  `DynamicIPsAvailable: 65533`); container-to-container communication proven hands-on with two
+  real `mission-control-app` containers — name resolution genuinely failed on the default bridge
+  (`socket.gaierror: Name or service not known`), succeeded by IP, then succeeded by name too once
+  both were connected to a custom network (`docker network create`/`docker network connect`);
+  port publishing recap tied back to Topic 5's private/public IP and NAT concepts. Volumes
+  introduced: proved container storage is temporary by writing a file, deleting the container, and
+  showing it was gone; fixed with a bind mount (`-v C:\CloudOps\ignite\project\data:/app/data`),
+  proving persistence across container deletion by reading the file back from a brand-new
+  container. Full record in
+  `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-10-docker-networking-volumes-compose.md`.
+- No quiz today — non-final day of a multi-day topic, per `CLAUDE.md`.
+- Check-in: 2026-07-22 22:53 IST — Check-out: 2026-07-23 02:12 IST
+
+## Session 16 — 2026-07-23 / 2026-07-24
+- Topic completed: Topic 10 — Docker: Networking, Volumes, Docker Compose (Day 2 of 2, final day)
+- Covered: named volumes (`docker volume create`, `docker volume ls`) proven to persist data
+  across container deletion the same way bind mounts do, using a real named volume; the rule that
+  a running container's mounts can never be changed in place (only at creation) reinforced via a
+  safe duplicate-then-swap technique — creating a verified duplicate container with the added
+  mount, confirming its contents were correct, then only deleting/renaming the original once
+  proven safe, rather than deleting first and hoping; a full consistency audit of both containers
+  and the volume before moving on. Docker Compose introduced from scratch — YAML structure,
+  writing a real `docker-compose.yml` for `mission-control-app` (`services`, `build`, `ports`),
+  running it with `docker compose up -d`, and verifying `http://localhost:5000/health` live; the
+  file then extended with a named volume and a second service, proving Compose automatically
+  creates its own network (`project_default`) with built-in name-based resolution between
+  services (no manual `docker network create` needed) and that `docker compose up` automatically
+  recreates a service whose config changed while creating new services fresh. Full record in
+  `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-10-docker-networking-volumes-compose.md`.
+- Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (default bridge vs.
+  custom network DNS resolution, bind mount vs. named volume, volume lifecycle independence from
+  containers, why Compose recreated one service but not the other, and how Compose services find
+  each other by name without manual network setup); all 5 answered correctly with genuine
+  reasoning, one minor mix-up on a follow-up (attributing a path-collision reason to a container
+  that never had one) corrected in the moment.
+  **Topic 10 CLEARED**
+  **92/100 (Quiz 36/40, Hands-on 30/30, Depth 26/30)**
+- Check-in: 2026-07-23 23:06 IST — Check-out: 2026-07-24 04:39 IST
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts triggers deferred mastery
@@ -286,6 +332,7 @@ Volumes, Docker Compose. SSH live connection still deferred to AWS sandbox VM.
 | 7 | Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies | PASS | — | — | Cleared |
 | 8 | GitHub — PRs, Actions Intro, Repo Management | PASS | — | — | Cleared |
 | 9 | Docker — Architecture, Images, Containers | PASS | — | — | Cleared |
+| 10 | Docker — Networking, Volumes, Docker Compose | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 

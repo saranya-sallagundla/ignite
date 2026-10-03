@@ -1,0 +1,15 @@
+services:                             # top-level section: list of containers to run
+  app:                                # indented under "services": name of this container (1st container)
+    build: ./app                      # indented under "app": belongs to the "app" service
+    ports:
+      - "5000:5000"                   # belongs to "app": host_port:container_port
+    volumes:
+      - app-data:/app/volume-data     # belongs to "app": which volume this container uses
+
+  app2:                               # 2nd container
+    build: ./app                      # indented under "app2": belongs to the "app2" service
+    volumes:
+      - app-data:/app/volume-data     # same volume as "app" above
+
+volumes:                              # separate section: declares volumes to create
+  app-data:                           # name of the volume

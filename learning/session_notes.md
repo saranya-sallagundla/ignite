@@ -142,4 +142,24 @@ Docker Day 2 was the strongest independent hands-on session yet — self-caught 
 app.py .` line, a real Python string-vs-boolean bug, and proved the cache-reorder fix with real
 before/after build timings rather than taking it on faith. Topic 9 cleared, 86/100.
 
+## Session 15 — 2026-07-22 / 2026-07-23
+Docker networking finally made the default-bridge-vs-custom-network distinction click by actually
+watching a real name-lookup error (`Name or service not known`) rather than just being told it
+happens — that kind of "break it, then fix it" proof stuck harder than any explanation alone
+would have. The 3-reserved-IPs puzzle on an empty bridge network (network address, gateway,
+broadcast) was a genuinely good "wait, why" moment tied back to Topic 5's CIDR math. Needed the
+teaching pace slowed down more than any topic so far — asked directly to be treated as a
+total beginner with zero assumed background, and for a same-day agenda plus explicit
+"shall I move on?" checkpoints before advancing. Volumes' core lesson (container storage
+disappears without one) landed cleanly once proven hands-on with a real deleted container.
+
+## Session 16 — 2026-07-23 / 2026-07-24
+Best instinct of the topic: refusing to delete-and-hope when adding a volume to an existing
+container, and instead insisting on a verified duplicate-then-swap approach — checked the new
+container's mounts were correct before ever touching the original. Docker Compose landed well
+once the YAML indentation rules were explained plainly rather than assumed, and seeing Compose
+auto-recreate a container whose config changed (echoing the exact "mounts are locked at
+creation" rule learned hours earlier) was a genuinely satisfying connection to make independently.
+Quiz passed cleanly, all 5 answers correct. Topic 10 cleared, 92/100 — Phase 2 continuing well.
+
 <!-- Copy the block above for each new session -->
