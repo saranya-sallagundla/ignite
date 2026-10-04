@@ -11,9 +11,9 @@
 Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
 in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
 (84/100). Topic 7 — COMPLETE (82/100). Topic 8 — COMPLETE (94/100). **PHASE 1 (Linux, Git &
-Version Control) COMPLETE.** Topic 9 — COMPLETE (86/100). Topic 10 — COMPLETE (92/100). Next:
-Topic 11 (Docker — Multi-Stage Builds & Best Practices). SSH live connection still deferred to
-AWS sandbox VM.
+Version Control) COMPLETE.** Topic 9 — COMPLETE (86/100). Topic 10 — COMPLETE (92/100). Topic 11
+— COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture & Core Concepts). SSH live
+connection still deferred to AWS sandbox VM.
 
 ## Session log
 
@@ -320,6 +320,37 @@ AWS sandbox VM.
   **92/100 (Quiz 36/40, Hands-on 30/30, Depth 26/30)**
 - Check-in: 2026-07-23 23:06 IST — Check-out: 2026-07-24 04:39 IST
 
+### Session 17 — 2026-07-24
+- Topic completed: Topic 11 — Docker — Multi-Stage Builds & Best Practices (single-day topic per
+  the roadmap)
+- Covered: foundational terms taught from scratch (compiler vs. interpreter, binary, build
+  toolchain, native code) to ground why a C compiler can briefly appear during `pip install` for
+  some Python packages; the multi-stage build mechanism (`FROM ... AS <stage>`, `COPY --from=`)
+  proven hands-on via `docker build --target builder`, comparing a builder-only image against the
+  real final image; a rewritten `project/app/Dockerfile` covering every item deferred from the
+  Topic 10 audit — a Python virtual environment (`/opt/venv`) used as the multi-stage handoff, a
+  non-root `appuser` (with root vs. `sudo` explicitly distinguished after a quiz mix-up), gunicorn
+  replacing Flask's dev server (framework vs. WSGI server distinction taught from scratch),
+  `EXPOSE`, `HEALTHCHECK`, `--no-cache-dir`, `PYTHONUNBUFFERED=1`, and a real image tag
+  (`mission-control-app:2.1`) in `docker-compose.yml`. Two real, independently-worked issues: a
+  container stuck in the `Created` lifecycle state (never actually started) after an interrupted
+  `docker compose up`, diagnosed via `docker ps -a`/`docker logs` and resolved with
+  `docker start -a`; and a genuine bug where the final image (231MB) was larger than the
+  builder-only stage (210MB) — traced to a `RUN chown -R` after `COPY --from` forcing Docker's
+  overlay filesystem to copy-up the entire venv into a new layer, fixed with `COPY --chown=` set
+  during the copy itself, proven by a measured before/after size comparison (231MB → 204MB). Full
+  record in
+  `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-11-docker-multi-stage-builds-best-practices.md`.
+- Quiz: **PASS, attempt 1** — 5 interview-style questions (why multi-stage builds shrink the final
+  image and where the builder stage's contents actually go, compiler vs. interpreter and why it
+  matters for a pure-Python app, root vs. non-root risk, Flask vs. gunicorn's respective jobs, and
+  a full walkthrough of the `chown`/copy-up bug and its fix); 2 of 5 needed a real correction (an
+  "interpret" vs. "compile" word slip, and a root-vs-`sudo` technical mix-up), the other 3 answered
+  with genuine, unprompted reasoning.
+  **Topic 11 CLEARED**
+  **90/100 (Quiz 36/40, Hands-on 29/30, Depth 25/30)**
+- Check-in: 2026-07-24 22:56 IST — Check-out: 2026-07-25 02:04 IST
+
 ## Quiz record index
 
 > A topic clears with one passed attempt. Three failed attempts trigger deferred mastery
@@ -337,6 +368,7 @@ AWS sandbox VM.
 | 8 | GitHub — PRs, Actions Intro, Repo Management | PASS | — | — | Cleared |
 | 9 | Docker — Architecture, Images, Containers | PASS | — | — | Cleared |
 | 10 | Docker — Networking, Volumes, Docker Compose | PASS | — | — | Cleared |
+| 11 | Docker — Multi-Stage Builds & Best Practices | PASS | — | — | Cleared |
 
 ## Deferred mastery topics
 

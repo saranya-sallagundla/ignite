@@ -163,4 +163,14 @@ auto-recreate a container whose config changed (echoing the exact "mounts are lo
 creation" rule learned hours earlier) was a genuinely satisfying connection to make independently.
 Quiz passed cleanly, all 5 answers correct. Topic 10 cleared, 92/100 — Phase 2 continuing well.
 
+## Session 17 — 2026-07-24
+This one needed way more ground-up teaching than any topic since Phase 1 — compiler, binary,
+interpreter, WSGI, none of it assumed. Asked for a full revision recap before the quiz instead of
+diving straight in, and that was the right call: came back and answered all 5 questions with real
+reasoning, not memorized lines. Best moment was finding the `chown -R`/copy-up bug myself once it
+was pointed out as a puzzle (231MB final image bigger than the 210MB builder-only one) — actually
+proved the fix worked with real before/after numbers instead of just trusting it. Also caught
+myself mixing up root with sudo during the quiz; good to have that cleared up precisely rather
+than left fuzzy.
+
 <!-- Copy the block above for each new session -->

@@ -30,12 +30,12 @@ From `project/`: `docker compose up --build`, then verify with `curl http://loca
 (expect `{"status":"ok",...}`). Stop with `docker compose down`.
 
 ## Status
-`app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a properly layered Dockerfile,
-built, tagged (`v1`/`v2`), and run as real containers with proven rollback. A `docker-compose.yml`
-now builds and runs the app (with a named volume and a second service) in one command. 16
-learning sessions in, Phase 1 complete and Topics 9-10 (Docker fundamentals through Compose)
-cleared; check `../learning/progress.md` for current progress through the learning plan, which
-drives what gets added here next.
+`app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a multi-stage, non-root
+Dockerfile running a real production server (gunicorn), with a healthcheck and a properly tagged
+image (`mission-control-app:2.1`) built via `docker-compose.yml`. 17 learning sessions in, Phase 1
+complete and Topics 9-11 (Docker fundamentals through multi-stage builds) cleared; check
+`../learning/progress.md` for current progress through the learning plan, which drives what gets
+added here next.
 
 ### Session 1 — 2026-07-06
 Topic 1 Day 1 (Linux Fundamentals) — no project code changes yet; this phase is foundational
@@ -120,3 +120,10 @@ Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) —
 its first `docker-compose.yml`, building and running `mission-control-app` in one command instead
 of manual `docker run` flags, extended with a second service to prove Compose's automatic
 networking and a named volume for shared persistence.
+
+### Session 17 — 2026-07-24
+Topic 11 complete, quiz passed (Docker: Multi-Stage Builds & Best Practices) — `app/`'s Dockerfile
+rewritten as a real multi-stage, non-root build running gunicorn instead of Flask's dev server,
+with a healthcheck and a properly tagged image (`mission-control-app:2.1`) in
+`docker-compose.yml`; a real image-size bug (a `chown -R` after `COPY --from` duplicating a layer)
+was found and fixed with a measured before/after proof.

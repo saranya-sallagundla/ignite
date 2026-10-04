@@ -98,14 +98,14 @@
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Using that slack is normal; it does not count as falling behind.
-- **Last recalibrated**: — (not yet due — 16 sessions completed)
-- **Calendar Day since Day 1**: 19 (2026-07-24)
-- **Session count completed**: 16
-- **Active calendar days**: 18 of 19 (1 gap day: 2026-07-17 — Session 10 ran past midnight into
+- **Last recalibrated**: — (not yet due — 17 sessions completed)
+- **Calendar Day since Day 1**: 20 (2026-07-25)
+- **Session count completed**: 17
+- **Active calendar days**: 19 of 20 (1 gap day: 2026-07-17 — Session 10 ran past midnight into
   07-17's early hours, but no new session started that day)
-- **Roadmap days used**: 18 of 120 (Topics 1-10 complete, per fixed baseline allocation)
-- **Current topic**: Topic 10 — COMPLETE (92/100). Next: Topic 11 (Docker — Multi-Stage Builds &
-  Best Practices).
+- **Roadmap days used**: 19 of 120 (Topics 1-11 complete, per fixed baseline allocation)
+- **Current topic**: Topic 11 — COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture &
+  Core Concepts).
 - **Pace**: on track
 - **Buffer used** (overall, the real constraint): 0 of 22
 - **Buffer used per phase** (informational only — the 22-day pool above is shared across all
@@ -123,25 +123,9 @@
     - `Phase 5 (Python for DevOps)`: 0 of 2 — not started yet
     - `Phase 6 (Observability)`: 0 of 2 — not started yet
     - `Phase 7 (AI for DevOps)`: 0 of 1 — not started yet
-- **Notes**:
-  - Topics 1-8 all cleared (90/100, 84/100, 80/100, 88/100, 82/100, 84/100, 82/100, 94/100).
+- **Notes** (pacing-relevant items only — deferrals and phase transitions; full topic narrative
+  lives in `progress.md`'s session log and each topic's notebook, not here):
   - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,
-    Kubernetes & CI/CD) is now underway, starting with Topic 9.
-  - Per `CLAUDE.md`'s Parallel hands-on rule: `project/app/` boilerplate (Flask app + `/health`
-    endpoint) was written just before Topic 9 began, since it was still empty.
-  - Topic 9 (Docker — Architecture, Images, Containers) CLEARED, 86/100, attempt 1. Day 1 covered
-    architecture/terminology, images vs. containers, a real Dockerfile built/run against
-    `project/app/`, and exit code 137 tied to Topic 2's signals. Day 2 covered cache-invalidation
-    edge cases (proved and fixed a real unnecessary `pip install` rerun via Dockerfile reorder),
-    image tagging/rollback (`docker tag`, `:latest` going stale), and an independent task (`/ready`
-    endpoint, self-caught bugs, safe `stop`→`rm`→`rmi` cleanup).
+    Kubernetes & CI/CD) is now underway.
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
     traffic; retry via AWS sandbox VM once access is ready.
-  - Topic 10 (Docker — Networking, Volumes, Docker Compose) CLEARED, 92/100, attempt 1, across 2
-    sessions. Day 1 covered the bridge network concept, container-to-container DNS resolution
-    (proven to fail on the default bridge, succeed on a custom network), port publishing tied to
-    Topic 5's private/public IP concepts, and volumes introduced via bind mounts. Day 2 covered
-    named volumes, a safe duplicate-and-swap technique for updating a running container's mounts,
-    and Docker Compose from scratch — a real `docker-compose.yml` for `mission-control-app`,
-    extended with a second service to prove Compose's automatic networking and a named volume for
-    shared persistence between services.

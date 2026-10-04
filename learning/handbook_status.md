@@ -27,7 +27,8 @@
   Quiz 32/40 · Hands-on 29/30 · Depth 25/30 — passed attempt 1; Day 2's independent task (Dockerfile layer reorder proved with real build logs, `v1`/`v2` tagging with a live rollback proof, safe `stop`→`rm`→`rmi` cleanup) needed very little steering; quiz had 2 quick one-round clarifications, one real unaddressed gap, and a two-round factual mix-up on exit-code signals; tagging was answered flawlessly.
 - [x] 10. Docker — Networking, Volumes, Docker Compose — **92/100**  
   Quiz 36/40 · Hands-on 30/30 · Depth 26/30 — passed attempt 1; exceptional hands-on across both days (real bridge/DNS-resolution proof, bind mount and named volume persistence both proven, a safe duplicate-and-swap technique for updating a running container, and a real multi-service Compose file with a shared volume and automatic networking), all 5 quiz answers correct with genuine reasoning.
-- [ ] 11. Docker — Multi-Stage Builds & Best Practices
+- [x] 11. Docker — Multi-Stage Builds & Best Practices — **90/100**  
+  Quiz 36/40 · Hands-on 29/30 · Depth 25/30 — passed attempt 1; heavy foundational teaching needed first (compiler/interpreter/WSGI concepts were all new), but real hands-on rigor followed — a genuine bug found and proven (a `chown -R` after `COPY --from` duplicating a layer via copy-up, fixed with `COPY --chown`, verified with a measured before/after size comparison) and independent recovery from a stuck "Created" container state; quiz needed 2 corrections (an interpret/compile word slip, a root-vs-sudo mix-up) but every core mechanism was genuinely understood.
 - [ ] 12. Kubernetes — Architecture & Core Concepts
 - [ ] 13. Kubernetes — Pods, Deployments, Services
 - [ ] 14. Kubernetes — ConfigMaps, Secrets, Ingress, Helm
