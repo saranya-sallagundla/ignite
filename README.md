@@ -9,7 +9,7 @@ Two folders, kept deliberately separate:
 
 - **`learning/`** — everything about the learning process itself: the roadmap, session log, quiz
   history, and personal notes. Scaffolding behind the scenes, not meant to be shown to anyone.
-- **`project/`** — the actual DevOps project being built: application code, Kubernetes manifests,
+- **`orbit/`** — the actual DevOps project being built: application code, Kubernetes manifests,
   Terraform infrastructure, CI/CD, monitoring. This is the piece meant to be shown in an
   interview.
 
@@ -28,7 +28,7 @@ ignite/
 │   │                         handbook site, which happens on its own timeline)
 │   ├── session_notes.md   — personal recap per session
 │   └── notes/             — per-topic study notebooks, filed under phase-N-name/ subfolders
-├── project/
+├── orbit/
 │   ├── README.md          — describes the DevOps project itself
 │   ├── docker-compose.yml — local multi-container dev stack
 │   ├── app/
@@ -38,7 +38,7 @@ ignite/
 │   ├── monitoring/
 │   ├── docs/
 │   └── scripts/
-├── audits/                — periodic full-repo professionalism audits (learning/ + project/
+├── audits/                — periodic full-repo professionalism audits (learning/ + orbit/
 │                             together), one file per milestone
 └── claude-memory/         — synced copy of Claude Code's cross-session memory for this project
 ```
@@ -61,16 +61,16 @@ then the hardest real-world scenario), with the quiz happening once, on the topi
 Full rules live in `CLAUDE.md` — this is the short version.
 
 ## How the project side works
-The project in `project/` is built incrementally, session by session, alongside the learning
+The project in `orbit/` is built incrementally, session by session, alongside the learning
 above rather than as a separate task at the end. Whatever hands-on work a topic produces gets
 applied directly here wherever it reasonably can.
 
 One deliberate exception: until the Python phase (roughly three-quarters through the plan), any
-application code in `project/app/` is Claude-authored boilerplate — functional, but not yet
+application code in `orbit/app/` is Claude-authored boilerplate — functional, but not yet
 something to defend in an interview. That gets rewritten from real understanding once Python is
 actually covered.
 
-See `project/README.md` for what the project specifically does and how to run it, filled in as
+See `orbit/README.md` for what the project specifically does and how to run it, filled in as
 it's actually built.
 
 ## Timeline

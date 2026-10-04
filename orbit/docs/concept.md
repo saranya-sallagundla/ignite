@@ -1,4 +1,4 @@
-# Capstone Concept — Autonomous SRE Agent + Mission Control
+# Capstone Concept — Autonomous SRE Agent + Orbit Control
 
 > **Status: current working idea, not a locked decision.** This is the vehicle used to drive
 > hands-on learning through the roadmap. Revisit at the end of the learning journey (all 53
@@ -11,7 +11,7 @@ a running containerized app. When something breaks, it diagnoses root cause by c
 metrics, logs, traces, and recent deploys, then either auto-remediates via Boto3 (Phase 5) or
 escalates with an auto-written incident report.
 
-The whole thing is wrapped in a live "Mission Control" dashboard — a node-graph visualization
+The whole thing is wrapped in a live "Orbit Control" dashboard — a node-graph visualization
 showing an incident being detected, diagnosed, and resolved in real time. Chosen specifically so
 the demo lands with both technical and non-technical audiences (live demos and walkthroughs).
 

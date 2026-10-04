@@ -421,7 +421,7 @@ Folder does not exist
 ### 4. Combined exercise — `checkall.sh` (function + loop + exit code, tied to the project)
 
 Goal: check multiple folders at once, reusing one function per folder — directly useful later in
-`project/scripts/` for verifying expected directories exist before a deployment step runs.
+`orbit/scripts/` for verifying expected directories exist before a deployment step runs.
 
 **Final working script, built in two steps (wrap existing logic into a function, then loop over
 it)**:

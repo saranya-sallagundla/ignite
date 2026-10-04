@@ -86,7 +86,7 @@ connection still deferred to AWS sandbox VM.
 - Topic completed: Topic 3 — Linux — Shell Scripting Basics (day 2 of 2, FINAL DAY)
 - Covered: loops (`for`, `while`, incl. a real self-debugged infinite-loop bug), functions
   (definition + invocation), exit codes/error handling (`$?`, redirecting output to suppress it),
-  and a combined `checkall.sh` exercise (function + loop + exit code, tied to `project/scripts/`
+  and a combined `checkall.sh` exercise (function + loop + exit code, tied to `orbit/scripts/`
   use later).
 - Quiz: **Attempt 1 — FAIL** (functions: invocation and `$1` scoping; all other areas —
   conditionals, loops, exit codes — passed cleanly). Re-taught functions using concrete tracing
@@ -228,7 +228,7 @@ connection still deferred to AWS sandbox VM.
 ### Session 13 — 2026-07-20
 - Topic in progress: Topic 9 — Docker — Architecture, Images, Containers (day 1 of 2, per the
   roadmap)
-- Parallel hands-on: `project/app/` boilerplate written just before Topic 9 began per
+- Parallel hands-on: `orbit/app/` boilerplate written just before Topic 9 began per
   `CLAUDE.md`'s trigger rule — a minimal Flask app (`app.py`) with a real `/health` endpoint plus
   `requirements.txt`, replacing the empty placeholder. Claude-authored per the Phase 5 exception;
   not yet defensible in an interview.
@@ -238,11 +238,11 @@ connection still deferred to AWS sandbox VM.
   images vs. containers proven hands-on (`docker images`, `docker ps -a` showing one image with
   two separate containers after running `hello-world` twice); where images/containers actually
   live (Docker Desktop's Linux VM backend, tied back to Topic 1's VM concept); wrote a real
-  5-instruction Dockerfile (`FROM`/`WORKDIR`/`COPY`/`RUN`/`CMD`) for `project/app/` line by line;
-  built it (`docker build -t mission-control-app .`) and ran it (`docker run -d -p 5000:5000`),
+  5-instruction Dockerfile (`FROM`/`WORKDIR`/`COPY`/`RUN`/`CMD`) for `orbit/app/` line by line;
+  built it (`docker build -t orbit-app .`) and ran it (`docker run -d -p 5000:5000`),
   verified live via `http://localhost:5000/health` returning `{"status":"ok"}`; container
   lifecycle commands (`docker logs`, `docker stop`, `docker ps -a`); a real discovered detail —
-  `mission-control-app`'s container exited with code 137 (`128 + SIGKILL`) after `docker stop`,
+  `orbit-app`'s container exited with code 137 (`128 + SIGKILL`) after `docker stop`,
   vs. `hello-world`'s clean `Exited (0)`, tied directly back to Topic 2's signals/`kill -9`
   content. Full record in
   `learning/notes/phase-2-containers-kubernetes-ci-cd/topic-09-docker-architecture-images-containers.md`.
@@ -281,7 +281,7 @@ connection still deferred to AWS sandbox VM.
   an empty network — the network address, gateway, and broadcast address, none of them
   containers — verified against Topic 5's CIDR math, `2^16 = 65536` total addresses, matching
   `DynamicIPsAvailable: 65533`); container-to-container communication proven hands-on with two
-  real `mission-control-app` containers — name resolution genuinely failed on the default bridge
+  real `orbit-app` containers — name resolution genuinely failed on the default bridge
   (`socket.gaierror: Name or service not known`), succeeded by IP, then succeeded by name too once
   both were connected to a custom network (`docker network create`/`docker network connect`);
   port publishing recap tied back to Topic 5's private/public IP and NAT concepts. Volumes
@@ -302,7 +302,7 @@ connection still deferred to AWS sandbox VM.
   mount, confirming its contents were correct, then only deleting/renaming the original once
   proven safe, rather than deleting first and hoping; a full consistency audit of both containers
   and the volume before moving on. Docker Compose introduced from scratch — YAML structure,
-  writing a real `docker-compose.yml` for `mission-control-app` (`services`, `build`, `ports`),
+  writing a real `docker-compose.yml` for `orbit-app` (`services`, `build`, `ports`),
   running it with `docker compose up -d`, and verifying `http://localhost:5000/health` live; the
   file then extended with a second service, proving Compose automatically creates its own network
   (`project_default`) with built-in name-based resolution between services (no manual
@@ -327,12 +327,12 @@ connection still deferred to AWS sandbox VM.
   toolchain, native code) to ground why a C compiler can briefly appear during `pip install` for
   some Python packages; the multi-stage build mechanism (`FROM ... AS <stage>`, `COPY --from=`)
   proven hands-on via `docker build --target builder`, comparing a builder-only image against the
-  real final image; a rewritten `project/app/Dockerfile` covering every item deferred from the
+  real final image; a rewritten `orbit/app/Dockerfile` covering every item deferred from the
   Topic 10 audit — a Python virtual environment (`/opt/venv`) used as the multi-stage handoff, a
   non-root `appuser` (with root vs. `sudo` explicitly distinguished after a quiz mix-up), gunicorn
   replacing Flask's dev server (framework vs. WSGI server distinction taught from scratch),
   `EXPOSE`, `HEALTHCHECK`, `--no-cache-dir`, `PYTHONUNBUFFERED=1`, and a real image tag
-  (`mission-control-app:2.1`) in `docker-compose.yml`. Two real, independently-worked issues: a
+  (`orbit-app:2.1`) in `docker-compose.yml`. Two real, independently-worked issues: a
   container stuck in the `Created` lifecycle state (never actually started) after an interrupted
   `docker compose up`, diagnosed via `docker ps -a`/`docker logs` and resolved with
   `docker start -a`; and a genuine bug where the final image (231MB) was larger than the

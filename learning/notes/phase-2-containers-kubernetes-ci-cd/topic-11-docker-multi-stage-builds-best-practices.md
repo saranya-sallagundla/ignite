@@ -14,7 +14,7 @@
 3. Multi-stage mechanics: stages, `FROM ... AS`, `COPY --from=`.
 4. A second problem, unrelated to multi-stage builds but due for a fix today: root vs. non-root,
    Flask's dev server vs. a real production server.
-5. Rewrite `project/app/Dockerfile` for real, covering every item Topic 10's audit deferred here.
+5. Rewrite `orbit/app/Dockerfile` for real, covering every item Topic 10's audit deferred here.
 6. Combined scenario: a real stuck container, and a real bug found and proven fixed.
 7. Quiz.
 
@@ -72,7 +72,7 @@ COPY --from=<stage-name> <path-in-that-stage> <path-in-this-stage>
 built just the builder stage on its own, using a new flag, `--target`.
 
 **Syntax**: `docker build --target <stage-name> -t <tag> <path>`
-**Example — verified hands-on**, from `project/app`:
+**Example — verified hands-on**, from `orbit/app`:
 ```
 docker build --target builder -t builder-stage-check .
 ...
@@ -107,9 +107,9 @@ never included in the final image unless explicitly copied over.
   actual flow of customers). Flask's own dev server is the chef also trying to run the host stand
   alone — fine for one friend, not a real dinner rush.
 
-### 5. Rewriting `project/app/Dockerfile`
+### 5. Rewriting `orbit/app/Dockerfile`
 
-Before, from `project/app`:
+Before, from `orbit/app`:
 ```dockerfile
 FROM python:3.12-slim
 WORKDIR /app
@@ -129,7 +129,7 @@ gunicorn==23.0.0
 New Dockerfile (first version) — a **virtual environment** (a self-contained folder of installed
 Python packages, isolated from the rest of the system) is what gets handed from the builder stage
 to the final stage. This is the fully annotated version — the notebook is where line-by-line
-comments belong; the real `project/app/Dockerfile` stays clean (see the note below):
+comments belong; the real `orbit/app/Dockerfile` stays clean (see the note below):
 ```dockerfile
 # ---- Stage 1: builder — installs dependencies, discarded after this stage ----
 FROM python:3.12-slim AS builder
@@ -186,10 +186,10 @@ CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
 
 **A note on file cleanliness**: the version above, with a comment on nearly every instruction, is
 deliberately how it's kept *here*, in the notebook. The first draft put these same comments
-directly into the real `project/app/Dockerfile`, which made that file look intimidatingly large,
+directly into the real `orbit/app/Dockerfile`, which made that file look intimidatingly large,
 and also directly broke `CLAUDE.md`'s own "Repo quality standards" (no teaching-style comments in
-`project/` code — that explanation belongs here instead). The real file was stripped down to just
-two short section labels (`# Stage 1: builder`, `# Stage 2: final`) — see `project/app/Dockerfile`
+`orbit/` code — that explanation belongs here instead). The real file was stripped down to just
+two short section labels (`# Stage 1: builder`, `# Stage 2: final`) — see `orbit/app/Dockerfile`
 for the actual, clean, shipped version.
 
 `docker-compose.yml` also updated — added a real, versioned image tag instead of an
@@ -198,7 +198,7 @@ auto-generated one:
 services:
   app:
     build: ./app
-    image: mission-control-app:2.1
+    image: orbit-app:2.1
     ports:
       - "5000:5000"
 ```
@@ -207,7 +207,7 @@ services:
 
 **Issue 1 — a container stuck in the `Created` state.**
 
-Running `docker compose up --build` from `project/`, the terminal output stopped right after
+Running `docker compose up --build` from `orbit/`, the terminal output stopped right after
 "Container Created," with no startup logs at all — no dev-server warning, no gunicorn output,
 nothing.
 
@@ -221,7 +221,7 @@ Diagnosed via:
 ```
 docker ps -a
 # STATUS column showed: Created   (not Up, not Exited)
-docker logs project-app-1
+docker logs orbit-app-1
 # (empty — nothing to log, since the process never started)
 ```
 `Created` with no logs meant Docker never attempted to actually run `gunicorn` — most likely
@@ -230,7 +230,7 @@ created" and "container started."
 
 **Fix**:
 ```
-docker start -a project-app-1
+docker start -a orbit-app-1
 ```
 `-a` attaches the terminal to the container's live output. This showed real gunicorn startup logs:
 ```
@@ -248,7 +248,7 @@ docker ps
 # PORTS: 0.0.0.0:5000->5000/tcp
 curl http://localhost:5000/health
 # {"status":"ok","version":"2.1"}
-docker exec project-app-1 whoami
+docker exec orbit-app-1 whoami
 # appuser
 ```
 All three best-practice items (gunicorn, healthcheck, non-root user) proven working together, not
@@ -261,7 +261,7 @@ Comparing sizes after the first Dockerfile draft:
 | Image | Size |
 |---|---|
 | `builder-stage-check` (builder stage only) | 210MB |
-| `mission-control-app:2.1` (final image) | **231MB** |
+| `orbit-app:2.1` (final image) | **231MB** |
 
 The whole point of a multi-stage build is that the final stage should be smaller — carrying only
 the finished result, nothing extra. Something was adding weight back in.
@@ -301,7 +301,7 @@ CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
 | Image | Before fix | After fix |
 |---|---|---|
 | `builder-stage-check` | 210MB | 210MB (unchanged) |
-| `mission-control-app:2.1` | 231MB (bigger than the builder!) | **204MB** (smaller, as it should be) |
+| `orbit-app:2.1` | 231MB (bigger than the builder!) | **204MB** (smaller, as it should be) |
 
 Restarted the corrected container and re-verified everything still worked:
 ```

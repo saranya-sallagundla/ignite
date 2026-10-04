@@ -1,7 +1,7 @@
 # Repo Audit — after Topic 10 (before Topic 11)
 
 **Date**: 2026-07-27 · **Scope**: every file in the repo (root files, all `learning/` files, all
-10 notebooks, all `project/` files, git history/hygiene) · **Method**: a 14-agent audit (12
+10 notebooks, all `orbit/` files, git history/hygiene) · **Method**: a 14-agent audit (12
 parallel workflow auditors covering different files/dimensions + 5 dedicated notebook auditors,
 since the first pass of notebook auditors stalled on the larger files and had to be re-run in
 smaller batches — worth remembering for the next audit: split large-file auditors into 2-file
@@ -17,11 +17,11 @@ fix was applied, then fixed in 8 separate, reviewable, individually-committed ba
 
 ## Batch 1 — Critical (4 items)
 
-1. **Employer org name in `project/docs/concept.md`** — the actual employer name appeared directly
+1. **Employer org name in `orbit/docs/concept.md`** — the actual employer name appeared directly
    in file content (as part of a GitHub org reference). *Why it matters*: house rule (now in `CLAUDE.md`) forbids the employer name in
    any file content, in any casing — this is the one rule with zero tolerance, since it's the
    difference between a personal project and an accidental leak of employer affiliation.
-2. **`project/README.md`'s "How to run it" section said there was nothing to run**, directly
+2. **`orbit/README.md`'s "How to run it" section said there was nothing to run**, directly
    contradicting the Status section two lines below it (which said the app runs via Compose).
    *Why it matters*: this is the first thing a reviewer reads in the showcase folder — a
    self-contradiction there undermines trust in everything else in the repo.
@@ -36,18 +36,18 @@ fix was applied, then fixed in 8 separate, reviewable, individually-committed ba
 ## Batch 2 — Repo hygiene
 
 Added a root `.gitignore`, root `.gitattributes` (normalizes line endings to LF, fixing the
-recurring CRLF warnings), and `project/app/.dockerignore`. Also fixed the root README's ASCII
+recurring CRLF warnings), and `orbit/app/.dockerignore`. Also fixed the root README's ASCII
 repo tree (missing `docker-compose.yml`, a one-space misalignment).
 
 *Why it matters*: a DevOps-focused repo with no `.gitignore`/`.dockerignore` reads as a missed
 fundamental to exactly the kind of reviewer this project is meant to impress — these are the
 first files a technically literate person checks for.
 
-## Batch 3 — Showcase polish (`project/`)
+## Batch 3 — Showcase polish (`orbit/`)
 
-- Renamed `project/README.md`'s title from the generic "The project" to "Mission Control — DevOps
+- Renamed `orbit/README.md`'s title from the generic "The project" to "Orbit — DevOps
   Capstone Project," matching the project's actual identity elsewhere.
-- Rewrote `project/app/README.md` to drop internal-scaffolding language ("not yet defensible in an
+- Rewrote `orbit/app/README.md` to drop internal-scaffolding language ("not yet defensible in an
   interview," a direct reference to `CLAUDE.md`) that had leaked into the interview-facing folder.
 - Cleaned `docker-compose.yml`: removed line-by-line teaching comments and a leftover two-service
   demo (`app2` + an unused shared volume) that served no purpose beyond the lesson it came from.
@@ -57,7 +57,7 @@ first files a technically literate person checks for.
 - Normalized all 5 placeholder READMEs (`k8s/`, `terraform/`, `ansible/`, `monitoring/`,
   `scripts/`) to one consistent, correctly-tensed template.
 
-*Why it matters*: `project/` is explicitly the folder meant to be shown in an interview — every
+*Why it matters*: `orbit/` is explicitly the folder meant to be shown in an interview — every
 item here was something that would read as unpolished, inconsistent, or (worse) revealing to
 exactly the audience this repo is built for.
 
@@ -103,7 +103,7 @@ careless in aggregate even when no single item matters much on its own.
 ## Batch 8 — Date/time normalization
 
 Standardized every session/Day heading across `progress.md`, `session_notes.md`,
-`project/README.md`, and 8 notebooks to show only the day the session/day *started* (not a date
+`orbit/README.md`, and 8 notebooks to show only the day the session/day *started* (not a date
 range) — some headings showed a range when a session crossed midnight IST, others didn't, with no
 consistent rule for when. Spelled out an ambiguous date shorthand in the light-days log. Added a
 one-line note explaining that raw command output and git commit metadata reflect the machine's
@@ -142,7 +142,7 @@ actually taught rather than fixed retroactively:
 | Missing `HEALTHCHECK` despite a purpose-built `/health` endpoint | Nothing currently consumes the endpoint that exists for exactly this |
 | `pip install` without `--no-cache-dir` | Bloats the image with an unneeded download cache |
 | Missing `PYTHONUNBUFFERED=1` | Python buffers stdout in containers by default; logs can lag during a demo |
-| Compose builds an untagged image | `project/README.md` claims the image is "properly version-tagged"; the compose file doesn't back that up yet |
+| Compose builds an untagged image | `orbit/README.md` claims the image is "properly version-tagged"; the compose file doesn't back that up yet |
 | `flask==3.1.0` slightly behind a security-patched `3.1.1` | Low real risk here, but a dependency scanner would flag the pin |
 
 **Next audit should confirm these were actually addressed during Topic 11**, not still sitting

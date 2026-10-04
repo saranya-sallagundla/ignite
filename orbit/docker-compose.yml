@@ -1,0 +1,8 @@
+name: orbit
+services:
+  app:
+    build: ./app
+    image: orbit-app:2.1
+    container_name: orbit-app
+    ports:
+      - "5000:5000"

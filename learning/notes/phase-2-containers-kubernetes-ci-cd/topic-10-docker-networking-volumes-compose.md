@@ -57,13 +57,13 @@ Verified against Topic 5's CIDR math: `/16` → 16 host bits free → `2^16 = 65
 
 ### 2. Container-to-container communication
 
-Ran two real containers from the project's own `mission-control-app:v2` image (not a throwaway
+Ran two real containers from the project's own `orbit-app:v2` image (not a throwaway
 image, per the parallel-project rule), on the default bridge:
 
 **Syntax**: `docker run -d --name CONTAINER_NAME IMAGE`
 ```bash
-docker run -d --name app-a mission-control-app:v2
-docker run -d --name app-b mission-control-app:v2
+docker run -d --name app-a orbit-app:v2
+docker run -d --name app-b orbit-app:v2
 ```
 
 **Real discovery**: `app-a` reaching `app-b` **by name** over the default bridge genuinely failed:
@@ -120,7 +120,7 @@ fresh one from the same image, and confirmed the file was gone:
 ```bash
 docker exec app-a sh -c "echo hello > /tmp/test.txt && cat /tmp/test.txt"   # → hello
 docker rm -f app-a
-docker run -d --name app-a mission-control-app:v2
+docker run -d --name app-a orbit-app:v2
 docker exec app-a cat /tmp/test.txt
 # → cat: /tmp/test.txt: No such file or directory
 ```
@@ -133,7 +133,7 @@ folder inside the container.
 **Example — verified hands-on**:
 ```powershell
 mkdir data
-docker run -d --name app-c -v C:\CloudOps\ignite\project\data:/app/data mission-control-app:v2
+docker run -d --name app-c -v C:\CloudOps\ignite\orbit\data:/app/data orbit-app:v2
 docker exec app-c sh -c "echo saved-data > /app/data/proof.txt"
 ```
 Confirmed the file appeared on the **host side**, completely outside Docker — using **`type`**,
@@ -182,7 +182,7 @@ genuinely empty first, using a throwaway container:
 container automatically the moment it finishes," useful for one-off checks that shouldn't leave
 clutter behind.
 ```bash
-docker run --rm -v Volume-A:/check mission-control-app:v2 ls /check
+docker run --rm -v Volume-A:/check orbit-app:v2 ls /check
 # (empty — confirmed clean)
 ```
 
@@ -199,7 +199,7 @@ real workaround is create-new, copy data across via a temporary container, then 
 ### 6. PowerShell vs. Linux commands
 
 Wanted to create `docker-compose.yml` from the terminal for real Linux command practice — since
-the actual terminal in use is PowerShell (`PS C:\CloudOps\ignite\project>`), not WSL/bash, several
+the actual terminal in use is PowerShell (`PS C:\CloudOps\ignite\orbit>`), not WSL/bash, several
 real differences surfaced:
 
 - **`touch docker-compose.yml`** — fails outright in PowerShell (`touch: The term 'touch' is not
@@ -238,13 +238,13 @@ reserved for the bind mount.
 1. Checked `app-a`'s exact current settings first, so nothing would be lost rebuilding it:
    ```powershell
    docker inspect app-a --format 'Image: {{.Config.Image}}{{println}}Binds: {{.HostConfig.Binds}}{{println}}Networks: {{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
-   # Image: mission-control-app:v2
-   # Binds: [C:\CloudOps\ignite\project\data:/app/data]
+   # Image: orbit-app:v2
+   # Binds: [C:\CloudOps\ignite\orbit\data:/app/data]
    # Networks: bridge my-net
    ```
 2. Created `app-a-duplicate` with **both** mounts, plus the same network:
    ```powershell
-   docker run -d --name app-a-duplicate -v C:\CloudOps\ignite\project\data:/app/data -v Volume-A:/app/volume-data mission-control-app:v2
+   docker run -d --name app-a-duplicate -v C:\CloudOps\ignite\orbit\data:/app/data -v Volume-A:/app/volume-data orbit-app:v2
    docker network connect my-net app-a-duplicate
    ```
 3. Verified both paths showed the expected files (`docker exec app-a-duplicate ls /app/data`,
@@ -281,7 +281,7 @@ intended, not just assumed correct:
 | `app-b` volume | `/app/volume-data` ✅ has `proof.txt`, `proof2.txt` (no stray bind mount) |
 | `app-b` networks | `bridge` + `my-net` ✅ |
 | `Volume-A` itself | exactly 2 files, matching what both containers see |
-| Host folder (`C:\CloudOps\ignite\project\data`) | exactly 1 file (`proof.txt`), matching `app-a`'s bind mount |
+| Host folder (`C:\CloudOps\ignite\orbit\data`) | exactly 1 file (`proof.txt`), matching `app-a`'s bind mount |
 | Volumes on the system | only `Volume-A` — no stray leftover from an abandoned idea earlier |
 | Leftover containers | none — no orphaned `app-c`, `app-d`, or `*-duplicate` containers |
 
@@ -299,7 +299,7 @@ just graphically.
 manual `docker run`/`docker network create` commands typed by hand. Written in **YAML** — plain
 text where **indentation shows what belongs to what**.
 
-**First file — `project/docker-compose.yml`**:
+**First file — `orbit/docker-compose.yml`**:
 ```yaml
 services:
   app:
@@ -314,17 +314,17 @@ services:
 - `ports:` / `- "5000:5000"` — same job as `-p`: host port : container port.
 
 **Syntax**: `docker compose up -d` — reads the file, builds/creates/starts everything it describes.
-Ran it — built the image, created a network (`project_default`) **automatically**, and created a
-container (`project-app-1`), all from one command. Verified live:
+Ran it — built the image, created a network (`orbit_default`) **automatically**, and created a
+container (`orbit-app-1`), all from one command. Verified live:
 `curl http://localhost:5000/health` → `{"status":"ok","version":"2.1"}`.
 
 **Auto-naming convention noticed in the real output** — nothing here needed a manual `--name`:
-- Image: `project-app` (folder name + service name)
-- Network: `project_default` (folder name + `_default`)
-- Container: `project-app-1` (folder name + service name + instance number)
+- Image: `orbit-app` (folder name + service name)
+- Network: `orbit_default` (folder name + `_default`)
+- Container: `orbit-app-1` (folder name + service name + instance number)
 
-Same pattern held later for the volume (`project_app-data`) and the second service's container
-(`project-app2-1`) — Compose consistently derives every name from the project folder and the
+Same pattern held later for the volume (`orbit_app-data`) and the second service's container
+(`orbit-app2-1`) — Compose consistently derives every name from the `orbit` folder and the
 service names written in the YAML, instead of anything being typed by hand.
 
 **Extended with a volume and a second service:**
@@ -352,10 +352,10 @@ exists in the project so Compose creates/manages it; the second says which of th
 
 Re-ran `docker compose up -d`. **Real discovery, directly tying back to Day 1's mount rule**:
 ```
-✔ Image project-app2       Built
-✔ Volume project_app-data  Created
-✔ Container project-app2-1 Created
-✔ Container project-app-1  Recreated
+✔ Image orbit-app2       Built
+✔ Volume orbit_app-data  Created
+✔ Container orbit-app2-1 Created
+✔ Container orbit-app-1  Recreated
 ```
 `app` (whose config changed — it gained a volume it didn't have before) showed **"Recreated"**,
 while `app2` (brand new) showed **"Created"** — the exact same "mounts are locked at creation"
@@ -364,15 +364,15 @@ rule from Day 1, applied automatically by Compose instead of done by hand.
 **Verified both new pieces hands-on**:
 - Name resolution, automatic, no manual network setup:
   ```bash
-  docker exec project-app-1 python -c "import urllib.request; print(urllib.request.urlopen('http://app2:5000/health', timeout=3).read())"
+  docker exec orbit-app-1 python -c "import urllib.request; print(urllib.request.urlopen('http://app2:5000/health', timeout=3).read())"
   # → {"status":"ok","version":"2.1"}
   ```
   Compose creates its own custom network per project and every service gets DNS resolution by
-  **service name** (`app`, `app2` — not the longer container name `project-app2-1`).
+  **service name** (`app`, `app2` — not the longer container name `orbit-app2-1`).
 - Shared volume:
   ```bash
-  docker exec project-app-1 sh -c "echo hello-from-app > /app/volume-data/shared.txt"
-  docker exec project-app2-1 cat /app/volume-data/shared.txt
+  docker exec orbit-app-1 sh -c "echo hello-from-app > /app/volume-data/shared.txt"
+  docker exec orbit-app2-1 cat /app/volume-data/shared.txt
   # → hello-from-app
   ```
   Confirmed both services share the exact same named volume declared in the file.
@@ -394,16 +394,16 @@ through the full diagnostic order.
 
 1. **Does the custom network actually exist at all?**
    **Syntax**: `docker network ls`
-   Look for `project_default`. Without it, name-based DNS resolution can't work in the first
+   Look for `orbit_default`. Without it, name-based DNS resolution can't work in the first
    place — Day 1's core lesson.
 
 2. **Are both containers actually attached to it?**
    **Syntax**: `docker network inspect NETWORK_NAME`
-   `docker network inspect project_default` — the `Containers` field lists every container
+   `docker network inspect orbit_default` — the `Containers` field lists every container
    genuinely connected, not just assumed to be.
 
 3. **Test the connection directly, by name** — using Python's `urllib`, not `ping` or `curl`.
-   Correctly reasoned through why beforehand: `mission-control-app` is built from
+   Correctly reasoned through why beforehand: `orbit-app` is built from
    `python:3.12-slim`, a minimal image that doesn't include either tool by default (confirmed
    live below). Also ties back to Topic 5: even if `ping` worked, succeeding would only prove
    network-layer reachability, not that the actual app on port 5000 is listening and responding.
@@ -420,7 +420,7 @@ through the full diagnostic order.
 
 - **`curl` genuinely isn't installed** in this image:
   ```bash
-  docker exec project-app-1 curl localhost:5000/health
+  docker exec orbit-app-1 curl localhost:5000/health
   # OCI runtime exec failed: exec: "curl": executable file not found in $PATH
   ```
   Confirmed the earlier prediction (same reasoning as `ping` never being installed) with a real
@@ -434,9 +434,9 @@ through the full diagnostic order.
   ```
   `app` is the **service name** — it only works for DNS lookups *between* containers on the
   network. Host-level commands like `docker exec` need the real **container name**
-  (`project-app-1`, from Compose's auto-naming). Re-ran with the correct name and the right tool:
+  (`orbit-app-1`, from Compose's auto-naming). Re-ran with the correct name and the right tool:
   ```bash
-  docker exec project-app-1 python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:5000/health', timeout=3).read())"
+  docker exec orbit-app-1 python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:5000/health', timeout=3).read())"
   # → {"status":"ok","version":"2.1"}
   ```
 
@@ -465,7 +465,7 @@ Five interview-style, open-ended questions covering both days:
    can only be set at creation, Compose had to recreate it; `app2` was brand new, nothing to
    recreate. — Correct, strong synthesis connecting back to Day 1's mount rule.
 5. **How do `app` and `app2` find each other by name with no manual network commands run today?**
-   Answer: Compose automatically created a custom network (`project_default`, seen directly in the
+   Answer: Compose automatically created a custom network (`orbit_default`, seen directly in the
    real output) and attached both services to it; custom networks come with built-in name
    resolution. — Correct, grounded in real observed output.
 

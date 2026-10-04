@@ -71,7 +71,7 @@ whole repo/codebase for quality" request, not just [[project-ignite-learning-mis
   polished, redaction-clean version shown to others.
 
 - **The audit-record folder lives at the repo's top level (`ignite/audits/`), not nested under
-  `learning/`.** Moved there 2026-07-27 after the user pointed out that audits cover `project/`
+  `learning/`.** Moved there 2026-07-27 after the user pointed out that audits cover `orbit/`
   too (the interview-facing folder), not just the internal learning-side scaffolding — nesting it
   under `learning/` mischaracterized its scope. Same logic applies to any future repo: put a
   whole-repo audit folder at the root, not inside whichever subfolder happens to be the primary

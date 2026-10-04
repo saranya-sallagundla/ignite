@@ -1,4 +1,4 @@
-# Mission Control — DevOps Capstone Project
+# Orbit — DevOps Capstone Project
 
 This is the real, demo-able DevOps project built alongside the 6-month learning plan in
 `../learning/`. It's built incrementally, topic by topic, not written all at once at the end —
@@ -26,13 +26,13 @@ Other than `app/`, every folder above is currently an empty placeholder — each
 README noting the phase/topic that will populate it; see that folder's own README for specifics.
 
 ## How to run it
-From `project/`: `docker compose up --build`, then verify with `curl http://localhost:5000/health`
+From `orbit/`: `docker compose up --build`, then verify with `curl http://localhost:5000/health`
 (expect `{"status":"ok",...}`). Stop with `docker compose down`.
 
 ## Status
 `app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a multi-stage, non-root
 Dockerfile running a real production server (gunicorn), with a healthcheck and a properly tagged
-image (`mission-control-app:2.1`) built via `docker-compose.yml`. 17 learning sessions in, Phase 1
+image (`orbit-app:2.1`) built via `docker-compose.yml`. 17 learning sessions in, Phase 1
 complete and Topics 9-11 (Docker fundamentals through multi-stage builds) cleared; check
 `../learning/progress.md` for current progress through the learning plan, which drives what gets
 added here next.
@@ -100,7 +100,7 @@ workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kuberne
 ### Session 13 — 2026-07-20
 Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` gained its first real code, a
 Flask app with a `/health` endpoint, and its first Dockerfile, built into
-`mission-control-app:latest` and run as a live container, verified serving `{"status":"ok"}`
+`orbit-app:latest` and run as a live container, verified serving `{"status":"ok"}`
 over HTTP.
 
 ### Session 14 — 2026-07-21
@@ -116,14 +116,14 @@ exactly what this project's future multi-container setups (app + database, app +
 depend on.
 
 ### Session 16 — 2026-07-23
-Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) — `project/` gained
-its first `docker-compose.yml`, building and running `mission-control-app` in one command instead
+Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) — `orbit/` gained
+its first `docker-compose.yml`, building and running `orbit-app` in one command instead
 of manual `docker run` flags, extended with a second service to prove Compose's automatic
 networking and a named volume for shared persistence.
 
 ### Session 17 — 2026-07-24
 Topic 11 complete, quiz passed (Docker: Multi-Stage Builds & Best Practices) — `app/`'s Dockerfile
 rewritten as a real multi-stage, non-root build running gunicorn instead of Flask's dev server,
-with a healthcheck and a properly tagged image (`mission-control-app:2.1`) in
+with a healthcheck and a properly tagged image (`orbit-app:2.1`) in
 `docker-compose.yml`; a real image-size bug (a `chown -R` after `COPY --from` duplicating a layer)
 was found and fixed with a measured before/after proof.

@@ -2,7 +2,7 @@
 
 ## Mission
 Interview-ready DevOps/SRE engineer within 6 months, with a live, demonstrable project in
-`project/` to show. Day 1 is 2026-07-06 IST; the 6-month outer deadline lands around 2027-01-06.
+`orbit/` to show. Day 1 is 2026-07-06 IST; the 6-month outer deadline lands around 2027-01-06.
 The roadmap's day allocations (`learning/roadmap.md`) sum to ~120 aggressive days — the remaining
 ~60 days to the 6-month deadline are deliberate slack for remediation, buffer, and project
 polish. Using that slack is normal; it does not count as falling behind.
@@ -10,9 +10,9 @@ polish. Using that slack is normal; it does not count as falling behind.
 ## Repo layout
 - `learning/` — roadmap, progress log, handbook checklist, session notes, and per-topic study
   notebooks (`notes/`). The scaffolding behind the scenes, not meant to be shown off.
-- `project/` — the actual DevOps project: application code, Kubernetes, Terraform, monitoring.
+- `orbit/` — the actual DevOps project: application code, Kubernetes, Terraform, monitoring.
   The piece meant to be shown in an interview.
-- `audits/` — periodic full-repo professionalism audits, covering both `learning/` and `project/`
+- `audits/` — periodic full-repo professionalism audits, covering both `learning/` and `orbit/`
   together (see below). Lives at the repo root, not under `learning/`, since its scope isn't
   limited to the learning side.
 - `claude-memory/` — a synced, human-readable copy of Claude Code's cross-session memory for this
@@ -41,7 +41,7 @@ anything.
    in progress at the cap may be allowed to finish rather than cut mid-question; note any overrun
    in the session log. A non-final day of a multi-day topic ends without a quiz.
 4. Apply the 3-attempt mastery rule (below) if the test fails.
-5. Advance the project in `project/` in parallel (below).
+5. Advance the project in `orbit/` in parallel (below).
 6. Log everything, commit, push.
 
 Multi-day topics: split by escalating depth, not by dividing content arbitrarily.
@@ -81,23 +81,23 @@ separate mode for later — it's how daily testing always works, so interview pr
 every day instead of getting crammed at the end.
 
 ## Parallel hands-on / project
-The project in `project/` (containerized app, CI/CD, Kubernetes, Terraform-provisioned AWS
+The project in `orbit/` (containerized app, CI/CD, Kubernetes, Terraform-provisioned AWS
 infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
-- Exception: until Phase 5 (Topics 40-46, Python), code in `project/app/` is Claude-authored
+- Exception: until Phase 5 (Topics 40-46, Python), code in `orbit/app/` is Claude-authored
   boilerplate. Say so explicitly each time — the user runs and inspects it but isn't expected to
   defend it in an interview yet. Topics 45-46 include returning to rewrite it for real
   understanding.
-- Before Topic 9 (Docker — Architecture, Images, Containers) begins, if `project/app/` is still
+- Before Topic 9 (Docker — Architecture, Images, Containers) begins, if `orbit/app/` is still
   empty, write the initial boilerplate application there first — a minimal app with at least one
   real endpoint (a health check is enough) so Docker, and everything after it, containerizes and
   deploys something real rather than a disposable "hello world." This is the concrete trigger for
   the exception above; don't leave it to happen "whenever it seems natural."
-- Wherever a topic's hands-on work can reasonably apply inside `project/` instead of a disposable
+- Wherever a topic's hands-on work can reasonably apply inside `orbit/` instead of a disposable
   practice folder, do that — progress toward the live project should be continuous.
-- Day 0 (before Session 1): if `project/` isn't already scaffolded, initialize the repo, create
-  empty `project/app/`, `project/k8s/`, `project/terraform/`, `project/ansible/`,
-  `project/monitoring/`, `project/docs/`, `project/scripts/` folders, commit an initial
-  `project/README.md` describing the project's end goal. Skip this step entirely if it's already
+- Day 0 (before Session 1): if `orbit/` isn't already scaffolded, initialize the repo, create
+  empty `orbit/app/`, `orbit/k8s/`, `orbit/terraform/`, `orbit/ansible/`,
+  `orbit/monitoring/`, `orbit/docs/`, `orbit/scripts/` folders, commit an initial
+  `orbit/README.md` describing the project's end goal. Skip this step entirely if it's already
   done — check before creating anything.
 
 ## Files
@@ -124,7 +124,7 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
 Standing rules, so the repo never drifts back into the kind of issues the Topic 10 audit found:
 - **Employer name**: never appears in file content anywhere in this repo, in any casing (the git
   remote/metadata is exempt — only file content matters). Check this specifically before
-  committing anything touching `project/docs/`, or any git-log/email example inside a notebook.
+  committing anything touching `orbit/docs/`, or any git-log/email example inside a notebook.
 - **Dates**: all narrative dates (headers, logs) are IST, format YYYY-MM-DD. Session/Day headings
   show only the day the session/day *started* — no date ranges — since Check-in/Check-out lines
   already carry the full real span and must never be touched for formatting reasons. Raw captured
@@ -132,16 +132,16 @@ Standing rules, so the repo never drifts back into the kind of issues the Topic 
   here) — that's expected and not an error, but worth a one-line note where it first appears.
 - **Topic names**: always written exactly as `learning/roadmap.md`'s fixed baseline table spells
   them (em-dash form, e.g. "Docker — Architecture, Images, Containers"), in every file that names
-  a topic — notebook H1 titles, `progress.md`, `project/README.md`, `handbook_status.md`.
+  a topic — notebook H1 titles, `progress.md`, `orbit/README.md`, `handbook_status.md`.
 - **Notebooks**: every command shows a general Syntax line before the concrete example; the quiz
   block ends with `**Verdict**: **Topic N CLEARED, attempt N, XX/100.**`; every claimed "real
   discovery," technical rule, or formula must be technically verified before being written down —
   the same rigor applied to the user's own hands-on predictions applies to how it gets recorded.
-- **`project/`** is the interview-facing folder: no debugging/teaching-style comments in its code
+- **`orbit/`** is the interview-facing folder: no debugging/teaching-style comments in its code
   or config (that belongs in the matching `learning/notes/` entry instead), no internal-scaffolding
   language ("not yet defensible," references to this file), and no placeholder text that
   contradicts what's actually built (e.g. "nothing to run yet" once something runs).
-- **Repo hygiene**: the root `.gitignore`/`.gitattributes` and `project/app/.dockerignore` must
+- **Repo hygiene**: the root `.gitignore`/`.gitattributes` and `orbit/app/.dockerignore` must
   stay in place and get extended as new languages/folders are added (e.g. Terraform's `.tfstate`,
   Ansible's retry files, once those phases begin).
 
@@ -196,9 +196,9 @@ IST — use this as the fixed reference point for every calendar-day calculation
 defaults to.
 
 Separately, produce a five-line-or-shorter README snippet describing what was built that session
-and append it to `project/README.md` (or the relevant subfolder README inside `project/`) — never
+and append it to `orbit/README.md` (or the relevant subfolder README inside `orbit/`) — never
 to anything inside `learning/`. Same repo now, but the two folders still serve different
-audiences: `project/` is what gets shown, `learning/` never is.
+audiences: `orbit/` is what gets shown, `learning/` never is.
 
 ## Never do
 - Never quote or reproduce copyrighted material in lessons — paraphrase instead.

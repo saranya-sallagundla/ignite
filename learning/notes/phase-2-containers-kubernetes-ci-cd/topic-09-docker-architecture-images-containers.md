@@ -9,18 +9,18 @@
 ## Day 1 — 2026-07-20 (architecture, terms, images vs. containers, first Dockerfile)
 
 ### Today's agenda
-1. Precheck — Docker verified, `project/app/` boilerplate written, `app.py` walked through.
+1. Precheck — Docker verified, `orbit/app/` boilerplate written, `app.py` walked through.
 2. Core Docker terms — daemon, client, registry, image, container.
 3. `docker run hello-world` — the architecture proven in action.
 4. Images vs. containers, proven hands-on.
-5. Writing, building, and running a real Dockerfile for `project/app/`.
+5. Writing, building, and running a real Dockerfile for `orbit/app/`.
 6. Container lifecycle commands.
 7. Exit codes and signals.
 
 ### 1. Precheck, before teaching started
 - Docker Desktop confirmed installed and running (`docker version` client 29.1.5, server engine
   active) before the lesson began.
-- `project/app/` was found still empty (only a placeholder `README.md`) — per `CLAUDE.md`'s
+- `orbit/app/` was found still empty (only a placeholder `README.md`) — per `CLAUDE.md`'s
   trigger rule, the initial boilerplate had to be written before Topic 9 could begin. Wrote a
   minimal Flask app (`app.py`, initially with a `/health` endpoint and a root `/` endpoint) and
   `requirements.txt` (`flask==3.1.0`) first, explicitly noted as Claude-authored per the Phase 5
@@ -267,7 +267,7 @@ anything:
 - **`RUN`** — executes a command *while the image is being built*.
 - **`CMD`** — the command that runs automatically the moment a container starts from this image.
 
-Created via VS Code (right-click `project/app/` → New File → `Dockerfile`, no extension). Written
+Created via VS Code (right-click `orbit/app/` → New File → `Dockerfile`, no extension). Written
 and confirmed one line at a time, in this exact order:
 1. `FROM python:3.12-slim` — official pre-built image from Docker Hub with Python 3.12 already
    installed on a minimal Linux base; "slim" means it skips extra stuff not needed, keeping the
@@ -275,7 +275,7 @@ and confirmed one line at a time, in this exact order:
 2. `WORKDIR /app` — everything below happens inside a folder called `/app` *inside the image*
    (a fresh folder Docker creates inside the Linux image — not the Windows
    `C:\CloudOps\ignite\project\app\` folder).
-3. `COPY . .` — first `.` means "everything in the current folder on your computer" (`project/app/`,
+3. `COPY . .` — first `.` means "everything in the current folder on your computer" (`orbit/app/`,
    where the Dockerfile lives); second `.` means "into the current folder inside the image" (`/app`,
    from `WORKDIR`). Copies `app.py` and `requirements.txt` in.
 4. `RUN pip install -r requirements.txt` — grounded fresh since new: `pip` is Python's tool for
@@ -302,11 +302,11 @@ docker build -t IMAGE_NAME PATH
 - `-t` — "tag," gives the image a memorable name instead of a random ID.
 - `PATH` — the build context (folder with the Dockerfile and the files it needs).
 
-Concrete example, run after `cd project/app` (moving from `C:\CloudOps\ignite>` into
+Concrete example, run after `cd orbit/app` (moving from `C:\CloudOps\ignite>` into
 `C:\CloudOps\ignite\project\app>` first, since this is the one command that cares about the
 current folder):
 ```
-docker build -t mission-control-app .
+docker build -t orbit-app .
 ```
 Real (trimmed) build log:
 ```
@@ -320,7 +320,7 @@ Real (trimmed) build log:
  => [3/4] COPY . .                                        0.1s
  => [4/4] RUN pip install -r requirements.txt             9.8s
  => exporting to image
- => => naming to docker.io/library/mission-control-app:latest
+ => => naming to docker.io/library/orbit-app:latest
 ```
 The 4 numbered steps, `[1/4]` through `[4/4]`, map exactly to `FROM`/`WORKDIR`/`COPY`/`RUN` from
 the Dockerfile — `CMD` did not run during build (`CMD` only fires when a *container* starts, not
@@ -330,7 +330,7 @@ while the image is being built). `pip install` alone took ~9.8s, installing Flas
 ```
 IMAGE                        ID             DISK USAGE   CONTENT SIZE   EXTRA
 hello-world:latest           c3cbe1cc1aa5       25.9kB         9.49kB    U
-mission-control-app:latest   3ed884b5a5aa        199MB           49MB
+orbit-app:latest   3ed884b5a5aa        199MB           49MB
 ```
 
 ### 12. Running the container
@@ -341,7 +341,7 @@ New flags, plain definitions first:
   the browser (outside) can reach the Flask app (inside, listening on port 5000).
 
 ```
-docker run -d -p 5000:5000 mission-control-app
+docker run -d -p 5000:5000 orbit-app
 ```
 Output: `f44fd9197b7d734a500f981dc9bf0472bbc54288c85554f91a71bdf8d6384036` (the new container's ID).
 
@@ -351,7 +351,7 @@ docker ps
 ```
 ```
 CONTAINER ID   IMAGE                 COMMAND           CREATED              STATUS              PORTS                                         NAMES
-f44fd9197b7d   mission-control-app   "python app.py"   About a minute ago   Up About a minute   0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp   unruffled_greider
+f44fd9197b7d   orbit-app   "python app.py"   About a minute ago   Up About a minute   0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp   unruffled_greider
 ```
 And by opening `http://localhost:5000/health` in the browser — real response:
 ```
@@ -365,7 +365,7 @@ container Docker built from a Dockerfile written line by line, serving real traf
 docker logs CONTAINER    # everything the container has printed since it started
 docker stop CONTAINER    # tells a running container to shut down
 docker rm CONTAINER      # deletes a stopped container (not run this session — kept for reference)
-docker rmi IMAGE         # deletes an image (not run — mission-control-app kept for Day 2 reuse)
+docker rmi IMAGE         # deletes an image (not run — orbit-app kept for Day 2 reuse)
 ```
 Used the container's auto-generated name (`unruffled_greider`) instead of its ID this time — either
 works.
@@ -406,10 +406,10 @@ docker ps -a
 Real output:
 ```
 CONTAINER ID   IMAGE                 COMMAND           CREATED          STATUS                        PORTS     NAMES
-f44fd9197b7d   mission-control-app   "python app.py"   11 minutes ago   Exited (137) 19 seconds ago             unruffled_greider
+f44fd9197b7d   orbit-app   "python app.py"   11 minutes ago   Exited (137) 19 seconds ago             unruffled_greider
 6dae8ab55c08   hello-world           "/hello"          6 hours ago      Exited (0) 6 hours ago                  interesting_poitras
 ```
-Noticed and asked about directly: **`Exited (137)`** for `mission-control-app`, different from
+Noticed and asked about directly: **`Exited (137)`** for `orbit-app`, different from
 `hello-world`'s **`Exited (0)`**.
 
 Explanation, tied straight back to Topic 2's signals content: `docker stop` doesn't kill a
@@ -434,14 +434,14 @@ Follow-up Q&A on the number itself:
   signals knowledge, without being handed the formula first.
 
 Contrast kept explicit: `hello-world`'s `Exited (0)` — that one finished its own work and exited
-normally by itself, no signal involved at all. `mission-control-app`'s `Exited (137)` — Flask's dev
+normally by itself, no signal involved at all. `orbit-app`'s `Exited (137)` — Flask's dev
 server apparently didn't respond to the polite `SIGTERM` fast enough, so Docker had to escalate.
 
 ### 15. Day 1 wrap-up — agenda recap
 1. Finish connecting the 5 terms using the real `hello-world` output.
 2. Images vs. containers, hands-on (run `hello-world` twice, compare).
 3. The Dockerfile — what it is, the 5 instructions needed.
-4. Write a real Dockerfile for `project/app/`.
+4. Write a real Dockerfile for `orbit/app/`.
 5. Build and run it, prove it's serving real traffic via `/health`.
 6. Basic container lifecycle commands — inspect and clean up.
 7. Exit codes and signals — the real `137` vs. `0` contrast.
@@ -471,7 +471,7 @@ and everything after it reruns.
 Proved hands-on with the *original* (single-`COPY`) Dockerfile — changed `app.py`'s `/health`
 response to include `version="1.0"`, then rebuilt:
 ```
-docker build -t mission-control-app .
+docker build -t orbit-app .
 ```
 Real log: `WORKDIR` showed `CACHED`; `COPY . .` and `RUN pip install -r requirements.txt` both
 re-ran (no `CACHED` label on either), confirming `RUN` reran even though `requirements.txt` never
@@ -514,20 +514,20 @@ New command, plain definition first:
 
 Two-step proof:
 ```
-docker tag mission-control-app:latest mission-control-app:v1
+docker tag orbit-app:latest orbit-app:v1
 ```
 (labeling the current `version="1.1"` image as `v1`, so it's not only reachable via the disposable
 `latest` tag), then bumped the app to `version="2.0"` and built with an explicit tag instead of the
 bare name:
 ```
-docker build -t mission-control-app:v2 .
+docker build -t orbit-app:v2 .
 ```
 `docker images` afterward:
 ```
 IMAGE                        ID             ...
-mission-control-app:latest   3791121b6785   ...
-mission-control-app:v1       3791121b6785   ...
-mission-control-app:v2       ca0bb287d44e   ...
+orbit-app:latest   3791121b6785   ...
+orbit-app:v1       3791121b6785   ...
+orbit-app:v2       ca0bb287d44e   ...
 ```
 Real, notable detail: `latest` and `v1` share the *exact same* `ID` — `docker tag` just added a
 second name onto the already-existing image. But `latest` was **never updated** to point at `v2` —
@@ -537,8 +537,8 @@ retagged under that exact name — right now it's stale.
 
 **Rollback proven for real** — ran both tagged versions simultaneously on different host ports:
 ```
-docker run -d -p 5001:5000 mission-control-app:v1
-docker run -d -p 5002:5000 mission-control-app:v2
+docker run -d -p 5001:5000 orbit-app:v1
+docker run -d -p 5002:5000 orbit-app:v2
 ```
 Browser confirmed: `http://localhost:5001/health` → `{"status":"ok","version":"1.1"}`;
 `http://localhost:5002/health` → `{"status":"ok","version":"2.0"}` — two real, distinct versions
@@ -553,7 +553,7 @@ commands.
 ### 3. Harder independent task — `/ready` endpoint
 Context (previewed ahead of Kubernetes, taught fresh): **liveness** ("is the process still alive?")
 vs. **readiness** ("is it actually ready to serve traffic?") are different questions apps expose
-separately. Task: add a `/ready` endpoint to `project/app/app.py`, build/tag/run it independently.
+separately. Task: add a `/ready` endpoint to `orbit/app/app.py`, build/tag/run it independently.
 
 **Why this distinction concretely matters for Kubernetes** (previewed, not yet formally taught):
 if `/health` fails, Kubernetes **restarts** the container — it assumes the process itself is
@@ -561,7 +561,7 @@ broken. If `/ready` fails instead, Kubernetes **stops routing traffic to it with
 — it assumes the process is fine but temporarily can't serve requests (e.g. still starting up, or
 a dependency isn't reachable yet). Two different failures need two different responses, which is
 exactly why the two checks exist separately rather than one combined endpoint. Tied explicitly to
-the actual capstone project: Mission Control's own monitoring will poll endpoints like these to
+the actual capstone project: Orbit's own monitoring will poll endpoints like these to
 know what's actually happening inside the app it's watching.
 
 First attempt duplicated `/health`'s exact payload (`status`/`version`, no distinct signal) —
@@ -576,17 +576,17 @@ this matters: images are frozen snapshots of the files at build time, editing `a
 doesn't retroactively change an already-built image (same lesson as Day 1).
 
 **Safe cleanup of the buggy image** — identified the exact tag via `docker images`
-(`mission-control-app:health-ready`, marked `U` for in-use), found the specific dependent container
+(`orbit-app:health-ready`, marked `U` for in-use), found the specific dependent container
 via `docker ps -a` (`869907bb06ca`, `inspiring_dewdney`, still `Up`), then:
 ```
 docker stop inspiring_dewdney
 docker rm inspiring_dewdney
-docker rmi mission-control-app:health-ready
+docker rmi orbit-app:health-ready
 ```
 — stopping and removing the container first, since Docker refuses to delete an image still tied to
 an existing container.
 
-**Final build/run/verify**, done independently: rebuilt `mission-control-app:health-ready` clean
+**Final build/run/verify**, done independently: rebuilt `orbit-app:health-ready` clean
 (deliberately reused the same tag name this time, since the old buggy content was already deleted —
 a legitimate descriptive-tag naming choice, not a mistake, distinct from the earlier `:latest`
 problem where old content was still wanted), ran it on port 5000, verified in browser:
@@ -632,13 +632,13 @@ genuine JSON boolean this time.
    exists, but there's no longer a name to ask for it by). The fix is giving builds explicit
    version tags (e.g. `v1`, `v2`) so old versions stay reachable and rollback is possible.
 
-5. **The actual difference between `mission-control-app`'s exit code 137 and `hello-world`'s exit
+5. **The actual difference between `orbit-app`'s exit code 137 and `hello-world`'s exit
    code 0.**
    `docker stop` doesn't kill a container instantly — it first sends a polite `SIGTERM` (signal
    15, "please exit") and waits (~10s). If the process hasn't exited by then, Docker escalates to
    a forceful `SIGKILL` (signal 9, "exit now, no cleanup"). Exit code 137 = `128 + 9` — `128` is
    the fixed Linux/Unix convention marking "this exit code reports a signal, not a self-chosen
-   code," and `9` is the signal that did it. `mission-control-app` exited this way because
+   code," and `9` is the signal that did it. `orbit-app` exited this way because
    `docker stop` was run against it and its Flask dev server didn't respond to `SIGTERM` fast
    enough. `hello-world`, by contrast, was never sent any stop signal at all — it finished its own
    tiny task and exited normally by itself, which is why its code is a plain `0`.
