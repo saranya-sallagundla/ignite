@@ -27,6 +27,7 @@ ignite/
 │   ├── handbook_status.md — quiz-passed tracker per topic (separate from publishing to the
 │   │                         handbook site, which happens on its own timeline)
 │   ├── session_notes.md   — personal recap per session
+│   ├── field_atlas.md     — living, cross-referenced map of the DevOps/SRE field itself
 │   └── notes/             — per-topic study notebooks, filed under phase-N-name/ subfolders
 ├── orbit/
 │   ├── README.md          — describes the DevOps project itself

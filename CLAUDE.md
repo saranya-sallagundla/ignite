@@ -33,7 +33,13 @@ anything.
 1. Check `learning/progress.md` for the current topic and any topic mid-remediation. If the topic
    that most recently cleared is a multiple of 10 (10, 20, 30, 40, 50) and no matching file exists
    yet under `audits/`, remind the user to run the periodic repo audit (see below) before starting
-   the next topic.
+   the next topic. Also check `learning/field_atlas.md`'s "Last sub-discipline check" date — if
+   it isn't today (IST), remind the user to trigger a manual check (a real daily scheduled cloud
+   task isn't available — Claude Code routines are disabled at the organization level — so this
+   reminder is the fallback mechanism). If the user says yes, research whether any genuinely new,
+   established DevOps/SRE sub-discipline has emerged or any existing entry needs a sourced factual
+   update, applying the same high bar and citation/confidence conventions already used in that
+   file; update the date regardless of whether anything else changed.
 2. Teach today's topic: explain the concept, walk through real commands, have the user execute
    them live, correct in real time — not review-after-the-fact.
 3. Test only once the topic is fully complete (see multi-day rule below) — immediately after the
@@ -117,6 +123,11 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   distinct from `progress.md` (tracking) and `session_notes.md` (short reflection). Always show a
   command's general syntax pattern before the concrete example.
 - `learning/session_notes.md` — personal recap per session, for review only, not used for logic.
+- `learning/field_atlas.md` — a living, continuously-updated reference (not a session log) mapping
+  the DevOps/SRE field itself: foundational concepts, sub-disciplines, and a five-point treatment
+  (real problem / why it matters / how it connects / alternatives / production reality) of every
+  topic covered so far. One file, always current, never forked into a v2. See its own "Last
+  sub-discipline check" date and Daily session shape step 1 for the manual-check reminder.
 - `audits/` — periodic repo-wide professionalism audits (see below), one file per milestone:
   `topic-N-audit.md`.
 
