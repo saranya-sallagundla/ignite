@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: a00a43ea-e0fe-440d-87a8-cd6858233288
-  modified: 2026-07-26T23:52:47.437Z
+  modified: 2026-07-31T03:58:00.409Z
 ---
 
 Rules learned across [[project-ignite-learning-mission]] sessions, confirmed as standing habits (not one-off requests):
