@@ -1,0 +1,1 @@
+Public-facing documentation about this repository: the teaching and testing method, future project ideas, and cross-cutting architecture decisions. Distinct from `orbit/docs/`, which documents the project itself rather than the process around it.

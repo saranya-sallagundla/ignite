@@ -1,0 +1,1 @@
+Repository automation and community-health configuration: CI workflows, issue forms, pull-request template, and dependency update policy. Will be populated as part of open-sourcing this repo, with the CI pipeline itself built in Phase 2 (Topic 15).

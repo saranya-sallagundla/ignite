@@ -1,0 +1,1 @@
+Per-environment Terraform configuration and workspace layout. Will be built in Phase 4 (Topic 36). Named `environments/` rather than `env/` deliberately, so the root `.gitignore`'s Python virtualenv rule cannot silently exclude real infrastructure config.
