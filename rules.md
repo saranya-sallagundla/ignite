@@ -237,6 +237,11 @@ One commit per session is the default; it keeps the log and the history telling 
   new languages and folders arrive.
 - **`engine/`** is the forkable copy of this protocol with the DevOps removed. When a rule here
   changes, update `engine/rules.template.md` in the same commit — or say plainly that you didn't.
+- **`main` is protected on GitHub.** Only the owner pushes to it directly; everyone else works on
+  a branch and opens a pull request, which needs 1 approval. The rule covers administrators and
+  lives in GitHub's Settings → Branches, not in a file — check it there. Force-pushes are off:
+  switch them on only for a deliberate history rewrite, then off again. Don't add anyone to the
+  bypass list or the push list without the owner's say-so.
 
 ## 8. Audits
 
