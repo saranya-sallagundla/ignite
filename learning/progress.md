@@ -8,9 +8,9 @@
 
 > One line, overwritten every session — not appended to. This is what gets read first.
 
-Topic 12 — Kubernetes — Architecture & Core Concepts — day 1 of 2 done (Session 18, 2026-09-22:
+Topic 12 — Kubernetes — Architecture & Core Concepts — day 1 of 2 done (Session 18, 2026-10-05:
 architecture taught, local 2-node `kind` cluster set up and verified); Day 2 + quiz next. Topics
-1-11 cleared; Phase 2 at 3 of 11. Behind by ~25 core days; the deadline still fits with 3 days of
+1-11 cleared; Phase 2 at 3 of 11. Ahead by ~5 core days; the deadline fits with 56 days of
 slack (roadmap.md's Pacing Layer). 5 open items below.
 
 ## Quiz record index
@@ -58,12 +58,12 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 
 | Date | Reason given |
 |---|---|
-| 2026-07-17 | Already ahead of schedule — Sessions 9 and 10 had efficiently covered Topic 5 and Topic 6 (each a 2-day topic in the baseline) within continuous sessions starting 2026-07-14 and 2026-07-16, so this day was taken as a rest day without falling behind. Logged retroactively during a later review, since it wasn't captured in the moment. Pacing cost: none — Topics 1-8 still landed at exactly their planned 14 roadmap days total, zero overrun. |
+| 2026-09-25 | Rest day, taken while ahead — Topic 5 (2 days) was done in one session from 2026-09-22 till 2026-09-23, and Topic 6 (2 days) in one session on 2026-09-24, so Topic 7 started on 2026-09-26. Logged retroactively. Pacing cost: none — Topics 1-8 used exactly their planned 14 roadmap days. |
 
 ## Session log
 
 <!-- Append one entry per session, in order. Shape and voice: rules.md §6. -->
-### Session 1 — 2026-07-06 — Linux filesystem, permissions, SSH & VM basics
+### Session 1 — 2026-09-14 — Linux filesystem, permissions, SSH & VM basics
 - Topic: Topic 1 — Linux Fundamentals — Filesystem, SSH, VMs — day 1 of 2 — in progress
 - Covered:
   - Learned: filesystem hierarchy (one tree, drives mounted into it); permissions (rwx, octal,
@@ -85,9 +85,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
   session; split into shorter sessions next time.
 - Lesson: When one explanation doesn't land, switch to a concrete analogy.
 - Carry-forward: SSH connection hands-on — retry on an AWS sandbox VM once access is ready.
-- Check-in: 2026-07-06 23:00 IST — Check-out: 2026-07-07 22:01 IST (overnight break; not continuous)
+- Check-in: 2026-09-14 23:00 IST — Check-out: 2026-09-15 22:01 IST (overnight break; not continuous)
 
-### Session 2 — 2026-07-07 — Hard vs soft links, SSH keys + Topic 1 quiz
+### Session 2 — 2026-09-15 — Hard vs soft links, SSH keys + Topic 1 quiz
 - Topic: Topic 1 — Linux Fundamentals — Filesystem, SSH, VMs — day 2 of 2 — completed
 - Covered:
   - Learned: hard links vs symlinks (inode and link-count model); SSH keys (`ssh-keygen -t
@@ -110,9 +110,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: quiz ran ~32 min, over the 20-min cap; a few answers needed a nudge to sharpen.
 - Lesson: Break it, then fix it — links only stuck after watching real data disappear.
 - Carry-forward: SSH connection hands-on still pending (AWS sandbox VM).
-- Check-in: 2026-07-07 22:19 IST — Check-out: 2026-07-08 05:25 IST (quiz ~32 min, over 20-min cap)
+- Check-in: 2026-09-15 22:19 IST — Check-out: 2026-09-16 05:25 IST (quiz ~32 min, over 20-min cap)
 
-### Session 3 — 2026-07-08 — Viewing, searching & text processing commands
+### Session 3 — 2026-09-16 — Viewing, searching & text processing commands
 - Topic: Topic 2 — Linux — Top 50 Shell Commands — day 1 of 2 — in progress
 - Covered:
   - Learned: file viewing (`head`, `tail`, `less`); search (`grep` for content, `find` for
@@ -127,9 +127,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Went well: built the pipeline stage by stage, checking each output before adding the next.
 - Do better: check case sensitivity first when a `grep` result looks wrong.
 - Lesson: Test a prediction against real output before trusting it.
-- Check-in: 2026-07-08 22:35 IST — Check-out: 2026-07-09 05:58 IST
+- Check-in: 2026-09-16 22:35 IST — Check-out: 2026-09-17 05:58 IST
 
-### Session 4 — 2026-07-09 — Processes, networking, archives + Topic 2 quiz
+### Session 4 — 2026-09-17 — Processes, networking, archives + Topic 2 quiz
 - Topic: Topic 2 — Linux — Top 50 Shell Commands — day 2 of 2 — completed
 - Covered:
   - Learned: processes and signals (`ps aux`, `top`, `kill` / `kill -9`, SIGTERM vs SIGKILL);
@@ -146,9 +146,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: exact syntax (`grep -r` flag placement, `find` scope); quiz ran ~28 min, over the cap.
 - Lesson: Not remembering every command after a dense session is normal — the notebook holds the
   detail, and repetition in later topics builds recall.
-- Check-in: 2026-07-09 23:24 IST — Check-out: 2026-07-10 05:39 IST (quiz ~28 min, over 20-min cap)
+- Check-in: 2026-09-17 23:24 IST — Check-out: 2026-09-18 05:39 IST (quiz ~28 min, over 20-min cap)
 
-### Session 5 — 2026-07-10 — Shell scripts: variables, arguments, conditionals
+### Session 5 — 2026-09-18 — Shell scripts: variables, arguments, conditionals
 - Topic: Topic 3 — Linux — Shell Scripting Basics — day 1 of 2 — in progress
 - Covered:
   - Learned: shebang, variables, positional arguments (`$1`, `$#`), conditionals (`if` / `elif` /
@@ -163,9 +163,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Went well: wrote and debugged the whole script without being handed the answer.
 - Do better: read the error's line number first, before guessing.
 - Lesson: A slow debugging grind is often where the learning happens — stay with it.
-- Check-in: 2026-07-10 22:02 IST — Check-out: 2026-07-11 04:14 IST
+- Check-in: 2026-09-18 22:02 IST — Check-out: 2026-09-19 04:14 IST
 
-### Session 6 — 2026-07-11 — Loops, functions + Topic 3 quiz
+### Session 6 — 2026-09-19 — Loops, functions + Topic 3 quiz
 - Topic: Topic 3 — Linux — Shell Scripting Basics — day 2 of 2 — completed
 - Covered:
   - Learned: loops (`for`, `while`), functions (define + call), exit codes (`$?`), silencing
@@ -186,9 +186,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: switch to "run it and watch" sooner — several analogies were tried first.
 - Lesson: When an explanation isn't landing, run real code and watch the values.
 - Carry-forward: reuse `checkall.sh` in `orbit/scripts/`.
-- Check-in: 2026-07-11 22:26 IST — Check-out: 2026-07-12 10:02 IST (with a pause; quizzes ~32 + ~23 min, over 20-min cap)
+- Check-in: 2026-09-19 22:26 IST — Check-out: 2026-09-20 10:02 IST (with a pause; quizzes ~32 + ~23 min, over 20-min cap)
 
-### Session 7 — 2026-07-12 — Process states, /proc, nice & log basics
+### Session 7 — 2026-09-20 — Process states, /proc, nice & log basics
 - Topic: Topic 4 — Linux Deep Dive — Process, Log, Disk Management — day 1 of 2 — in progress
 - Covered:
   - Learned: process states (R/S/D/Z/T and modifiers); `awk` for extracting and filtering columns;
@@ -210,9 +210,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: search logs with more than one keyword from the start — one term missed a real issue.
 - Lesson: Account and credential problems usually feel riskier than they are — ask what a fix
   will touch, then fix it calmly.
-- Check-in: 2026-07-12 22:35 IST — Check-out: 2026-07-13 01:17 IST
+- Check-in: 2026-09-20 22:35 IST — Check-out: 2026-09-21 01:17 IST
 
-### Session 8 — 2026-07-13 — Disks, mounting, fstab + Topic 4 quiz
+### Session 8 — 2026-09-21 — Disks, mounting, fstab + Topic 4 quiz
 - Topic: Topic 4 — Linux Deep Dive — Process, Log, Disk Management — day 2 of 2 — completed
 - Covered:
   - Learned: partitions, filesystems and mounting; `lsblk` and UUIDs; `fsck` vs `df` — a `df`
@@ -234,9 +234,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: got confused re-reading a command sequence mid-session — ask for a plain
   step-by-step retrace sooner.
 - Lesson: Tie a concept to a real alert from work — it lands faster than an invented scenario.
-- Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
+- Check-in: 2026-09-21 23:50 IST — Check-out: 2026-09-22 05:17 IST
 
-### Session 9 — 2026-07-14 — IP, CIDR, DNS, ports + Topic 5 quiz
+### Session 9 — 2026-09-22 — IP, CIDR, DNS, ports + Topic 5 quiz
 - Topic: Topic 5 — Linux — Networking Fundamentals — days 1–2 of 2, one session — completed
 - Covered:
   - Learned: IP addressing, private vs public ranges, CIDR (worked down to `/1`), ports, DNS and
@@ -260,9 +260,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: don't compress two days into one fast session.
 - Lesson: Speed and depth trade off. When a topic is rushed and it shows, say so and loop back.
 - Notes: both days were kept high-level and fast on request.
-- Check-in: 2026-07-14 23:47 IST — Check-out: 2026-07-16 05:02 IST (spanned days, with breaks)
+- Check-in: 2026-09-22 23:47 IST — Check-out: 2026-09-24 05:02 IST (spanned days, with breaks)
 
-### Session 10 — 2026-07-16 — Git commits, branches, merges + Topic 6 quiz
+### Session 10 — 2026-09-24 — Git commits, branches, merges + Topic 6 quiz
 - Topic: Topic 6 — Git Fundamentals — Commits, Branches, Merges — days 1–2 of 2, one session — completed
 - Covered:
   - Learned: the three-stage model (working directory, staging, history); `git init` / `add` /
@@ -284,9 +284,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
   branch point.
 - Lesson: Practise in the environment the job uses — VS Code's merge editor made conflicts easier
   to read than raw markers.
-- Check-in: 2026-07-16 23:38 IST — Check-out: 2026-07-17 01:45 IST
+- Check-in: 2026-09-24 23:38 IST — Check-out: 2026-09-25 01:45 IST
 
-### Session 11 — 2026-07-18 — Rebase, cherry-pick, branching + Topic 7 quiz
+### Session 11 — 2026-09-26 — Rebase, cherry-pick, branching + Topic 7 quiz
 - Topic: Topic 7 — Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies — day 1 of 1 — completed
 - Covered:
   - Learned: rebase (creates new commits — confirmed by the hash change); cherry-pick; checking
@@ -309,9 +309,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
   `develop` branch until it was clear.
 - Do better: clean conflict markers fully in one pass — the first fix left a stray fragment.
 - Lesson: `git add` doesn't check your work — verify the file, not the command's success.
-- Check-in: 2026-07-18 00:56 IST — Check-out: 2026-07-19 11:11 IST (spanned days, with breaks)
+- Check-in: 2026-09-26 00:56 IST — Check-out: 2026-09-27 11:11 IST (spanned days, with breaks)
 
-### Session 12 — 2026-07-19 — GitHub PRs, Actions, branch protection + Topic 8 quiz
+### Session 12 — 2026-09-27 — GitHub PRs, Actions, branch protection + Topic 8 quiz
 - Topic: Topic 8 — GitHub — PRs, Actions Intro, Repo Management — day 1 of 1 — completed
 - Covered:
   - Learned: remotes (`git remote add`, `push`, `pull`); pull requests and choosing a merge
@@ -337,9 +337,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
   admins.
 - Notes: two standing changes from this session — explain every tech term from scratch, never
   assume it; keep the employer name out of all notebooks.
-- Check-in: 2026-07-19 22:11 IST — Check-out: 2026-07-20 01:27 IST
+- Check-in: 2026-09-27 22:11 IST — Check-out: 2026-09-28 01:27 IST
 
-### Session 13 — 2026-07-20 — Docker basics, first Dockerfile, Orbit app
+### Session 13 — 2026-09-28 — Docker basics, first Dockerfile, Orbit app
 - Topic: Topic 9 — Docker — Architecture, Images, Containers — day 1 of 2 — in progress
 - Covered:
   - Learned: client, daemon, registry, image, container; the client/server split in
@@ -365,9 +365,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Lesson: Learn each term on its own before linking it to the bigger picture.
 - Notes: two standing changes from this session — slower pace for new terms, and a same-day
   agenda up front.
-- Check-in: 2026-07-20 22:37 IST — Check-out: 2026-07-21 10:50 IST
+- Check-in: 2026-09-28 22:37 IST — Check-out: 2026-09-29 10:50 IST
 
-### Session 14 — 2026-07-21 — Layer caching, image tags + Topic 9 quiz
+### Session 14 — 2026-09-29 — Layer caching, image tags + Topic 9 quiz
 - Topic: Topic 9 — Docker — Architecture, Images, Containers — day 2 of 2 — completed
 - Covered:
   - Learned: layer caching — once one layer's cache breaks, every later layer reruns; image
@@ -390,9 +390,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: keep `docker stop` (SIGTERM, then SIGKILL) and a program exiting on its own clearly
   apart — they got mixed up.
 - Lesson: Prove a fix with a measurement, not a feeling — the build timings settled it.
-- Check-in: 2026-07-21 23:44 IST — Check-out: 2026-07-22 04:47 IST
+- Check-in: 2026-09-29 23:44 IST — Check-out: 2026-09-30 04:47 IST
 
-### Session 15 — 2026-07-22 — Docker networking & bind mounts
+### Session 15 — 2026-09-30 — Docker networking & bind mounts
 - Topic: Topic 10 — Docker — Networking, Volumes, Docker Compose — day 1 of 2 — in progress
 - Covered:
   - Learned: bridge networks, default vs custom; `docker network ls` (bridge / host / none) and
@@ -414,9 +414,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Lesson: Seeing the real error first makes the fix mean something.
 - Notes: teaching slowed further on request — treat as a total beginner, same-day agenda,
   "shall I move on?" checks before each new step.
-- Check-in: 2026-07-22 22:53 IST — Check-out: 2026-07-23 02:12 IST
+- Check-in: 2026-09-30 22:53 IST — Check-out: 2026-10-01 02:12 IST
 
-### Session 16 — 2026-07-23 — Named volumes, Docker Compose + Topic 10 quiz
+### Session 16 — 2026-10-01 — Named volumes, Docker Compose + Topic 10 quiz
 - Topic: Topic 10 — Docker — Networking, Volumes, Docker Compose — day 2 of 2 — completed
 - Covered:
   - Learned: named volumes (`docker volume create`, `ls`) persist like bind mounts; a container's
@@ -437,9 +437,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: YAML indentation needed explaining before Compose made sense — learn a file format
   before the tool that uses it.
 - Lesson: Never delete the working thing until its replacement is proven.
-- Check-in: 2026-07-23 23:06 IST — Check-out: 2026-07-24 04:39 IST
+- Check-in: 2026-10-01 23:06 IST — Check-out: 2026-10-02 04:39 IST
 
-### Session 17 — 2026-07-24 — Multi-stage builds, non-root, gunicorn + Topic 11 quiz
+### Session 17 — 2026-10-02 — Multi-stage builds, non-root, gunicorn + Topic 11 quiz
 - Topic: Topic 11 — Docker — Multi-Stage Builds & Best Practices — day 1 of 1 — completed
 - Covered:
   - Learned: compiler vs interpreter, binaries, build toolchains, native code (why `pip install`
@@ -469,9 +469,9 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
   bug to trace, not a fluke.
 - Notes: needed ground-up teaching — none of compiler, binary or WSGI was assumed. Closed every
   Dockerfile item deferred from the Topic 10 audit.
-- Check-in: 2026-07-24 22:56 IST — Check-out: 2026-07-25 02:04 IST
+- Check-in: 2026-10-02 22:56 IST — Check-out: 2026-10-03 02:04 IST
 
-### Session 18 — 2026-09-22 — Kubernetes architecture, first kind cluster
+### Session 18 — 2026-10-05 — Kubernetes architecture, first kind cluster
 - Topic: Topic 12 — Kubernetes — Architecture & Core Concepts — day 1 of 2 — in progress
 - Covered:
   - Learned: what Kubernetes solves (self-healing, rescheduling, scaling) and its alternatives
@@ -494,5 +494,5 @@ slack (roadmap.md's Pacing Layer). 5 open items below.
 - Do better: nothing flagged this session.
 - Lesson: Ask again when an explanation only half lands.
 - Carry-forward: the field atlas's Kubernetes entry is written once, after Topic 14 finishes.
-- Notes: first session after a 58-day gap.
-- Check-in: 2026-09-22 04:50 IST — Check-out: 2026-09-22 05:09 IST
+- Notes: first session after a 2-day gap.
+- Check-in: 2026-10-05 04:50 IST — Check-out: 2026-10-05 05:09 IST
