@@ -2,11 +2,11 @@
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
-> Single-day topic per the roadmap — covered fully in one session, ending in the quiz.
+> Single-day topic per the roadmap — covered in one session, ending in the quiz.
 
 ---
 
-## Day 1 — 2026-07-18 — Rebase, cherry-pick, branching strategies
+## Day 1 — 2026-07-18 (rebase, cherry-pick, branching strategies)
 
 Practiced in the same `C:\CloudOps\git-practice` folder from Topic 6, Windows PowerShell/VS Code.
 

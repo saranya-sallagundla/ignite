@@ -2,6 +2,8 @@
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Two-day topic per the roadmap, compressed into one session (Day 1 and Day 2 both covered
+> 2026-07-16), ending in the quiz.
 
 ---
 

@@ -143,7 +143,11 @@ Standing rules, so the repo never drifts:
 - **Notebooks**: every command shows a general Syntax line before the concrete example; the quiz
   block ends with `**Verdict**: **Topic N CLEARED, attempt N, XX/100.**`; every claimed
   discovery, rule, or formula is technically verified before being written down — a wrong rule
-  recorded confidently is worse than no rule at all.
+  recorded confidently is worse than no rule at all. Settle a house style early and keep it —
+  e.g. bare commands with no shell-prompt marker, captured output on its own `# → output` line,
+  language-tagged code fences — and never retrofit an earlier notebook's captured commands or
+  output to match a later style; that capture is historical record, not formatting. Notebook
+  filenames slug the topic's title and subtitle.
 - **The project folder** is the audience-facing half: no teaching-style comments in its code or
   config (that belongs in the matching notebook), no internal-scaffolding language, no placeholder
   text contradicting what is actually built.

@@ -164,7 +164,7 @@ container with a name already in use by an existing one (even a different, unrel
 fails outright with a "name already in use" error — the existing container has to be removed or
 renamed first before the name is free again.
 
-### 5. Named volumes
+### 1. Named volumes
 
 Same guarantee as a bind mount (data survives container deletion), except Docker manages the
 storage location instead of you picking a real folder.
@@ -196,7 +196,7 @@ storage, not a chosen host path).
 **No `docker volume rename` exists** — unlike containers, volumes can't be renamed directly; the
 real workaround is create-new, copy data across via a temporary container, then delete the old one.
 
-### 6. PowerShell vs. Linux commands
+### 2. PowerShell vs. Linux commands
 
 Wanted to create `docker-compose.yml` from the terminal for real Linux command practice — since
 the actual terminal in use is PowerShell (`PS C:\CloudOps\ignite\orbit>`), not WSL/bash, several
@@ -221,7 +221,7 @@ real differences surfaced:
 terminal — PowerShell only has partial, alias-based overlap with Linux commands, not the real
 thing, even when a command name looks identical.
 
-### 7. Safely adding a mount to an existing container
+### 3. Safely adding a mount to an existing container
 
 **Reinforced rule**: a running container's mounts (or any creation-time setting) can never be
 changed in place — confirmed again when trying to add `Volume-A` to the already-running `app-a`
@@ -293,7 +293,7 @@ Docker Desktop's **Volumes** tab (click a volume to browse its files) and a cont
 **Files** tab (browse its whole filesystem) give the same information as `docker exec ... ls`,
 just graphically.
 
-### 8. Docker Compose
+### 4. Docker Compose
 
 **Concept**: one file describing every container's build, ports, volumes, and networks, replacing
 manual `docker run`/`docker network create` commands typed by hand. Written in **YAML** — plain
@@ -382,7 +382,7 @@ down`** stops and removes every container/network Compose created from the file 
 (add `-v` to also remove the volumes declared in it) — the reverse operation to `docker compose
 up -d`, useful for a full clean teardown instead of manually removing each piece by hand.
 
-### 9. Combined scenario — diagnosing why a service can't reach another by name
+### 5. Combined scenario — diagnosing why a service can't reach another by name
 
 **Scenario, added after the initial pass** (per `CLAUDE.md`'s rule that the final day should
 include the hardest, most realistic scenario before the quiz — this one was worked through after

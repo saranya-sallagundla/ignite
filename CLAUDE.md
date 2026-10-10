@@ -147,6 +147,11 @@ Standing rules, so the repo never drifts back into the kind of issues the Topic 
   block ends with `**Verdict**: **Topic N CLEARED, attempt N, XX/100.**`; every claimed "real
   discovery," technical rule, or formula must be technically verified before being written down —
   the same rigor applied to the user's own hands-on predictions applies to how it gets recorded.
+  Going forward (Topic 12+): commands shown bare, with no shell-prompt marker; captured output
+  marked `# → output` on its own line; code fences tagged with a language. These apply to new
+  notebooks only — never retrofit an existing notebook's captured commands or output to match a
+  later style, since that captured output is real historical record, not formatting. Notebook
+  filenames slug the topic's title *and* subtitle (`topic-NN-title-subtitle.md`).
 - **`orbit/`** is the interview-facing folder: no debugging/teaching-style comments in its code
   or config (that belongs in the matching `learning/notes/` entry instead), no internal-scaffolding
   language ("not yet defensible," references to this file), and no placeholder text that

@@ -2,6 +2,7 @@
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Two-day topic per the roadmap — covered across two sessions, ending in the quiz.
 
 ---
 
@@ -593,7 +594,7 @@ was reasoned through correctly once raised. Q5 passed cleanly with the correct p
 - **Hands-on 28/30** — real, independently-debugged syntax errors throughout `classify.sh`.
 - **Depth 22/30** — functions didn't land until re-taught via concrete tracing instead of analogy.
 
-**Verdict**: **Topic 3 CLEARED, in 2 attempts, 80/100.** Lesson for future topics, worth
+**Verdict**: **Topic 3 CLEARED, attempt 2, 80/100.** Lesson for future topics, worth
 remembering: if a concept doesn't land after 2-3 varied explanations in the moment, **switch to
 concrete tracing (run real code, watch the actual values) rather than trying yet another analogy**
 — this unblocked things noticeably faster than continuing to reason abstractly.

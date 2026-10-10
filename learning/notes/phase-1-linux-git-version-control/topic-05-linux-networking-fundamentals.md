@@ -2,6 +2,8 @@
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Two-day topic per the roadmap, compressed into one session — see the Verdict for why the
+> official score reflects a same-session revision pass.
 
 ---
 
@@ -466,6 +468,6 @@ also rules out a firewall block specifically.
 - **Depth 26/30** — correctly reasoned through the reserved-address category, which went beyond
   what was explicitly taught, with guidance.
 
-**Verdict**: **Topic 5 CLEARED, official score, 82/100** — the retest score supersedes Attempt
-1's 74/100 as the logged record, reflecting the stronger, hands-on-verified understanding reached
+**Verdict**: **Topic 5 CLEARED, official score, 82/100.** The retest score supersedes Attempt 1's
+74/100 as the logged record, reflecting the stronger, hands-on-verified understanding reached
 after the revision pass.
