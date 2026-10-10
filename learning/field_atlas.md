@@ -37,9 +37,9 @@
 
 ---
 
-# Part 1 — The Field, Right Now
+## Part 1 — The Field, Right Now
 
-## 1.1 What DevOps and SRE Actually Mean Today
+### 1.1 What DevOps and SRE Actually Mean Today
 
 Forget the 2015 *Phoenix Project* image of "developers and ops merge into one happy team that
 does everything together." That's not what happened at scale. What actually happened is
@@ -71,7 +71,7 @@ developer is equally fluent in Kubernetes, on-call, and writing Terraform never 
 materialized — most orgs still have people who specialize in the infra/reliability side, they're
 just structured differently than "ops" was in 2010.
 
-## 1.2 What's Changed Recently
+### 1.2 What's Changed Recently
 
 **Went from niche to standard/expected:**
 - **Containers + Kubernetes.** Cutting-edge circa 2016-2018, now close to a baseline expectation
@@ -123,7 +123,7 @@ just structured differently than "ops" was in 2010.
   settled; teams are still actively disagreeing about the right way to build an internal
   developer platform.
 
-## 1.3 A Real Day in the Life
+### 1.3 A Real Day in the Life
 
 The honest version, not the idealized one: a meaningful chunk of the job is **interrupt-driven**,
 not planned. You come in intending to work on an automation project, and a page fires, or someone
@@ -152,7 +152,7 @@ that's already half-spent this quarter and needs to push back on risky changes, 
 feature flag / staged rollout instead of a big-bang release. A decent chunk of the actual skill in
 this job is being able to have that conversation credibly — with data, not just "no."
 
-## 1.4 The Real Skill Stack
+### 1.4 The Real Skill Stack
 
 **Technical:**
 - **Systems fundamentals** — how Linux actually works (processes, filesystem, permissions), not
@@ -183,7 +183,7 @@ this job is being able to have that conversation credibly — with data, not jus
 - **Negotiation** — being able to push back on an unsafe deploy or timeline with actual reasoning,
   not just authority.
 
-## 1.5 The Sub-Disciplines That Have Branched Off
+### 1.5 The Sub-Disciplines That Have Branched Off
 
 Every entry below explains the *actual* distinguishing practice or technology that split it off
 from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
@@ -282,9 +282,9 @@ from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
 
 ---
 
-# Part 2 — Topics Covered So Far
+## Part 2 — Topics Covered So Far
 
-## Linux
+### Linux
 
 **The real problem.** Before a shared, standardized OS with an open toolset, "the server" meant
 whatever proprietary Unix variant or early Windows Server setup a specific vendor sold you —
@@ -333,7 +333,7 @@ proxy investigation and Topic 4's `df`-timeout-as-liveness-issue (not corruption
 kind of real, non-tutorial situation — a plausible-looking symptom that needs real fundamentals to
 diagnose correctly instead of guessing and making it worse.
 
-## Git
+### Git
 
 **The real problem.** Before version control like Git, "collaborating on code" commonly meant
 emailing files around, naming things `final_v2_REALLY_FINAL.py`, or using centralized systems
@@ -377,7 +377,7 @@ even lose work." Topic 7's real cherry-pick mistake (conflict markers left in a 
 `git add`+`--continue` appearing to succeed) is exactly the kind of "it looked done but wasn't"
 trap that matters far more under real incident pressure than in a calm tutorial.
 
-## GitHub
+### GitHub
 
 **The real problem.** Git itself is a distributed version-control *tool* — it has no concept of
 "a pull request," "who's allowed to merge," or "run this automatically when code changes." Before
@@ -419,7 +419,7 @@ current class of supply-chain security incident. The branch-protection defaults 
 admins is exactly the kind of thing that looks fine in every test until the one time someone with
 admin access pushes directly to `main` under time pressure and nothing stops them.
 
-## Docker
+### Docker
 
 **The real problem.** "Works on my machine" was one of software delivery's most expensive,
 recurring failure modes — an app running fine in development, then breaking in production because
@@ -479,7 +479,7 @@ debt rather than nice-to-haves.
 
 ---
 
-# Part 3 — What Comes Next
+## Part 3 — What Comes Next
 
 Every future topic — starting with Kubernetes (Topics 12-14) and continuing through CI/CD,
 Ansible, Terraform, AWS, Python, observability, and AI-for-DevOps — gets appended here using the
@@ -488,7 +488,7 @@ the alternatives → production reality), so this stays one continuous, cross-re
 field rather than a stack of disconnected notes. The Table of Contents at the top gets a new entry
 each time a topic section is added.
 
-## Maintenance Rules
+### Maintenance Rules
 
 - **One file, forever.** Never fork a v2/v3 — this file is edited in place, every time.
 - **Table of Contents always current** — updated in the same edit that adds a new section.

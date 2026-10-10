@@ -31,7 +31,7 @@ partner, in one continuous relationship across sessions. Read `MISSION.md` and
   notebook per topic under `notes/`, filed by phase.
 - The project folder, if `MISSION.md` defines a parallel project — the piece meant to be shown,
   as opposed to `learning/`, which is the record of how it was earned.
-- `audits/` — periodic whole-repo audits, one file per milestone.
+- `audits/` — periodic whole-repo audits, dated files with an index (see Files below).
 - This file stays at the repo root — Claude Code auto-loads `CLAUDE.md` from the directory it is
   launched in, so the rules load every session regardless of which subfolder the work touches.
 
@@ -61,7 +61,7 @@ Multi-day topics are split by **escalating depth**, not by dividing content arbi
   less scaffolding, edge cases introduced.
 - Final day: the hardest, most realistic scenario — tied into the project where applicable — then
   the quiz on the whole topic, immediately after, same session.
-- Track exactly where a topic stands in `learning/progress.md`'s Current Status line: "Topic X —
+- Track exactly where a topic stands in `learning/progress.md`'s Current status line: "Topic X —
   day N of M, covered [what]" — overwritten each session, so the next session reads one line
   instead of searching back through the log.
 
@@ -105,12 +105,13 @@ before creating anything.
 
 - `MISSION.md` — fixed baseline (never edit the baseline section) plus a living pacing layer,
   updated every session.
-- `learning/progress.md` — Current Status line (read first, every session), session log, quiz
+- `learning/progress.md` — Current status line (read first, every session), session log, quiz
   record index including deferred-mastery topics, light-day log.
 - `learning/handbook_status.md` — checklist of all topics, checked off the moment a topic's quiz
   passes. Each checked line carries a score out of 100 (Quiz /40 + Hands-on /30 + Depth of
-  understanding /30) plus a compact one-line reason, computed fresh from that topic's actual
-  session history — never copy a prior topic's score.
+  understanding /30) plus a reason on its own line — specific enough to justify the score without
+  repeating the notebook, computed fresh from that topic's actual session history — never copy a
+  prior topic's score.
 - `learning/notes/phase-N-name/topic-NN-name.md` — one detailed study notebook per topic, filed
   under its phase, built up day by day: full explanations, commands actually run, real outputs,
   troubleshooting logs. The lasting reference, distinct from `progress.md` (tracking) and
@@ -153,18 +154,20 @@ Standing rules, so the repo never drifts:
 Every N topics (`MISSION.md`, default 10), run a full repo professionalism audit before starting
 the next topic — every subfolder, every file, line by line. Findings are saved to
 `audits/audit-YYYY-MM-DD.md`, added to `audits/README.md`'s index in the same commit, and
-**reviewed by the learner before any fix is applied** — never silently. Genuinely topic-specific improvements get deferred to the session that teaches that
-topic, not fixed retroactively, so they are learned hands-on rather than found pre-fixed.
+**reviewed by the learner before any fix is applied** — never silently. Genuinely topic-specific
+improvements get deferred to the session that teaches that topic, not fixed retroactively, so
+they are learned hands-on rather than found pre-fixed.
 
 ## Logging, after every session
 
-Append to `learning/progress.md`: overwrite the Current Status line first, then a dated entry
+Append to `learning/progress.md`: overwrite the Current status line first, then a dated entry
 (topic, quiz result, attempt number), the quiz record index row, the deferred-mastery row with its
 revisit deadline if a topic was just deferred, and the light-day table if a light day was claimed —
 log the reason without questioning it in the moment, state the pacing cost plainly every time
 ("this pushes the finish date back roughly a day"), and flag the pattern later if it exceeds one
-per two weeks. Append a 2–4 line recap to `learning/session_notes.md`. Commit and push after every
-session — never batch sessions into one commit.
+per two weeks. Append a short personal recap to `learning/session_notes.md` — long enough to
+capture what actually happened and what to remember, not padded, not trimmed to fit a line count.
+Commit and push after every session — never batch sessions into one commit.
 
 Update `MISSION.md`'s pacing layer every session: calendar day since Day 1 (computed in the
 mission timezone, regardless of the machine's clock), sessions completed, current topic, and Pace

@@ -113,8 +113,9 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   Claude Code the moment a topic's quiz passes (not tied to publishing on the external handbook
   site — that's a separate, unrelated action the user takes on their own timeline). Each checked
   line carries a score out of 100 (Quiz /40 + Hands-on /30 + Depth of understanding /30) plus a
-  compact one-line reason, computed fresh per topic from that topic's actual session history —
-  never copy a prior topic's score.
+  reason on its own line — specific enough to justify the score without repeating the notebook,
+  computed fresh per topic from that topic's actual session history — never copy a prior topic's
+  score.
 - `learning/notes/phase-N-name/topic-NN-name.md` — one detailed study notebook per topic, filed
   under its phase's subfolder (matching `roadmap.md`'s 7 phases), built up day by day: full
   explanations, commands actually run, real outputs, troubleshooting logs. The lasting reference
@@ -182,8 +183,9 @@ claimed (log the reason without questioning it in the moment; flag the pattern l
 exceeds one per two weeks). When logging a light day, state the pacing cost plainly every time,
 not just when a pattern emerges — e.g. "logged — this pushes the interview-ready date back
 roughly a day." This doesn't verify the reason, but it keeps the trade-off visible instead of
-feeling free. Append a 2-4 line recap to `learning/session_notes.md`. Commit and push both after
-every session — don't batch multiple sessions into one commit.
+feeling free. Append a short personal recap to `learning/session_notes.md` — long enough to
+capture what actually happened and what to remember, not padded, not trimmed to fit a line count.
+Commit and push both after every session — don't batch multiple sessions into one commit.
 
 Also update `learning/roadmap.md`'s Pacing Layer every session: Calendar Day since Day 1, session
 count completed, current topic, and Pace (behind/on track/ahead, comparing calendar days elapsed

@@ -98,24 +98,19 @@
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Using that slack is normal; it does not count as falling behind.
-- **Last recalibrated**: — (not yet due — 17 sessions completed)
+- **Last recalibrated**: — (not yet due; next routine check-in at session 20)
 - **Calendar Day since Day 1**: 20 (2026-07-25)
 - **Session count completed**: 17
-- **Active calendar days**: 19 of 20 (1 gap day: 2026-07-17 — Session 10 ran past midnight into
-  07-17's early hours, but no new session started that day)
+- **Active calendar days**: 17 of 20 — a day counts active if a session's heading is dated that
+  day (matching the rule that Session/Day headings show only the start date). 3 gap days:
+  2026-07-15, 2026-07-17, 2026-07-25 — each is a calendar day touched only by a session's
+  past-midnight spillover, with no new session starting on it.
 - **Roadmap days used**: 19 of 120 (Topics 1-11 complete, per fixed baseline allocation)
-- **Current topic**: Topic 11 — COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture &
+- **Topic state**: Topic 11 — COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture &
   Core Concepts).
 - **Pace**: on track
 - **Buffer used** (overall, the real constraint): 0 of 22
-- **Buffer used per phase** (informational only — the 22-day pool above is shared across all
-  phases, not siloed; this breakdown just shows where any usage happened, not a separate limit
-  per phase. The 7 figures below sum to 17 — matching each phase's own buffer count as listed in
-  the fixed baseline table above — not 22; the remaining 5 days are a separate, cross-cutting
-  "Extra Reserve Buffer" not tied to any single phase, per the baseline's closing note. The
-  baseline table's own "+N buffer" wording per phase is kept as-is, unedited, but should not be
-  read as a phase-locked limit — this note is the authoritative interpretation, matching
-  `CLAUDE.md`'s rule):
+- **Buffer used per phase**: informational only, see note below.
     - `Phase 1 (Linux, Git & Version Control)`: 0 of 3 — not used
     - `Phase 2 (Containers, Kubernetes & CI/CD)`: 0 of 3 — not used
     - `Phase 3 (AWS Cloud Platform)`: 0 of 4 — not started yet
@@ -123,6 +118,13 @@
     - `Phase 5 (Python for DevOps)`: 0 of 2 — not started yet
     - `Phase 6 (Observability)`: 0 of 2 — not started yet
     - `Phase 7 (AI for DevOps)`: 0 of 1 — not started yet
+    - Note: the 22-day pool above is shared across all phases, not siloed — this breakdown just
+      shows where any usage happened, not a separate limit per phase. The 7 figures sum to 17,
+      matching each phase's own buffer count in the fixed baseline table — not 22; the remaining
+      5 days are the cross-cutting "Extra Reserve Buffer" from the baseline's closing note, not
+      tied to any single phase. The baseline table's own "+N buffer" wording per phase is kept
+      as-is but should not be read as a phase-locked limit — this note is the authoritative
+      interpretation, matching `CLAUDE.md`'s rule.
 - **Notes** (pacing-relevant items only — deferrals and phase transitions; full topic narrative
   lives in `progress.md`'s session log and each topic's notebook, not here):
   - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,

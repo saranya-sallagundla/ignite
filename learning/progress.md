@@ -9,12 +9,46 @@
 > One line, overwritten every session — not appended to. This is what gets read first.
 
 Topic 11 — COMPLETE (90/100). Phase 1 complete; Phase 2 (Containers, Kubernetes & CI/CD) underway
-at 3 of 11. Next: Topic 12 — Kubernetes — Architecture & Core Concepts. SSH live connection still
-deferred to an AWS sandbox VM.
+at 3 of 11. Next: Topic 12 — Kubernetes — Architecture & Core Concepts. (SSH hands-on deferral
+tracked in roadmap.md's Pacing Layer notes.)
+
+## Quiz record index
+
+> A topic clears with one passed attempt. Three failed attempts trigger deferred mastery
+> (see `CLAUDE.md`'s 3-attempt mastery rule).
+
+| Topic # | Topic name | Attempt 1 | Attempt 2 | Attempt 3 | Status |
+|---|---|---|---|---|---|
+| 1 | Linux Fundamentals — Filesystem, SSH, VMs | PASS | — | — | Cleared |
+| 2 | Linux — Top 50 Shell Commands | PASS | — | — | Cleared |
+| 3 | Linux — Shell Scripting Basics | FAIL (functions) | PASS | — | Cleared |
+| 4 | Linux Deep Dive — Process, Log, Disk Management | PASS | — | — | Cleared |
+| 5 | Linux — Networking Fundamentals | PASS (74/100) | PASS, voluntary retest (82/100, official) | — | Cleared |
+| 6 | Git Fundamentals — Commits, Branches, Merges | PASS | — | — | Cleared |
+| 7 | Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies | PASS | — | — | Cleared |
+| 8 | GitHub — PRs, Actions Intro, Repo Management | PASS | — | — | Cleared |
+| 9 | Docker — Architecture, Images, Containers | PASS | — | — | Cleared |
+| 10 | Docker — Networking, Volumes, Docker Compose | PASS | — | — | Cleared |
+| 11 | Docker — Multi-Stage Builds & Best Practices | PASS | — | — | Cleared |
+
+## Deferred mastery topics
+
+> Topics that hit 3 failed attempts. Each must be revisited within 3 sessions of being deferred
+> and cleared with one passed retest — before any project step or later topic that assumes that
+> knowledge, and regardless of whether anything depends on it yet.
+
+| Topic # | Topic name | Deferred on (session #) | Revisit deadline (session #) | Revisited on | Cleared? |
+|---|---|---|---|---|---|
+
+## Light days log
+
+| Date | Reason given |
+|---|---|
+| 2026-07-17 | Already ahead of schedule — Sessions 9 and 10 had efficiently covered Topic 5 and Topic 6 (each a 2-day topic in the baseline) within continuous sessions starting 2026-07-14 and 2026-07-16, so this day was taken as a rest day without falling behind. Logged retroactively during a later review, since it wasn't captured in the moment. Pacing cost: none — Topics 1-8 still landed at exactly their planned 14 roadmap days total, zero overrun. |
 
 ## Session log
 
-<!-- Append one entry per session, in order. Day 1 is 2026-07-06 IST. -->
+<!-- Append one entry per session, in order. -->
 ### Session 1 — 2026-07-06
 - Topic in progress: Topic 1 — Linux Fundamentals — Filesystem, SSH, VMs (day 1 of 2)
 - Covered: filesystem hierarchy & permissions (rwx/octal, ownership, `stat` timestamps),
@@ -90,7 +124,7 @@ deferred to an AWS sandbox VM.
   (a real script printing `$1` at three points) instead of another analogy, then **Attempt 2 —
   full retest, all-new questions — PASS**, same session, after a short break. Full record in
   `learning/notes/phase-1-linux-git-version-control/topic-03-shell-scripting-basics.md`.
-  **Topic 3 CLEARED, in 2 attempts**
+  **Topic 3 CLEARED, attempt 2**
   **80/100 (Quiz 30/40, Hands-on 28/30, Depth 22/30)**
 - Check-in: 2026-07-11 22:26 IST — Check-out: 2026-07-12 10:02 IST (long session incl. a
   fatigue-driven pause partway through; Attempt 1 quiz ran ~32 minutes, Attempt 2 retest ~23
@@ -348,36 +382,3 @@ deferred to an AWS sandbox VM.
   **90/100 (Quiz 36/40, Hands-on 29/30, Depth 25/30)**
 - Check-in: 2026-07-24 22:56 IST — Check-out: 2026-07-25 02:04 IST
 
-## Quiz record index
-
-> A topic clears with one passed attempt. Three failed attempts trigger deferred mastery
-> (see `CLAUDE.md`'s 3-attempt mastery rule).
-
-| Topic # | Topic name | Attempt 1 | Attempt 2 | Attempt 3 | Status |
-|---|---|---|---|---|---|
-| 1 | Linux Fundamentals — Filesystem, SSH, VMs | PASS | — | — | Cleared |
-| 2 | Linux — Top 50 Shell Commands | PASS | — | — | Cleared |
-| 3 | Linux — Shell Scripting Basics | FAIL (functions) | PASS | — | Cleared |
-| 4 | Linux Deep Dive — Process, Log, Disk Management | PASS | — | — | Cleared |
-| 5 | Linux — Networking Fundamentals | PASS (74/100) | PASS, voluntary retest (82/100, official) | — | Cleared |
-| 6 | Git Fundamentals — Commits, Branches, Merges | PASS | — | — | Cleared |
-| 7 | Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies | PASS | — | — | Cleared |
-| 8 | GitHub — PRs, Actions Intro, Repo Management | PASS | — | — | Cleared |
-| 9 | Docker — Architecture, Images, Containers | PASS | — | — | Cleared |
-| 10 | Docker — Networking, Volumes, Docker Compose | PASS | — | — | Cleared |
-| 11 | Docker — Multi-Stage Builds & Best Practices | PASS | — | — | Cleared |
-
-## Deferred mastery topics
-
-> Topics that hit 3 failed attempts. Each must be revisited within 3 sessions of being deferred
-> and cleared with one passed retest — before any project step or later topic that assumes that
-> knowledge, and regardless of whether anything depends on it yet.
-
-| Topic # | Topic name | Deferred on (session #) | Revisit deadline (session #) | Revisited on | Cleared? |
-|---|---|---|---|---|---|
-
-## Light days log
-
-| Date | Reason given |
-|---|---|
-| 2026-07-17 | Already ahead of schedule — Sessions 9 and 10 had efficiently covered Topic 5 and Topic 6 (each a 2-day topic in the baseline) within continuous sessions starting 2026-07-14 and 2026-07-16, so this day was taken as a rest day without falling behind. Logged retroactively during a later review, since it wasn't captured in the moment. Pacing cost: none — Topics 1-8 still landed at exactly their planned 14 roadmap days total, zero overrun. |

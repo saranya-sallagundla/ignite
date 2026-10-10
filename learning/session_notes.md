@@ -4,6 +4,8 @@
 > Dates are IST (UTC+5:30), format YYYY-MM-DD. After each session, a short recap: what happened,
 > what was hard, what to remember.
 
+<!-- Append one entry per session, in order. -->
+
 ## Session 1 — 2026-07-06
 VM vs container took two full passes to actually click — first explanation didn't land; the
 apartment/foundation analogy is what finally made it stick. Also caught myself asking for
@@ -172,5 +174,3 @@ was pointed out as a puzzle (231MB final image bigger than the 210MB builder-onl
 proved the fix worked with real before/after numbers instead of just trusting it. Also caught
 myself mixing up root with sudo during the quiz; good to have that cleared up precisely rather
 than left fuzzy.
-
-<!-- Copy the block above for each new session -->
