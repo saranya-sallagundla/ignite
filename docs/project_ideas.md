@@ -1,6 +1,6 @@
 # Project ideas — the portfolio after orbit
 
-> Drafted 2026-08-13 IST. Nine future projects that build on the stack this curriculum teaches
+> Nine future projects that build on the stack this curriculum teaches
 > (k3s, LocalStack, Terraform, Prometheus/Grafana, local AI agents), each buildable solo at zero
 > cloud cost. [Orbit](../orbit/) — the autonomous SRE agent with a live incident dashboard — stays
 > #1 and in flight; these are what comes after it.
@@ -14,7 +14,7 @@ nearest neighbor could not become this without being rebuilt — it is labelled 
 positioning (open vs SaaS, local vs cloud, packaging), it is labelled that, honestly. Nothing
 here claims "never been done" without showing what was looked at.
 
-**Novelty decays.** These checks are true as of 2026-08-13. The AI-for-operations space is moving
+**Novelty decays.** The AI-for-operations space is moving
 monthly — re-run the searches before committing to build anything below.
 
 **Ranking is impressiveness-to-effort**: how hard the demo moment lands, divided by how much solo
@@ -362,8 +362,8 @@ keywords.
 **MVP, solo, zero cloud cost.** A failure-pattern schema (trigger, propagation mechanism, symptom
 signature, mitigations); a local-LLM pipeline that extracts it from ~100 public postmortems into
 a graph; a matcher that takes a live incident description (or orbit's alert payloads) and returns
-ranked pattern matches with provenance. Ignite's own `field_atlas.md` — 502 lines of sourced,
-confidence-rated field mapping — is the editorial prototype for the discipline this needs.
+ranked pattern matches with provenance. Ignite's own `field_atlas.md` — a sourced,
+confidence-rated map of the field — is the editorial prototype for the discipline this needs.
 
 **The demo moment.** Paste a raw, messy incident description mid-firefight; get back "split
 brain following network partition — 82% — GitHub 2018, Cloudflare 2020; mitigation that worked

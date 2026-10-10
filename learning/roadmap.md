@@ -94,72 +94,49 @@
 
 ## Pacing Layer (LIVING — only section that changes)
 
-- **Day 1**: 2026-07-06 (IST, UTC+5:30). All dates and calendar-day counts below use IST
-  regardless of the timezone Claude Code's host machine defaults to.
-- **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
-  the remaining ~60 are deliberate slack for the mastery rule's retries and project polish.
-  Using that slack is normal; it does not count as falling behind.
-- **Last recalibrated**: 2026-09-21, per `rules.md` §6's 5+ days behind rule. The check that
-  triggers this now runs every session — see `rules.md` §2.
-- **Calendar Day since Day 1**: 82 (2026-09-25), of a 184-day total span to the outer deadline
-- **Session count completed**: 18 teaching sessions. Audits (2026-08-13, 2026-08-26, 2026-08-31)
-  aren't counted here since they don't advance the roadmap.
-- **Active calendar days**: 18 of 82 — a day counts active if a session's heading is dated that
-  day (matching the rule that Session/Day headings show only the start date). Inside the first 20
-  days there were 3 gaps (2026-07-15, 2026-07-17, 2026-07-25). The 58-day gap (2026-07-25 →
-  2026-09-21) ended with Session 18 starting 2026-09-22 — Topic 12 (Kubernetes) Day 1 taught,
-  no longer an ongoing gap. No session since: 2026-09-23 → 2026-09-25 are 3 inactive days.
-- **Roadmap days used**: 19 of 98 **core** days (Topics 1-11 complete, per fixed baseline
-  allocation; Topic 12 Day 1 of 2 in progress, not yet a completed roadmap day) — 79 core days
-  remain. Stated against the 98-day core figure deliberately, not against the 120-day total: 120
-  includes the 22 buffer days tracked separately below, so "19 of 120" mixed two different bases
-  and could never diverge from the baseline, making it useless as a pace signal.
-- **Topic state**: Topic 11 — COMPLETE (90/100). Topic 12 (Kubernetes — Architecture & Core
-  Concepts) — day 1 of 2 done (architecture + local 2-node `kind` cluster verified); Day 2 +
-  quiz next.
-- **Pace**: Behind by ~25 core days — ~22 from the 58-day gap (2026-07-25 to 2026-09-21), plus the
-  3 inactive days since Session 18. Deadline still fits, with 3 days of slack: 100 roadmap days of
-  work remain (Session 18's Topic 12 Day 1 counts as a day done, even though Roadmap days used
-  only moves when the topic completes) against 103 calendar days to 2027-01-06. Two more
-  inactive days reach the 5-day slip that calls for a fresh recalibration.
-- **Slack remaining**: 3 of 64 days.
-- **Buffer used** (the 22-day pool inside the baseline): 0 of 22 — genuinely untouched. Per
-  `rules.md` §6, this figure moves only when a reserve day funds a deferred-mastery revisit or a
-  topic overruns its allotted days; neither has happened (no deferred-mastery topics, and Topics
-  1-11 landed at exactly their allotted 19 days, zero overrun). The gap drew on the separate slack
-  pool above, which is why this line correctly still reads 0.
-- **Buffer used per phase**: informational only, see note below.
-    - `Phase 1 (Linux, Git & Version Control)`: 0 of 3 — not used
-    - `Phase 2 (Containers, Kubernetes & CI/CD)`: 0 of 3 — not used
-    - `Phase 3 (AWS Cloud Platform)`: 0 of 4 — not started yet
-    - `Phase 4 (Terraform Deep Dive)`: 0 of 2 — not started yet
-    - `Phase 5 (Python for DevOps)`: 0 of 2 — not started yet
-    - `Phase 6 (Observability)`: 0 of 2 — not started yet
-    - `Phase 7 (AI for DevOps)`: 0 of 1 — not started yet
-    - Note: the 22-day pool above is shared across all phases, not siloed — this breakdown just
-      shows where any usage happened, not a separate limit per phase. The 7 figures sum to 17,
-      matching each phase's own buffer count in the fixed baseline table — not 22; the remaining
-      5 days are the cross-cutting "Extra Reserve Buffer" from the baseline's closing note, not
-      tied to any single phase. The baseline table's own "+N buffer" wording per phase is kept
-      as-is but should not be read as a phase-locked limit — this note is the authoritative
-      interpretation, matching `rules.md` §6.
-- **Notes** (pacing-relevant items only — deferrals and phase transitions; full topic narrative
-  lives in `progress.md`'s session log and each topic's notebook, not here):
-  - **Gap, 2026-07-25 → present, no teaching sessions.** Started after Session 17 (2026-07-24);
-    still ongoing as of this recalibration (58 days, 2026-09-21). Reason not recorded here by
-    design, per the Light Days privacy note. Pacing cost so far: 58 days from the 64-day slack
-    pool, leaving 6. Logged here rather than the Light Days table since that table is for single
-    days.
-  - This gap first showed up in the 2026-08-13 audit and wasn't recalibrated until 2026-08-31 —
-    the staleness check was scoped to teaching sessions only at the time; fixed 2026-08-31, see
-    `rules.md` §2.
-  - **2026-09-23 → 2026-09-25: 3 inactive days after Session 18** — 3 more slack days used, 3 left.
-    Updated 2026-09-25 during a repo-maintenance session, not a recalibration.
-  - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,
-    Kubernetes & CI/CD) is now underway.
-  - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
-    traffic; retry via AWS sandbox VM once access is ready.
-- **Recalibration verdict, 2026-09-21**: the remaining roadmap still fits the 6-month deadline —
-  101 roadmap days of work against 107 calendar days, leaving 6 days of slack. No topics dropped,
-  no allocations altered. A further gap of a week or more means the 2027-01-06 date moves. Next
-  routine check-in at session 37, or sooner if Pace slips another 5 days.
+- **Day 1**: 2026-09-14 (IST, UTC+5:30). All dates and day counts use IST, regardless of the
+  machine's time zone.
+- **Outer deadline**: 2027-03-14, 6 months from Day 1. The plan needs about 120 days. The other ~60
+  are spare time for retries and project polish. Using spare time is normal, not falling behind.
+- **Last recalibrated**: not yet due. Due at Session 20, or as soon as Pace shows 5+ days behind
+  (`rules.md` §6). The check runs every session (`rules.md` §2).
+- **Today**: Day 26 of 181 (2026-10-09).
+- **Session**: 18 teaching sessions completed. Audits aren't counted, as they don't advance the
+  roadmap.
+  - **Active days**: 19 of 22 (through Session 18, 2026-10-05). A day is active if a session ran on
+    it.
+  - **Inactive**: 2026-09-25 (light day), 2026-10-03 to 2026-10-04.
+- **Roadmap days used**: 19 of 98 **core days**, so 79 remain. This counts against the 98 core days,
+  not the 120-day total, because the 120 includes the 22 buffer days tracked below.
+- **Topic state**: Topic 11 complete (90/100). Topic 12 (Kubernetes — Architecture & Core Concepts):
+  day 1 of 2 done (architecture taught, local 2-node `kind` cluster verified). Day 2 and the quiz
+  are next.
+- **Pace**: About 5 days ahead of plan.
+  - *Done so far*: 19 days of topics (Topics 1 to 11).
+  - *Expected by today (Day 26)*: about 14 days.
+  - *Spare days used so far*: 5.
+  - *Watch point*: if no new topic is finished by Day 45 (2026-10-28), the plan falls 5 days behind
+    and gets recalibrated.
+- **Slack remaining**: 56 of 61 days. There are 156 days left until the deadline (2027-03-14), and
+  100 days of work left.
+- **Buffer used**: 0 of 22. Per `rules.md` §6, it moves only when a buffer day pays for a
+  deferred-topic revisit or a topic overruns its allotted days. Neither has happened. Inactive days
+  come out of spare time, not the buffer.
+- **Buffer used per phase**:
+    - `Phase 1 (Linux, Git & Version Control)`: 0 of 3, not used
+    - `Phase 2 (Containers, Kubernetes & CI/CD)`: 0 of 3, not used
+    - `Phase 3 (AWS Cloud Platform)`: 0 of 4, not started yet
+    - `Phase 4 (Terraform Deep Dive)`: 0 of 2, not started yet
+    - `Phase 5 (Python for DevOps)`: 0 of 2, not started yet
+    - `Phase 6 (Observability)`: 0 of 2, not started yet
+    - `Phase 7 (AI for DevOps)`: 0 of 1, not started yet
+    - Note: the 22-day pool is shared by all phases. This list only shows where any usage happened.
+      The 7 figures add up to 17, matching each phase's buffer in the baseline table. The other 5
+      days are the "Extra Reserve Buffer" from the baseline's closing note, not tied to any phase.
+      Read each phase's "+N buffer" in the baseline the same way: a share of one pool, not a locked
+      limit (`rules.md` §6).
+- **Notes** (pacing items only; the full story is in `progress.md` and the notebooks):
+  - Updated 2026-10-09 in a maintenance session, not a recalibration.
+  - SSH hands-on (local sshd) is still deferred. The corporate network blocks outbound WSL traffic.
+    Retry on an AWS sandbox VM once access is ready.
+- **Recalibration verdict**: none yet. The roadmap fits the deadline with 56 days of slack.
