@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-24 (multi-stage builds, non-root user, gunicorn, a real layer-duplication bug found and fixed)
+## Day 1 — 2026-10-02 (multi-stage builds, non-root user, gunicorn, a real layer-duplication bug found and fixed)
 
 ### Today's agenda
 1. Why multi-stage builds exist — the problem a single-stage Dockerfile has.
@@ -132,7 +132,9 @@ to the final stage. This is the fully annotated version — the notebook is wher
 comments belong; the real `orbit/app/Dockerfile` stays clean (see the note below):
 ```dockerfile
 # ---- Stage 1: builder — installs dependencies, discarded after this stage ----
-FROM python:3.12-slim AS builder
+# Base image pinned by digest: a tag like 3.12-slim moves to a new build with every
+# update; a digest names one exact build. This one ships the fixed perl-base.
+FROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 AS builder
 WORKDIR /app
 
 # Create a virtual environment at /opt/venv — a self-contained folder of Python
@@ -146,7 +148,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # --no-cache-dir skips pip's own download cache, keeping the image smaller.
 
 # ---- Stage 2: final — what actually ships and runs ----
-FROM python:3.12-slim
+FROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
 WORKDIR /app
 
 # Pull in ONLY the finished virtual environment from Stage 1 — Stage 1 itself,
@@ -184,12 +186,16 @@ HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
 ```
 
+This first version has a layer bug — found and fixed in §6, Issue 2. The fixed version there is
+what `orbit/app/Dockerfile` ships.
+
 **A note on file cleanliness**: the version above, with a comment on nearly every instruction, is
 deliberately how it's kept *here*, in the notebook. The first draft put these same comments
 directly into the real `orbit/app/Dockerfile`, which made that file look intimidatingly large,
 and also directly broke `CLAUDE.md`'s own "Repo quality standards" (no teaching-style comments in
 `orbit/` code — that explanation belongs here instead). The real file was stripped down to just
-two short section labels (`# Stage 1: builder`, `# Stage 2: final`) — see `orbit/app/Dockerfile`
+two short section labels (`# Stage 1: builder`, `# Stage 2: final`) and a one-line note on the
+pinned base — see `orbit/app/Dockerfile`
 for the actual, clean, shipped version.
 
 `docker-compose.yml` also updated — added a real, versioned image tag instead of an
@@ -203,9 +209,9 @@ services:
       - "5000:5000"
 ```
 
-> **Note, added 2026-08-31**: at the time this session ran, `docker-compose.yml` set no
+> **Note**: at the time this session ran, `docker-compose.yml` set no
 > `container_name`, so Compose auto-generated one (`orbit-app-1`, seen throughout the section
-> below) — accurate for what was actually run and captured. The 2026-07-29 `project` → `orbit`
+> below) — accurate for what was actually run and captured. The `project` → `orbit`
 > rename later added `name: orbit` and `container_name: orbit-app` to the real file, so today the
 > container is simply named `orbit-app`, no numeric suffix. Left the captured commands below as
 > originally run rather than rewriting real historical output to match a file that didn't exist
@@ -296,7 +302,7 @@ separate `RUN chown` step afterward.
 **Fix**: set ownership *during* the copy itself, with `COPY --chown=`, instead of a separate
 `chown -R` afterward:
 ```dockerfile
-FROM python:3.12-slim
+FROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
 WORKDIR /app
 RUN useradd --create-home appuser
 COPY --from=builder --chown=appuser /opt/venv /opt/venv

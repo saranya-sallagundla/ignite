@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-22 (bridge networking, container-to-container DNS, bind mounts)
+## Day 1 — 2026-09-30 (bridge networking, container-to-container DNS, bind mounts)
 
 ### Today's agenda
 1. Docker networking — the bridge concept.
@@ -152,7 +152,7 @@ only way to change them is delete-and-recreate.
 
 ---
 
-## Day 2 — 2026-07-23 (named volumes, Docker Compose, combined scenario — final day)
+## Day 2 — 2026-10-01 (named volumes, Docker Compose, combined scenario — final day)
 
 ### Today's agenda
 1. Named volumes.
@@ -229,7 +229,7 @@ thing, even when a command name looks identical.
 changed in place — confirmed again when trying to add `Volume-A` to the already-running `app-a`
 (which already had the bind mount).
 
-> **Editorial note, added 2026-08-31**: Day 1's own record above creates `app-a` bare
+> **Editorial note**: Day 1's own record above creates `app-a` bare
 > (`docker run -d --name app-a orbit-app:v2`, no `-v`) and demonstrates the bind mount on a
 > separately-named container, `app-c`. The command that actually gave `app-a` the bind mount
 > referenced from here on isn't captured earlier in this notebook. Left as originally written

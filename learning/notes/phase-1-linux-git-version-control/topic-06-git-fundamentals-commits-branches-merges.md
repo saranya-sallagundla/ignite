@@ -3,11 +3,11 @@
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (the session log).
 > Two-day topic per the roadmap, compressed into one session (Day 1 and Day 2 both covered
-> 2026-07-16), ending in the quiz.
+> 2026-09-24), ending in the quiz.
 
 ---
 
-## Day 1 — 2026-07-16 (heavy scaffolding: commits, branches, fast-forward merge)
+## Day 1 — 2026-09-24 (heavy scaffolding: commits, branches, fast-forward merge)
 
 Practiced from Windows PowerShell directly (`C:\CloudOps\git-practice`), not WSL — Git's core
 behavior is the same either way (line-ending defaults differ, see the CRLF note below); this
@@ -158,13 +158,13 @@ PS> git commit -m "Add 2nd line to readme"
 PS> git log
 commit b2a04469245e2eb042bd3d8d7bb50b63f6106ffc (HEAD -> master)
 Author: Saranya Sallagundla <user@example.com>
-Date:   Thu Jul 16 15:06:17 2026 -0400
+Date:   Thu Sep 24 15:06:17 2026 -0400
 
     Add 2nd line to readme
 
 commit 9925f299c623efb1722e7b77d075dd1542d31b9b
 Author: Saranya Sallagundla <user@example.com>
-Date:   Thu Jul 16 14:54:34 2026 -0400
+Date:   Thu Sep 24 14:54:34 2026 -0400
 
     Add readme file
 ```
@@ -242,19 +242,19 @@ commit:
 PS> git log
 commit 714ab7c901b6f554e2f4ee786719ccc642371b17 (HEAD -> master, feature-branch)
 Author: Saranya Sallagundla <user@example.com>
-Date:   Thu Jul 16 15:13:59 2026 -0400
+Date:   Thu Sep 24 15:13:59 2026 -0400
 
     add feature line
 
 commit b2a04469245e2eb042bd3d8d7bb50b63f6106ffc
 Author: Saranya Sallagundla <user@example.com>
-Date:   Thu Jul 16 15:06:17 2026 -0400
+Date:   Thu Sep 24 15:06:17 2026 -0400
 
     Add 2nd line to readme
 
 commit 9925f299c623efb1722e7b77d075dd1542d31b9b
 Author: Saranya Sallagundla <user@example.com>
-Date:   Thu Jul 16 14:54:34 2026 -0400
+Date:   Thu Sep 24 14:54:34 2026 -0400
 
     Add readme file
 ```
@@ -264,7 +264,7 @@ match, no real "combining" needed.
 
 ---
 
-## Day 2 — 2026-07-16 (harder: real merge conflicts, `.gitignore`, `git diff`, combined scenario)
+## Day 2 — 2026-09-24 (harder: real merge conflicts, `.gitignore`, `git diff`, combined scenario)
 
 ### Today's agenda
 1. Why the first "conflict" attempt wasn't actually a conflict.

@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-10 (script structure, variables, conditionals)
+## Day 1 — 2026-09-18 (script structure, variables, conditionals)
 
 ### Today's agenda
 1. What is a shell script, and the shebang line.
@@ -222,7 +222,7 @@ Used here because multi-line scripts are more natural to write in a real editor 
 
 ---
 
-## Day 2 — 2026-07-11 (loops, functions, exit codes — Attempt 1 function-scoping gap re-taught and re-passed same session)
+## Day 2 — 2026-09-19 (loops, functions, exit codes — Attempt 1 function-scoping gap re-taught and re-passed same session)
 
 ### Today's agenda
 1. Loops — `for` and `while`.

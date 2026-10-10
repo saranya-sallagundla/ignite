@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-12 (process states, /proc, nice/renice, log basics)
+## Day 1 — 2026-09-20 (process states, /proc, nice/renice, log basics)
 
 Goes deeper than Topic 2's `ps`/`top` basics.
 
@@ -222,12 +222,12 @@ Topic 1: `/var` holds data that grows over time.
 ```
 $ ls -l /var/log | head -10
 ...
--rw-r--r--  1 root   root    178 Jul 10 13:44 alternatives.log
+-rw-r--r--  1 root   root    178 Sep 18 13:44 alternatives.log
 -rw-r--r--  1 root   root  29315 Jun 27 06:04 alternatives.log.1
 ...
--rw-r-----  1 syslog adm    5310 Jul 12 15:17 auth.log
--rw-r-----  1 syslog adm   21120 Jul 11 23:17 auth.log.1
--rw-r-----  1 syslog adm    2673 Jul  6 13:50 auth.log.2.gz
+-rw-r-----  1 syslog adm    5310 Sep 20 15:17 auth.log
+-rw-r-----  1 syslog adm   21120 Sep 19 23:17 auth.log.1
+-rw-r-----  1 syslog adm    2673 Sep 14 13:50 auth.log.2.gz
 ```
 Current log, previous rotation (`.1`), and an older one already compressed (`.2.gz`, using
 gzip from Topic 2) — log rotation happening for real, not just a described concept.
@@ -243,10 +243,10 @@ what used to be scattered across separate plain-text files.
 **Verified hands-on — real entries recognized from earlier work**:
 ```
 $ journalctl -n 10
-Jul 12 15:15:35 ... sudo[70805]: pam_unix(sudo:session): session closed for user root
-Jul 12 15:17:01 ... CRON[71176]: pam_unix(cron:session): session opened for user root...
-Jul 12 15:17:01 ... CRON[71177]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
-Jul 12 15:20:35 ... systemd-timesyncd[114]: Timed out waiting for reply from ... (ntp.ubuntu.com)
+Sep 20 15:15:35 ... sudo[70805]: pam_unix(sudo:session): session closed for user root
+Sep 20 15:17:01 ... CRON[71176]: pam_unix(cron:session): session opened for user root...
+Sep 20 15:17:01 ... CRON[71177]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)
+Sep 20 15:20:35 ... systemd-timesyncd[114]: Timed out waiting for reply from ... (ntp.ubuntu.com)
 ```
 - The `sudo` entry is literally the `renice` command from earlier, showing up in the real log.
 - **`cron(175)` vs. `CRON[71176]`**: `cron(175)` (an illustrative PID, not from the `pstree` run
@@ -297,8 +297,8 @@ wrong," but the `systemd-timesyncd` timeout messages from earlier are a genuine 
 they just don't contain the literal words "error" or "fail," they say "Timed out" instead:
 ```
 $ journalctl -n 50 | grep "Time"
-Jul 12 15:20:35 ... systemd-timesyncd[114]: Timed out waiting for reply from ...
-Jul 12 15:20:45 ... systemd-timesyncd[114]: Timed out waiting for reply from ...
+Sep 20 15:20:35 ... systemd-timesyncd[114]: Timed out waiting for reply from ...
+Sep 20 15:20:45 ... systemd-timesyncd[114]: Timed out waiting for reply from ...
 ...
 ```
 **Takeaway**: log searching is only as good as the keywords chosen — a real issue can exist in
@@ -308,7 +308,7 @@ don't always know in advance how a problem will be phrased.
 
 ---
 
-## Day 2 — 2026-07-13 (disk management: partitions, mounting)
+## Day 2 — 2026-09-21 (disk management: partitions, mounting)
 
 ### Today's agenda
 1. The land/lot/driveway analogy.
@@ -438,8 +438,8 @@ loop0 ext4   1.0         57ea35a9-50ee-422f-b798-7cd4e839274f   82.7M     0% /mn
 
 $ sudo touch /mnt/test/hello.txt
 $ ls -l /mnt/test
--rw-r--r-- 1 root root     0 Jul 13 17:54 hello.txt
-drwx------ 2 root root 16384 Jul 13 17:51 lost+found
+-rw-r--r-- 1 root root     0 Sep 21 17:54 hello.txt
+drwx------ 2 root root 16384 Sep 21 17:51 lost+found
 ```
 Fully verified end-to-end: file → loop device → formatted filesystem → mounted → usable (created
 a real file on it), not just cosmetically attached.

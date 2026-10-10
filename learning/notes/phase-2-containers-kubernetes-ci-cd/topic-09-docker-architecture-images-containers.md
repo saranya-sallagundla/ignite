@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-20 (architecture, terms, images vs. containers, first Dockerfile)
+## Day 1 — 2026-09-28 (architecture, terms, images vs. containers, first Dockerfile)
 
 ### Today's agenda
 
@@ -393,9 +393,9 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://127.0.0.1:5000
  * Running on http://172.17.0.2:5000
 Press CTRL+C to quit
-172.17.0.1 - - [21/Jul/2026 05:02:54] "GET /health HTTP/1.1" 200 -
-172.17.0.1 - - [21/Jul/2026 05:02:54] "GET /favicon.ico HTTP/1.1" 404 -
-172.17.0.1 - - [21/Jul/2026 05:03:03] "GET /health HTTP/1.1" 200 -
+172.17.0.1 - - [29/Sep/2026 05:02:54] "GET /health HTTP/1.1" 200 -
+172.17.0.1 - - [29/Sep/2026 05:02:54] "GET /favicon.ico HTTP/1.1" 404 -
+172.17.0.1 - - [29/Sep/2026 05:03:03] "GET /health HTTP/1.1" 200 -
 ```
 Two small real details explained:
 - The `"GET /health HTTP/1.1" 200 -` lines are the actual browser requests from earlier, captured
@@ -468,7 +468,7 @@ quiz today) — chose to stop after Day 1's full agenda instead.
 
 ---
 
-## Day 2 — 2026-07-21 (cache invalidation, image tagging, independent task — final day)
+## Day 2 — 2026-09-29 (cache invalidation, image tagging, independent task — final day)
 
 ### Today's agenda
 

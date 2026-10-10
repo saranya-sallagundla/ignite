@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-18 (rebase, cherry-pick, branching strategies)
+## Day 1 — 2026-09-26 (rebase, cherry-pick, branching strategies)
 
 Practiced in the same `C:\CloudOps\git-practice` folder from Topic 6, Windows PowerShell/VS Code.
 
@@ -185,7 +185,7 @@ hint: ... "git cherry-pick --continue" / "--skip" / "--abort" ...
 PS> git add readme.txt
 PS> git cherry-pick --continue
 [real-conflict f2047ec] add feature line
- Date: Thu Jul 16 15:13:59 2026 -0400
+ Date: Thu Sep 24 15:13:59 2026 -0400
  1 file changed, 3 insertions(+)
 ```
 

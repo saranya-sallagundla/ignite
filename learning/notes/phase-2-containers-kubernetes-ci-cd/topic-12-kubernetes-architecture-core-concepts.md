@@ -3,11 +3,10 @@
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (the session log).
 > Two-day topic per the roadmap — covered across two sessions, ending in the quiz. This session
-> was also the first one after a real 58-day gap since Topic 11 — picked back up cleanly.
 
 ---
 
-## Day 1 — 2026-09-22 (what Kubernetes is, control-plane/worker architecture, the Pod, a real local cluster)
+## Day 1 — 2026-10-05 (what Kubernetes is, control-plane/worker architecture, the Pod, a real local cluster)
 
 ### Today's agenda
 1. What Kubernetes is, why it matters to DevOps, how it fixes real problems, and the alternatives.

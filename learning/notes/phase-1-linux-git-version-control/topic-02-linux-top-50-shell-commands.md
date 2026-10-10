@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-08 (file viewing, search, text processing)
+## Day 1 — 2026-09-16 (file viewing, search, text processing)
 
 Grouped thematically rather than as a random list, since that's how these get used in practice.
 Skips what Topic 1 already covered: `ls`, `cd`, `mkdir`, `cp`, `mv`, `rm`, `chmod` (`head` and
@@ -276,7 +276,7 @@ count, no concept of original line position at all).
 
 ---
 
-## Day 2 — 2026-07-09 (process/system monitoring, networking, archiving)
+## Day 2 — 2026-09-17 (process/system monitoring, networking, archiving)
 
 ### Today's agenda
 1. Process monitoring — `ps`, `top`, `kill`, signals.
@@ -467,13 +467,13 @@ practice/logs/log2.txt
 ...
 
 $ tar -tzvf practice-backup.tar.gz | head -5
-drwxr-xr-x devuser/devuser   0 2026-07-08 20:07 practice/
--rw-r--r-- devuser/devuser 125 2026-07-08 18:17 practice/app.log
-lrwxrwxrwx devuser/devuser   0 2026-07-07 16:09 practice/hardlink2.txt -> original.txt
+drwxr-xr-x devuser/devuser   0 2026-09-16 20:07 practice/
+-rw-r--r-- devuser/devuser 125 2026-09-16 18:17 practice/app.log
+lrwxrwxrwx devuser/devuser   0 2026-09-15 16:09 practice/hardlink2.txt -> original.txt
 ...
 
 $ ls -lh practice-backup.tar.gz
--rw-r--r-- 1 devuser devuser 1014 Jul  9 19:23 practice-backup.tar.gz
+-rw-r--r-- 1 devuser devuser 1014 Sep 17 19:23 practice-backup.tar.gz
 ```
 Confirms: archiving is recursive (includes the `logs/` subfolder), symlinks are preserved as
 symlinks inside the archive (not copied as regular files — the `->` arrow notation survives),

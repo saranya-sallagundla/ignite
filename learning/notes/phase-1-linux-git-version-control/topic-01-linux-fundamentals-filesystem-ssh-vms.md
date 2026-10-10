@@ -6,7 +6,7 @@
 
 ---
 
-## Day 1 — 2026-07-06 (heavy scaffolding, guided walkthrough)
+## Day 1 — 2026-09-14 (heavy scaffolding, guided walkthrough)
 
 ### Today's agenda
 1. The Linux filesystem — why it's laid out the way it is.
@@ -40,19 +40,19 @@ Commands run: `pwd`, `whoami`, `ls -la ~`, `ls /`
 **Output — `ls -la ~`**:
 ```
 total 40
-drwxr-x--- 6 devuser devuser 4096 Jul  6 14:28 .
+drwxr-x--- 6 devuser devuser 4096 Sep 14 14:28 .
 drwxr-xr-x 3 root    root    4096 Mar 15 10:59 ..
 lrwxrwxrwx 1 devuser devuser   25 Jun 26 07:08 .aws -> /mnt/c/Users/devuser/.aws
 lrwxrwxrwx 1 devuser devuser   27 Jun 26 07:08 .azure -> /mnt/c/Users/devuser/.azure
 -rw------- 1 devuser devuser   16 Apr 26 04:35 .bash_history
 -rw-r--r-- 1 devuser devuser  220 Mar 15 10:59 .bash_logout
 -rw-r--r-- 1 devuser devuser 3771 Mar 15 10:59 .bashrc
-drwx------ 3 devuser devuser 4096 Jul  6 14:28 .cache
-drwx------ 3 devuser devuser 4096 Jul  6 14:28 .copilot
+drwx------ 3 devuser devuser 4096 Sep 14 14:28 .cache
+drwx------ 3 devuser devuser 4096 Sep 14 14:28 .copilot
 drwxr-xr-x 4 devuser devuser 4096 Jun 26 07:08 .docker
--rw-rw-r-- 1 devuser devuser    0 Jul  6 13:50 .motd_shown
+-rw-rw-r-- 1 devuser devuser    0 Sep 14 13:50 .motd_shown
 -rw-r--r-- 1 devuser devuser  807 Mar 15 10:59 .profile
-drwxr-xr-x 5 devuser devuser 4096 Jul  6 14:28 .vscode-server
+drwxr-xr-x 5 devuser devuser 4096 Sep 14 14:28 .vscode-server
 ```
 Note `.aws` and `.azure` are symlinks (`l`) into `/mnt/c/Users/devuser/...` — Windows integration
 sharing AWS/Azure credentials between WSL and Windows tools.
@@ -67,7 +67,7 @@ bin     boot               etc  init  lib.usr-is-merged  lost+found  mnt    proc
 
 Example output style:
 ```
-drwx------ 3 devuser devuser 4096 Jul  6 14:28 .cache
+drwx------ 3 devuser devuser 4096 Sep 14 14:28 .cache
 -rw------- 1 devuser devuser   16 Apr 26 04:35 .bash_history
 ```
 
@@ -96,8 +96,8 @@ data file like `.bash_history`.
 **Output**:
 ```
 total 820
-drwxr-xr-x 88 root root       4096 Jul  6 14:31 .
-drwxr-xr-x 33 root root       4096 Jul  6 14:30 ..
+drwxr-xr-x 88 root root       4096 Sep 14 14:31 .
+drwxr-xr-x 33 root root       4096 Sep 14 14:30 ..
 -rw-------  1 root root          0 Feb  9 19:54 .pwd.lock
 -rw-r--r--  1 root root        862 Feb  9 19:54 .resolv.conf.systemd-resolved.bak
 ```
@@ -130,7 +130,7 @@ ownership + restrictive permissions forces `sudo` for system changes — a delib
   Size: 3771            Blocks: 8          IO Block: 4096   regular file
 Device: 8,48    Inode: 46478       Links: 1
 Access: (0644/-rw-r--r--)  Uid: ( 1000/ devuser)   Gid: ( 1000/ devuser)
-Access: 2026-07-06 13:50:46.463647672 -0400
+Access: 2026-09-14 13:50:46.463647672 -0400
 Modify: 2026-03-15 10:59:06.565696864 -0400
 Change: 2026-03-15 10:59:06.565696864 -0400
  Birth: 2026-03-15 10:59:06.565696864 -0400
@@ -154,9 +154,9 @@ $ stat ~/.bash_logout
   Size: 220             Blocks: 8          IO Block: 4096   regular file
 Device: 8,48    Inode: 1236        Links: 1
 Access: (0700/-rwx------)  Uid: ( 1000/ devuser)   Gid: ( 1000/ devuser)
-Access: 2026-07-06 17:25:03.251284111 -0400
+Access: 2026-09-14 17:25:03.251284111 -0400
 Modify: 2026-03-15 10:59:06.565696864 -0400
-Change: 2026-07-06 17:24:37.354927872 -0400
+Change: 2026-09-14 17:24:37.354927872 -0400
  Birth: 2026-03-15 10:59:06.565696864 -0400
 
 $ chmod 644 ~/.bash_logout && ls -l ~/.bash_logout
@@ -167,9 +167,9 @@ $ stat ~/.bash_logout
   Size: 220             Blocks: 8          IO Block: 4096   regular file
 Device: 8,48    Inode: 1236        Links: 1
 Access: (0644/-rw-r--r--)  Uid: ( 1000/ devuser)   Gid: ( 1000/ devuser)
-Access: 2026-07-06 17:25:03.251284111 -0400
+Access: 2026-09-14 17:25:03.251284111 -0400
 Modify: 2026-03-15 10:59:06.565696864 -0400
-Change: 2026-07-06 17:26:48.552676456 -0400
+Change: 2026-09-14 17:26:48.552676456 -0400
  Birth: 2026-03-15 10:59:06.565696864 -0400
 ```
 **Confirmed**: `Modify` and `Birth` stayed identical across both changes (content untouched),
@@ -226,10 +226,10 @@ $ cp file1.txt file2.txt
 $ mv file2.txt renamed.txt
 $ ls -la
 total 16
-drwxr-xr-x 2 devuser devuser 4096 Jul  6 18:37 .
-drwxr-x--- 7 devuser devuser 4096 Jul  6 18:34 ..
--rw-r--r-- 1 devuser devuser   12 Jul  6 18:37 file1.txt
--rw-r--r-- 1 devuser devuser   12 Jul  6 18:37 renamed.txt
+drwxr-xr-x 2 devuser devuser 4096 Sep 14 18:37 .
+drwxr-x--- 7 devuser devuser 4096 Sep 14 18:34 ..
+-rw-r--r-- 1 devuser devuser   12 Sep 14 18:37 file1.txt
+-rw-r--r-- 1 devuser devuser   12 Sep 14 18:37 renamed.txt
 ```
 (`subdir` doesn't appear — it was separately created and removed with `rm -r subdir` to test
 deletion, confirmed clean with no trace left)
@@ -397,7 +397,7 @@ proxy settings into WSL without manual configuration, worth checking if this com
 
 ---
 
-## Day 2 — 2026-07-07 (harder scenarios + quiz)
+## Day 2 — 2026-09-15 (harder scenarios + quiz)
 
 ### Today's agenda
 1. Permission troubleshooting — solved independently.
@@ -418,7 +418,7 @@ $ ./myscript.sh
 bash: ./myscript.sh: Permission denied
 
 $ ls -l myscript.sh
--rw-r--r-- 1 devuser devuser 25 Jul  7 ... myscript.sh
+-rw-r--r-- 1 devuser devuser 25 Sep 15 ... myscript.sh
 ```
 
 **Diagnosis**: `>` redirection creates files with default `644` (`rw-r--r--`) — read/write, no
@@ -431,7 +431,7 @@ Owner needed `rw-` (`6`) → add execute → `7`. Group/others stay `r--` (`4`) 
 ```
 $ chmod 744 myscript.sh
 $ ls -l myscript.sh
--rwxr--r-- 1 devuser devuser 25 Jul  7 ... myscript.sh
+-rwxr--r-- 1 devuser devuser 25 Sep 15 ... myscript.sh
 $ ./myscript.sh
 hello from script
 ```
@@ -454,9 +454,9 @@ $ echo "original content" > original.txt
 $ ln original.txt hardlink.txt
 $ ln -s original.txt symlink.txt
 $ ls -li original.txt hardlink.txt symlink.txt
-50105 -rw-r--r-- 2 devuser devuser 17 Jul  7 16:09 hardlink.txt
-50105 -rw-r--r-- 2 devuser devuser 17 Jul  7 16:09 original.txt
-50106 lrwxrwxrwx 1 devuser devuser 12 Jul  7 16:09 symlink.txt -> original.txt
+50105 -rw-r--r-- 2 devuser devuser 17 Sep 15 16:09 hardlink.txt
+50105 -rw-r--r-- 2 devuser devuser 17 Sep 15 16:09 original.txt
+50106 lrwxrwxrwx 1 devuser devuser 12 Sep 15 16:09 symlink.txt -> original.txt
 ```
 `original.txt` and `hardlink.txt` share inode `50105`, link count `2` — genuinely the same file,
 two names. `symlink.txt` has its own separate inode `50106`, type `l`, and just stores the path
@@ -480,8 +480,8 @@ stored a path, and that path no longer resolves to anything.
 ```
 $ ln symlink.txt hardlink2.txt
 $ ls -li symlink.txt hardlink2.txt
-50106 lrwxrwxrwx 2 devuser devuser 12 Jul  7 16:09 hardlink2.txt -> original.txt
-50106 lrwxrwxrwx 2 devuser devuser 12 Jul  7 16:09 symlink.txt -> original.txt
+50106 lrwxrwxrwx 2 devuser devuser 12 Sep 15 16:09 hardlink2.txt -> original.txt
+50106 lrwxrwxrwx 2 devuser devuser 12 Sep 15 16:09 symlink.txt -> original.txt
 ```
 `ln` (no `-s`) does **not** dereference/follow a symlink source — it hard-links directly to the
 symlink's own inode. Since that inode's data *is* "I am a symlink pointing at `original.txt`,"
@@ -540,8 +540,8 @@ edited via card2
 $ cat card2.txt
 edited via card2
 $ ls -li book.txt card2.txt
-50107 -rw-r--r-- 2 devuser devuser 17 Jul  7 18:28 book.txt
-50107 -rw-r--r-- 2 devuser devuser 17 Jul  7 18:28 card2.txt
+50107 -rw-r--r-- 2 devuser devuser 17 Sep 15 18:28 book.txt
+50107 -rw-r--r-- 2 devuser devuser 17 Sep 15 18:28 card2.txt
 ```
 (Note: `>` here *overwrote* rather than appended, replacing "hello" entirely — see `>` vs `>>`
 below. The point still stands: both names show identical content because they're the same inode.)
