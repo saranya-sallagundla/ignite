@@ -141,7 +141,6 @@ ignite/
 ├── engine/                    the Ignition Engine — the teaching protocol, packaged to fork
 ├── audits/                    periodic whole-repo audits, one file per milestone
 ├── docs/                      the method, future project ideas, decisions
-├── claude-memory/             synced copy of the AI's cross-session memory for this project
 └── .github/                   CI workflows, issue forms, dependency policy
 ```
 

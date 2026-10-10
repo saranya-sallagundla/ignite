@@ -15,10 +15,6 @@ polish. Using that slack is normal; it does not count as falling behind.
 - `audits/` — periodic full-repo professionalism audits, covering both `learning/` and `orbit/`
   together (see below). Lives at the repo root, not under `learning/`, since its scope isn't
   limited to the learning side.
-- `claude-memory/` — a synced, human-readable copy of Claude Code's cross-session memory for this
-  project (teaching-style preferences, audit approach, mission snapshot). The real memory files
-  live outside this repo, at Claude Code's fixed per-project memory path; this folder is a copy
-  kept in sync so it can be committed/pushed like everything else here.
 - This file stays at the repo root, not inside either folder — Claude Code auto-loads CLAUDE.md
   from the directory it's launched in, so keeping it at the repo root guarantees the rules load
   every session regardless of which subfolder the work touches.
