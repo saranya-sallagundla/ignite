@@ -1,6 +1,6 @@
 # Ignite — Mission: DevOps
 
-A self-designed, six-month path from working in cloud operations to being an interview-ready
+A self-designed, 6-month path from working in cloud operations to being an interview-ready
 DevOps/SRE engineer — taught, tested, and graded daily by an AI engineering partner, with every
 hands-on hour landing in one real system instead of a folder of disposable tutorials.
 
@@ -95,7 +95,7 @@ interviews: open-ended, "walk me through it," with follow-up pushback on anythin
 memorised. No multiple choice, ever. Interview practice therefore compounds for six months instead of
 being crammed at the end.
 
-**The three-attempt mastery rule.** A topic gets at most three attempts, and the *teaching* must
+**The 3-attempt mastery rule.** A topic gets at most three attempts, and the *teaching* must
 escalate every time — repeating an explanation is explicitly disallowed. Attempt 2 uses a different
 analogy; attempt 3 breaks the topic into its smallest components and confirms each one alone. A topic
 still not solid after three is logged as **deferred mastery** with a hard revisit deadline, and must
@@ -106,7 +106,7 @@ first quiz on function invocation and argument scoping. It was re-taught using c
 instead of another analogy, then passed a full, fresh retest in the same session. It scores 80 — the
 lowest in the repo — and it stays visible. A record with no failures in it is not a record.
 
-**A full repo audit every ten topics.** Line by line, every subfolder. Findings are reviewed before a
+**A full repo audit every 10 topics.** Line by line, every subfolder. Findings are reviewed before a
 single fix is applied, and genuinely topic-specific improvements are deliberately *deferred* to the
 session that teaches them — so they get learned hands-on rather than found pre-fixed. Audit records
 live in [`audits/`](audits/).
@@ -122,6 +122,9 @@ here if you want to run something like this yourself.
 ignite/
 ├── CLAUDE.md                  the operating rules the AI teacher follows every session
 ├── README.md                  this file
+├── CONTRIBUTING.md            which pull requests are welcome, and which are not
+├── SECURITY.md                how to report a vulnerability, privately
+├── LICENSE                    MIT — covers the software in this repository
 ├── .gitignore  .gitattributes
 ├── learning/                  the record — how the learning actually went
 │   ├── roadmap.md             fixed 53-topic / 120-day baseline + a living pacing layer
@@ -129,7 +132,8 @@ ignite/
 │   ├── handbook_status.md     per-topic scores with a one-line reason each
 │   ├── session_notes.md       short personal recap per session
 │   ├── field_atlas.md         living map of the DevOps/SRE field, with sourced confidence levels
-│   └── notes/                 one detailed study notebook per topic, filed by phase
+│   ├── notes/                 one detailed study notebook per topic, filed by phase
+│   └── LICENSE                CC BY 4.0 — covers the written material in this repository
 ├── orbit/                     the project — a real system, built incrementally
 │   ├── app/                   the service, its Dockerfile, and tests
 │   ├── k8s/  argocd/          manifests, Helm charts, GitOps delivery
@@ -139,9 +143,9 @@ ignite/
 │   ├── scripts/               automation
 │   └── docker-compose.yml
 ├── engine/                    the Ignition Engine — the teaching protocol, packaged to fork
-├── audits/                    periodic whole-repo audits, one file per milestone
-├── docs/                      the method, future project ideas, decisions
-└── .github/                   CI workflows, issue forms, dependency policy
+├── audits/                    periodic whole-repo audits, dated, with an index
+├── docs/                      the method, and future project ideas
+└── .github/                   CI and issue-form scaffolding — populated from Topic 15
 ```
 
 Folders tied to later phases hold a short README naming the topic that will populate them, rather
@@ -193,11 +197,18 @@ a dated first-person record and editing it destroys the thing that makes it wort
 
 ---
 
-## Licence
+## License
 
-Code in `orbit/`, `scripts/` and `.github/` is **MIT** — see [`LICENSE`](LICENSE).
-Written material in `learning/`, `docs/` and `audits/` is **CC BY 4.0** — see
-[`learning/LICENSE`](learning/LICENSE).
+Two grants, split by what the material is:
+
+- **MIT** — the software: `orbit/`, `.github/`, and any scripts or configuration elsewhere in the
+  tree. See [`LICENSE`](LICENSE).
+- **CC BY 4.0** — the written material: `learning/`, `docs/`, `audits/`, and the Markdown documents
+  at the repository root (this file, `CONTRIBUTING.md`, `SECURITY.md`, `CLAUDE.md`). See
+  [`learning/LICENSE`](learning/LICENSE).
+
+This repository is educational reference material, not production-hardened infrastructure — do not
+deploy `orbit/` as-is.
 
 Much of the prose here was drafted by Claude and verified by a human before being written down; the
 grants above apply to the extent copyright subsists in it.

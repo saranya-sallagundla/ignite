@@ -30,7 +30,7 @@ else went through. Without one, it becomes a debate.
 **Bugs or improvements in `orbit/` — open a pull request.** Normal rules. Keep it scoped, say what you
 changed and why.
 
-**Questions about the method itself — open an issue.** How the three-attempt rule works in practice,
+**Questions about the method itself — open an issue.** How the 3-attempt mastery rule works in practice,
 how the quizzes are structured, how to adapt `CLAUDE.md` to a different subject. These get asked a
 lot and the answers are useful to more than one person.
 

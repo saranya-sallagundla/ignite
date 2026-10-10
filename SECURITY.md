@@ -1,4 +1,4 @@
-# Security Policy
+# Security policy
 
 ## What this repository is
 
@@ -37,7 +37,7 @@ not require publishing an email address anywhere in this repo.
 | In scope | Out of scope |
 |---|---|
 | `orbit/` — application code, Dockerfile, Compose, manifests, infrastructure config | Prose or explanations in `learning/` notebooks that are merely *incomplete* rather than wrong |
-| `.github/` workflows and their permissions | The scores in `learning/handbook_status.md` — self-assessed and AI-graded by design, and labelled as such |
+| `.github/` workflows and their permissions, once added | The scores in `learning/handbook_status.md` — self-assessed and AI-graded by design, and labelled as such |
 | Dependency and base-image supply chain | Third-party command output reproduced as factual record |
 | Anything committed to git history, including in deleted files | Findings that require access to the author's machine |
 

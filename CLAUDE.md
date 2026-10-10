@@ -30,8 +30,9 @@ anything.
    that most recently cleared is a multiple of 10 (10, 20, 30, 40, 50), check `audits/README.md`'s
    index — audit files are dated (`audit-YYYY-MM-DD.md`), not numbered, so the index (not the
    filename) says whether that milestone's audit has already run. If it hasn't, remind the user
-   to run the periodic repo audit (see below) before starting the next topic. Also check `learning/field_atlas.md`'s "Last sub-discipline check" date — if
-   it isn't today (IST), remind the user to trigger a manual check (a real daily scheduled cloud
+   to run the periodic repo audit (see below) before starting the next topic. Also check
+   `learning/field_atlas.md`'s "Last sub-discipline check" date — if it isn't today (IST), remind
+   the user to trigger a manual check (a real daily scheduled cloud
    task isn't available — Claude Code routines are disabled at the organization level — so this
    reminder is the fallback mechanism). If the user says yes, research whether any genuinely new,
    established DevOps/SRE sub-discipline has emerged or any existing entry needs a sourced factual
@@ -54,7 +55,7 @@ Multi-day topics: split by escalating depth, not by dividing content arbitrarily
   hands-on tasks, less scaffolding, edge cases introduced.
 - Final day: the hardest, most realistic scenario, tied into the project build where applicable —
   then the quiz on the whole topic, immediately after, same session.
-- Track exactly where a topic stands in `learning/progress.md`'s Current Status line: "Topic X —
+- Track exactly where a topic stands in `learning/progress.md`'s Current status line: "Topic X —
   day N of M, covered [what]" — overwritten each session, so the next session reads one line
   instead of searching back through the log.
 
@@ -106,7 +107,7 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
 ## Files
 - `learning/roadmap.md` — the fixed 53-topic baseline (never edit the baseline section) plus a
   living pacing layer, updated every session.
-- `learning/progress.md` — Current Status line (read first, every session), session log, quiz
+- `learning/progress.md` — Current status line (read first, every session), session log, quiz
   record index (including deferred-mastery topics), light-day log.
 - `learning/handbook_status.md` — checklist of all 53 topics. Checked off automatically by
   Claude Code the moment a topic's quiz passes (not tied to publishing on the external handbook
@@ -159,8 +160,9 @@ same process as the one done after Topic 10 — before starting the next topic. 
 get saved to `audits/audit-YYYY-MM-DD.md` (today's date), with what was fixed and why it matters,
 not just a raw list, and the new file gets added to `audits/README.md`'s index (date → milestone)
 in the same commit — the index, not the filename, is how a future session finds it. Fixes are
-applied in reviewable batches after the user reviews the findings — never silently. Genuinely topic-specific best-practice items (e.g. Dockerfile hardening, which belongs
-to Topic 11) get deferred to when that topic is actually taught, not fixed retroactively, so the
+applied in reviewable batches after the user reviews the findings — never silently. Genuinely
+topic-specific best-practice items (e.g. Dockerfile hardening, which belongs to Topic 11) get
+deferred to when that topic is actually taught, not fixed retroactively, so the
 user learns them hands-on rather than finding a pre-made fix waiting. After the report is
 produced, also save an unmodified copy of the raw findings report directly under `C:\CloudOps`
 (one level above this repo) — as-is, no redaction or edits applied to that copy.
@@ -173,7 +175,7 @@ Prompt to start the next one (also saved in `audits/README.md`):
 > don't apply any fixes until I review the findings first.
 
 ## Logging, after every session
-Append to `learning/progress.md`: overwrite the Current Status line first, then a dated entry
+Append to `learning/progress.md`: overwrite the Current status line first, then a dated entry
 (topic, quiz result, attempt number), the Quiz Record Index row, the Deferred Mastery row with
 its revisit deadline if a topic was just deferred, and the Light Days table if a light day was
 claimed (log the reason without questioning it in the moment; flag the pattern later if it
