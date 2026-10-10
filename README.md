@@ -27,7 +27,7 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 | Sessions logged | **18**, one commit per session, no batching |
 | Roadmap days consumed | **19 of 98 core days** |
 | Pace | **Ahead by ~5 core days** — 56 days of slack left before the Mar 2027 deadline moves |
-| Study notebooks | **12 files, 6,197 lines** of commands actually run and real output |
+| Study notebooks | **12 files, 6,202 lines** of commands actually run and real output |
 | Field reference | **399 lines**, continuously updated, with per-claim confidence levels |
 | Audits | **4** run, **112** findings filed by subject in [`audits/`](audits/), each with a status |
 
