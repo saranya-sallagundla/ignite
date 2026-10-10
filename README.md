@@ -16,7 +16,7 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 
 ## Where this stands
 
-**State as of 2026-09-25 IST — last session: 18, on 2026-09-22.** All dates in this repo are IST (UTC+5:30), `YYYY-MM-DD`.
+**State as of 2026-10-09 IST — last session: 18, on 2026-10-05.** All dates in this repo are IST (UTC+5:30), `YYYY-MM-DD`.
 
 | | |
 |---|---|
@@ -26,9 +26,9 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 | First-attempt pass rate | **10 of 11** |
 | Sessions logged | **18**, one commit per session, no batching |
 | Roadmap days consumed | **19 of 98 core days** |
-| Pace | **Behind by ~25 core days** — mostly a 58-day gap (2026-07-25 → 2026-09-21); 3 days of slack left before the Jan 2027 deadline moves |
+| Pace | **Ahead by ~5 core days** — 56 days of slack left before the Mar 2027 deadline moves |
 | Study notebooks | **12 files, 6,197 lines** of commands actually run and real output |
-| Field reference | **577 lines**, continuously updated, with per-claim confidence levels |
+| Field reference | **399 lines**, continuously updated, with per-claim confidence levels |
 | Audits | **4** run, **112** findings filed by subject in [`audits/`](audits/), each with a status |
 
 Next up: Topic 12 — Kubernetes — Architecture & Core Concepts, Day 2 + quiz.

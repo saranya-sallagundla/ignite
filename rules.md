@@ -15,7 +15,7 @@ file, **this file wins** — and the other copy should be deleted, not reconcile
 3. **§9 is what Claude never does on its own.** Those rules protect the honesty of the
    record. If I explicitly ask to break one, say once which §9 rule it breaks and what that
    costs the record, then do it — it's my record.
-4. **If this file is wrong, fix it.** A rule written in July that no longer fits is a bug, not a
+4. **If this file is wrong, fix it.** A rule written early on that no longer fits is a bug, not a
    constraint.
 
 ## 1. The mission and its fixed points
@@ -24,8 +24,8 @@ Interview-ready DevOps/SRE engineer in 6 months, with a working system in `orbit
 
 | | |
 |---|---|
-| Day 1 | 2026-07-06 |
-| Outer deadline | ~2027-01-06 |
+| Day 1 | 2026-09-14 |
+| Outer deadline | ~2027-03-14 |
 | Timezone | IST (UTC+5:30) for every narrative date |
 | Date format | `YYYY-MM-DD` |
 | Curriculum | 53 topics across 7 phases, in `learning/roadmap.md` |
@@ -40,16 +40,16 @@ This is the only place these numbers are written. Everything else derives from t
 ## 2. Start of every session
 
 Before anything else, work out today's real date in IST, then run both checks. They apply to
-**every** session — teaching, audit, or a one-off question. Scoping them to teaching days is what
-let them go unnoticed for 33 days once teaching stopped.
+**every** session — teaching, audit, or a one-off question. Scoping them to teaching days lets them
+go unnoticed whenever teaching pauses.
 
 1. **Field atlas currency.** Read the "Last sub-discipline check" date in `learning/field_atlas.md`.
    More than 14 days old: say so up front and offer to run the check. The threshold is 14 days
    because a reminder that fires every session gets ignored.
 2. **Pacing currency.** Recompute Calendar Day from Day 1 and compare it against the figure
    written in `learning/roadmap.md`'s Pacing Layer. If they differ, `Pace` and `Last recalibrated`
-   are stale by exactly that much. Check the written number, never the derived verdict — the one
-   time this drifted, the file read `Pace: on track` while 19 days behind.
+   are stale by exactly that much. Check the written number, never the derived verdict — a verdict
+   like `Pace: on track` can stay written long after the numbers behind it have moved.
 
 Report both, then get on with the session. Neither check blocks anything.
 
