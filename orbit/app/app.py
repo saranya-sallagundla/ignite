@@ -1,16 +1,18 @@
 from flask import Flask, jsonify
 
+APP_VERSION = "2.1"
+
 app = Flask(__name__)
 
 
 @app.route("/health")
 def health():
-    return jsonify(status="ok", version="2.1"), 200
+    return jsonify(status="ok", version=APP_VERSION), 200
 
 
 @app.route("/ready")
 def ready():
-    return jsonify(ready=True, version="2.1"), 200
+    return jsonify(ready=True, version=APP_VERSION), 200
 
 
 if __name__ == "__main__":

@@ -34,17 +34,14 @@ the live project runs on LocalStack/k3s (no cloud account of any kind involved),
 ever need to move to a personal GitHub repo.
 
 ## Development environment safety net (deferred)
-The machine this project is built on is a work laptop, not a personal one, so this project's
-local compute is tied to that one machine today. **GitHub Codespaces** is the planned fallback: a
-free monthly quota (120 core-hours — about 60 hours on a 2-core machine — plus 15 GB storage/month
-on a personal account) that runs Docker-based dev environments from any browser, so
-k3s/LocalStack/Ollama could run entirely inside Codespaces with no local install needed.
+This project's local compute is tied to a single machine today. **GitHub Codespaces** is the
+planned fallback: a free monthly quota (120 core-hours — about 60 hours on a 2-core machine — plus
+15 GB storage/month on a personal account) that runs Docker-based dev environments from any
+browser, so k3s/LocalStack/Ollama could run entirely inside Codespaces with no local install
+needed.
 
-The constraint: this repo currently lives under a corporate GitHub org, accessed via a
-corporate-provisioned GitHub identity. To keep the project portable and independent of any single
-environment or account, Codespaces would need to run against a genuinely personal GitHub account
-and a personal mirror of this repo instead — the same personal-repo move already planned above
-for portability.
+Codespaces would run against a personal GitHub account and a personal mirror of this repo — the
+same portability move already described above.
 
 **Not set up yet, on purpose** — deferred to the end of the full 53-topic learning journey, the
 same checkpoint as this document's own capstone-idea revisit above.

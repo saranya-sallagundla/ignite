@@ -6,124 +6,71 @@ so its structure fills in over time rather than existing complete from day one.
 
 ## What it will be, end to end
 A containerized application, deployed through a CI/CD pipeline, running on Kubernetes, on
-infrastructure provisioned by Terraform, with monitoring and alerting in place. Each of those
-pieces gets added as the corresponding phase of the learning plan is reached. See
+infrastructure provisioned by Terraform, with monitoring and alerting in place — all of it running
+locally at zero cost (k3s for Kubernetes, LocalStack for the AWS services). Each of those pieces
+gets added as the corresponding phase of the learning plan is reached. See
 [`docs/concept.md`](docs/concept.md) for the specific project concept and architecture.
 
 ## Folder guide
-- `app/` — the application itself. Until the Python phase of the learning plan, code here is
-  Claude-authored boilerplate — functional, but not yet something to defend in an interview.
-  It gets rewritten from real understanding once Python is covered, and this note gets removed
-  once that happens.
+- `app/` — the Flask service everything else deploys. Rewritten from first principles in Phase 5
+  (Python, Topics 40-46).
 - `k8s/` — Kubernetes manifests: Deployments, Services, ConfigMaps, Secrets, Ingress, Helm charts.
-- `terraform/` — Terraform configuration provisioning the AWS infrastructure this runs on.
+- `argocd/` — Argo CD Application definitions and GitOps delivery configuration.
+- `terraform/` — Terraform configuration for the project's AWS-shaped infrastructure, run against
+  LocalStack rather than a live account.
 - `ansible/` — configuration management playbooks.
 - `monitoring/` — Prometheus, Grafana, and ELK stack configuration for observability.
-- `docs/` — architecture decisions and runbooks, written as the project grows.
+- `docs/` — the project concept, architecture decisions, and runbooks as they are written.
 - `scripts/` — automation scripts, including Python/Boto3 AWS automation.
 
-Other than `app/`, every folder above is currently an empty placeholder — each holds a short
-README noting the phase/topic that will populate it; see that folder's own README for specifics.
+Other than `app/` and `docs/`, every folder above is currently a placeholder — each holds a short
+README naming the phase/topic that will populate it.
 
 ## How to run it
 From `orbit/`: `docker compose up --build`, then verify with `curl http://localhost:5000/health`
 (expect `{"status":"ok",...}`). Stop with `docker compose down`.
 
 ## Status
-`app/` has a Flask boilerplate (`/health`, `/ready` endpoints) and a multi-stage, non-root
-Dockerfile running a real production server (gunicorn), with a healthcheck and a properly tagged
-image (`orbit-app:2.1`) built via `docker-compose.yml`. 17 learning sessions in, Phase 1
-complete and Topics 9-11 (Docker fundamentals through multi-stage builds) cleared; check
-`../learning/progress.md` for current progress through the learning plan, which drives what gets
-added here next.
+`app/` serves a Flask service (`/health`, `/ready`) from a multi-stage, non-root image running
+gunicorn, with a HEALTHCHECK and a version-tagged image (`orbit-app:2.1`) brought up by
+`docker-compose.yml`. Phase 1 is complete and Topics 9-11 (Docker fundamentals through
+multi-stage builds) are cleared; Kubernetes, CI/CD, Terraform and observability follow in the
+later phases listed in the folder guide above.
 
-### Session 1 — 2026-07-06
-Topic 1 Day 1 (Linux Fundamentals) — no project code changes yet; this phase is foundational
-Linux/SSH/VM learning ahead of Docker (Topic 9), where `app/` boilerplate gets written first.
+## Build log
 
-### Session 2 — 2026-07-07
-Topic 1 complete, quiz passed (Linux Fundamentals) — still no project code yet, but the VM/container isolation
-reasoning covered here directly informs why this project's future architecture runs containers
-on EC2 (VMs) rather than bare metal, once Topics 9+ (Docker) and 20+ (AWS) are reached.
-
-### Session 3 — 2026-07-08
-Topic 2 Day 1 (Top 50 Shell Commands) — no project code yet, still pre-Docker. The
-`grep | cut | sort | uniq -c | sort -nr | head` log-analysis pipeline practiced here is directly
-reusable later for real log triage once `monitoring/` and actual app logs exist.
-
-### Session 4 — 2026-07-09
-Topic 2 complete, quiz passed (Top 50 Shell Commands) — no project code yet, but `ps`/`kill`/signals, `df`/`du`/`free`,
-and `tar` are exactly the toolkit for operating this project's future EC2 instances and
-Kubernetes nodes day-to-day, once Topics 20+ (AWS) and 12+ (Kubernetes) are reached.
-
-### Session 5 — 2026-07-10
-Topic 3 Day 1 (Shell Scripting Basics) — no project code yet, but this is the first topic that
-feeds `scripts/` directly: the conditional/variable fundamentals practiced today are exactly
-what real automation scripts in that folder will be built from.
-
-### Session 6 — 2026-07-11
-Topic 3 complete, quiz passed (Shell Scripting Basics) — no project code yet, but the `checkall.sh`
-pattern built today (function + loop + exit code, checking multiple folders at once) is directly
-the shape of a real pre-deployment sanity-check script for `scripts/` later.
-
-### Session 7 — 2026-07-12
-Topic 4 Day 1 (Process/Log/Disk Management) — no project code yet, but `journalctl`/`/var/log`
-log-searching skills practiced today are exactly what `monitoring/`'s future log aggregation
-setup will build on, and `nice`/`renice` will matter once real workloads run on shared EC2/K8s
-compute later.
-
-### Session 8 — 2026-07-13
-Topic 4 complete, quiz passed (Process/Log/Disk Management) — no project code yet, but disk
-partitioning/mounting and `fsck`/`df` health checks practiced today are exactly what operating
-this project's future EC2 storage and EKS persistent volumes will require later.
-
-### Session 9 — 2026-07-14
-Topic 5 complete, quiz passed (Linux Networking Fundamentals) — no project code yet, but IP/CIDR,
-DNS, ports, and routing practiced today are exactly what configuring this project's future VPC,
-security groups, and service-to-service networking on AWS will require later.
-
-### Session 10 — 2026-07-16
-Topic 6 complete, quiz passed (Git Fundamentals) — no project code yet, but branching/merging
-practiced today (including a real resolved conflict) is exactly the workflow this project's own repo
-will use once multiple features/phases are being built and merged going forward.
-
-### Session 11 — 2026-07-18
-Topic 7 complete, quiz passed (Git Deep Dive) — no project code yet, but rebase/cherry-pick and
-branching-strategy reasoning practiced today are exactly what keeping this project's own repo
-history clean will require once real feature work starts landing here.
-
-### Session 12 — 2026-07-19
-Topic 8 complete, quiz passed (GitHub: PRs, Actions Intro, Repo Management) — **Phase 1 complete.** No
-project code yet, but PRs, GitHub Actions, and branch protection practiced today are exactly the
-workflow this project's own repo will use for CI/CD once Phase 2 (Docker/Kubernetes/CI-CD) begins.
+### Sessions 1-12 — 2026-07-06 to 2026-07-19
+Phase 1 (Linux, Git & Version Control), Topics 1-8 — no project code yet, by design: `app/` is
+written at Topic 9, where Docker begins. The Linux, networking and Git work from this phase is
+what later operates, versions and troubleshoots everything below.
 
 ### Session 13 — 2026-07-20
-Topic 9 Day 1 (Docker: Architecture, Images, Containers) — `app/` gained its first real code, a
+Topic 9 Day 1 (Docker — Architecture, Images, Containers) — `app/` gained its first real code, a
 Flask app with a `/health` endpoint, and its first Dockerfile, built into
 `orbit-app:latest` and run as a live container, verified serving `{"status":"ok"}`
 over HTTP.
 
 ### Session 14 — 2026-07-21
-Topic 9 complete, quiz passed (Docker: Architecture, Images, Containers) — Dockerfile reordered
+Topic 9 complete, quiz passed (Docker — Architecture, Images, Containers) — Dockerfile reordered
 so app-code changes no longer force an unnecessary dependency reinstall (proved with real build
 timings), `app/` gained a `/ready` endpoint, and the image is now properly version-tagged
 (`v1`/`v2`) with rollback proven by running both simultaneously.
 
 ### Session 15 — 2026-07-22
-Topic 10 Day 1 (Docker: Networking, Volumes, Docker Compose) — no project code yet, but container-to-container
-DNS resolution (bridge vs. custom network) and bind-mount persistence proven hands-on today are
-exactly what this project's future multi-container setups (app + database, app + cache) will
-depend on.
+Topic 10 Day 1 (Docker — Networking, Volumes, Docker Compose) — no project code yet, but
+container-to-container DNS resolution (bridge vs. custom network) and bind-mount persistence
+proven hands-on today are exactly what this project's future multi-container setups (app +
+database, app + cache) will depend on.
 
 ### Session 16 — 2026-07-23
-Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) — `orbit/` gained
+Topic 10 complete, quiz passed (Docker — Networking, Volumes, Docker Compose) — `orbit/` gained
 its first `docker-compose.yml`, building and running `orbit-app` in one command instead
 of manual `docker run` flags, extended with a second service to prove Compose's automatic
 networking and a named volume for shared persistence. Both were lesson-scoped demonstrations and
 were removed during the Topic 10 audit cleanup — the committed file runs the single `app` service.
 
 ### Session 17 — 2026-07-24
-Topic 11 complete, quiz passed (Docker: Multi-Stage Builds & Best Practices) — `app/`'s Dockerfile
+Topic 11 complete, quiz passed (Docker — Multi-Stage Builds & Best Practices) — `app/`'s Dockerfile
 rewritten as a real multi-stage, non-root build running gunicorn instead of Flask's dev server,
 with a healthcheck and a properly tagged image (`orbit-app:2.1`) in
 `docker-compose.yml`; a real image-size bug (a `chown -R` after `COPY --from` duplicating a layer)
