@@ -66,7 +66,7 @@ out at the *end* of Topic 7 (`real-conflict`), not `master` — nothing explicit
 `master` first. `git checkout -b add-notes` branched off wherever the repo actually was.
 
 **Diagnosed properly, not guessed**:
-```
+
 **Syntax**: `git merge-base BRANCH1 BRANCH2` — find the common-ancestor commit of two branches
 
 ```

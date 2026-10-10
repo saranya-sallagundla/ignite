@@ -8,12 +8,9 @@
 
 > One line, overwritten every session — not appended to. This is what gets read first.
 
-Topic 1 — COMPLETE (90/100). Topic 2 — COMPLETE (84/100). Topic 3 — COMPLETE (80/100, cleared
-in 2 attempts). Topic 4 — COMPLETE (88/100). Topic 5 — COMPLETE (82/100). Topic 6 — COMPLETE
-(84/100). Topic 7 — COMPLETE (82/100). Topic 8 — COMPLETE (94/100). **PHASE 1 (Linux, Git &
-Version Control) COMPLETE.** Topic 9 — COMPLETE (86/100). Topic 10 — COMPLETE (92/100). Topic 11
-— COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture & Core Concepts). SSH live
-connection still deferred to AWS sandbox VM.
+Topic 11 — COMPLETE (90/100). Phase 1 complete; Phase 2 (Containers, Kubernetes & CI/CD) underway
+at 3 of 11. Next: Topic 12 — Kubernetes — Architecture & Core Concepts. SSH live connection still
+deferred to an AWS sandbox VM.
 
 ## Session log
 

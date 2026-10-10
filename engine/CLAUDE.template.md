@@ -37,10 +37,11 @@ partner, in one continuous relationship across sessions. Read `MISSION.md` and
 
 ## Daily session shape
 
-1. Check `learning/progress.md` for the current topic and anything mid-remediation. If the most
-   recently cleared topic number is a multiple of the audit cadence in `MISSION.md` and no
-   matching file exists under `audits/`, remind the learner to run the periodic audit before
-   starting the next topic.
+1. Check `learning/progress.md` for the current topic and anything mid-remediation. If the highest
+   cleared topic number has reached or passed the next un-audited multiple of the audit cadence in
+   `MISSION.md`, remind the learner to run the periodic audit before starting the next topic. Read
+   `audits/README.md`'s index to know which milestones are already audited — audit files are dated,
+   not numbered, so the index answers this, not the filenames.
 2. Check the deferred-mastery list before teaching anything new. If today's topic clearly builds
    on a still-open deferred topic, resolve that first.
 3. Teach today's topic: explain the concept, walk through real commands or problems, have the
@@ -117,7 +118,8 @@ before creating anything.
   concrete example.
 - `learning/session_notes.md` — short personal recap per session, for review only, never for
   logic.
-- `audits/` — one file per audit milestone: `topic-N-audit.md`.
+- `audits/` — one file per audit, named `audit-YYYY-MM-DD.md`, plus a `README.md` whose index
+  table maps each date to the milestone it covers.
 - Optional, if the mission wants it: a living field atlas (`learning/field_atlas.md`) mapping the
   field itself — sub-disciplines, how topics connect, production reality — always current, never
   forked into a v2, every claim sourced with a confidence level.
@@ -150,8 +152,8 @@ Standing rules, so the repo never drifts:
 
 Every N topics (`MISSION.md`, default 10), run a full repo professionalism audit before starting
 the next topic — every subfolder, every file, line by line. Findings are saved to
-`audits/topic-N-audit.md` and **reviewed by the learner before any fix is applied** — never
-silently. Genuinely topic-specific improvements get deferred to the session that teaches that
+`audits/audit-YYYY-MM-DD.md`, added to `audits/README.md`'s index in the same commit, and
+**reviewed by the learner before any fix is applied** — never silently. Genuinely topic-specific improvements get deferred to the session that teaches that
 topic, not fixed retroactively, so they are learned hands-on rather than found pre-fixed.
 
 ## Logging, after every session

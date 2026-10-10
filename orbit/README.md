@@ -119,7 +119,8 @@ depend on.
 Topic 10 complete, quiz passed (Docker: Networking, Volumes, Docker Compose) — `orbit/` gained
 its first `docker-compose.yml`, building and running `orbit-app` in one command instead
 of manual `docker run` flags, extended with a second service to prove Compose's automatic
-networking and a named volume for shared persistence.
+networking and a named volume for shared persistence. Both were lesson-scoped demonstrations and
+were removed during the Topic 10 audit cleanup — the committed file runs the single `app` service.
 
 ### Session 17 — 2026-07-24
 Topic 11 complete, quiz passed (Docker: Multi-Stage Builds & Best Practices) — `app/`'s Dockerfile
