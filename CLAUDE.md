@@ -27,9 +27,10 @@ anything.
 
 ## Daily session shape
 1. Check `learning/progress.md` for the current topic and any topic mid-remediation. If the topic
-   that most recently cleared is a multiple of 10 (10, 20, 30, 40, 50) and no matching file exists
-   yet under `audits/`, remind the user to run the periodic repo audit (see below) before starting
-   the next topic. Also check `learning/field_atlas.md`'s "Last sub-discipline check" date — if
+   that most recently cleared is a multiple of 10 (10, 20, 30, 40, 50), check `audits/README.md`'s
+   index — audit files are dated (`audit-YYYY-MM-DD.md`), not numbered, so the index (not the
+   filename) says whether that milestone's audit has already run. If it hasn't, remind the user
+   to run the periodic repo audit (see below) before starting the next topic. Also check `learning/field_atlas.md`'s "Last sub-discipline check" date — if
    it isn't today (IST), remind the user to trigger a manual check (a real daily scheduled cloud
    task isn't available — Claude Code routines are disabled at the organization level — so this
    reminder is the fallback mechanism). If the user says yes, research whether any genuinely new,
@@ -124,8 +125,8 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
   (real problem / why it matters / how it connects / alternatives / production reality) of every
   topic covered so far. One file, always current, never forked into a v2. See its own "Last
   sub-discipline check" date and Daily session shape step 1 for the manual-check reminder.
-- `audits/` — periodic repo-wide professionalism audits (see below), one file per milestone:
-  `topic-N-audit.md`.
+- `audits/` — periodic repo-wide professionalism audits (see below), one file per audit named
+  `audit-YYYY-MM-DD.md`; `audits/README.md`'s index says which date covers which milestone.
 
 ## Repo quality standards
 Standing rules, so the repo never drifts back into the kind of issues the Topic 10 audit found:
@@ -155,9 +156,10 @@ Standing rules, so the repo never drifts back into the kind of issues the Topic 
 ## Periodic repo audit
 Every 10 topics (after Topic 10, 20, 30, 40, 50 clear), run a full repo professionalism audit —
 same process as the one done after Topic 10 — before starting the next topic. Findings and fixes
-get saved to `audits/topic-N-audit.md`, with what was fixed and why it matters, not just a raw
-list. Fixes are applied in reviewable batches after the user reviews the findings — never
-silently. Genuinely topic-specific best-practice items (e.g. Dockerfile hardening, which belongs
+get saved to `audits/audit-YYYY-MM-DD.md` (today's date), with what was fixed and why it matters,
+not just a raw list, and the new file gets added to `audits/README.md`'s index (date → milestone)
+in the same commit — the index, not the filename, is how a future session finds it. Fixes are
+applied in reviewable batches after the user reviews the findings — never silently. Genuinely topic-specific best-practice items (e.g. Dockerfile hardening, which belongs
 to Topic 11) get deferred to when that topic is actually taught, not fixed retroactively, so the
 user learns them hands-on rather than finding a pre-made fix waiting. After the report is
 produced, also save an unmodified copy of the raw findings report directly under `C:\CloudOps`
