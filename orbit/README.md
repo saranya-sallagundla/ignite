@@ -38,12 +38,16 @@ From `orbit/`: `docker compose up --build`, then verify with `curl http://localh
     on it and checked with `dpkg -s`. The final stage also runs
     `apt-get install --only-upgrade perl-base`, so a build on an older cached base can't regress.
     That layer is 20.5 kB; the image still runs as non-root `appuser`.
+  - Maintenance — both `FROM` lines pinned by digest to the exact `python:3.12-slim` build
+    (`sha256:a6e34c59…`), checked with `dpkg-query` to ship `perl-base 5.40.1-6+deb13u1`. A
+    scanner that checks the `FROM` line, not the built image, now sees the fixed build. The pin
+    doesn't pick up later base-image fixes on its own; it's bumped to the newest digest by hand.
   - Maintenance — a Dependabot alert (CVE-2026-27205, low) flagged Flask below 3.1.3: sessions
     didn't add a `Vary: Cookie` header in some access patterns. Bumped to `3.1.3`; rebuilt and
     checked with `importlib.metadata`.
 - Installed & used:
   - Docker Desktop 4.58.0 (engine 29.1.5) — builds the image and runs the container
-  - `python:3.12-slim` — the base image for both build stages
+  - `python:3.12-slim`, pinned by digest — the base image for both build stages
   - Flask 3.1.3 — the web framework the endpoints are written in
   - gunicorn 23.0.0 — the production server that runs the app, in place of Flask's dev server
   - `perl-base` 5.40.1-6+deb13u1 — the Perl runtime Debian's own tools need (it can't be removed);

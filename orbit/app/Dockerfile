@@ -1,5 +1,6 @@
 # Stage 1: builder
-FROM python:3.12-slim AS builder
+# python:3.12-slim, pinned by digest: the build that ships perl-base 5.40.1-6+deb13u1
+FROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 AS builder
 WORKDIR /app
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -7,7 +8,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Stage 2: final
-FROM python:3.12-slim
+FROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
 WORKDIR /app
 RUN apt-get update \
     && apt-get install -y --no-install-recommends --only-upgrade perl-base \
