@@ -35,13 +35,15 @@ From `orbit/`: `docker compose up --build`, then verify with `curl http://localh
   - Maintenance — a scan reported three critical CVEs (CVE-2026-8376, CVE-2026-42496,
     CVE-2026-13221) in `perl-base 5.40.1-6`, in the Debian layer of the base image. The fix is
     `5.40.1-6+deb13u1`, which the current `python:3.12-slim` already ships; the image was rebuilt
-    on it and checked with `dpkg -s`. The final stage also runs
-    `apt-get install --only-upgrade perl-base`, so a build on an older cached base can't regress.
-    That layer is 20.5 kB; the image still runs as non-root `appuser`.
+    on it and checked with `dpkg -s`. The final stage also ran
+    `apt-get install --only-upgrade perl-base` (a 20.5 kB layer), so a build on an older cached
+    base couldn't regress — until the digest pin below replaced it.
   - Maintenance — both `FROM` lines pinned by digest to the exact `python:3.12-slim` build
     (`sha256:a6e34c59…`), checked with `dpkg-query` to ship `perl-base 5.40.1-6+deb13u1`. A
     scanner that checks the `FROM` line, not the built image, now sees the fixed build. The pin
     doesn't pick up later base-image fixes on its own; it's bumped to the newest digest by hand.
+    With the base fixed, the `apt-get` upgrade step was removed; rebuilt and checked — `perl-base`
+    still `5.40.1-6+deb13u1`, image 205 MB, runs as `appuser`, `/health` answers.
   - Maintenance — a Dependabot alert (CVE-2026-27205, low) flagged Flask below 3.1.3: sessions
     didn't add a `Vary: Cookie` header in some access patterns. Bumped to `3.1.3`; rebuilt and
     checked with `importlib.metadata`.
@@ -51,7 +53,7 @@ From `orbit/`: `docker compose up --build`, then verify with `curl http://localh
   - Flask 3.1.3 — the web framework the endpoints are written in
   - gunicorn 23.0.0 — the production server that runs the app, in place of Flask's dev server
   - `perl-base` 5.40.1-6+deb13u1 — the Perl runtime Debian's own tools need (it can't be removed);
-    comes with the base image, and the final stage also upgrades it as a safeguard
+    comes with the pinned base image
 - Next: Topic 15 adds `tests/`, so CI has something real to run.
 
 ### `app/tests/` — not built yet
