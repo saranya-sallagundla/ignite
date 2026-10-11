@@ -11,6 +11,7 @@ does or doesn't exist for a given topic.
 |---|---|---|---|
 | 2026-07-27 | Periodic professionalism audit | after Topic 10 | [`audit-2026-07-27.md`](audit-2026-07-27.md) |
 | 2026-08-13 | Public-readiness audit (one-time) | pre-publish, Stage 1 | [`audit-2026-08-13.md`](audit-2026-08-13.md) |
+| 2026-08-26 | Repo organization audit (one-time) | not tied to a topic milestone | [`audit-2026-08-26.md`](audit-2026-08-26.md) |
 
 Two kinds of audits live here, both under the same naming scheme:
 
