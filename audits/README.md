@@ -25,13 +25,33 @@ Two kinds of audits live here, both under the same naming scheme:
   public-readiness audit above, triggered by the repo going public). Same filename convention,
   same rules below, just not tied to the every-10-topics cadence.
 
-## Prompt to start the next periodic audit
+## Prompts to start each kind of audit
+
+Every prompt below is meant to be reused verbatim next time that kind of audit is due.
+
+### The next periodic audit
 
 > Check if the whole repo can be maintained even more professionally — check each and every
 > subfolder and subfile, word by word, line by line and sentence by sentence, and let me know what
 > else we can do. Tell me everything, even if it feels like a minute thing, it matters when
 > showing the whole repo to higher officials. Save the audit findings and fixes to `audits/`, and
 > don't apply any fixes until I review the findings first.
+
+### The next public-readiness audit
+
+> Before this repo's visibility changes again, or as a periodic re-check since exposure and
+> novelty both decay: check every file, every commit — not just the working tree — and the live
+> GitHub state, for anything that shouldn't be public: secrets, credentials, personal
+> identifiers, employer references, or claims the repo can't actually back, such as a license it
+> doesn't hold clear rights to grant. Verify against GitHub's API directly rather than trusting
+> local files. Save findings to `audits/`, and don't apply any fixes until I review them.
+
+### The next repo organization audit
+
+> Check the whole repo and tell me if it could look more organized — as if you have OCD and want
+> everything consistent: file naming, formatting, structure, and any claim that doesn't match
+> reality, however small. Not tied to a topic milestone. Save findings to `audits/`, and don't
+> apply any fixes until I review them.
 
 ## Rules for every audit
 - **Not limited to the categories/items a past audit already found.** `audit-2026-07-27.md`'s
