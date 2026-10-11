@@ -10,10 +10,10 @@
 
 Grouped thematically rather than as a random list, since that's how these get used in practice.
 Skips what Topic 1 already covered: `ls`, `cd`, `mkdir`, `cp`, `mv`, `rm`, `chmod` (`head` and
-`curl` were touched on in Topic 1 too, but get a deeper pass in this topic and later on). Not
-every one of the roadmap's "top 50" lands in this single topic — the rest are folded into later
-topics as they become relevant (e.g. `ss`/networking tools recur in Topic 5, process tools recur
-in Topic 4).
+`curl` were touched on in Topic 1 too, but get a deeper pass in this topic and later on).
+Process tools (`ps`, `top`, `kill`) and networking tools (`ss`) get their first real pass later
+today, in Day 2 — not deferred to Topics 4/5, which instead go deeper on signal-handling nuance
+and DNS/routing specifically.
 
 ### Today's agenda
 1. Viewing large files — `head`, `tail`, `less`.
@@ -356,10 +356,14 @@ $ uptime
  17:26:18 up 1 day, 10:20,  1 user,  load average: 0.00, 0.00, 0.00
 ```
 
-**Load average** — the average number of processes actively **waiting for CPU time** (not idle)
-over the last 1/5/15 minutes respectively. `0.00, 0.00, 0.00` = essentially idle system, nothing
-competing for CPU. A high number relative to core count = overloaded; comparing the three values
-shows whether a load spike is rising or easing off over time.
+**Load average** — the average number of processes in the **run queue** (state `R`, waiting for
+CPU time) **plus** processes in **uninterruptible sleep** (state `D`, blocked on disk/network
+I/O) — not CPU-wait alone — over the last 1/5/15 minutes respectively. `0.00, 0.00, 0.00` =
+essentially idle system, nothing competing for CPU or stuck waiting on I/O. A high number relative
+to core count = overloaded; comparing the three values shows whether a load spike is rising or
+easing off over time. The classic gotcha this definition explains: a system can show high load
+average with a nearly-idle CPU, purely from an I/O bottleneck (lots of processes stuck in `D`
+state) — "high load" doesn't automatically mean "CPU-bound."
 
 **`df` vs. `du` — practical difference, and why they can occasionally disagree**: `df` reports
 at the whole-filesystem/mount level; `du` sums actual usage of specific files/paths you point it

@@ -58,9 +58,12 @@ PS> git commit -m "another master commit after branching"
 
 **Real mistake, hit first**: typed `git log --oneline -all -graph` (single dashes) and got a
 real error: `` error: switch `l' expects an integer value with an optional k/m/g suffix `` — with
-a single dash, `-all` and `-graph` get parsed as a cluster of short flags (`-a -l -l`, `-g -r -a
--p -h`), not the long-form flags intended, and one of those short flags (`-l`) expects a number,
-which is exactly what broke.
+a single dash, `-all` gets parsed as a cluster of short flags (`-a -l -l`), not the long-form flag
+intended, and one of those short flags (`-l`) expects a number, which is exactly what broke. That
+error aborts the command before `-graph` is ever reached, so it doesn't actually prove anything
+about how `-graph` itself would parse — checked separately: `git log --oneline -graph` on its own
+returns `fatal: unrecognized argument: -graph`, not a short-flag decomposition. Single-dash
+clustering only applies to `-all`, not to every multi-letter flag typed with one dash.
 
 **Syntax**: `git log --oneline --all --graph` — compact visual of every branch at once (`--all`
 = every branch, not just current; `--graph` = ASCII branch/merge shape; note the double-dash for
@@ -140,7 +143,7 @@ rebased **onto** (`master`), and the labeled incoming side is your **own** commi
 PS> git add readme.txt
 PS> git rebase --continue
 [detached HEAD 4b2fbee] rebase branch commit
- 1 file changed, 4 insertions(+)
+ 1 file changed, 1 insertion(+)
 Successfully rebased and updated refs/heads/rebase-demo.
 ```
 `[detached HEAD ...]` — normal, internal mechanic: rebase works in a temporary detached-HEAD

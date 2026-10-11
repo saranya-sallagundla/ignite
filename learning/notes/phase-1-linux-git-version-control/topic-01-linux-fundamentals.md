@@ -101,8 +101,11 @@ drwxr-xr-x 33 root root       4096 Jul  6 14:30 ..
 -rw-------  1 root root          0 Feb  9 19:54 .pwd.lock
 -rw-r--r--  1 root root        862 Feb  9 19:54 .resolv.conf.systemd-resolved.bak
 ```
-`.pwd.lock` — zero-byte lock file; its mere existence signals another process is mid-edit on
-password-related files (common pattern: empty files used purely as a signal/flag).
+`.pwd.lock` — a permanent lock *target* used by the `lckpwdf()` mechanism (called by `passwd`,
+`vipw`, `useradd`, and similar tools). It exists as an empty file on essentially every Linux
+system at all times, whether or not an edit is in progress — its presence alone means nothing.
+What actually indicates an in-progress edit is whether the file is held under an active advisory
+lock at that moment, which a plain `ls`/`stat` can't reveal.
 `.resolv.conf.systemd-resolved.bak` — a DNS resolver config backup, world-readable (not sensitive)
 but root-only to modify.
 

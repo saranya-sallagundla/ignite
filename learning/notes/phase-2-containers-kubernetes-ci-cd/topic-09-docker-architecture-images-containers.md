@@ -285,7 +285,7 @@ and confirmed one line at a time, in this exact order:
    image smaller.
 2. `WORKDIR /app` — everything below happens inside a folder called `/app` *inside the image*
    (a fresh folder Docker creates inside the Linux image — not the Windows
-   `C:\CloudOps\ignite\project\app\` folder).
+   `C:\CloudOps\ignite\orbit\app\` folder).
 3. `COPY . .` — first `.` means "everything in the current folder on your computer" (`orbit/app/`,
    where the Dockerfile lives); second `.` means "into the current folder inside the image" (`/app`,
    from `WORKDIR`). Copies `app.py` and `requirements.txt` in.
@@ -315,7 +315,7 @@ docker build -t IMAGE_NAME PATH
 - `PATH` — the build context (folder with the Dockerfile and the files it needs).
 
 Concrete example, run after `cd orbit/app` (moving from `C:\CloudOps\ignite>` into
-`C:\CloudOps\ignite\project\app>` first, since this is the one command that cares about the
+`C:\CloudOps\ignite\orbit\app>` first, since this is the one command that cares about the
 current folder):
 ```
 docker build -t orbit-app .

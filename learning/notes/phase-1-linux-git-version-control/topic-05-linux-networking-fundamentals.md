@@ -325,9 +325,13 @@ the first answer was "may be a firewall issue" — backwards from the actual les
 before landing on the rule below.
 
 **Key takeaway**: "refused" **rules in** "nothing listening on that port" and **rules out** a
-firewall block specifically, since a firewall would silently drop the packet rather than send an
-active refusal back — a firewall block shows up as the silent "timed out" case instead, which is
-exactly why it's the hardest of the three to diagnose (no information at all comes back).
+*silently-dropping* firewall specifically, since that kind of firewall drops the packet rather
+than sending an active refusal back — that case shows up as "timed out" instead, which is exactly
+why it's the hardest of the three to diagnose (no information at all comes back). Caveat worth
+knowing: a firewall configured to **REJECT** (rather than DROP) also sends an active refusal back,
+indistinguishable from "nothing listening" at the client — so "refused" only rules out a *silent*
+firewall block, not every firewall. Every block seen so far in this course (corporate proxies,
+cloud security groups) has been the silent-DROP kind, which is why the simpler rule held up here.
 
 ---
 
@@ -445,11 +449,13 @@ Question and full correct answer for each:
 5. **What does a "Connection refused" result rule in, and what does it rule out?**
    It **rules in** that the target machine was reached and nothing is listening on that port — the
    OS itself actively responded with a TCP `RST`, which is why it comes back almost instantly (2 ms
-   in the real `curl -v` test). It **rules out** a firewall block specifically, because a firewall
-   would silently drop the packet rather than send an active refusal back; a firewall block instead
-   produces the "connection timed out" case — total silence, waiting the full timeout with nothing
-   returned. So "refused" is actually more informative than "timed out": it confirms the target is
-   reachable and simply means no app is bound to that port, whereas "timed out" gives no
+   in the real `curl -v` test). It **rules out** a *silently-dropping* firewall specifically,
+   because that kind of firewall drops the packet rather than sending an active refusal back; that
+   case instead produces the "connection timed out" result — total silence, waiting the full
+   timeout with nothing returned. (Caveat: a **REJECT**-configured firewall also sends an active
+   refusal, indistinguishable from "nothing listening" — "refused" only rules out a silent DROP,
+   not every firewall.) So "refused" is usually more informative than "timed out": it confirms the
+   target is reachable and simply means no app is bound to that port, whereas "timed out" gives no
    information at all.
 
 **How the actual quiz session went** (for context, not the answers themselves): Q1 passed cleanly,

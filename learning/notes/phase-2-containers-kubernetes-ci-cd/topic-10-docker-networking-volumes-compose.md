@@ -227,6 +227,14 @@ thing, even when a command name looks identical.
 changed in place — confirmed again when trying to add `Volume-A` to the already-running `app-a`
 (which already had the bind mount).
 
+> **Editorial note, added 2026-08-31**: Day 1's own record above creates `app-a` bare
+> (`docker run -d --name app-a orbit-app:v2`, no `-v`) and demonstrates the bind mount on a
+> separately-named container, `app-c`. The command that actually gave `app-a` the bind mount
+> referenced from here on isn't captured earlier in this notebook. Left as originally written
+> rather than inventing a command that wasn't actually run — flagging the gap here so it reads as
+> a known omission, not an inconsistency nobody noticed. The same applies to `app-b` further
+> below.
+
 **Real catch**: two different storage sources can't point at the same container path at once —
 like two cars trying to park in one labeled parking spot. `Volume-A` had to go at a different
 path, `/app/volume-data`, since `/app/data` was already taken by the bind mount. Agreed a

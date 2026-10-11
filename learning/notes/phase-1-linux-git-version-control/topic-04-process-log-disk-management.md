@@ -93,8 +93,10 @@ get the **total number of distinct groups** instead of per-group counts.
 ### 3. The `/proc` filesystem
 
 A **virtual (pseudo) filesystem** — nothing in it is real data on disk; the kernel generates its
-contents **live**, the instant you read them. Every command so far (`ps`, `top`, `free`, `df`)
-is really just reading and formatting `/proc` under the hood.
+contents **live**, the instant you read them. `ps`, `top`, and `free` are really just reading and
+formatting `/proc` under the hood (per-process info, `/proc/meminfo`). `df` is the one exception —
+it queries the kernel more directly via `statfs()`/`statvfs()` against each mounted filesystem,
+using `/proc/mounts` only to enumerate which filesystems exist.
 
 **Kernel recap**: the core part of the OS that directly manages hardware (CPU, memory, disk) and
 mediates between hardware and every other program — deciding CPU time allocation, memory,
