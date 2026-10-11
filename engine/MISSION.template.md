@@ -49,7 +49,8 @@
 
      Break the field into phases, each topic 1-4 days. Days should be aggressive-but-honest for
      a real working day around a job. "Core" topics block later work; "Advanced" ones can slip
-     to reserve days without breaking the path. Two example rows are shown — replace everything. -->
+     to reserve days without breaking the path. Three example rows are shown across two phases
+     (the second phase exists only to show how a new phase heading looks) — replace everything. -->
 
 ### Phase 1 — <!-- name --> (N topics, N days: N + N buffer)
 

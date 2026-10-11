@@ -421,7 +421,8 @@ Interview-style, open-ended, 4 questions. Question and full correct answer for e
    with that same job's token and permissions — meaning it can act on the repo (e.g. stealing
    secrets, pushing malicious code) with the job's real access, without the user's knowledge. This
    is a genuine, documented supply-chain attack vector. The real mitigations: pin third-party
-   Actions to a specific trusted commit hash rather than a floating tag like `@latest`; grant the
+   Actions to a specific trusted commit hash rather than a floating tag like `@v4` or a branch
+   like `@main`; grant the
    token only the minimum permissions actually needed rather than the full default set; never
    print secrets to workflow logs (anyone who can view the logs can see them); and require manual
    approval before running workflows triggered by pull requests from outside/fork contributors.
