@@ -33,9 +33,10 @@ From `orbit/`: `docker compose up --build`, then verify with `curl http://localh
 ## Status
 `app/` serves a Flask service (`/health`, `/ready`) from a multi-stage, non-root image running
 gunicorn, with a HEALTHCHECK and a version-tagged image (`orbit-app:2.1`) brought up by
-`docker-compose.yml`. Phase 1 is complete and Topics 9-11 (Docker fundamentals through
-multi-stage builds) are cleared; Kubernetes, CI/CD, Terraform and observability follow in the
-later phases listed in the folder guide above.
+`docker-compose.yml`. Phase 1 is complete; Phase 2 (Containers, Kubernetes & CI/CD) is underway —
+Topics 9-11 (Docker) are cleared, with Kubernetes (12-14), CI/CD (15-16), Ansible (17) and
+Terraform's introduction (18) still ahead in this same phase. Terraform is deepened in Phase 4 and
+observability follows in Phase 6.
 
 ## Build log
 

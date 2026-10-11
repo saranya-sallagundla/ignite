@@ -1,9 +1,8 @@
 # Capstone Concept — Autonomous SRE Agent + Orbit Control
 
-> **Status: current working idea, not a locked decision.** This is the vehicle used to drive
-> hands-on learning through the roadmap. Revisit at the end of the learning journey (all 53
-> topics complete) and decide then whether to keep building this or replace it, informed by
-> everything learned by that point.
+> **Status: current working idea, not a locked decision.** Revisit once the underlying skills
+> (Kubernetes, Terraform, Python, observability) are all in place, and decide then whether to
+> keep building this or replace it, informed by everything learned by that point.
 
 ## What it is
 A local AI agent (Ollama + CrewAI, Phase 7) watches Prometheus/Grafana/ELK signals (Phase 6) on
@@ -43,9 +42,10 @@ needed.
 Codespaces would run against a personal GitHub account and a personal mirror of this repo — the
 same portability move already described above.
 
-**Not set up yet, on purpose** — deferred to the end of the full 53-topic learning journey, the
-same checkpoint as this document's own capstone-idea revisit above.
+**Not set up yet, on purpose** — deferred to the same milestone as this document's own
+capstone-idea revisit above.
 
 ## Supersedes
 This concept supersedes an earlier "learning progress tracker" idea (modeling this repo's own
-tracking system as a deployable app), which was considered and dropped before Topic 9 began.
+tracking system as a deployable app), which was considered and dropped early on, before the
+project's first container existed.
