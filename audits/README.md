@@ -21,9 +21,10 @@ Two kinds of audits live here, both under the same naming scheme:
   notebooks, missing repo hygiene files) before the repo is shown to anyone. Each one records
   what was checked, what was found, what was actually fixed, and why each fix mattered — not
   just a raw findings dump.
-- **One-time named audits** — cover something other than a topic milestone (e.g. the
-  public-readiness audit above, triggered by the repo going public). Same filename convention,
-  same rules below, just not tied to the every-10-topics cadence.
+- **One-time named audits** — cover something other than a topic milestone: a public-readiness
+  audit, triggered by the repo's visibility changing, or a repo organization audit, triggered by
+  a direct request to check overall consistency. Same filename convention, same rules below,
+  just not tied to the every-10-topics cadence.
 
 ## Prompts to start each kind of audit
 
@@ -63,17 +64,23 @@ Every prompt below is meant to be reused verbatim next time that kind of audit i
 - Findings first, fixes only after the user reviews them — never apply silently.
 - Categorize by severity (critical / important / minor / cosmetic) so the user can prioritize.
 - Fix in small, reviewable, individually-committed batches, not one giant commit.
-- Defer genuinely topic-specific best-practice items (e.g. Dockerfile hardening → Topic 11) to
-  when that topic is actually taught, rather than fixing them retroactively — the user should
-  learn them hands-on, not find a pre-made fix waiting.
+- **Periodic audits only**: defer genuinely topic-specific best-practice items (e.g. Dockerfile
+  hardening → Topic 11) to when that topic is actually taught, rather than fixing them
+  retroactively — the user should learn them hands-on, not find a pre-made fix waiting.
+  Public-readiness and organization audits have no topic-teaching timeline to defer into, so
+  this rule doesn't apply to them.
 - Check-in/Check-out timestamps are never touched for formatting/consistency reasons — they're
   the one thing in this repo whose value depends entirely on being real.
 - The full standing rules this process enforces live in `CLAUDE.md`'s "Repo quality standards"
   section — each audit should check the repo still holds to those, not just find new issues.
-- After the audit report is produced, save an unmodified copy of the raw findings report directly
-  under `C:\CloudOps` (not just the scratchpad/temp location the report was originally written to,
-  and not just the permanent `audits/audit-YYYY-MM-DD.md` record). Copy it as-is — do not redact
-  or edit anything (e.g. employer-name instances) in this copy.
-- **Add the new file to the index table above** in the same commit — a periodic audit is not
-  discoverable by filename alone, so an audit that isn't indexed is effectively invisible to the
-  next session's check for whether that milestone's audit has already run.
+- **If the in-repo record redacts anything** (e.g. employer-name instances, per the
+  public-readiness audit), also save an unmodified copy of the raw, pre-redaction findings
+  directly under `C:\CloudOps` — not just the scratchpad/temp location it was originally written
+  to, and not just the permanent `audits/audit-YYYY-MM-DD.md` record. Copy it as-is, no
+  redaction. If nothing needed redacting, skip this — there's no raw version distinct from the
+  permanent record to preserve — but say so explicitly in the audit file, as
+  `audit-2026-08-26.md` does, so the absence reads as a decision, not an oversight.
+- **Add the new file to the index table above** in the same commit — no audit is discoverable by
+  filename alone under this naming scheme, so one that isn't indexed is effectively invisible:
+  to a future session checking whether a periodic milestone is already covered, and to anyone
+  just trying to find out what's in this folder at all.
