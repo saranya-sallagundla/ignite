@@ -95,6 +95,9 @@ new one — "current branch" can silently carry over from a previous session's l
 
 **Syntax**: `git push REMOTE --delete BRANCH` — delete a branch on the remote
 
+**Syntax**: `git branch -D NAME` — force-delete a branch, even with unmerged work (`-d`, lowercase,
+refuses if the branch has unmerged work — a safety check `-D` skips).
+
 **Fixed by deleting and recreating properly**:
 ```
 PS> git checkout master
@@ -333,8 +336,9 @@ error: failed to push some refs to 'https://github.com/your-org/git-practice.git
 Genuinely blocked this time — `GH006` is GitHub's specific error code for this rejection, and the
 push was cleanly rejected on the **server side** (`[remote rejected]`, `protected branch hook
 declined` — GitHub's own pre-receive check on the remote, not anything checked locally before
-sending). Cleaned up the local-only test commit with `git reset --hard HEAD~1`, safe since it was
-never pushed.
+sending). Cleaned up the local-only test commit — **Syntax**: `git reset --hard COMMIT` discards
+local commits and working-directory changes back to COMMIT — via `git reset --hard HEAD~1`, safe
+since it was never pushed.
 
 **Real discovery #2 — the self-approval block**: with "Require approvals" (1 required) enabled,
 opened a PR (`test-pr-approval`) and tried to merge immediately without approving — the merge

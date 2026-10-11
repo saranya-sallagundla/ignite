@@ -49,7 +49,7 @@ $ chmod 744 hello.sh
 $ ./hello.sh
 Hello from my first script
 ```
-**New shorthand learned**: `chmod +x FILE` — symbolic mode, adds execute permission
+**Syntax**: `chmod +x FILE` — symbolic mode, adds execute permission
 (owner/group/others) without needing to compute the exact octal number. The common real-world
 idiom for "just
 make this runnable," used more often than manually computing `744`/`755` for scripts.

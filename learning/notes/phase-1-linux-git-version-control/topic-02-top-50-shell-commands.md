@@ -28,6 +28,8 @@ and DNS/routing specifically.
 **Syntax**: `head [-n LINES] FILE` — first N lines (default 10)
 **Syntax**: `tail [-n LINES] FILE` — last N lines (default 10)
 
+**Syntax**: `seq [FIRST [INCREMENT]] LAST` — prints a sequence of numbers, one per line.
+
 **Verified hands-on**:
 ```
 $ seq 1 100 > numbers.txt
@@ -303,6 +305,9 @@ leave" — the tenant can take their time, grab their things, or even ignore the
 SIGKILL is skipping the knock altogether — the landlord physically removes the tenant and
 everything gets tossed out immediately, zero warning, zero chance to grab anything on the way
 out.
+
+> **Note**: raw captured command output below reflects the machine's actual local clock (US
+> Eastern, UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
 
 **Verified hands-on** — full lifecycle: start a background process, find it, stop it:
 ```

@@ -66,6 +66,8 @@ docker run -d --name app-a orbit-app:v2
 docker run -d --name app-b orbit-app:v2
 ```
 
+**Syntax**: `docker exec CONTAINER COMMAND` — runs COMMAND inside an already-running container.
+
 **Real discovery**: `app-a` reaching `app-b` **by name** over the default bridge genuinely failed:
 ```
 docker exec app-a python -c "import urllib.request; print(urllib.request.urlopen('http://app-b:5000/health', timeout=3).read())"
@@ -257,13 +259,13 @@ reserved for the bind mount.
    ```
 3. Verified both paths showed the expected files (`docker exec app-a-duplicate ls /app/data`,
    `ls /app/volume-data`) **before** touching the real `app-a`.
-4. Only then, the actual swap:
+4. Only then, the actual swap — **Syntax**: `docker rename OLD NEW` only changes a container's
+   name, it can't add/change mounts or networks:
    ```bash
    docker rm -f app-a
    docker rename app-a-duplicate app-a
    ```
-   **`docker rename OLD NEW`** only changes a container's name — it can't add/change mounts or
-   networks, which is exactly why the duplicate had to be a genuinely new container in the first
+   This is exactly why the duplicate had to be a genuinely new container in the first
    place, not a renamed version of the old one. It also means the rename carries the duplicate's
    existing network membership over untouched — `my-net` (connected back in step 2) is still
    attached after the rename, with nothing further needed.

@@ -124,6 +124,9 @@ ownership + restrictive permissions forces `sudo` for system changes — a delib
 
 **Example**: `stat ~/.bashrc`
 
+> **Note**: raw captured command output below reflects the machine's actual local clock (US
+> Eastern, UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
+
 **Output**:
 ```
   File: /home/devuser/.bashrc
@@ -188,6 +191,8 @@ Windows can browse into via a special protocol.
 
 **Syntax**: `cd [PATH]` — absolute path (starts with `/`, works from anywhere) vs relative path
 (starts from wherever you currently are)
+
+**Syntax**: `pwd` — prints the current working directory's absolute path, no arguments.
 
 **Verified hands-on**:
 ```
@@ -459,6 +464,8 @@ $ ls -li original.txt hardlink.txt symlink.txt
 `original.txt` and `hardlink.txt` share inode `50105`, link count `2` — genuinely the same file,
 two names. `symlink.txt` has its own separate inode `50106`, type `l`, and just stores the path
 text `original.txt` (12 bytes — the length of that path string).
+
+**Syntax**: `cat FILE [FILE...]` — prints a file's contents to the terminal, no paging.
 
 **Verified hands-on — deleting the original**:
 ```

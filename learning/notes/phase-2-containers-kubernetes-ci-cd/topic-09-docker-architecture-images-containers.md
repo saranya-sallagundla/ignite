@@ -393,6 +393,11 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://127.0.0.1:5000
  * Running on http://172.17.0.2:5000
 Press CTRL+C to quit
+```
+> **Note**: raw captured command output below reflects the machine's actual local clock (US
+> Eastern, UTC-4) — a full calendar day past the IST-dated heading above is expected here, not an
+> error; narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
+```
 172.17.0.1 - - [21/Jul/2026 05:02:54] "GET /health HTTP/1.1" 200 -
 172.17.0.1 - - [21/Jul/2026 05:02:54] "GET /favicon.ico HTTP/1.1" 404 -
 172.17.0.1 - - [21/Jul/2026 05:03:03] "GET /health HTTP/1.1" 200 -

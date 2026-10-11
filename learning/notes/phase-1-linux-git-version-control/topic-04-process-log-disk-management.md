@@ -204,6 +204,9 @@ renice: failed to set priority for 70478 (process ID): Permission denied
 `$!` — special variable holding the PID of the most recently backgrounded process, a shortcut
 for checking a process you just started with `&` without needing to look up its number manually.
 
+**Syntax**: `wsl -u USER` — launches a WSL session as the given user, bypassing normal login;
+`passwd USER` — sets/resets that user's password.
+
 **Forgot sudo password mid-session** — resolved via WSL-specific recovery (run from Windows
 PowerShell, not WSL bash): `wsl -u root` (opens a root session bypassing sudo/password entirely,
 since WSL trusts the launching Windows account) → `passwd <username>` to set a new password.
@@ -214,6 +217,9 @@ permissions, installed packages, or any other settings.
 
 **`/var/log`** — traditional plain-text logs, one (or more) file per service/subsystem. Recall
 Topic 1: `/var` holds data that grows over time.
+
+> **Note**: raw captured command output below reflects the machine's actual local clock (US
+> Eastern, UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
 
 **Verified hands-on — log rotation, seen for real**:
 ```
@@ -547,8 +553,9 @@ that timeline, not overlapping responsibilities.
 **Cleanup, tied directly to Q3's own boot-failure warning below**: this loop device
 (`/dev/loop0`, backed by `/root/practice.img`) doesn't persist across a reboot, so leaving its
 test entry in `/etc/fstab` permanently would eventually hang boot exactly the way Q3 describes —
-this test entry was removed from `/etc/fstab` afterward (`sudo sed -i '\|/mnt/test|d' /etc/fstab`)
-once the exercise was done, rather than left in place.
+this test entry was removed from `/etc/fstab` afterward — **Syntax**: `sed -i 'PATTERN d' FILE`
+deletes lines matching PATTERN in place — via `sudo sed -i '\|/mnt/test|d' /etc/fstab`, once the
+exercise was done, rather than left in place.
 
 ### 8. Combined scenario — inode exhaustion vs. block exhaustion
 

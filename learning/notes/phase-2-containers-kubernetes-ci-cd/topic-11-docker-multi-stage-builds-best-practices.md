@@ -236,11 +236,14 @@ docker logs orbit-app-1
 because the `docker compose up --build` command itself was interrupted right between "container
 created" and "container started."
 
+**Syntax**: `docker start [-a] CONTAINER` — starts a stopped/created container; `-a` attaches the
+terminal to its live output.
+
 **Fix**:
 ```
 docker start -a orbit-app-1
 ```
-`-a` attaches the terminal to the container's live output. This showed real gunicorn startup logs:
+This showed real gunicorn startup logs:
 ```
 [INFO] Starting gunicorn 23.0.0
 [INFO] Listening at: http://0.0.0.0:5000 (1)
@@ -286,6 +289,9 @@ later step: `RUN useradd --create-home appuser && chown -R appuser /app /opt/ven
 `chown -R` recursively changed ownership of every file in `/opt/venv` — forcing copy-up on the
 entire ~50MB virtual environment into a brand-new layer, on top of the copy that already existed
 from the `COPY --from=builder` step. The venv's content effectively existed twice.
+
+**Syntax**: `COPY --chown=USER SRC DEST` — sets ownership as part of the copy itself, instead of a
+separate `RUN chown` step afterward.
 
 **Fix**: set ownership *during* the copy itself, with `COPY --chown=`, instead of a separate
 `chown -R` afterward:
