@@ -15,6 +15,17 @@ polish. Using that slack is normal; it does not count as falling behind.
 - `audits/` — periodic full-repo professionalism audits, covering both `learning/` and `orbit/`
   together (see below). Lives at the repo root, not under `learning/`, since its scope isn't
   limited to the learning side.
+- `engine/` — the Ignition Engine: this same teaching protocol, extracted into a reusable form for
+  someone forking Ignite to run their own mission on a different subject. Kept in sync manually
+  with this file and with `learning/roadmap.md`'s general shape — a fork should not inherit rules
+  this file has since dropped, or miss rules this file has since added.
+- `docs/` — the method (why the rules work) and future project ideas, distinct from `orbit/docs/`
+  (the project's own architecture notes).
+- `.github/` — CI workflows and issue-form scaffolding, populated starting Topic 15 (GitHub
+  Actions); a placeholder README until then.
+- Root hygiene files (`README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `LICENSE`,
+  `learning/LICENSE`, `.gitignore`, `.gitattributes`) — standard repo hygiene, kept current
+  alongside everything else, not a one-time setup task.
 - This file stays at the repo root, not inside either folder — Claude Code auto-loads CLAUDE.md
   from the directory it's launched in, so keeping it at the repo root guarantees the rules load
   every session regardless of which subfolder the work touches.
@@ -26,11 +37,16 @@ partner on the real project, in one continuous relationship across sessions. Rea
 anything.
 
 ## Daily session shape
-1. Check `learning/progress.md` for the current topic and any topic mid-remediation. If the topic
-   that most recently cleared is a multiple of 10 (10, 20, 30, 40, 50), check `audits/README.md`'s
-   index — audit files are dated (`audit-YYYY-MM-DD.md`), not numbered, so the index (not the
-   filename) says whether that milestone's audit has already run. If it hasn't, remind the user
-   to run the periodic repo audit (see below) before starting the next topic. Also check
+1. Check `learning/progress.md` for the current topic and any topic mid-remediation. If the
+   highest cleared topic number has reached or passed the next un-audited multiple of 10 (10, 20,
+   30, 40, 50) — not just "the topic that most recently cleared is exactly a multiple of 10,"
+   which silently misses the trigger whenever a milestone topic and the one after it clear in the
+   same close window (this happened once: Topic 11 cleared one day after Topic 10, and the
+   resulting audit ended up dated after the topic it claimed to precede) — check
+   `audits/README.md`'s index — audit files are dated (`audit-YYYY-MM-DD.md`), not numbered, so
+   the index (not the filename) says whether that milestone's audit has already run. If it hasn't,
+   remind the user to run the periodic repo audit (see below) before starting the next topic. Also
+   check
    `learning/field_atlas.md`'s "Last sub-discipline check" date — if it isn't today (IST), remind
    the user to trigger a manual check (a real daily scheduled cloud
    task isn't available — Claude Code routines are disabled at the organization level — so this
@@ -162,7 +178,10 @@ Standing rules, so the repo never drifts back into the kind of issues the Topic 
 
 ## Periodic repo audit
 Every 10 topics (after Topic 10, 20, 30, 40, 50 clear), run a full repo professionalism audit —
-same process as the one done after Topic 10 — before starting the next topic. Findings and fixes
+same process as the one done after Topic 10 — before starting the next topic. Also run one final
+audit after Topic 53 clears, the same process again — there is otherwise no pass scheduled between
+"the last periodic audit at Topic 50" and the repo actually being finished and shown, and that gap
+is exactly where drift would go unnoticed the longest. Findings and fixes
 get saved to `audits/audit-YYYY-MM-DD.md` (today's date), with what was fixed and why it matters,
 not just a raw list, and the new file gets added to `audits/README.md`'s index (date → milestone)
 in the same commit — the index, not the filename, is how a future session finds it. Fixes are
@@ -222,3 +241,7 @@ audiences: `orbit/` is what gets shown, `learning/` never is.
 - Never quote or reproduce copyrighted material in lessons — paraphrase instead.
 - Never give the answer before the user has attempted the question themselves.
 - Never repeat an identical explanation across attempts — each retry must teach it differently.
+- Never edit a check-in/check-out timestamp, a past session log entry, or a recorded score — the
+  Dates rule above states why; this restates it here so it isn't missed by anyone scanning only
+  this list.
+- Never mark a topic cleared without a passed quiz in the log to show for it.

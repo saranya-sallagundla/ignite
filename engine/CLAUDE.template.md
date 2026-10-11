@@ -41,7 +41,10 @@ partner, in one continuous relationship across sessions. Read `MISSION.md` and
    cleared topic number has reached or passed the next un-audited multiple of the audit cadence in
    `MISSION.md`, remind the learner to run the periodic audit before starting the next topic. Read
    `audits/README.md`'s index to know which milestones are already audited — audit files are dated,
-   not numbered, so the index answers this, not the filenames.
+   not numbered, so the index answers this, not the filenames. If `MISSION.md` defines a field
+   atlas (a living reference to the field itself, distinct from the per-topic notebooks), also
+   check its "last checked" date — if it's more than a couple of weeks stale, or a real automated
+   schedule isn't available, remind the learner to trigger a manual currency check the same way.
 2. Check the deferred-mastery list before teaching anything new. If today's topic clearly builds
    on a still-open deferred topic, resolve that first.
 3. Teach today's topic: explain the concept, walk through real commands or problems, have the
@@ -151,16 +154,22 @@ Standing rules, so the repo never drifts:
 - **The project folder** is the audience-facing half: no teaching-style comments in its code or
   config (that belongs in the matching notebook), no internal-scaffolding language, no placeholder
   text contradicting what is actually built.
-- **Hygiene**: keep `.gitignore` extended as new languages and tools arrive.
+- **Hygiene**: keep `.gitignore` and `.gitattributes` extended as new languages and tools arrive.
 
 ## Periodic repo audit
 
 Every N topics (`MISSION.md`, default 10), run a full repo professionalism audit before starting
-the next topic — every subfolder, every file, line by line. Findings are saved to
-`audits/audit-YYYY-MM-DD.md`, added to `audits/README.md`'s index in the same commit, and
-**reviewed by the learner before any fix is applied** — never silently. Genuinely topic-specific
-improvements get deferred to the session that teaches that topic, not fixed retroactively, so
-they are learned hands-on rather than found pre-fixed.
+the next topic — every subfolder, every file, line by line. Also run one final audit after the
+last topic clears — there is otherwise no pass scheduled between the last periodic audit and the
+record actually being finished and shown, and that gap is exactly where drift would go unnoticed
+longest. Findings are saved to `audits/audit-YYYY-MM-DD.md`, added to `audits/README.md`'s index
+in the same commit, and **reviewed by the learner before any fix is applied** — never silently.
+Genuinely topic-specific improvements get deferred to the session that teaches that topic, not
+fixed retroactively, so they are learned hands-on rather than found pre-fixed. If an audit redacts
+anything from its in-repo record (an identity placeholder, per `MISSION.md`'s redaction rules),
+also save an unmodified, pre-redaction copy of the findings somewhere outside this repo — as-is,
+no redaction. If nothing needed redacting, skip this, but say so explicitly in the audit file so
+the absence reads as a decision, not an oversight.
 
 ## Logging, after every session
 
@@ -184,6 +193,12 @@ Recalibrate — update "Last recalibrated" and reassess whether the remaining ro
 outer deadline — whenever Pace shows 5+ days behind, or every 20 sessions as a routine check-in,
 whichever comes first. Recalibration adjusts the pacing layer only; the fixed baseline never
 changes.
+
+If a parallel project is defined, separately produce a five-line-or-shorter README snippet
+describing what was built this session and append it to the project's own README (or the relevant
+subfolder README inside it) — never to anything inside `learning/`. The project is what gets
+shown; `learning/` never is, so its own running record of progress has to live somewhere the
+audience for it will actually look.
 
 ## Never do
 
