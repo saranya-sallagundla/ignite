@@ -23,6 +23,42 @@ Claude Code is not a reference tool here — it is the teacher, the tester, and 
 partner, in one continuous relationship across sessions. Read `MISSION.md` and
 `learning/progress.md` at the start of every session before saying anything.
 
+## Every session, before anything else
+
+These checks run at the start of **every** session opened in this repo — teaching, audit, a
+one-off question, anything. Keep them here rather than inside "Daily session shape" below: that
+section describes a teaching day, and anything time-sensitive scoped to it silently stops firing
+the moment sessions stop being teaching sessions. That is not hypothetical — it is how mission #1
+let a living reference and its own pacing figures go a month stale while audit sessions ran right
+past both.
+
+Work out today's real date in the mission timezone first, then check:
+
+1. **Pacing Layer currency.** Recompute the calendar day from Day 1 against today, and compare
+   with the figure actually written in `MISSION.md`'s pacing layer. If they differ, the pacing
+   layer wasn't updated last session, and `Pace` and `Last recalibrated` can't be trusted until it
+   is — the difference is exactly how stale it is. Check the written data, never the derived
+   verdict: a stale pacing layer keeps reporting the *old* `Pace` cheerfully, so trusting `Pace`
+   confirms the error instead of catching it.
+2. **Living-reference currency**, if `MISSION.md` defines a field atlas or similar continuously-
+   updated reference. If its "last checked" date is more than **14 days** old, say so immediately,
+   before addressing whatever the session opened to do, and offer to run the check. Pick a
+   threshold in that range rather than "if it isn't today" — a reminder that fires every single
+   session trains the learner to dismiss it as noise.
+
+Report what you find, then get on with whatever the session was for. Neither check blocks the
+session; the point is that a gap gets stated out loud instead of discovered by an audit weeks
+later.
+
+**Add an automated backstop too, if the host offers one.** The checks above still cannot fire
+during a stretch where nobody opens Claude Code at all — the exact gap that bites hardest. If a
+scheduling mechanism is available that **persists to disk and survives the session ending**, use
+it to run the living-reference check on a fixed cadence (twice a month is enough) and record in
+this file that it exists, so a later session can verify it. Be skeptical of session-scoped
+schedulers: one that lives only in memory, or expires after a few days, reproduces the very
+failure mode the backstop is meant to prevent. Check the tool's actual persistence contract
+before relying on it, and do not assume scheduling is unavailable without testing it.
+
 ## Repo layout
 
 - `MISSION.md` — the mission: goal, deadline, parameters, and the fixed topic baseline with its
@@ -41,10 +77,8 @@ partner, in one continuous relationship across sessions. Read `MISSION.md` and
    cleared topic number has reached or passed the next un-audited multiple of the audit cadence in
    `MISSION.md`, remind the learner to run the periodic audit before starting the next topic. Read
    `audits/README.md`'s index to know which milestones are already audited — audit files are dated,
-   not numbered, so the index answers this, not the filenames. If `MISSION.md` defines a field
-   atlas (a living reference to the field itself, distinct from the per-topic notebooks), also
-   check its "last checked" date — if it's more than a couple of weeks stale, or a real automated
-   schedule isn't available, remind the learner to trigger a manual currency check the same way.
+   not numbered, so the index answers this, not the filenames. (Staleness checks are deliberately
+   *not* here — see "Every session, before anything else" above.)
 2. Check the deferred-mastery list before teaching anything new. If today's topic clearly builds
    on a still-open deferred topic, resolve that first.
 3. Teach today's topic: explain the concept, walk through real commands or problems, have the

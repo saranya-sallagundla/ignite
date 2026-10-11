@@ -34,7 +34,44 @@ polish. Using that slack is normal; it does not count as falling behind.
 Claude Code is not a reference tool here — it is the teacher, the tester, and the engineering
 partner on the real project, in one continuous relationship across sessions. Read
 `learning/roadmap.md` and `learning/progress.md` at the start of every session before saying
-anything.
+anything, plus `learning/field_atlas.md`'s header (its first ~20 lines) for the staleness check
+below.
+
+## Every session, before anything else
+These two checks run at the start of **every** session opened in this repo — teaching, audit, a
+one-off question, anything at all. They are deliberately *not* part of "Daily session shape"
+below: that section describes a teaching day, and scoping these checks to it is exactly why they
+silently stopped firing for 33 days once sessions stopped being teaching sessions. Two audit
+sessions ran inside that window and neither one triggered either check.
+
+Work out today's real date in IST first, then check both:
+
+1. **Field atlas currency.** Read `learning/field_atlas.md`'s "Last sub-discipline check" date. If
+   it's **more than 14 days** before today, say so immediately — before addressing whatever the
+   session actually opened to do — and offer to run the check. The threshold is 14 days, not "if
+   it isn't today": a reminder that fires every single session trains the user to dismiss it as
+   noise, which is half of why this one went unnoticed. 14 days is still short enough to catch
+   real movement — a 33-day gap produced four genuinely stale claims.
+2. **Pacing Layer currency.** Recompute Calendar Day from Day 1 (2026-07-06 IST) against today,
+   and compare against the "Calendar Day since Day 1" figure actually written in
+   `learning/roadmap.md`'s Pacing Layer. If they differ, the Pacing Layer wasn't updated last
+   session, and **`Pace` and `Last recalibrated` can't be trusted until it is** — the difference
+   is exactly how stale it is. Check the written data, never the derived verdict: the one time
+   this drifted, the file still read `Pace: on track` while sitting 19 days behind, so trusting
+   `Pace` would have confirmed the error instead of catching it.
+
+Report both, then get on with whatever the session was for. Neither check blocks the session —
+the point is only that a gap gets stated out loud instead of discovered by an audit weeks later.
+
+**The automated backstop.** The two checks above still can't fire during a stretch where nobody
+opens Claude Code in this folder at all — which is the gap that actually occurred. A scheduled task
+(`ignite-field-atlas-check`, stored under `~/.claude/scheduled-tasks/`) therefore runs the atlas
+currency check on the 1st and 15th of each month independently of any session, and fires on the
+next app launch if the app was closed when it was due. It persists on disk across sessions.
+Verify it still exists with `list_scheduled_tasks` if the atlas ever goes stale again despite it.
+Note that Claude Code's *other* scheduling tool, `CronCreate`, is **not** suitable here and was
+deliberately not used: its jobs are session-only, in-memory, and auto-expire after 7 days, so it
+reproduces the exact failure mode this backstop exists to prevent.
 
 ## Daily session shape
 1. Check `learning/progress.md` for the current topic and any topic mid-remediation. If the
@@ -45,15 +82,10 @@ anything.
    resulting audit ended up dated after the topic it claimed to precede) — check
    `audits/README.md`'s index — audit files are dated (`audit-YYYY-MM-DD.md`), not numbered, so
    the index (not the filename) says whether that milestone's audit has already run. If it hasn't,
-   remind the user to run the periodic repo audit (see below) before starting the next topic. Also
-   check
-   `learning/field_atlas.md`'s "Last sub-discipline check" date — if it isn't today (IST), remind
-   the user to trigger a manual check (a real daily scheduled cloud
-   task isn't available — Claude Code routines are disabled at the organization level — so this
-   reminder is the fallback mechanism). If the user says yes, research whether any genuinely new,
-   established DevOps/SRE sub-discipline has emerged or any existing entry needs a sourced factual
-   update, applying the same high bar and citation/confidence conventions already used in that
-   file; update the date regardless of whether anything else changed.
+   remind the user to run the periodic repo audit (see below) before starting the next topic.
+   (The field-atlas and Pacing Layer staleness checks used to live here too — they've moved to
+   "Every session, before anything else" above, since tying them to a teaching day is what let
+   them go unnoticed for 33 days.)
 2. Teach today's topic: explain the concept, walk through real commands, have the user execute
    them live, correct in real time — not review-after-the-fact.
 3. Test only once the topic is fully complete (see multi-day rule below) — immediately after the
@@ -141,8 +173,19 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
 - `learning/field_atlas.md` — a living, continuously-updated reference (not a session log) mapping
   the DevOps/SRE field itself: foundational concepts, sub-disciplines, and a five-point treatment
   (real problem / why it matters / how it connects / alternatives / production reality) of every
-  topic covered so far. One file, always current, never forked into a v2. See its own "Last
-  sub-discipline check" date and Daily session shape step 1 for the manual-check reminder.
+  topic covered so far. One file, always current, never forked into a v2.
+  - **Part 2 ("Topics Covered So Far") is event-driven** — it grows when a topic clears, which is
+    already tracked elsewhere and so can't silently lag. **Part 1 (the state of the field, and
+    §1.5's sub-discipline list) is the calendar-time-sensitive half**, with no event to trigger a
+    revisit — that's the half the staleness checks exist for.
+  - **What the sub-discipline check actually does**: research whether any genuinely new,
+    established DevOps/SRE sub-discipline has emerged, and whether any existing entry needs a
+    sourced factual update — applying the same high bar and citation/confidence conventions
+    already used throughout that file (a named primary source beats a secondary summary; state
+    plainly when no reliable source was found rather than implying false confidence; separate
+    confidence-in-direction from confidence-in-figure). Update the "Last sub-discipline check"
+    date regardless of whether anything else changed, so a no-change result is still recorded as
+    a real check rather than looking like the check never ran.
 - `audits/` — periodic repo-wide professionalism audits (see below), one file per audit named
   `audit-YYYY-MM-DD.md`; `audits/README.md`'s index says which date covers which milestone.
 

@@ -12,9 +12,12 @@
 > see the confidence notes inline. Treat percentages from secondary/blog sources as directional,
 > not precise.
 >
-> **Last sub-discipline check: 2026-08-31** (IST). Automated daily scheduling isn't available
-> (Claude Code routines are disabled at the organization level), so this is checked manually —
-> `CLAUDE.md`'s Daily session shape reminds the user to trigger a check if this date isn't today.
+> **Last sub-discipline check: 2026-08-31** (IST). Two mechanisms keep this date honest, per
+> `CLAUDE.md`'s "Every session, before anything else": any session opened in this repo flags it
+> when it's more than 14 days old, and a scheduled task (`ignite-field-atlas-check`) runs the
+> check on the 1st and 15th of each month independently of whether a session is open at all.
+> Part 1 below (the state of the field, and §1.5's sub-discipline list) is what those checks
+> cover — Part 2 grows when a topic clears and can't silently lag.
 
 ---
 
