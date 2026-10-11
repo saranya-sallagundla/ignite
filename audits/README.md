@@ -99,6 +99,12 @@ Every prompt below is meant to be reused verbatim next time that kind of audit i
   redaction. If nothing needed redacting, skip this — there's no raw version distinct from the
   permanent record to preserve — but say so explicitly in the audit file, as
   `audit-2026-08-26.md` does, so the absence reads as a decision, not an oversight.
+- **Ownership is settled — do not re-raise the right-to-publish question.** `audit-2026-08-13.md`
+  raised B-1 (whether an employment agreement blocks publishing this repo under an
+  individually-held license); `audit-2026-08-31.md` closed it — this is a self-created personal
+  learning project, not employer work, confirmed directly and durably recorded there. A future
+  audit should not reopen this; if genuinely uncertain, read that resolution note first rather
+  than asking again.
 - **Add the new file to the index table above** in the same commit — no audit is discoverable by
   filename alone under this naming scheme, so one that isn't indexed is effectively invisible:
   to a future session checking whether a periodic milestone is already covered, and to anyone
