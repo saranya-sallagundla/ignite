@@ -8,10 +8,11 @@
 >
 > **A note on currency**: anywhere a claim is about something fast-moving (adoption numbers, what
 > counts as "standard" right now, tool version behavior), it's marked with a confidence level and,
-> where possible, a source. Verified 2026-07-29 via live web research — see the confidence notes
-> inline. Treat percentages from secondary/blog sources as directional, not precise.
+> where possible, a source. Verified 2026-07-29, re-verified 2026-08-31 via live web research —
+> see the confidence notes inline. Treat percentages from secondary/blog sources as directional,
+> not precise.
 >
-> **Last sub-discipline check: 2026-07-29** (IST). Automated daily scheduling isn't available
+> **Last sub-discipline check: 2026-08-31** (IST). Automated daily scheduling isn't available
 > (Claude Code routines are disabled at the organization level), so this is checked manually —
 > `CLAUDE.md`'s Daily session shape reminds the user to trigger a check if this date isn't today.
 
@@ -80,12 +81,14 @@ just structured differently than "ops" was in 2010.
 - **Infrastructure as Code**, specifically Terraform. Manually clicking around a cloud console
   to provision infrastructure ("**ClickOps**") went from normal to actively discouraged — it's
   now treated as a real reliability/audit risk, not just a style preference.
-- **GitOps for Kubernetes deployment.** According to the CNCF's 2025 End User Survey (cited via
-  secondary sources, exact figure not independently confirmed here — treat as directional), a
-  large majority of Kubernetes clusters now use a GitOps tool (Argo CD leads adoption, with Flux
-  as the other CNCF-graduated option) rather than manual `kubectl apply` or ad hoc scripts as the
-  deploy mechanism. **Confidence: medium** on the specific percentage, **high** on the direction —
-  this is now the default expectation, not an experiment.
+- **GitOps for Kubernetes deployment.** Per the CNCF's own July 2025 announcement of its End User
+  Survey results ("CNCF End User Survey Finds Argo CD as Majority Adopted GitOps Solution for
+  Kubernetes" — a primary source, not a secondary summary), 91% of cloud-native organizations
+  have adopted GitOps, and Argo CD runs in roughly 60% of Kubernetes clusters (97% of Argo CD
+  users report running it in production, up from 93% in 2023) — Argo CD leads adoption, with Flux
+  as the other CNCF-graduated option, over manual `kubectl apply` or ad hoc scripts. **Confidence:
+  medium-high** — a real, citable primary source, updated from the earlier "not independently
+  confirmed" hedge now that the source itself is directly checkable.
 - **Platform Engineering.** Went from "an emerging idea a few thoughtful teams were trying" around
   2021-2022 to *the* dominant theme in Puppet/Perforce's 2024 State of DevOps report, explicitly
   titled around platform engineering's rise. **Confidence: medium-high** (a real, named survey),
@@ -110,10 +113,15 @@ just structured differently than "ops" was in 2010.
 - **Terraform vs. OpenTofu.** A real, dateable split: HashiCorp changed Terraform's license from
   open-source (MPL-2.0) to the more restrictive BSL in **August 2023**. OpenTofu forked from the
   last open-source release, joined the Linux Foundation, and was accepted into the **CNCF in
-  April 2025**. Adoption is real (named enterprises like Fidelity Investments have migrated) but
-  still a minority of the installed base as of early 2026 — this is genuinely unresolved, and
-  worth tracking rather than assuming Terraform's position is permanent. **Confidence: high** on
-  the license/CNCF timeline (independently checkable), **lower** on exact adoption share.
+  April 2025 at the Sandbox maturity tier** (not yet Incubating or Graduated). The backdrop that
+  explains why this split has kept widening rather than settling: **IBM completed its ~$6.4B
+  acquisition of HashiCorp in February 2025** — Terraform is now an IBM-owned product — and HCP
+  Terraform ended its free tier in March 2026. Adoption is real (named enterprises like Fidelity
+  Investments have migrated, and secondary sources put OpenTofu at roughly 12% adoption among IaC
+  practitioners as of April 2026 with strong, ~300% year-over-year download growth) but still a
+  minority of the installed base as of mid-2026 — this is genuinely unresolved, and worth tracking
+  rather than assuming Terraform's position is permanent. **Confidence: high** on the license/
+  CNCF/acquisition timeline (independently checkable), **lower** on exact adoption share.
 - **AI-assisted operations.** Genuinely new capability (AI copilots for incident triage, log
   analysis, even proposed remediations), but real production trust in *autonomous* AI action
   during incidents remains limited — this mission's own capstone concept (an AI agent that
@@ -238,11 +246,13 @@ from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
   practice: **treating cloud cost as a first-class, continuously-monitored engineering metric**
   (cost-per-request, cost anomaly alerting, rightsizing) with joint ownership across eng and
   finance, not a finance-only concern. This one has the best sourcing of any in this list — the
-  FinOps Foundation's own "State of FinOps 2025" report is a real, identifiable primary source,
-  citing (via secondary summary) **63% of organizations now tracking AI-specific cloud spend**
-  (up from 31%) and majority adoption of the **FOCUS** cost-data standard within the next year.
-  **Confidence: medium-high** — credible source, though only seen here through secondary
-  summaries rather than the raw report.
+  FinOps Foundation's own **"State of FinOps 2026"** report (published February 19, 2026,
+  presented at FinOps X in June 2026, 1,192 respondents) is a real, identifiable primary source,
+  reporting **98% of organizations now managing AI spend** (up from 31% two years prior — the
+  progression is 31% → 63% → 98% across the 2024/2025/2026 editions) and majority adoption of the
+  **FOCUS** cost-data standard within the next year. **Confidence: medium-high** — a credible,
+  named source; check for a 2027 edition on the next pass, since this figure has moved fast across
+  every edition so far.
 
 - **ChatOps** — split off from the idea that operational actions (deploys, rollbacks, running a
   diagnostic) should happen *inside the same chat tool where the team is already discussing the
@@ -272,13 +282,32 @@ from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
     its own team), rather than an assumed side-effect of good platform engineering. This is the
     most credibly-emerging of the newer entrants as of 2026 — genuinely distinct from Platform
     Engineering in emphasis (DevEx measures and optimizes the *experience*; platform engineering
-    *builds the thing being experienced*), though the two overlap heavily in practice.
+    *builds the thing being experienced*), though the two overlap heavily in practice. The
+    measurement lineage now has a specific, named framework tracing back to one researcher
+    (Nicole Forsgren): DORA (2018) → SPACE (2021) → DevEx (2023, ACM Queue) → **DX Core 4**
+    (2024) — current sources describe DevEx as "no longer a soft concept" but an actual
+    engineering discipline.
+  - **AgentOps** — operating, monitoring, and governing autonomous AI agents in production
+    (guardrails, evals, cost controls, agent-specific observability), added on this revisit. The
+    distinguishing practice is genuinely different from AIOps: **AIOps uses AI/ML to analyze IT
+    operations data; AgentOps operates the AI agents themselves** once they're taking autonomous
+    actions in production — also distinct from MLOps, which concerns a trained model's own
+    accuracy drift rather than an agent's decisions and actions. Backed by real, if very recent,
+    survey data: LangChain's "State of Agent Engineering" report (1,300+ respondents — 57.3% now
+    have agents in production, 89% have implemented agent-specific observability) and a January
+    2026 Futurum Group survey of 628 enterprise IT leaders (60% actively using AI to build/deploy
+    software). **Confidence: medium** — real, named surveys, but nearly all sourcing is from
+    January 2026 onward, too recent to call this established the way FinOps or DevSecOps are.
   - **GreenOps / sustainability engineering** — carbon-aware scheduling, optimizing for
     performance-per-watt, often framed as an extension of FinOps rather than a fully separate
-    discipline yet. Real conversations are happening about it, but as of this writing it reads
-    more as a narrative in formation than an established discipline with its own survey data and
-    dedicated foundation. **Confidence: low** that this has crystallized into a distinct,
-    established discipline yet — worth revisiting in a future update.
+    discipline yet. Updated on revisit: the Green Software Foundation's **Software Carbon
+    Intensity (SCI)** specification became an accredited **ISO standard (ISO/IEC 21031:2024)** in
+    March 2024, the GSF ratified a follow-on **"SOFT"** organizational framework in late 2025, and
+    new Scope 3 emissions-reporting requirements taking effect for large enterprises in 2026 are
+    creating a real regulatory driver. That's comparable institutional weight to several
+    already-"established" entries in this list. **Confidence: low-medium** that this has
+    crystallized into a distinct, established discipline — up from "low" on the previous check —
+    still short of a foundation-run adoption survey the way FinOps has one.
 
 ---
 
