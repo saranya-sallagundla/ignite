@@ -203,6 +203,14 @@ services:
       - "5000:5000"
 ```
 
+> **Note, added 2026-08-31**: at the time this session ran, `docker-compose.yml` set no
+> `container_name`, so Compose auto-generated one (`orbit-app-1`, seen throughout the section
+> below) — accurate for what was actually run and captured. The 2026-07-29 `project` → `orbit`
+> rename later added `name: orbit` and `container_name: orbit-app` to the real file, so today the
+> container is simply named `orbit-app`, no numeric suffix. Left the captured commands below as
+> originally run rather than rewriting real historical output to match a file that didn't exist
+> yet at the time.
+
 ### 6. Combined scenario — two real issues, found and resolved live
 
 **Issue 1 — a container stuck in the `Created` state.**
