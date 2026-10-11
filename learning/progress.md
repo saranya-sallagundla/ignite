@@ -73,7 +73,7 @@ tracked in roadmap.md's Pacing Layer notes.)
   the project's future EC2→Kubernetes architecture.
 - Quiz: **PASS, attempt 1** — 6 interview-style questions, open-ended, no multiple choice. Full
   question-by-question record in
-  `learning/notes/phase-1-linux-git-version-control/topic-01-linux-fundamentals.md`; attempt
+  `learning/notes/phase-1-linux-git-version-control/topic-01-linux-fundamentals-filesystem-ssh-vms.md`; attempt
   status tracked in the Quiz record index below.
   **Topic 1 CLEARED**
   **90/100 (Quiz 36/40, Hands-on 27/30, Depth 27/30)**
@@ -97,7 +97,7 @@ tracked in roadmap.md's Pacing Layer notes.)
   are independently firewalled — resolving an apparent contradiction with Topic 1's proxy
   findings — and archiving (`tar -czvf`/`-xzvf`/`-tzvf`).
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days. Full record in
-  `learning/notes/phase-1-linux-git-version-control/topic-02-top-50-shell-commands.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-02-linux-top-50-shell-commands.md`.
   **Topic 2 CLEARED**
   **84/100 (Quiz 34/40, Hands-on 26/30, Depth 24/30)**
 - Check-in: 2026-07-09 23:24 IST — Check-out: 2026-07-10 05:39 IST (quiz ran ~28 minutes, over
@@ -123,7 +123,7 @@ tracked in roadmap.md's Pacing Layer notes.)
   conditionals, loops, exit codes — passed cleanly). Re-taught functions using concrete tracing
   (a real script printing `$1` at three points) instead of another analogy, then **Attempt 2 —
   full retest, all-new questions — PASS**, same session, after a short break. Full record in
-  `learning/notes/phase-1-linux-git-version-control/topic-03-shell-scripting-basics.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-03-linux-shell-scripting-basics.md`.
   **Topic 3 CLEARED, attempt 2**
   **80/100 (Quiz 30/40, Hands-on 28/30, Depth 22/30)**
 - Check-in: 2026-07-11 22:26 IST — Check-out: 2026-07-12 10:02 IST (long session incl. a
@@ -157,7 +157,7 @@ tracked in roadmap.md's Pacing Layer notes.)
   reaping, inode/block exhaustion, `fstab`/UUID persistence and boot-failure risk, `nice`/`renice`
   fairness reasoning, and the `df`-timeout production scenario), 2 of 5 needed a follow-up
   push for full precision but were ultimately correct. Full record in
-  `learning/notes/phase-1-linux-git-version-control/topic-04-process-log-disk-management.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-04-linux-deep-dive-process-log-disk-management.md`.
   **Topic 4 CLEARED**
   **88/100 (Quiz 34/40, Hands-on 28/30, Depth 26/30)**
 - Check-in: 2026-07-13 23:50 IST — Check-out: 2026-07-14 05:17 IST
@@ -197,7 +197,7 @@ tracked in roadmap.md's Pacing Layer notes.)
   a genuine merge conflict deliberately set up and resolved via VS Code's built-in merge UI,
   `.gitignore`, `git diff` (incl. reading hunk headers), and a combined shared-file merge
   scenario. Full record in
-  `learning/notes/phase-1-linux-git-version-control/topic-06-git-fundamentals.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-06-git-fundamentals-commits-branches-merges.md`.
 - Quiz: **PASS, attempt 1** — 5 interview-style questions covering both days (staging-area
   purpose, `HEAD` behavior, fast-forward conditions, conflict marker order/meaning, and the
   branches-vs-direct-commits problem), 2 of 5 needed a real follow-up correction.
@@ -220,7 +220,7 @@ tracked in roadmap.md's Pacing Layer notes.)
   `git log --graph` was investigated with `git show` rather than ignored — traced to leftover
   content from Topic 6's `git diff` demo, accidentally committed later via VS Code's Source
   Control panel. Full record in
-  `learning/notes/phase-1-linux-git-version-control/topic-07-git-deep-dive.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-07-git-deep-dive-rebase-cherry-pick-branching-strategies.md`.
 - Quiz: **PASS, attempt 1** — 4 interview-style questions (merge vs. rebase mechanics,
   safe conflict-resolution habits, cherry-pick tradeoffs, and the Git Flow/GitHub Flow
   `develop`-branch distinction), 3 of 4 needed a real follow-up push, including one full redirect.
@@ -246,7 +246,7 @@ tracked in roadmap.md's Pacing Layer notes.)
   (bypassed silently until "Do not allow bypassing" was enabled), a self-approval block genuinely
   preventing merge on a solo repo, and "Require linear history" actually removing "Create a merge
   commit" from the available merge options. Full record in
-  `learning/notes/phase-1-linux-git-version-control/topic-08-github.md`.
+  `learning/notes/phase-1-linux-git-version-control/topic-08-github-prs-actions-intro-repo-management.md`.
 - Quiz: **PASS, attempt 1** — 4 interview-style questions (Git vs. GitHub, the PR mistake's root
   cause, merge/squash/rebase strategies tied to linear history, and `GITHUB_TOKEN` security),
   1 of 4 needed real redirection (root-cause reasoning), the other 2 follow-ups were quick
