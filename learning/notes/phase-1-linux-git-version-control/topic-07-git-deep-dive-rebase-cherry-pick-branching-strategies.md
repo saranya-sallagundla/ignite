@@ -184,10 +184,6 @@ hint: ... "git cherry-pick --continue" / "--skip" / "--abort" ...
 
 PS> git add readme.txt
 PS> git cherry-pick --continue
-```
-> **Note**: raw git commit metadata below reflects the machine's actual local clock (US Eastern,
-> UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
-```
 [real-conflict f2047ec] add feature line
  Date: Thu Jul 16 15:13:59 2026 -0400
  1 file changed, 3 insertions(+)

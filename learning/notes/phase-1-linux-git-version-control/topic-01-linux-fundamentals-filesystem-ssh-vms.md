@@ -124,9 +124,6 @@ ownership + restrictive permissions forces `sudo` for system changes — a delib
 
 **Example**: `stat ~/.bashrc`
 
-> **Note**: raw captured command output below reflects the machine's actual local clock (US
-> Eastern, UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
-
 **Output**:
 ```
   File: /home/devuser/.bashrc

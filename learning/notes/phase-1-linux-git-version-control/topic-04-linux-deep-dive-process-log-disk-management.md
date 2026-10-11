@@ -218,9 +218,6 @@ permissions, installed packages, or any other settings.
 **`/var/log`** — traditional plain-text logs, one (or more) file per service/subsystem. Recall
 Topic 1: `/var` holds data that grows over time.
 
-> **Note**: raw captured command output below reflects the machine's actual local clock (US
-> Eastern, UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
-
 **Verified hands-on — log rotation, seen for real**:
 ```
 $ ls -l /var/log | head -10

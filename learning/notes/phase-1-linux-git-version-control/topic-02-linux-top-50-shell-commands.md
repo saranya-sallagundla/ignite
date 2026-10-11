@@ -306,9 +306,6 @@ SIGKILL is skipping the knock altogether — the landlord physically removes the
 everything gets tossed out immediately, zero warning, zero chance to grab anything on the way
 out.
 
-> **Note**: raw captured command output below reflects the machine's actual local clock (US
-> Eastern, UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
-
 **Verified hands-on** — full lifecycle: start a background process, find it, stop it:
 ```
 $ sleep 300 &

@@ -156,10 +156,6 @@ PS> git commit -m "Add 2nd line to readme"
  1 file changed, 1 insertion(+)
 
 PS> git log
-```
-> **Note**: raw git commit metadata below reflects the machine's actual local clock (US Eastern,
-> UTC-4) — narrative dates in this notebook stay IST, per `CLAUDE.md`'s standing rule.
-```
 commit b2a04469245e2eb042bd3d8d7bb50b63f6106ffc (HEAD -> master)
 Author: Saranya Sallagundla <user@example.com>
 Date:   Thu Jul 16 15:06:17 2026 -0400
