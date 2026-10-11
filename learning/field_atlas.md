@@ -8,11 +8,11 @@
 >
 > **A note on currency**: anywhere a claim is about something fast-moving (adoption numbers, what
 > counts as "standard" right now, tool version behavior), it's marked with a confidence level and,
-> where possible, a source. Verified 2026-07-29, re-verified 2026-08-31 and 2026-09-21 via live
+> where possible, a source. Verified and re-verified via live
 > web research — see the confidence notes inline. Treat percentages from secondary/blog sources as
 > directional, not precise.
 >
-> **Last sub-discipline check: 2026-09-21** (IST). Two mechanisms keep this date honest, per
+> **Last sub-discipline check: 2026-10-04** (IST). Two mechanisms keep this date honest, per
 > `rules.md` §2: any session opened in this repo flags it
 > when it's more than 14 days old, and a scheduled task (`ignite-field-atlas-check`) runs the
 > check on the 1st and 15th of each month independently of whether a session is open at all.
@@ -86,15 +86,11 @@ just structured differently than "ops" was in 2010.
   now treated as a real reliability/audit risk, not just a style preference.
 - **GitOps for Kubernetes deployment.** Per the CNCF's own July 2025 announcement of its End User
   Survey results ("CNCF End User Survey Finds Argo CD as Majority Adopted GitOps Solution for
-  Kubernetes" — a primary source, not a secondary summary), 91% of cloud-native organizations
+  Kubernetes"), 91% of cloud-native organizations
   have adopted GitOps, and Argo CD runs in roughly 60% of Kubernetes clusters (97% of Argo CD
   users report running it in production, up from 93% in 2023) — Argo CD leads adoption, with Flux
   as the other CNCF-graduated option, over manual `kubectl apply` or ad hoc scripts. **Confidence:
-  medium-high** — a real, citable primary source, updated from the earlier "not independently
-  confirmed" hedge now that the source itself is directly checkable. Rechecked 2026-09-21: a newer
-  Argo CD end-user survey was run and discussed at ArgoCon Japan in July 2026, but no published
-  figures from it could be found, so the July 2025 numbers above stand as the most recent sourced
-  ones rather than being silently refreshed from a secondary summary.
+  medium-high.**
 - **Platform Engineering.** Went from "an emerging idea a few thoughtful teams were trying" around
   2021-2022 to the point where Puppet/Perforce's State of DevOps report is now *published as* a
   platform engineering report rather than merely themed around one. The current edition — "State
@@ -102,11 +98,8 @@ just structured differently than "ops" was in 2010.
   in the Age of AI," announced by Perforce on **8 July 2026**, 820 respondents worldwide — reframes
   the discipline as the governance layer under AI adoption: 73% of organizations with mature
   platform engineering call that maturity a critical or significant factor in their AI success,
-  against 44% of less mature ones. Updated on the 2026-09-21 check, which found the file still
-  citing the 2024 edition. **Confidence: medium-high** (a real, named survey, read via Perforce's
-  own press release rather than a secondary summary), though the broader adoption percentages
-  circulating in blog posts (some claim as high as ~90% of orgs having adopted "some" platform)
-  remain unverified here.
+  against 44% of less mature ones. **Confidence: medium-high.** Blog claims of up to ~90%
+  adoption are unverified.
 
 **Went from standard to declining/legacy:**
 - **Docker Swarm** — Docker's own orchestrator lost the orchestration war to Kubernetes years ago
@@ -133,18 +126,15 @@ just structured differently than "ops" was in 2010.
   Investments have migrated, and secondary sources put OpenTofu at roughly 12% adoption among IaC
   practitioners as of April 2026 with strong, ~300% year-over-year download growth) but still a
   minority of the installed base as of mid-2026 — this is genuinely unresolved, and worth tracking
-  rather than assuming Terraform's position is permanent. One newer data point, added on the
-  2026-09-21 check: Spacelift reports that over half of all runs on its platform are now OpenTofu
-  runs (~58% of its Terraform-stack runs over a trailing 30-day window). Read that as a *platform-
-  specific* figure, not a field-wide one — Spacelift is a founding OpenTofu TSC member reporting
-  on its own customer base, so it is directional at best and not independently audited. OpenTofu
-  is still at CNCF **Sandbox**, not Incubating; no promotion was found. **Confidence: high** on the
-  license/CNCF/acquisition timeline (independently checkable), **lower** on exact adoption share,
-  which no neutral, field-wide source has yet established.
+  rather than assuming Terraform's position is permanent. One newer data point: Spacelift reports
+  that over half of all runs on its platform are now OpenTofu runs (~58% of its Terraform-stack runs
+  over a trailing 30-day window). Spacelift is a founding OpenTofu member reporting on its own
+  customers, so read it as directional. OpenTofu is still at CNCF **Sandbox**. **Confidence: high**
+  on the timeline, **lower** on adoption share.
 - **AI-assisted operations.** Genuinely new capability (AI copilots for incident triage, log
   analysis, even proposed remediations), but real production trust in *autonomous* AI action
-  during incidents remains limited. That gap now has a number attached to it from a named survey,
-  added on the 2026-09-21 check: the 2026 Platform Engineering report above finds roughly
+  during incidents remains limited. That gap now has a number: the 2026 Platform Engineering
+  report above finds roughly
   two-thirds of organizations using AI somewhere in their infrastructure workflows, but only 31%
   reporting *fully autonomous* AI — and trust in AI output tracks governance rather than tooling
   (94% where formal governance exists, 51% under ad hoc approaches). Google Cloud's DORA team has
@@ -225,13 +215,12 @@ this job is being able to have that conversation credibly — with data, not jus
 Every entry below explains the *actual* distinguishing practice or technology that split it off
 from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
 
-The 2026-09-21 check searched specifically for a new entrant and did not find one that clears the
-bar. The candidates that surfaced — "agentic DevOps," "AI platform engineering," and "FinOps for
-AI" (token spend as an operational cost line) — are real conversations, but each is a restatement
-of something already listed here rather than a distinct practice with its own tooling and metrics:
-the first two sit between AgentOps and Platform Engineering, and the third is inside FinOps, whose
-own 2026 report already tracks AI spend as its headline figure. Recorded as a deliberate no-change,
-not as a skipped check.
+No new sub-discipline clears that bar yet. The candidates that come up — "agentic DevOps," "AI
+platform engineering," and "FinOps for AI" (token spend as an operational cost line) — are real
+conversations, but each is a restatement of something already listed here rather than a distinct
+practice with its own tooling and metrics: the first two sit between AgentOps and Platform
+Engineering, and the third is inside FinOps, whose own 2026 report already tracks AI spend as its
+headline figure.
 
 - **DevSecOps** — split off because security review as a separate, late-stage gate (a security
   team reviewing a finished release right before ship) was too slow and too easy to skip under
@@ -240,7 +229,7 @@ not as a skipped check.
   scanning, and secrets-detection running on every commit/PR, not as a separate late review.
   Still very active; increasingly AI-assisted for triage (2025 industry surveys cite a majority
   of security practitioners viewing AI as a genuine copilot for this work — **confidence:
-  medium**, figure via secondary source).
+  medium**).
 
 - **GitOps** — split off specifically for Kubernetes/cloud-native deployment, where "deploy" used
   to mean someone running `kubectl apply` from their own laptop with whatever local state they
@@ -275,23 +264,19 @@ not as a skipped check.
   2026 — most directly Puppet/Perforce's July 2026 platform engineering edition, cited in §1.2 —
   point to this being the dominant DevOps-adjacent theme right now, and increasingly framed as the
   control layer that makes AI adoption safe rather than as a developer-convenience play
-  (**confidence: medium-high** on the "this is now the leading conversation" claim; a widely-repeated caveat
-  worth taking seriously — some sources suggest a majority of platform investments aren't yet
-  producing measurable productivity gains, meaning adoption has outpaced actual maturity).
+  (**confidence: medium-high**). Caveat: some sources suggest most platform investments don't yet
+  show measurable productivity gains — adoption has outpaced maturity.
 
 - **FinOps** — split off because cloud bills became large and unpredictable enough that
   engineering, finance, and business stakeholders needed a shared practice for reasoning about
   cost, instead of finance simply being surprised by the bill after the fact. The distinguishing
   practice: **treating cloud cost as a first-class, continuously-monitored engineering metric**
   (cost-per-request, cost anomaly alerting, rightsizing) with joint ownership across eng and
-  finance, not a finance-only concern. This one has the best sourcing of any in this list — the
-  FinOps Foundation's own **"State of FinOps 2026"** report (published February 19, 2026,
-  presented at FinOps X in June 2026, 1,192 respondents) is a real, identifiable primary source,
-  reporting **98% of organizations now managing AI spend** (up from 31% two years prior — the
+  finance, not a finance-only concern. The
+  FinOps Foundation's own **"State of FinOps 2026"** report (February 2026, 1,192 respondents)
+  reports **98% of organizations now managing AI spend** (up from 31% two years prior — the
   progression is 31% → 63% → 98% across the 2024/2025/2026 editions) and majority adoption of the
-  **FOCUS** cost-data standard within the next year. **Confidence: medium-high** — a credible,
-  named source; check for a 2027 edition on the next pass, since this figure has moved fast across
-  every edition so far.
+  **FOCUS** cost-data standard within the next year. **Confidence: medium-high.**
 
 - **ChatOps** — split off from the idea that operational actions (deploys, rollbacks, running a
   diagnostic) should happen *inside the same chat tool where the team is already discussing the
@@ -311,9 +296,8 @@ not as a skipped check.
   narrative than an achieved end-state for most companies — serverless and fully-managed
   platforms get you closer for specific workloads, but incident response, security, and cost
   management don't fully disappear just because servers are managed by someone else.
-  **Confidence: low-medium** on any "X% revert from NoOps" specific claims circulating online —
-  treat those skeptically; the general point (full NoOps is rare in practice) is more solid than
-  any specific statistic attached to it.
+  **Confidence: low-medium** on the "X% revert from NoOps" claims online; the general point
+  (full NoOps is rare) is more solid.
 
 - **Emerging, worth watching (not yet as established as the above):**
   - **DevEx (Developer Experience) engineering** — treating internal developer productivity and
@@ -327,7 +311,7 @@ not as a skipped check.
     (2024) — current sources describe DevEx as "no longer a soft concept" but an actual
     engineering discipline.
   - **AgentOps** — operating, monitoring, and governing autonomous AI agents in production
-    (guardrails, evals, cost controls, agent-specific observability), added on this revisit. The
+    (guardrails, evals, cost controls, agent-specific observability). The
     distinguishing practice is genuinely different from AIOps: **AIOps uses AI/ML to analyze IT
     operations data; AgentOps operates the AI agents themselves** once they're taking autonomous
     actions in production — also distinct from MLOps, which concerns a trained model's own
@@ -335,25 +319,21 @@ not as a skipped check.
     survey data: LangChain's "State of Agent Engineering" report (1,300+ respondents — 57.3% now
     have agents in production, 89% have implemented agent-specific observability) and a January
     2026 Futurum Group survey of 628 enterprise IT leaders (60% actively using AI to build/deploy
-    software). The 2026-09-21 check found the *practice* description holding up but the adoption
-    numbers openly contradictory: some 2026 surveys put enterprises with at least one agent in
+    software). The *practice* is clear, but the adoption numbers contradict each other: some 2026
+    surveys put enterprises with at least one agent in
     production near 31%, against LangChain's 57.3%, and a widely-recirculated claim that 88% of
     agent pilots never reach production traces back to vendor-adjacent research rather than a
-    neutral one. No reliable reconciliation of those figures was found, and it is better to record
-    that plainly than to pick the flattering number. **Confidence: medium** on AgentOps being a
-    real, distinct emerging practice; **low** on any specific production-adoption percentage, and
-    nearly all sourcing is still January 2026 or later — too recent to call this established the
-    way FinOps or DevSecOps are.
+    neutral one. **Confidence: medium** that it's a distinct practice, **low** on any adoption
+    percentage, because the evidence is all from 2026.
   - **GreenOps / sustainability engineering** — carbon-aware scheduling, optimizing for
     performance-per-watt, often framed as an extension of FinOps rather than a fully separate
-    discipline yet. Updated on revisit: the Green Software Foundation's **Software Carbon
+    discipline yet. The Green Software Foundation's **Software Carbon
     Intensity (SCI)** specification became an accredited **ISO standard (ISO/IEC 21031:2024)** in
     March 2024, the GSF ratified a follow-on **"SOFT"** organizational framework in late 2025, and
     new Scope 3 emissions-reporting requirements taking effect for large enterprises in 2026 are
     creating a real regulatory driver. That's comparable institutional weight to several
-    already-"established" entries in this list. **Confidence: low-medium** that this has
-    crystallized into a distinct, established discipline — up from "low" on the previous check —
-    still short of a foundation-run adoption survey the way FinOps has one.
+    already-"established" entries in this list. **Confidence: low-medium** that it's
+    a distinct discipline yet, since there's no foundation-run adoption survey like FinOps has.
 
 ---
 
