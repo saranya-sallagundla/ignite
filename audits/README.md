@@ -12,6 +12,7 @@ does or doesn't exist for a given topic.
 | 2026-07-27 | Periodic professionalism audit | after Topic 10 | [`audit-2026-07-27.md`](audit-2026-07-27.md) |
 | 2026-08-13 | Public-readiness audit (one-time) | pre-publish, Stage 1 | [`audit-2026-08-13.md`](audit-2026-08-13.md) |
 | 2026-08-26 | Repo organization audit (one-time) | not tied to a topic milestone | [`audit-2026-08-26.md`](audit-2026-08-26.md) |
+| 2026-08-31 | Final sign-off audit (one-time) | not tied to a topic milestone — pre-fork/public-facing review | [`audit-2026-08-31.md`](audit-2026-08-31.md) |
 
 Two kinds of audits live here, both under the same naming scheme:
 
@@ -22,9 +23,12 @@ Two kinds of audits live here, both under the same naming scheme:
   what was checked, what was found, what was actually fixed, and why each fix mattered — not
   just a raw findings dump.
 - **One-time named audits** — cover something other than a topic milestone: a public-readiness
-  audit, triggered by the repo's visibility changing, or a repo organization audit, triggered by
-  a direct request to check overall consistency. Same filename convention, same rules below,
-  just not tied to the every-10-topics cadence.
+  audit, triggered by the repo's visibility changing; a repo organization audit, triggered by a
+  direct request to check overall consistency; or a final sign-off audit, triggered by a direct
+  request to review the repo as a whole before it's pointed to publicly or forked by strangers
+  (broadest scope of the three — includes the pre-build/`engine/` material and a live check of
+  every git remote, not just the one currently being worked from). Same filename convention, same
+  rules below, just not tied to the every-10-topics cadence.
 
 ## Prompts to start each kind of audit
 
@@ -54,6 +58,20 @@ Every prompt below is meant to be reused verbatim next time that kind of audit i
 > reality, however small. Not tied to a topic milestone. Save findings to `audits/`, and don't
 > apply any fixes until I review them.
 
+### The next final sign-off audit
+
+> Act as a senior software architect with 30+ years at top tech companies. You are meticulous,
+> skeptical, and known for catching the smallest gap everyone else misses. This repo has been
+> submitted to you for final sign-off before it's released publicly / pointed to for others to
+> fork. Read every file, every subfolder, every notebook, word by word — including the pre-build
+> material (`MISSION.md`/`CLAUDE.md`/`engine/` and anything a fork would rely on) — and check it
+> for accuracy, internal consistency, and whether it's usable by someone with no prior context.
+> Verify the live state of every git remote, not just the one currently being worked from —
+> a clean local/private copy doesn't mean the actual public destination is clean. Check
+> `field_atlas.md` (or the mission's equivalent living reference, if it has one) for currency, and
+> propose a concrete, repeatable mechanism for keeping it current going forward, not just a note
+> that it could drift. Save findings to `audits/`, and don't apply any fixes until I review them.
+
 ## Rules for every audit
 - **Not limited to the categories/items a past audit already found.** `audit-2026-07-27.md`'s
   (the Topic 10 audit's) findings (A-E, plus the batch structure) are a record of what that
@@ -64,11 +82,12 @@ Every prompt below is meant to be reused verbatim next time that kind of audit i
 - Findings first, fixes only after the user reviews them — never apply silently.
 - Categorize by severity (critical / important / minor / cosmetic) so the user can prioritize.
 - Fix in small, reviewable, individually-committed batches, not one giant commit.
-- **Periodic audits only**: defer genuinely topic-specific best-practice items (e.g. Dockerfile
-  hardening → Topic 11) to when that topic is actually taught, rather than fixing them
-  retroactively — the user should learn them hands-on, not find a pre-made fix waiting.
-  Public-readiness and organization audits have no topic-teaching timeline to defer into, so
-  this rule doesn't apply to them.
+- **Periodic and final sign-off audits**: defer genuinely topic-specific best-practice items (e.g.
+  Dockerfile hardening → Topic 11) to when that topic is actually taught, rather than fixing them
+  retroactively — the user should learn them hands-on, not find a pre-made fix waiting. Flag the
+  item clearly so the next session teaching that topic knows it's already diagnosed, without
+  pre-solving it. Public-readiness and organization audits have no topic-teaching timeline left to
+  defer into, so this rule doesn't apply to them.
 - Check-in/Check-out timestamps are never touched for formatting/consistency reasons — they're
   the one thing in this repo whose value depends entirely on being real.
 - The full standing rules this process enforces live in `CLAUDE.md`'s "Repo quality standards"
