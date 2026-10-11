@@ -155,7 +155,7 @@ Standing rules, so the repo never drifts back into the kind of issues the Topic 
   show only the day the session/day *started* — no date ranges — since Check-in/Check-out lines
   already carry the full real span and must never be touched for formatting reasons. Raw captured
   command output and git commit metadata will show the machine's actual local clock (US Eastern
-  here) — that's expected and not an error, but worth a one-line note where it first appears.
+  here) — that's expected and not an error; no in-notebook note is required for it.
 - **Topic names**: always written exactly as `learning/roadmap.md`'s fixed baseline table spells
   them (em-dash form, e.g. "Docker — Architecture, Images, Containers"), in every file that names
   a topic — notebook H1 titles, `progress.md`, `orbit/README.md`, `handbook_status.md`.

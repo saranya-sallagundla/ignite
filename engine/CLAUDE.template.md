@@ -139,8 +139,8 @@ Standing rules, so the repo never drifts:
 - **Dates**: all narrative dates use the mission timezone, format `YYYY-MM-DD`. Session headings
   show only the day the session *started* — no ranges — since check-in/check-out lines carry the
   real span and must never be edited, for any reason, including formatting. Raw captured output
-  and git metadata will show the machine's actual clock; that is expected, not an error, but worth
-  a one-line note where it first appears.
+  and git metadata will show the machine's actual clock; that is expected, not an error, and no
+  in-notebook note is required for it.
 - **Topic names**: written exactly as `MISSION.md`'s baseline table spells them, everywhere they
   appear — notebook titles, progress entries, score checklist.
 - **Notebooks**: every command shows a general Syntax line before the concrete example; the quiz
