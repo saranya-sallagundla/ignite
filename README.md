@@ -27,7 +27,7 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 | Sessions logged | **17**, one commit per session, no batching |
 | Roadmap days consumed | **19 of 120** |
 | Study notebooks | **11 files, 5,914 lines** of commands actually run and real output |
-| Field reference | **502 lines**, continuously updated, with per-claim confidence levels |
+| Field reference | **531 lines**, continuously updated, with per-claim confidence levels |
 
 Next up: Topic 12 — Kubernetes — Architecture & Core Concepts.
 
