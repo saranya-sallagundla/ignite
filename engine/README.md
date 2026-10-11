@@ -57,6 +57,12 @@ one place, and the whole thing remains one repository to audit and mirror. If th
 this arrangement, `git subtree split -P engine` can lift it into its own repository with history
 intact. Reversible decisions get made quickly.
 
+## License
+
+Everything in this folder is covered by CC BY 4.0 — see [`../learning/LICENSE`](../learning/LICENSE).
+Copy, adapt, and run your own mission on it freely; attribution (a link back) is appreciated, not
+required beyond what the license itself asks for.
+
 ## Relationship to mission #1
 
 Ignite predates its own engine — the protocol was written for one mission first and generalised

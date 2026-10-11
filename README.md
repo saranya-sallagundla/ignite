@@ -203,9 +203,10 @@ Two grants, split by what the material is:
 
 - **MIT** — the software: `orbit/`, `.github/`, and any scripts or configuration elsewhere in the
   tree. See [`LICENSE`](LICENSE).
-- **CC BY 4.0** — the written material: `learning/`, `docs/`, `audits/`, and the Markdown documents
-  at the repository root (this file, `CONTRIBUTING.md`, `SECURITY.md`, `CLAUDE.md`). See
-  [`learning/LICENSE`](learning/LICENSE).
+- **CC BY 4.0** — the written material: `learning/`, `docs/`, `audits/`, `engine/`, and the
+  Markdown documents at the repository root (this file, `CONTRIBUTING.md`, `SECURITY.md`,
+  `CLAUDE.md`). See [`learning/LICENSE`](learning/LICENSE). This is what covers `engine/` — copy
+  and adapt it for your own mission, with attribution, same as any other written material here.
 
 This repository is educational reference material, not production-hardened infrastructure — do not
 deploy `orbit/` as-is.
