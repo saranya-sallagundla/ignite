@@ -25,8 +25,7 @@ publicly.
 
 | ID | Item | Status |
 |---|---|---|
-| FS-1 | The public mirror (`personal`) is still the pre-remediation snapshot: original history with the corporate identity on ~35 commits, `claude-memory/` present, no LICENSE, SECURITY or CONTRIBUTING. Covers PR-C-1 to C-6 and PR-H-5. | open — last updated 2026-10-02 (checked 2026-10-12) |
-| FS-5 | The git-metadata exemption that allowed FS-1 is still in `rules.md` §7 | partly done — repo-local identity set to a personal no-reply address |
+| FS-5 | The git-metadata exemption that allowed FS-1 to happen is still in `rules.md` §7 | partly done — repo-local identity set to a personal no-reply address |
 | PR-H-7 | `.gitignore` has no credential patterns (`*.tfvars`, `*.pem`, `.aws/`, `kubeconfig*`, `.env.*`); `env/` is unanchored | open — must land before Phase 3 (checked 2026-10-12) |
 | PR-H-8 | `USER appuser` is non-numeric; `runAsNonRoot` can't resolve it | open — `progress.md` Open items #3, Topic 13 |
 | PR-H-11 | No CI and no tests in a repo that teaches CI/CD | held for Topic 15 |
@@ -81,18 +80,18 @@ and no commit where one lived.
 | ID | Finding | Severity | Status |
 |---|---|---|---|
 | PR-B-1 | The right to publish was unresolved: work laptop, corporate org, corporate identity on every commit | blocking | closed 2026-10-11 (FS-2) |
-| PR-C-1 | The repo is already public: `private: false`, no licence, 0 stars, 0 forks, last pushed 2026-10-02 | critical | open — the public mirror is still the old copy (FS-1) |
-| PR-C-2 | Corporate email and legal name on all 60 commits, publicly readable; none signed | critical | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
-| PR-C-3 | Employer email in git-history file content (pasted `git log` output in one notebook) | critical | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
-| PR-C-4 | Employer org name in git-history file content (the pre-rename path of `concept.md`) | critical | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
-| PR-C-5 | The repo signposted its own leak: the audit file, the rules and the memory files all said an employer name was being redacted | critical | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
-| PR-C-6 | The `claude-memory/` sync rule mandated copying memory files that hold the employer name in plain text | critical | fixed on `origin` 2026-10-04 (folder removed); mirror still old (FS-1) |
+| PR-C-1 | The repo is already public: `private: false`, no licence, 0 stars, 0 forks, last pushed 2026-10-02 | critical | fixed 2026-10-13 — mirror replaced (FS-1) |
+| PR-C-2 | Corporate email and legal name on all 60 commits, publicly readable; none signed | critical | fixed on `origin` 2026-10-04, on the mirror 2026-10-13 (FS-1) |
+| PR-C-3 | Employer email in git-history file content (pasted `git log` output in one notebook) | critical | fixed on `origin` 2026-10-04, on the mirror 2026-10-13 (FS-1) |
+| PR-C-4 | Employer org name in git-history file content (the pre-rename path of `concept.md`) | critical | fixed on `origin` 2026-10-04, on the mirror 2026-10-13 (FS-1) |
+| PR-C-5 | The repo signposted its own leak: the audit file, the rules and the memory files all said an employer name was being redacted | critical | fixed on `origin` 2026-10-04, on the mirror 2026-10-13 (FS-1) |
+| PR-C-6 | The `claude-memory/` sync rule mandated copying memory files that hold the employer name in plain text | critical | fixed on `origin` 2026-10-04 (folder removed), on the mirror 2026-10-13 (FS-1) |
 | PR-C-7 | Pacing Layer not updated after Session 17; five files disagreed about "now" | critical | fixed — Pacing Layer updated (last on 2026-10-09) |
 | PR-H-1 | Corporate user ID 55 times in the working tree, with symlinks revealing cloud credential paths | high | fixed — placeholders confirmed by FS 2026-10-11 |
 | PR-H-2 | Full legal name left in Topic 6 notebook content | high | not re-checked since |
 | PR-H-3 | Five notebooks together map the employer's egress controls | high | not re-checked since |
 | PR-H-4 | `orbit/docs/concept.md` stated the employer relationship | high | not re-checked since |
-| PR-H-5 | `claude-memory/` was an AI behavioural dossier on a named person | high | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
+| PR-H-5 | `claude-memory/` was an AI behavioural dossier on a named person | high | fixed on `origin` 2026-10-04, on the mirror 2026-10-13 (FS-1) |
 | PR-H-6 | No LICENSE | high | fixed — MIT at the root, CC BY 4.0 for written material (confirmed by FS) |
 | PR-H-7 | `.gitignore` has no credential patterns; `env/` unanchored | high | open — see Open items |
 | PR-H-8 | `USER appuser` is non-numeric | high | open — see Open items |
@@ -164,7 +163,7 @@ only; the fixes followed in batches.
 
 | ID | Finding | Severity | Status |
 |---|---|---|---|
-| FS-1 | The public mirror is still the pre-remediation snapshot (see Open items) | critical | open — checked 2026-10-12 |
+| FS-1 | The public mirror (`personal`) was still the pre-remediation snapshot: original history with the corporate identity on ~35 commits, `claude-memory/` present, no LICENSE, SECURITY or CONTRIBUTING. Covers PR-C-1 to C-6 and PR-H-5. | critical | fixed 2026-10-13 — the clean lineage force-pushed to `personal`; verified against the live remote and the API |
 | FS-2 | PR-B-1 still open per the repo's own record | critical | closed 2026-10-11 — personal project, no employer confirmation needed |
 | FS-3 | `engine/` carried no licence grant at all | critical | fixed — now in the CC BY 4.0 grant |
 | FS-4 | `QUICKSTART.md`'s default path has no remote, so the mandatory first push fails | critical | fixed — the Quickstart adds a remote first |
