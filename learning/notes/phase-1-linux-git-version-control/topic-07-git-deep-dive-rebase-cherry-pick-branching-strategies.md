@@ -1,7 +1,7 @@
 # Topic 7 — Git Deep Dive — Rebase, Cherry-Pick, Branching Strategies
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
-> Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Distinct from `progress.md` (the session log).
 > Single-day topic per the roadmap — covered in one session, ending in the quiz.
 
 ---

@@ -1,8 +1,8 @@
 # Progress log
 
 > Read by Claude Code at the start of every session — this is the live state of the mission.
-> All dates use the mission timezone from `MISSION.md`, format YYYY-MM-DD. Raw command output and
-> git commit metadata reflect the machine's local clock — expected, not an error.
+> Dates here use the mission timezone from `MISSION.md`, `YYYY-MM-DD`; raw command output and git
+> metadata show the machine's local clock. Logging rules: [`rules.md`](../rules.md) §6.
 
 ## Current status
 
@@ -12,16 +12,9 @@ Nothing started. Next: Topic 1.
 
 ## Session log
 
-<!-- Append one entry per session, in order. Never edit a past entry or a check-in/check-out
-     timestamp, for any reason, including formatting. The shape:
-
-### Session 1 — YYYY-MM-DD
-- Topic in progress / completed: Topic N — Exact Name From MISSION.md (day N of M)
-- Covered: what was actually taught and done, with specifics
-- Quiz: N/A (non-final day) — or — **PASS/FAIL, attempt N**, with the score line and a pointer to
-  the full record in the topic's notebook
-- Check-in: YYYY-MM-DD HH:MM — Check-out: YYYY-MM-DD HH:MM (note overruns and breaks honestly)
--->
+<!-- Append one entry per session, in order, using the shape and voice in rules.md §6 — the
+     template lives there only, so there is one copy to keep true. Don't rewrite a past entry to
+     make the record look better — see rules.md §9. -->
 
 ## Quiz record index
 
@@ -37,6 +30,15 @@ Nothing started. Next: Topic 1.
 | Topic | Deferred on | Revisit by | Cleared on |
 |---|---|---|---|
 | — | — | — | — |
+
+## Open items
+
+> Work pushed to later — from sessions or audits. Read at the start of every session with the
+> other tables. When one is done, set its Status to `done — Session N`; don't delete the row.
+
+| # | Item | From | Do it when | Status |
+|---|---|---|---|---|
+| — | — | — | — | — |
 
 ## Light days
 

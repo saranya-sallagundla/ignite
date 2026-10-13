@@ -1,7 +1,7 @@
 # Topic 5 — Linux — Networking Fundamentals
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
-> Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Distinct from `progress.md` (the session log).
 > Two-day topic per the roadmap, compressed into one session — see the Verdict for why the
 > official score reflects a same-session revision pass.
 

@@ -1,7 +1,7 @@
 # Topic 1 — Linux Fundamentals — Filesystem, SSH, VMs
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
-> Distinct from `progress.md` (tracking) and `session_notes.md` (short personal reflection).
+> Distinct from `progress.md` (the session log).
 > Two-day topic per the roadmap — covered across two sessions, ending in the quiz.
 
 ---
