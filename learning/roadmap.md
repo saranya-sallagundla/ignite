@@ -1,8 +1,9 @@
 # Roadmap
 
 > Source: DevOps/SRE Project Preferences, Section 16.
-> The baseline below is FIXED — never edited during recalibration.
-> Only the "Pacing Layer" section at the bottom changes.
+> The baseline below is the plan of record and is not touched by recalibration — only the
+> "Pacing Layer" at the bottom moves. Changing the baseline itself is a deliberate decision;
+> see [`rules.md`](../rules.md) §5.
 
 ## Fixed Baseline — 53 Topics, 120 Days
 
@@ -96,10 +97,10 @@
 - **Day 1**: 2026-07-06 (IST, UTC+5:30). All dates and calendar-day counts below use IST
   regardless of the timezone Claude Code's host machine defaults to.
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
-  the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
+  the remaining ~60 are deliberate slack for the mastery rule's retries and project polish.
   Using that slack is normal; it does not count as falling behind.
-- **Last recalibrated**: 2026-09-21, per `CLAUDE.md`'s 5+ days behind rule. The check that
-  triggers this now runs every session — see `CLAUDE.md`'s "Every session, before anything else."
+- **Last recalibrated**: 2026-09-21, per `rules.md` §6's 5+ days behind rule. The check that
+  triggers this now runs every session — see `rules.md` §2.
 - **Calendar Day since Day 1**: 79 (2026-09-22), of a 184-day total span to the outer deadline
 - **Session count completed**: 18 teaching sessions. Audits (2026-08-13, 2026-08-26, 2026-08-31)
   aren't counted here since they don't advance the roadmap.
@@ -121,7 +122,7 @@
   single day 1 of a 2-day topic doesn't change the core-days-used figure yet.
 - **Slack remaining**: 6 of 64 days.
 - **Buffer used** (the 22-day pool inside the baseline): 0 of 22 — genuinely untouched. Per
-  `CLAUDE.md`, this figure moves only when a reserve day funds a deferred-mastery revisit or a
+  `rules.md` §6, this figure moves only when a reserve day funds a deferred-mastery revisit or a
   topic overruns its allotted days; neither has happened (no deferred-mastery topics, and Topics
   1-11 landed at exactly their allotted 19 days, zero overrun). The gap drew on the separate slack
   pool above, which is why this line correctly still reads 0.
@@ -139,7 +140,7 @@
       5 days are the cross-cutting "Extra Reserve Buffer" from the baseline's closing note, not
       tied to any single phase. The baseline table's own "+N buffer" wording per phase is kept
       as-is but should not be read as a phase-locked limit — this note is the authoritative
-      interpretation, matching `CLAUDE.md`'s rule.
+      interpretation, matching `rules.md` §6.
 - **Notes** (pacing-relevant items only — deferrals and phase transitions; full topic narrative
   lives in `progress.md`'s session log and each topic's notebook, not here):
   - **Gap, 2026-07-25 → present, no teaching sessions.** Started after Session 17 (2026-07-24);
@@ -149,7 +150,7 @@
     days.
   - This gap first showed up in the 2026-08-13 audit and wasn't recalibrated until 2026-08-31 —
     the staleness check was scoped to teaching sessions only at the time; fixed 2026-08-31, see
-    `CLAUDE.md`'s "Every session, before anything else."
+    `rules.md` §2.
   - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,
     Kubernetes & CI/CD) is now underway.
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL

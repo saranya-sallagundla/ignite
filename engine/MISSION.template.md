@@ -1,14 +1,14 @@
 # MISSION.md — <!-- your mission's name -->
 
 <!--
-  This is the ONE file you edit. The protocol in CLAUDE.md reads everything mission-specific
+  This is the ONE file you edit. The protocol in rules.md reads everything mission-specific
   from here at the start of every session. Fill in each section, delete the comments, and say
   "start session 1".
 
   Worked example: ignite, mission #1 on this engine — a 53-topic, 120-day DevOps/SRE curriculum
-  with a real deployable project alongside. Its equivalents of this file are CLAUDE.md's Mission
-  section and learning/roadmap.md (it predates the engine, so the layout differs; the content
-  to imitate is the same).
+  with a real deployable project alongside. Its equivalents of this file are rules.md §1 and
+  learning/roadmap.md (it predates the engine, so the layout differs; the content to imitate is
+  the same).
 -->
 
 ## Mission
@@ -43,9 +43,10 @@
 
 ## Fixed baseline — the topic table
 
-<!-- FROZEN once the mission starts: never edited during recalibration, never extended mid-run.
-     Freezing it is what makes "am I on track?" answerable at all. If you outgrow it, finish or
-     formally end this mission and start mission #2.
+<!-- The plan of record. Recalibration never touches it — only the pacing layer moves. Changing
+     it is your call, but make it a deliberate decision and say why in the pacing layer: a
+     baseline that drifts quietly makes "am I on track?" unanswerable, which is the whole reason
+     it sits apart. If you outgrow it entirely, end this mission and start mission #2.
 
      Break the field into phases, each topic 1-4 days. Days should be aggressive-but-honest for
      a real working day around a job. "Core" topics block later work; "Advanced" ones can slip
@@ -72,7 +73,9 @@
 
 - **Name / folder**: <!-- e.g. `orbit/` -->
 - **End goal**: <!-- one sentence — what it is when the mission ends -->
-- **Day 0 scaffold**: <!-- folders to create before session 1 -->
+- **Planned parts**: <!-- each folder the project will have, and the topic that builds it. Only
+     the project folder and its README exist at Day 0; each part's folder is created when its
+     topic begins -->
 - **Ahead-of-skill code**: <!-- if parts must exist before the topics that teach them, name the
      topic at which the learner rewrites them for real understanding -->
 

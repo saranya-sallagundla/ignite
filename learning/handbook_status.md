@@ -2,10 +2,8 @@
 
 > Checked off automatically by Claude Code the moment a topic's quiz passes — separate from
 > publishing to the handbook site, which the user does manually, on their own timeline.
-> Score out of 100: Quiz /40 + Hands-on /30 + Depth of understanding /30, computed fresh per
-> topic, with a reason on its own line below — specific enough to justify the score without
-> repeating the notebook (end the score line with two trailing spaces for a real markdown line
-> break, not a lazy-continuation wrap).
+> Scoring rubric: [`rules.md`](../rules.md) §3. End each score line with two trailing spaces so
+> the reason below it becomes a real line break, not a lazy-continuation wrap.
 > Site: https://saranya-sallagundla.github.io/ignite/handbook
 
 - [x] 1. Linux Fundamentals — Filesystem, SSH, VMs — **90/100**  

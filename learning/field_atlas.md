@@ -4,7 +4,7 @@
 > per-topic notebooks under `notes/` capture *the hands-on teaching detail*. This file is
 > different: it's the connected map of the field itself — what each piece actually is, why it
 > exists, how it connects to everything else, and where the field is moving. One file, always
-> current, never forked into a v2.
+> current. One file today; it gets split only if it outgrows that, never forked into a stale v2.
 >
 > **A note on currency**: anywhere a claim is about something fast-moving (adoption numbers, what
 > counts as "standard" right now, tool version behavior), it's marked with a confidence level and,
@@ -13,7 +13,7 @@
 > directional, not precise.
 >
 > **Last sub-discipline check: 2026-09-21** (IST). Two mechanisms keep this date honest, per
-> `CLAUDE.md`'s "Every session, before anything else": any session opened in this repo flags it
+> `rules.md` §2: any session opened in this repo flags it
 > when it's more than 14 days old, and a scheduled task (`ignite-field-atlas-check`) runs the
 > check on the 1st and 15th of each month independently of whether a session is open at all.
 > Part 1 below (the state of the field, and §1.5's sub-discipline list) is what those checks

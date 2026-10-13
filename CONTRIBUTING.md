@@ -30,8 +30,8 @@ else went through. Without one, it becomes a debate.
 **Bugs or improvements in `orbit/` — open a pull request.** Normal rules. Keep it scoped, say what you
 changed and why.
 
-**Questions about the method itself — open an issue.** How the 3-attempt mastery rule works in practice,
-how the quizzes are structured, how to adapt `CLAUDE.md` to a different subject. These get asked a
+**Questions about the method itself — open an issue.** How the mastery rule works in practice,
+how the quizzes are structured, how to adapt `rules.md` to a different subject. These get asked a
 lot and the answers are useful to more than one person.
 
 ## What will be closed, and why
@@ -39,21 +39,23 @@ lot and the answers are useful to more than one person.
 Not out of rudeness — just so nobody spends effort on something that cannot be merged:
 
 - **Rewrites, restructures, or style edits to anything under `learning/`.** See above.
-- **Edits to `learning/progress.md`, `learning/session_notes.md`, or `learning/handbook_status.md`.**
+- **Edits to `learning/progress.md` or `learning/handbook_status.md`.**
   These are the log. Only the person who lived the sessions can write them.
-- **Changes to `learning/roadmap.md`'s fixed baseline table.** That table is frozen by design; only
-  the pacing layer beneath it moves. Freezing it is what makes "am I on track?" answerable at all.
-- **New topics added to the curriculum.** The 53 are fixed for this run. If you want a different
-  curriculum, fork it — that is explicitly encouraged, see below.
-- **Check-in / check-out timestamps.** Never edited, for any reason, including formatting. All of the
-  pacing arithmetic is computed from them, so their entire value depends on being real.
+- **Changes to `learning/roadmap.md`'s baseline table.** It is the plan of record, and changing it
+  is the author's call alone; only the pacing layer beneath it moves session to session. Keeping
+  it still is what makes "am I on track?" answerable at all.
+- **New topics added to the curriculum.** The 53 are the plan of record for this run, and changing
+  them is the author's call. If you want a different curriculum, fork it — that is explicitly
+  encouraged, see below.
+- **Edits to recorded scores, session dates, or check-in / check-out timestamps.** These are the
+  record. Their value depends on being real.
 
 ## Forking it for your own curriculum
 
 This is the intended reuse, and it is packaged: [`engine/`](engine/) holds the whole teaching and
-examination protocol with everything DevOps-specific removed — a portable `CLAUDE.md` you copy
-unedited, a `MISSION.md` template where your own topics, phases and deadline go, and blank
-templates for the record files. [`engine/QUICKSTART.md`](engine/QUICKSTART.md) walks the whole
+examination protocol with everything DevOps-specific removed — a portable `rules.md` you copy
+unedited, the one-line `CLAUDE.md` that loads it, a `MISSION.md` template where your own topics,
+phases and deadline go, and blank templates for the record files. [`engine/README.md` → Quickstart](engine/README.md#quickstart) walks the whole
 setup in about five minutes.
 
 You do not need to credit the fork, though a link back is appreciated. If you build something
@@ -61,14 +63,10 @@ interesting with it, an issue saying so would genuinely be welcome.
 
 ## Conventions, if you do end up touching files
 
-- All narrative dates are **IST (UTC+5:30)**, format `YYYY-MM-DD`. Raw captured command output and git
-  metadata reflect the machine's real local clock — that difference is expected and documented, not an
-  error to fix.
-- Topic names are written **exactly** as `learning/roadmap.md`'s baseline table spells them, em-dash
-  form, everywhere they appear.
-- Usernames and email addresses in captured output are redacted to placeholders (`devuser`,
-  `user@example.com`). The commands and their output are otherwise unmodified.
-- Every command shown in a notebook gets a general **Syntax** line before the concrete example.
+Every convention this repo follows — dates, topic naming, redaction, notebook formatting — is
+written once, in [`rules.md`](rules.md). Read §7 before editing anything. Nothing is restated here,
+deliberately: a convention documented in two places is a convention that will eventually
+contradict itself.
 
 ## Reporting something sensitive
 

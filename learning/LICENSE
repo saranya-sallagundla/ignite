@@ -4,8 +4,9 @@ Copyright (c) 2026 Saranya Sallagundla
 
 Applies to the written material in this repository: everything under `learning/`, `docs/`,
 `audits/` and `engine/`, plus the Markdown documents at the repository root (`README.md`,
-`CONTRIBUTING.md`, `SECURITY.md`, `CLAUDE.md`). Software in `orbit/`, `.github/` and elsewhere is
-licensed separately under the MIT License — see the `LICENSE` file at the repository root.
+`CONTRIBUTING.md`, `SECURITY.md`, `rules.md`, `CLAUDE.md`). Software in `orbit/`, `.github/` and
+elsewhere is licensed separately under the MIT License — see the `LICENSE` file at the repository
+root.
 
 You are free to:
 
