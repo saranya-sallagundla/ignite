@@ -9,6 +9,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Stage 2: final
 FROM python:3.12-slim
 WORKDIR /app
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends --only-upgrade perl-base \
+    && rm -rf /var/lib/apt/lists/*
 RUN useradd --create-home appuser
 COPY --from=builder --chown=appuser /opt/venv /opt/venv
 COPY --chown=appuser app.py .
