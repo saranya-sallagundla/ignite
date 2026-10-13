@@ -1,18 +1,45 @@
 # Repo audits
 
-Every audit in this folder is named for what it covers — `topic-NN-professionalism.md` for a
-periodic one, a short slug like `public-readiness.md` for a one-time one — not for the date it
-ran. The date lives in each file's header and in **the index below**, which is the source of
-truth for which file covers which milestone — check it before assuming a file does or doesn't
-exist for a given topic.
+Audit findings are filed by **subject**, not by the audit that found them — four files, one per
+kind of problem. Each finding's ID says which audit found it, and every audit adds to these four
+files instead of creating new ones. Create each file the first time an audit has a finding for it.
+
+## Where findings live
+
+| File | Holds |
+|---|---|
+| `privacy-and-publishing.md` | Is it safe to make public — identity in files and history, secrets, licences, the right to publish |
+| `accuracy-and-currency.md` | Is what's written true and up to date — technical claims, stale facts, the living reference, pacing numbers |
+| `consistency-and-structure.md` | Does it read as one system — naming, formats, layout, rendering, links, hygiene files, process rules |
+| `project-and-engine.md` | Are the outward-facing products ready — the parallel project, anything meant to be reused, root presentation, CI |
+
+Each file opens with a short "How findings are recorded here" section, then its findings, then a
+*Verified clean — negative results* section. Every finding follows this shape:
+
+```text
+### <ID> — <short title>
+> From: <audit name>, <date> · Original section: <section> · Severity: <tier> · Status: <status>
+
+<the finding: what was found, why it matters, the fix>
+```
+
+- **ID** — a short prefix for the audit (e.g. `T10-` for the Topic 10 audit) plus the finding's
+  own number.
+- **Severity** — critical / important / minor / cosmetic. Left out when the audit didn't grade it.
+- **Status** — `open`, `fixed <date>`, `held for Topic N`, `left as is on purpose`, `closed <date>`,
+  `superseded`, or `not re-checked since`. When a later audit re-checks a finding, update its
+  Status line rather than repeating the finding.
 
 ## Index
 
-| Date | Type | Milestone | File |
+The source of truth for which audit covers which milestone — check it before assuming an audit
+has or hasn't run for a given topic.
+
+| Date | Type | Milestone | ID prefix |
 |---|---|---|---|
 | — | — | — | — |
 
-Two kinds of audits belong here, both under the same naming scheme:
+Two kinds of audits:
 
 - **Periodic professionalism audits** — every N topics (`MISSION.md`'s audit cadence, default
   10), before starting the next topic. Purpose: catch the kind of drift that accumulates quietly
@@ -21,33 +48,28 @@ Two kinds of audits belong here, both under the same naming scheme:
 - **One-time named audits** — cover something other than a topic milestone: a public-readiness
   audit, triggered by the repo's visibility changing; an organization pass, triggered by a direct
   request to check overall consistency; or a final sign-off audit, before pointing the repo to
-  anyone or forking it further. Same filename convention, same rules below.
+  anyone or forking it further. Same rules, same four files.
 
-## Rules for every audit
+## How an audit is run
 
-- **Not limited to the categories/items a past audit already found.** Each new audit looks at the
-  repo fresh, word by word, and adds whatever new issues actually turn up — an audit means
-  checking everything, not re-verifying a predefined list.
-- Findings first, fixes only after the learner reviews them — never apply silently.
-- Categorize by severity (critical / important / minor / cosmetic) so priority is clear at a
-  glance.
-- Fix in small, reviewable, individually-committed batches, not one giant commit.
-- **Periodic and final sign-off audits only**: defer genuinely topic-specific best-practice items
-  to when that topic is actually taught, rather than fixing them retroactively — the point is
-  learning them hands-on, not finding a pre-made fix waiting. Flag the item clearly so the next
-  session teaching that topic knows it's already diagnosed. Public-readiness and organization
-  audits have no topic-teaching timeline to defer into, so this rule doesn't apply to them.
-- Check-in/Check-out timestamps are never touched for formatting/consistency reasons — they're the
-  one thing in the record whose value depends entirely on being real.
-- **If the in-repo record redacts anything** (e.g. an identity placeholder `MISSION.md` defines),
-  also save an unmodified copy of the raw, pre-redaction findings somewhere outside this repo —
-  as-is, no redaction. If nothing needed redacting, skip this, but say so explicitly in the audit
-  file so the absence reads as a decision, not an oversight.
-- **Add the new file to the index table above** in the same commit — the filename says what an
-  audit covered, but only the index says when it ran and which milestone it belongs to, so one
-  that isn't indexed can't be matched to a milestone and is effectively invisible.
-- **Once something is genuinely settled — an ownership question, a design decision revisited and
-  closed — record the resolution durably in a committed file, not only in session memory.**
-  Memory doesn't carry across a fresh session or a different AI account; a committed resolution
-  does. An unresolved-looking finding that was actually settled weeks ago, just never written
-  down, is exactly the kind of thing that gets re-litigated forever otherwise.
+The process — findings before fixes, severity triage, batched commits, deferring topic-specific
+items, indexing the result — lives in [`rules.md`](../rules.md) §8. It is not restated here, so
+there is only ever one copy to keep true.
+
+Two things worth repeating at the point of use:
+
+- **Audit fresh, every time.** A past audit's findings record what that one audit surfaced. They
+  are not a checklist a later audit is confined to re-checking.
+- **Each audit also re-checks the standing rules** in `rules.md` §7, not only new issues.
+
+### Saving a new audit
+
+1. Pick a short ID prefix for it and add a row to the Index.
+2. Add its header — date, trigger, scope, method, headline — to Audit history below.
+3. File each finding in the matching subject file, in the shape above.
+4. Update the Status line of any older finding the new audit re-checked, instead of repeating it.
+
+## Audit history
+
+<!-- One entry per audit: its header, headline, plan and follow-up notes. The findings themselves
+     go in the four subject files. -->
