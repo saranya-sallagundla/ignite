@@ -8,11 +8,11 @@
 >
 > **A note on currency**: anywhere a claim is about something fast-moving (adoption numbers, what
 > counts as "standard" right now, tool version behavior), it's marked with a confidence level and,
-> where possible, a source. Verified 2026-07-29, re-verified 2026-08-31 via live web research —
-> see the confidence notes inline. Treat percentages from secondary/blog sources as directional,
-> not precise.
+> where possible, a source. Verified 2026-07-29, re-verified 2026-08-31 and 2026-09-21 via live
+> web research — see the confidence notes inline. Treat percentages from secondary/blog sources as
+> directional, not precise.
 >
-> **Last sub-discipline check: 2026-08-31** (IST). Two mechanisms keep this date honest, per
+> **Last sub-discipline check: 2026-09-21** (IST). Two mechanisms keep this date honest, per
 > `CLAUDE.md`'s "Every session, before anything else": any session opened in this repo flags it
 > when it's more than 14 days old, and a scheduled task (`ignite-field-atlas-check`) runs the
 > check on the 1st and 15th of each month independently of whether a session is open at all.
@@ -91,12 +91,22 @@ just structured differently than "ops" was in 2010.
   users report running it in production, up from 93% in 2023) — Argo CD leads adoption, with Flux
   as the other CNCF-graduated option, over manual `kubectl apply` or ad hoc scripts. **Confidence:
   medium-high** — a real, citable primary source, updated from the earlier "not independently
-  confirmed" hedge now that the source itself is directly checkable.
+  confirmed" hedge now that the source itself is directly checkable. Rechecked 2026-09-21: a newer
+  Argo CD end-user survey was run and discussed at ArgoCon Japan in July 2026, but no published
+  figures from it could be found, so the July 2025 numbers above stand as the most recent sourced
+  ones rather than being silently refreshed from a secondary summary.
 - **Platform Engineering.** Went from "an emerging idea a few thoughtful teams were trying" around
-  2021-2022 to *the* dominant theme in Puppet/Perforce's 2024 State of DevOps report, explicitly
-  titled around platform engineering's rise. **Confidence: medium-high** (a real, named survey),
-  though the specific adoption percentages circulating in blog posts (some claim as high as ~90%
-  of orgs having adopted "some" platform) aren't independently verified here.
+  2021-2022 to the point where Puppet/Perforce's State of DevOps report is now *published as* a
+  platform engineering report rather than merely themed around one. The current edition — "State
+  of DevOps Report: Platform Engineering 2026," subtitled "Control at Speed: Platform Engineering
+  in the Age of AI," announced by Perforce on **8 July 2026**, 820 respondents worldwide — reframes
+  the discipline as the governance layer under AI adoption: 73% of organizations with mature
+  platform engineering call that maturity a critical or significant factor in their AI success,
+  against 44% of less mature ones. Updated on the 2026-09-21 check, which found the file still
+  citing the 2024 edition. **Confidence: medium-high** (a real, named survey, read via Perforce's
+  own press release rather than a secondary summary), though the broader adoption percentages
+  circulating in blog posts (some claim as high as ~90% of orgs having adopted "some" platform)
+  remain unverified here.
 
 **Went from standard to declining/legacy:**
 - **Docker Swarm** — Docker's own orchestrator lost the orchestration war to Kubernetes years ago
@@ -123,11 +133,27 @@ just structured differently than "ops" was in 2010.
   Investments have migrated, and secondary sources put OpenTofu at roughly 12% adoption among IaC
   practitioners as of April 2026 with strong, ~300% year-over-year download growth) but still a
   minority of the installed base as of mid-2026 — this is genuinely unresolved, and worth tracking
-  rather than assuming Terraform's position is permanent. **Confidence: high** on the license/
-  CNCF/acquisition timeline (independently checkable), **lower** on exact adoption share.
+  rather than assuming Terraform's position is permanent. One newer data point, added on the
+  2026-09-21 check: Spacelift reports that over half of all runs on its platform are now OpenTofu
+  runs (~58% of its Terraform-stack runs over a trailing 30-day window). Read that as a *platform-
+  specific* figure, not a field-wide one — Spacelift is a founding OpenTofu TSC member reporting
+  on its own customer base, so it is directional at best and not independently audited. OpenTofu
+  is still at CNCF **Sandbox**, not Incubating; no promotion was found. **Confidence: high** on the
+  license/CNCF/acquisition timeline (independently checkable), **lower** on exact adoption share,
+  which no neutral, field-wide source has yet established.
 - **AI-assisted operations.** Genuinely new capability (AI copilots for incident triage, log
   analysis, even proposed remediations), but real production trust in *autonomous* AI action
-  during incidents remains limited — this mission's own capstone concept (an AI agent that
+  during incidents remains limited. That gap now has a number attached to it from a named survey,
+  added on the 2026-09-21 check: the 2026 Platform Engineering report above finds roughly
+  two-thirds of organizations using AI somewhere in their infrastructure workflows, but only 31%
+  reporting *fully autonomous* AI — and trust in AI output tracks governance rather than tooling
+  (94% where formal governance exists, 51% under ad hoc approaches). Google Cloud's DORA team has
+  also moved into this space with two named reports — "State of AI-assisted Software Development"
+  (the 2025 edition, published February 2026) and a follow-on "ROI of AI-assisted Software
+  Development" (last updated April 2026) — whose central claim is that AI acts as an amplifier of
+  an organization's existing strengths and weaknesses rather than a uniform uplift. **Confidence:
+  medium-high** on direction, **medium** on the specific percentages. This mission's own capstone
+  concept (an AI agent that
   diagnoses and either auto-remediates or escalates, see `orbit/docs/concept.md`) is explicitly
   built around today's actual state of that trust boundary, not a hypothetical future one.
 - **Platform engineering's own tooling** (Backstage vs. Port vs. building it yourself) — not
@@ -199,6 +225,14 @@ this job is being able to have that conversation credibly — with data, not jus
 Every entry below explains the *actual* distinguishing practice or technology that split it off
 from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
 
+The 2026-09-21 check searched specifically for a new entrant and did not find one that clears the
+bar. The candidates that surfaced — "agentic DevOps," "AI platform engineering," and "FinOps for
+AI" (token spend as an operational cost line) — are real conversations, but each is a restatement
+of something already listed here rather than a distinct practice with its own tooling and metrics:
+the first two sit between AgentOps and Platform Engineering, and the third is inside FinOps, whose
+own 2026 report already tracks AI spend as its headline figure. Recorded as a deliberate no-change,
+not as a skipped check.
+
 - **DevSecOps** — split off because security review as a separate, late-stage gate (a security
   team reviewing a finished release right before ship) was too slow and too easy to skip under
   deadline pressure. The actual distinguishing practice is **"shift-left" automated security
@@ -237,9 +271,11 @@ from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
   inconsistent reliability practices across teams. The distinguishing practice is building an
   actual **internal developer platform (IDP)** — self-service tooling (a service catalog, golden-
   path templates, one-click environment provisioning) that product teams use as a product, with
-  the platform team treating internal developers as their actual customers. Multiple 2024-2025
-  survey sources point to this being the dominant DevOps-adjacent theme right now (**confidence:
-  medium-high** on the "this is now the leading conversation" claim; a widely-repeated caveat
+  the platform team treating internal developers as their actual customers. Survey sources through
+  2026 — most directly Puppet/Perforce's July 2026 platform engineering edition, cited in §1.2 —
+  point to this being the dominant DevOps-adjacent theme right now, and increasingly framed as the
+  control layer that makes AI adoption safe rather than as a developer-convenience play
+  (**confidence: medium-high** on the "this is now the leading conversation" claim; a widely-repeated caveat
   worth taking seriously — some sources suggest a majority of platform investments aren't yet
   producing measurable productivity gains, meaning adoption has outpaced actual maturity).
 
@@ -299,8 +335,15 @@ from plain DevOps — not just the surface-level "X tacked onto DevOps" gloss.
     survey data: LangChain's "State of Agent Engineering" report (1,300+ respondents — 57.3% now
     have agents in production, 89% have implemented agent-specific observability) and a January
     2026 Futurum Group survey of 628 enterprise IT leaders (60% actively using AI to build/deploy
-    software). **Confidence: medium** — real, named surveys, but nearly all sourcing is from
-    January 2026 onward, too recent to call this established the way FinOps or DevSecOps are.
+    software). The 2026-09-21 check found the *practice* description holding up but the adoption
+    numbers openly contradictory: some 2026 surveys put enterprises with at least one agent in
+    production near 31%, against LangChain's 57.3%, and a widely-recirculated claim that 88% of
+    agent pilots never reach production traces back to vendor-adjacent research rather than a
+    neutral one. No reliable reconciliation of those figures was found, and it is better to record
+    that plainly than to pick the flattering number. **Confidence: medium** on AgentOps being a
+    real, distinct emerging practice; **low** on any specific production-adoption percentage, and
+    nearly all sourcing is still January 2026 or later — too recent to call this established the
+    way FinOps or DevSecOps are.
   - **GreenOps / sustainability engineering** — carbon-aware scheduling, optimizing for
     performance-per-watt, often framed as an extension of FinOps rather than a fully separate
     discipline yet. Updated on revisit: the Green Software Foundation's **Software Carbon
