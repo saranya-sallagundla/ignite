@@ -98,15 +98,15 @@
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Using that slack is normal; it does not count as falling behind.
-- **Last recalibrated**: 2026-09-10, per `CLAUDE.md`'s 5+ days behind rule. The check that
+- **Last recalibrated**: 2026-09-21, per `CLAUDE.md`'s 5+ days behind rule. The check that
   triggers this now runs every session — see `CLAUDE.md`'s "Every session, before anything else."
-- **Calendar Day since Day 1**: 67 (2026-09-10), of a 184-day total span to the outer deadline
+- **Calendar Day since Day 1**: 78 (2026-09-21), of a 184-day total span to the outer deadline
 - **Session count completed**: 17 teaching sessions. Audits (2026-08-13, 2026-08-26, 2026-08-31)
   aren't counted here since they don't advance the roadmap.
-- **Active calendar days**: 17 of 67 — a day counts active if a session's heading is dated that
+- **Active calendar days**: 17 of 78 — a day counts active if a session's heading is dated that
   day (matching the rule that Session/Day headings show only the start date). Inside the first 20
-  days there were 3 gaps (2026-07-15, 2026-07-17, 2026-07-25). The remaining 47 (2026-07-25 →
-  2026-09-10) are the ongoing gap recorded in Notes — no teaching session has started since
+  days there were 3 gaps (2026-07-15, 2026-07-17, 2026-07-25). The remaining 58 (2026-07-25 →
+  2026-09-21) are the ongoing gap recorded in Notes — no teaching session has started since
   Session 17 (2026-07-24).
 - **Roadmap days used**: 19 of 98 **core** days (Topics 1-11 complete, per fixed baseline
   allocation) — 79 core days remain. Stated against the 98-day core figure deliberately, not
@@ -115,9 +115,9 @@
   useless as a pace signal.
 - **Topic state**: Topic 11 — COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture &
   Core Concepts).
-- **Pace**: Behind by ~16 core days, due to a 47-day gap with no sessions (2026-07-25 to
-  2026-09-10, ongoing). Deadline still fits.
-- **Slack remaining**: 17 of 64 days.
+- **Pace**: Behind by ~22 core days, due to a 58-day gap with no sessions (2026-07-25 to
+  2026-09-21, ongoing). Deadline still fits, with 6 days of slack.
+- **Slack remaining**: 6 of 64 days.
 - **Buffer used** (the 22-day pool inside the baseline): 0 of 22 — genuinely untouched. Per
   `CLAUDE.md`, this figure moves only when a reserve day funds a deferred-mastery revisit or a
   topic overruns its allotted days; neither has happened (no deferred-mastery topics, and Topics
@@ -141,9 +141,9 @@
 - **Notes** (pacing-relevant items only — deferrals and phase transitions; full topic narrative
   lives in `progress.md`'s session log and each topic's notebook, not here):
   - **Gap, 2026-07-25 → present, no teaching sessions.** Started after Session 17 (2026-07-24);
-    still ongoing as of this recalibration (47 days, 2026-09-10). Reason not recorded here by
-    design, per the Light Days privacy note. Pacing cost so far: 47 days from the 64-day slack
-    pool, leaving 17. Logged here rather than the Light Days table since that table is for single
+    still ongoing as of this recalibration (58 days, 2026-09-21). Reason not recorded here by
+    design, per the Light Days privacy note. Pacing cost so far: 58 days from the 64-day slack
+    pool, leaving 6. Logged here rather than the Light Days table since that table is for single
     days.
   - This gap first showed up in the 2026-08-13 audit and wasn't recalibrated until 2026-08-31 —
     the staleness check was scoped to teaching sessions only at the time; fixed 2026-08-31, see
@@ -152,6 +152,7 @@
     Kubernetes & CI/CD) is now underway.
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
     traffic; retry via AWS sandbox VM once access is ready.
-- **Recalibration verdict, 2026-09-10**: the remaining roadmap still fits the 6-month deadline —
-  101 roadmap days of work against 118 calendar days. No topics dropped, no allocations altered.
-  Next routine check-in at session 37, or sooner if Pace slips another 5 days.
+- **Recalibration verdict, 2026-09-21**: the remaining roadmap still fits the 6-month deadline —
+  101 roadmap days of work against 107 calendar days, leaving 6 days of slack. No topics dropped,
+  no allocations altered. A further gap of a week or more means the 2027-01-06 date moves. Next
+  routine check-in at session 37, or sooner if Pace slips another 5 days.
