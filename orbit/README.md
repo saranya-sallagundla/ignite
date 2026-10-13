@@ -32,11 +32,19 @@ From `orbit/`: `docker compose up --build`, then verify with `curl http://localh
     virtualenv in `/opt/venv`, and the final stage copies only that. Runs as non-root `appuser`,
     served by gunicorn, with `EXPOSE 5000` and a `HEALTHCHECK`. A layer bug (`chown -R` after
     `COPY --from` duplicated the venv) was fixed with `COPY --chown=` — 231 MB → 204 MB.
+  - Maintenance — a scan reported three critical CVEs (CVE-2026-8376, CVE-2026-42496,
+    CVE-2026-13221) in `perl-base 5.40.1-6`, in the Debian layer of the base image. The fix is
+    `5.40.1-6+deb13u1`, which the current `python:3.12-slim` already ships; the image was rebuilt
+    on it and checked with `dpkg -s`. The final stage also runs
+    `apt-get install --only-upgrade perl-base`, so a build on an older cached base can't regress.
+    That layer is 20.5 kB; the image still runs as non-root `appuser`.
 - Installed & used:
   - Docker Desktop 4.58.0 (engine 29.1.5) — builds the image and runs the container
   - `python:3.12-slim` — the base image for both build stages
   - Flask 3.1.1 — the web framework the endpoints are written in
   - gunicorn 23.0.0 — the production server that runs the app, in place of Flask's dev server
+  - `perl-base` 5.40.1-6+deb13u1 — the Perl runtime Debian's own tools need (it can't be removed);
+    comes with the base image, and the final stage also upgrades it as a safeguard
 - Next: Topic 15 adds `tests/`, so CI has something real to run.
 
 ### `app/tests/` — not built yet
