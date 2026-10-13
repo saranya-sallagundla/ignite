@@ -25,7 +25,7 @@ publicly.
 
 | ID | Item | Status |
 |---|---|---|
-| FS-1 | The public mirror (`personal`) is still the pre-remediation snapshot: original history with the corporate identity on ~35 commits, `claude-memory/` present, no LICENSE, SECURITY or CONTRIBUTING. Covers PR-C-1 to C-6 and PR-H-5. | open — last updated 2026-07-29 (checked 2026-10-12) |
+| FS-1 | The public mirror (`personal`) is still the pre-remediation snapshot: original history with the corporate identity on ~35 commits, `claude-memory/` present, no LICENSE, SECURITY or CONTRIBUTING. Covers PR-C-1 to C-6 and PR-H-5. | open — last updated 2026-10-02 (checked 2026-10-12) |
 | FS-5 | The git-metadata exemption that allowed FS-1 is still in `rules.md` §7 | partly done — repo-local identity set to a personal no-reply address |
 | PR-H-7 | `.gitignore` has no credential patterns (`*.tfvars`, `*.pem`, `.aws/`, `kubeconfig*`, `.env.*`); `env/` is unanchored | open — must land before Phase 3 (checked 2026-10-12) |
 | PR-H-8 | `USER appuser` is non-numeric; `runAsNonRoot` can't resolve it | open — `progress.md` Open items #3, Topic 13 |
@@ -81,7 +81,7 @@ and no commit where one lived.
 | ID | Finding | Severity | Status |
 |---|---|---|---|
 | PR-B-1 | The right to publish was unresolved: work laptop, corporate org, corporate identity on every commit | blocking | closed 2026-10-11 (FS-2) |
-| PR-C-1 | The repo is already public: `private: false`, no licence, 0 stars, 0 forks, created 2026-07-03, last pushed 2026-07-31 | critical | open — the public mirror is still the old copy (FS-1) |
+| PR-C-1 | The repo is already public: `private: false`, no licence, 0 stars, 0 forks, last pushed 2026-10-02 | critical | open — the public mirror is still the old copy (FS-1) |
 | PR-C-2 | Corporate email and legal name on all 60 commits, publicly readable; none signed | critical | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
 | PR-C-3 | Employer email in git-history file content (pasted `git log` output in one notebook) | critical | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
 | PR-C-4 | Employer org name in git-history file content (the pre-rename path of `concept.md`) | critical | fixed on `origin` 2026-10-04; mirror still old (FS-1) |
