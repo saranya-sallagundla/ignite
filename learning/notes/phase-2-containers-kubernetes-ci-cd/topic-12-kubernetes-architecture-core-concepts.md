@@ -118,11 +118,21 @@ gh api repos/kubernetes-sigs/kind/releases/latest --jq .tag_name
 # v0.33.0
 ```
 
-**Installed via direct binary download** (Windows):
+**Installed via `winget`** (Windows' built-in package manager, handles picking the current version
+automatically):
+```powershell
+winget install -e --id Kubernetes.kind
+```
+Confirmed: `kind version` → `kind v0.33.0 go1.26.7 windows/amd64` — matching the release just
+verified above.
+
+**Alternative — direct binary download**, worth knowing even though `winget` is what was actually
+used here: download the exact release binary and place it on PATH yourself:
 ```powershell
 curl.exe -Lo kind.exe https://kind.sigs.k8s.io/dl/v0.33.0/kind-windows-amd64.exe
 ```
-Confirmed: `kind version` → `kind v0.33.0 go1.26.7 windows/amd64`.
+Useful when `winget`/Chocolatey aren't available, or when a specific pinned version is needed
+rather than whatever the package manager currently offers.
 
 **Syntax** — a `kind` cluster config:
 ```yaml
