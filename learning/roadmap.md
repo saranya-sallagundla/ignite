@@ -98,14 +98,11 @@
 - **Outer deadline**: 6 months from Day 1 (~2027-01-06). The baseline above sums to ~120 days —
   the remaining ~60 are deliberate slack for the 3-attempt mastery rule and project polish.
   Using that slack is normal; it does not count as falling behind.
-- **Last recalibrated**: 2026-08-31 — triggered by the 5+ days behind rule, which had in fact
-  fired weeks earlier and gone unacted-on while this layer sat stale (see Notes). The staleness
-  check that now catches this lives in `CLAUDE.md`'s "Every session, before anything else."
+- **Last recalibrated**: 2026-08-31, per `CLAUDE.md`'s 5+ days behind rule. The check that
+  triggers this now runs every session — see `CLAUDE.md`'s "Every session, before anything else."
 - **Calendar Day since Day 1**: 57 (2026-08-31), of a 184-day total span to the outer deadline
-- **Session count completed**: 17 teaching sessions. Non-teaching sessions (audits on 2026-08-13,
-  2026-08-26 and 2026-08-31) are deliberately not counted here — they don't advance the roadmap —
-  but they are why the 37-day teaching gap below went unnoticed for so long: sessions were
-  happening, just not ones the old staleness check was scoped to look at.
+- **Session count completed**: 17 teaching sessions. Audits (2026-08-13, 2026-08-26, 2026-08-31)
+  aren't counted here since they don't advance the roadmap.
 - **Active calendar days**: 17 of 57 — a day counts active if a session's heading is dated that
   day (matching the rule that Session/Day headings show only the start date). Inside the first 20
   days there were 3 gaps (2026-07-15, 2026-07-17, 2026-07-25), each a calendar day touched only by
