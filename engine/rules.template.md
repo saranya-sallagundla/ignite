@@ -153,7 +153,7 @@ land in the project instead of a disposable practice folder, put it there.
 | `learning/handbook_status.md` | Per-topic checklist with score and reason |
 | `learning/notes/phase-N/topic-NN-*.md` | The detailed study notebook — the lasting reference |
 | `learning/field_atlas.md` | Optional living map of the field itself. Not a session log |
-| `audits/` | Findings filed by subject in four files; index, history and prompts in `audits/README.md` |
+| `audits.md` | Audit index, open items, settled questions, each audit's findings one row each, and the prompts |
 
 The baseline table is the plan of record. Change it deliberately if the curriculum should change —
 update the table and say why in the pacing layer. It isn't frozen; it's just not something to edit
@@ -255,7 +255,7 @@ clears — that last one because nothing else is scheduled between the final per
 record being shown. One-off audits happen whenever there's a reason.
 
 **When a periodic audit is due:** the highest cleared topic has reached or passed the next
-multiple of `MISSION.md`'s audit cadence that has no audit in `audits/README.md`'s index. Not "the
+multiple of `MISSION.md`'s audit cadence that has no audit in `audits.md`'s index. Not "the
 topic that just cleared is exactly a multiple" — that misses the trigger when a milestone topic
 and the next one clear close together, which happened with Topics 10 and 11 in mission #1.
 
@@ -267,11 +267,10 @@ Process:
 - Defer genuinely topic-specific items to the session that teaches them, flagged clearly, so they
   are learned hands-on instead of found pre-fixed. Doesn't apply to audits with no teaching
   timeline left to defer into.
-- File each finding in the matching subject file under `audits/`, in that file's shape, with an ID
-  prefix for the audit. Add the audit to `audits/README.md`'s index and history in the same
-  commit — never a new file per audit.
-- **Audit records live only in the repo, in `audits/`.** No local copies, raw or otherwise, saved
-  anywhere outside it.
+- File each finding as one row in the audit's own table in `audits.md`, with an ID prefix for the
+  audit. Add the audit to the index in the same commit — never a new file per audit.
+- **Audit records live only in the repo, in `audits.md`.** No local copies, raw or otherwise,
+  saved anywhere outside it.
 - **Write settled questions down, in a committed file.** Session memory doesn't survive a new
   session or a different account; a committed resolution does. A finding that looks open but was
   actually closed weeks ago gets re-litigated forever otherwise.

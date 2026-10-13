@@ -52,7 +52,7 @@ everything else, including the curriculum.
 A full public-readiness audit was run before this repository was promoted publicly — covering every
 tracked file and the complete commit history for credentials, tokens, keys, personal data, and
 infrastructure disclosure, plus container and dependency posture. Findings and remediation are recorded
-in [`audits/`](audits/). Git history was rewritten to remove identity metadata that a working-tree-only
-check would have missed.
+in [`audits.md`](audits.md). Git history was rewritten to remove identity metadata that a
+working-tree-only check would have missed.
 
 If you find something that audit missed, that is exactly the report worth making.

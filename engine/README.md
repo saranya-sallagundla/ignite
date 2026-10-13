@@ -64,11 +64,10 @@ cp ../ignite/engine/CLAUDE.template.md   CLAUDE.md
 cp ../ignite/engine/MISSION.template.md  MISSION.md
 
 mkdir -p learning/notes
-mkdir -p audits
 cp ../ignite/engine/templates/progress.md         learning/
 cp ../ignite/engine/templates/handbook_status.md  learning/
 cp ../ignite/engine/templates/notes/README.md     learning/notes/
-cp ../ignite/engine/templates/audits/README.md    audits/
+cp ../ignite/engine/templates/audits.md           audits.md
 ```
 
 Both are copied **unedited**, and both names matter. `CLAUDE.md` is the name Claude Code auto-loads
@@ -129,8 +128,8 @@ Then clear everything specific to mission #1 before your Day 1, not just `learni
   `field_atlas.md` (replace with the blank `templates/` versions, same as step 2).
 - `orbit/` — mission #1's own project. Repurpose it for yours, rename it, or delete it; nothing
   here transfers to a different subject.
-- `audits/` — mission #1's DevOps-specific audit records. Clear them and start your own index (the blank
-  `templates/audits/README.md` has the format).
+- `audits.md` — mission #1's DevOps-specific audit records. Clear them and start your own index
+  (the blank `templates/audits.md` has the format).
 - `CONTRIBUTING.md`, `docs/project_ideas.md` — both describe mission #1's specific project;
   rewrite or delete rather than leaving them describing something you didn't build.
 

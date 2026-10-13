@@ -29,7 +29,7 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 | Pace | **Ahead by ~5 core days** — 56 days of slack left before the Mar 2027 deadline moves |
 | Study notebooks | **12 files, 6,202 lines** of commands actually run and real output |
 | Field reference | **2 files, 726 lines**, continuously updated, with per-claim confidence levels |
-| Audits | **4** run, **112** findings filed by subject in [`audits/`](audits/), each with a status |
+| Audits | **4** run, **112** findings in [`audits.md`](audits.md), one row each with a status |
 
 Next up: Topic 12 — Kubernetes — Architecture & Core Concepts, Day 2 + quiz.
 
@@ -111,7 +111,7 @@ lowest in the repo — and it stays visible. A record with no failures in it is 
 **A full repo audit every 10 topics.** Line by line, every subfolder. Findings are reviewed before a
 single fix is applied, and genuinely topic-specific improvements are deliberately *deferred* to the
 session that teaches them — so they get learned hands-on rather than found pre-fixed. Audit findings
-live in [`audits/`](audits/), filed by subject.
+live in [`audits.md`](audits.md), one row each with a status.
 
 The rules the AI actually follows are in [`rules.md`](rules.md) — all of them, in one file, written
 once. It is the most interesting file here if you want to run something like this yourself.
@@ -145,7 +145,7 @@ ignite/
 │   ├── docs/                  the capstone concept
 │   └── docker-compose.yml
 ├── engine/                    the Ignition Engine — the teaching protocol, packaged to fork
-├── audits/                    audit findings filed by subject in four files, with an index
+├── audits.md                  audit index, open items, every finding with its status
 ├── docs/                      the method, and future project ideas
 └── .github/                   CI workflows — populated from Topic 15
 ```
@@ -208,9 +208,9 @@ Two grants, split by what the material is:
 
 - **MIT** — the software: `orbit/`, `.github/`, and any scripts or configuration elsewhere in the
   tree. See [`LICENSE`](LICENSE).
-- **CC BY 4.0** — the written material: `learning/`, `docs/`, `audits/`, `engine/`, and the
+- **CC BY 4.0** — the written material: `learning/`, `docs/`, `engine/`, and the
   Markdown documents at the repository root (this file, `CONTRIBUTING.md`, `SECURITY.md`,
-  `rules.md`, `CLAUDE.md`). See [`learning/LICENSE`](learning/LICENSE). This is what covers `engine/` — copy
+  `audits.md`, `rules.md`, `CLAUDE.md`). See [`learning/LICENSE`](learning/LICENSE). This is what covers `engine/` — copy
   and adapt it for your own mission, with attribution, same as any other written material here.
 
 This repository is educational reference material, not production-hardened infrastructure — do not
