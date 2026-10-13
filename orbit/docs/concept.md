@@ -23,10 +23,11 @@ are avoided entirely:
   runs against **LocalStack** (a Docker-hosted AWS API emulator) instead of a live account —
   identical Terraform/Boto3/CLI code, pointed at localhost.
 
-Phase 3's hands-on AWS learning (Topics 20-33) still uses a real personal AWS account for the
-services that genuinely are free (EC2, S3, Lambda, IAM, basic CloudWatch) — only the capstone's
-own deployed infrastructure moves to LocalStack/k3s, since that's where the non-free services
-would otherwise be required.
+Phase 3's hands-on AWS learning (Topics 20-33) still uses a real personal AWS account for
+services with a usable free allowance — IAM, Lambda, and basic CloudWatch, which are free
+indefinitely at this usage level, plus EC2 and S3, whose free tier is limited to a new account's
+first 12 months — only the capstone's own deployed infrastructure moves to LocalStack/k3s, since
+that's where the non-free services would otherwise be required.
 
 This also keeps the project portable and independent of any single environment or account: since
 the live project runs on LocalStack/k3s (no cloud account of any kind involved), only code would

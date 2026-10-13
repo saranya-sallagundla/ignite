@@ -490,7 +490,7 @@ concepts from earlier in the topic rather than restating them.
 **Score: 92/100**
 - **Quiz 36/40** — all 5 core answers correct and well-reasoned; one minor mix-up on a bonus
   follow-up, corrected immediately once flagged.
-- **Hands-on 30/30** — exceptional breadth: real bridge/DNS proof (both failure and success cases),
+- **Hands-on 30/30** — broad coverage: real bridge/DNS proof (both failure and success cases),
   bind mount and named volume persistence both proven independently, the safe
   duplicate-and-swap technique for updating a live container without data loss, a full
   before/after consistency audit, and a real multi-service Compose file with a shared volume and
