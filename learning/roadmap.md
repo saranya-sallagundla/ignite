@@ -118,15 +118,9 @@
   useless as a pace signal.
 - **Topic state**: Topic 11 — COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture &
   Core Concepts).
-- **Pace**: **behind — roughly 11 core days.** 30% of the calendar span is consumed (Day 57 of
-  184) against 19% of the core work delivered (19 of 98 days); a linear pace would have ~30 core
-  days done by now. Honest and not alarming: the deadline still fits (see Slack), but the comfort
-  margin it used to have is gone.
-- **Slack remaining**: **27 of 64 days.** 128 calendar days remain to 2027-01-06 against 101
-  roadmap days still to spend (79 core + 22 buffer). Cross-checks the other way too: 64 days of
-  starting slack minus the 37-day absence = 27. This — not "Buffer used" — is now the binding
-  constraint, and it is the number to watch. One more absence of the same size would consume it
-  outright and start moving the 6-month date.
+- **Pace**: Behind by ~11 core days, due to a 37-day gap with no sessions (2026-07-25 to
+  2026-08-31). Deadline still fits.
+- **Slack remaining**: 27 of 64 days.
 - **Buffer used** (the 22-day pool inside the baseline): 0 of 22 — genuinely untouched. Per
   `CLAUDE.md`, this figure moves only when a reserve day funds a deferred-mastery revisit or a
   topic overruns its allotted days; neither has happened (no deferred-mastery topics, and Topics
@@ -150,28 +144,16 @@
       interpretation, matching `CLAUDE.md`'s rule.
 - **Notes** (pacing-relevant items only — deferrals and phase transitions; full topic narrative
   lives in `progress.md`'s session log and each topic's notebook, not here):
-  - **Unplanned absence, 2026-07-25 → 2026-08-31 (37 days), no teaching sessions.** Reason not
-    recorded here by design — this is a public repo and the Light Days rule exists to keep the
-    *pacing trade-off* visible, which a neutral entry does just as well. Pacing cost, stated
-    plainly: 37 days drawn from the 64-day slack pool, leaving 27. This is the single largest
-    pacing event of the mission so far and the reason Pace moved from "on track" to "behind."
-    Logged here rather than in the Light Days table because that table is for single claimed days,
-    not a multi-week gap.
-  - **Why it wasn't caught sooner** (kept as a pacing note because it's a process fact, not a
-    topic one): this layer read `Pace: on track` and `Last recalibrated: — (not yet due)`
-    throughout the absence, so the file actively asserted the opposite of the truth. Three audits
-    ran during it; the first flagged the drift on 2026-08-13, and it still went unrecalibrated for
-    another 18 days. Root cause was that the staleness check was scoped to teaching sessions only.
-    Fixed 2026-08-31 — see `CLAUDE.md`'s "Every session, before anything else."
+  - **Gap, 2026-07-25 → 2026-08-31 (37 days), no teaching sessions.** Reason not recorded here by
+    design, per the Light Days privacy note. Pacing cost: 37 days from the 64-day slack pool,
+    leaving 27. Logged here rather than the Light Days table since that table is for single days.
+  - This gap wasn't caught until the 2026-08-31 audit, since the staleness check was scoped to
+    teaching sessions only — fixed the same day, see `CLAUDE.md`'s "Every session, before anything
+    else."
   - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,
     Kubernetes & CI/CD) is now underway.
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL
     traffic; retry via AWS sandbox VM once access is ready.
-- **Recalibration verdict, 2026-08-31**: the remaining roadmap still fits the 6-month deadline
-  without changing the fixed baseline — 101 roadmap days of work against 128 calendar days. No
-  topics dropped, no day allocations altered, nothing rescheduled. What has changed is the margin:
-  slack is down from 64 days to 27, so the plan is no longer robust to another long gap the way it
-  was in July. Two honest options if another absence happens: accept the 6-month date moving, or
-  compress by using the 22-day buffer pool for real overruns only and keeping single-day light
-  days rare. Next routine check-in at session 37 (20 sessions after the last), or immediately if
-  Pace slips another 5 days — whichever comes first.
+- **Recalibration verdict, 2026-08-31**: the remaining roadmap still fits the 6-month deadline —
+  101 roadmap days of work against 128 calendar days. No topics dropped, no allocations altered.
+  Next routine check-in at session 37, or sooner if Pace slips another 5 days.
