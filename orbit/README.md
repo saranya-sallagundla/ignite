@@ -33,9 +33,11 @@ From `orbit/`: `docker compose up --build`, then verify with `curl http://localh
 ## Status
 `app/` serves a Flask service (`/health`, `/ready`) from a multi-stage, non-root image running
 gunicorn, with a HEALTHCHECK and a version-tagged image (`orbit-app:2.1`) brought up by
-`docker-compose.yml`. Phase 1 is complete; Phase 2 (Containers, Kubernetes & CI/CD) is underway —
-Topics 9-11 (Docker) are cleared, with Kubernetes (12-14), CI/CD (15-16), Ansible (17) and
-Terraform's introduction (18) still ahead in this same phase. Terraform is deepened in Phase 4 and
+`docker-compose.yml`. `k8s/` now has a real two-node local cluster config (`kind-config.yaml`),
+verified live, with no app deployed onto it yet. Phase 1 is complete; Phase 2 (Containers,
+Kubernetes & CI/CD) is underway — Topics 9-11 (Docker) are cleared, Topic 12 (Kubernetes —
+Architecture & Core Concepts) is day 1 of 2, with CI/CD (15-16), Ansible (17) and Terraform's
+introduction (18) still ahead in this same phase. Terraform is deepened in Phase 4 and
 observability follows in Phase 6.
 
 ## Build log
@@ -76,3 +78,10 @@ rewritten as a real multi-stage, non-root build running gunicorn instead of Flas
 with a healthcheck and a properly tagged image (`orbit-app:2.1`) in
 `docker-compose.yml`; a real image-size bug (a `chown -R` after `COPY --from` duplicating a layer)
 was found and fixed with a measured before/after proof.
+
+### Session 18 — 2026-09-22
+Topic 12 Day 1 (Kubernetes — Architecture & Core Concepts) — `k8s/` gained its first real content,
+`kind-config.yaml`, defining a two-node local cluster (one control-plane, one worker). The cluster
+itself was created and verified live (`kubectl get nodes` showing the control-plane/worker roles
+exactly as taught). No app deployment onto it yet — that starts with Topic 13
+(Pods, Deployments, Services).

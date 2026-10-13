@@ -9,9 +9,10 @@
 > One line, overwritten every session — not appended to. This is what gets read first.
 
 Topic 11 — COMPLETE (90/100). Phase 1 complete; Phase 2 (Containers, Kubernetes & CI/CD) underway
-at 3 of 11. Next: Topic 12 — Kubernetes — Architecture & Core Concepts. Behind by ~22 days due to
-an ongoing gap with no sessions since 2026-07-24; deadline still fits, with 6 days of slack left.
-(SSH hands-on deferral and the full recalibration are in roadmap.md's Pacing Layer.)
+at 3 of 11. Topic 12 — Kubernetes — Architecture & Core Concepts — day 1 of 2 done (architecture
+taught, local 2-node `kind` cluster set up and verified); Day 2 + quiz still ahead. The prior
+58-day session gap ended today. Behind by ~22 core days; deadline still fits, with 6 days of slack
+left. (SSH hands-on deferral and the full recalibration are in roadmap.md's Pacing Layer.)
 
 ## Quiz record index
 
@@ -382,4 +383,20 @@ an ongoing gap with no sessions since 2026-07-24; deadline still fits, with 6 da
   **Topic 11 CLEARED**
   **90/100 (Quiz 36/40, Hands-on 29/30, Depth 25/30)**
 - Check-in: 2026-07-24 22:56 IST — Check-out: 2026-07-25 02:04 IST
+
+### Session 18 — 2026-09-22
+- Topic in progress: Topic 12 — Kubernetes — Architecture & Core Concepts (day 1 of 2), first
+  session after a 58-day gap
+- Covered: what Kubernetes is, why it matters for DevOps, how it fixes real problems (self-healing,
+  rescheduling, scaling), and the real alternatives (Docker Swarm, Nomad, ECS/Fargate, Cloud Run,
+  managed Kubernetes); the control-plane/worker-node split (API server, etcd, scheduler,
+  controller manager, kubelet), tied to the WSGI pattern from Topic 11 for kubelet/CRI/container
+  runtime; the Pod as the actual deployable unit, distinct from a container. Hands-on: installed
+  `kind` v0.33.0 (verified against the actual latest GitHub release, not assumed) and confirmed
+  `kubectl` v1.34.1 was already present; wrote `orbit/k8s/kind-config.yaml` (a two-node cluster —
+  one control-plane, one worker); created and verified the real cluster (`kind create cluster`),
+  proving the architecture live via `kubectl get nodes` (control-plane/worker roles shown exactly
+  as taught) and `kubectl cluster-info` (control plane + CoreDNS endpoints).
+- Quiz: N/A (day 1 of 2, non-final day — quiz scheduled for Day 2 per multi-day topic rule)
+- Check-in: 2026-09-22 04:50 IST — Check-out: 2026-09-22 05:09 IST
 

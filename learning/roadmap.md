@@ -100,23 +100,25 @@
   Using that slack is normal; it does not count as falling behind.
 - **Last recalibrated**: 2026-09-21, per `CLAUDE.md`'s 5+ days behind rule. The check that
   triggers this now runs every session — see `CLAUDE.md`'s "Every session, before anything else."
-- **Calendar Day since Day 1**: 78 (2026-09-21), of a 184-day total span to the outer deadline
-- **Session count completed**: 17 teaching sessions. Audits (2026-08-13, 2026-08-26, 2026-08-31)
+- **Calendar Day since Day 1**: 79 (2026-09-22), of a 184-day total span to the outer deadline
+- **Session count completed**: 18 teaching sessions. Audits (2026-08-13, 2026-08-26, 2026-08-31)
   aren't counted here since they don't advance the roadmap.
-- **Active calendar days**: 17 of 78 — a day counts active if a session's heading is dated that
+- **Active calendar days**: 18 of 79 — a day counts active if a session's heading is dated that
   day (matching the rule that Session/Day headings show only the start date). Inside the first 20
-  days there were 3 gaps (2026-07-15, 2026-07-17, 2026-07-25). The remaining 58 (2026-07-25 →
-  2026-09-21) are the ongoing gap recorded in Notes — no teaching session has started since
-  Session 17 (2026-07-24).
+  days there were 3 gaps (2026-07-15, 2026-07-17, 2026-07-25). The 58-day gap (2026-07-25 →
+  2026-09-21) ended with Session 18 starting 2026-09-22 — Topic 12 (Kubernetes) Day 1 taught,
+  no longer an ongoing gap.
 - **Roadmap days used**: 19 of 98 **core** days (Topics 1-11 complete, per fixed baseline
-  allocation) — 79 core days remain. Stated against the 98-day core figure deliberately, not
-  against the 120-day total: 120 includes the 22 buffer days tracked separately below, so
-  "19 of 120" mixed two different bases and could never diverge from the baseline, making it
-  useless as a pace signal.
-- **Topic state**: Topic 11 — COMPLETE (90/100). Next: Topic 12 (Kubernetes — Architecture &
-  Core Concepts).
-- **Pace**: Behind by ~22 core days, due to a 58-day gap with no sessions (2026-07-25 to
-  2026-09-21, ongoing). Deadline still fits, with 6 days of slack.
+  allocation; Topic 12 Day 1 of 2 in progress, not yet a completed roadmap day) — 79 core days
+  remain. Stated against the 98-day core figure deliberately, not against the 120-day total: 120
+  includes the 22 buffer days tracked separately below, so "19 of 120" mixed two different bases
+  and could never diverge from the baseline, making it useless as a pace signal.
+- **Topic state**: Topic 11 — COMPLETE (90/100). Topic 12 (Kubernetes — Architecture & Core
+  Concepts) — day 1 of 2 done (architecture + local 2-node `kind` cluster verified); Day 2 +
+  quiz next.
+- **Pace**: Behind by ~22 core days, from the 58-day gap that just ended (2026-07-25 to
+  2026-09-21). Deadline still fits, with 6 days of slack. Not recalculated further today since a
+  single day 1 of a 2-day topic doesn't change the core-days-used figure yet.
 - **Slack remaining**: 6 of 64 days.
 - **Buffer used** (the 22-day pool inside the baseline): 0 of 22 — genuinely untouched. Per
   `CLAUDE.md`, this figure moves only when a reserve day funds a deferred-mastery revisit or a

@@ -174,3 +174,12 @@ was pointed out as a puzzle (231MB final image bigger than the 210MB builder-onl
 proved the fix worked with real before/after numbers instead of just trusting it. Also caught
 myself mixing up root with sudo during the quiz; good to have that cleared up precisely rather
 than left fuzzy.
+
+## Session 18 — 2026-09-22
+First session back after a real two-month gap — picked Kubernetes back up cleanly, no rust showing.
+Good instinct asking for the API server explanation a second time when it didn't fully land the
+first time, instead of nodding along. The `kind`/`kubectl` install went smoothly, and seeing the
+actual `kubectl get nodes` output show `control-plane` vs. `<none>` (worker) for real, right after
+learning the concept, made the architecture concrete instead of abstract. Good habit continuing:
+asking what `field_atlas.md` should look like for Kubernetes before assuming, and confirming the
+five-point structure gets written once, after Topic 14 finishes, not piecemeal per topic.
