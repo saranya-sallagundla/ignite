@@ -57,7 +57,10 @@ it to run the living-reference check on a fixed cadence (twice a month is enough
 this file that it exists, so a later session can verify it. Be skeptical of session-scoped
 schedulers: one that lives only in memory, or expires after a few days, reproduces the very
 failure mode the backstop is meant to prevent. Check the tool's actual persistence contract
-before relying on it, and do not assume scheduling is unavailable without testing it.
+before relying on it, and do not assume scheduling is unavailable without testing it. Then run
+it once by hand, with someone present to approve every tool prompt it raises — an unattended run
+can stall on a permission prompt and still be reported as "succeeded," which is a silent failure
+of exactly the kind the backstop exists to catch. Judge a run by its output, never by its status.
 
 ## Repo layout
 

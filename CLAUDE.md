@@ -69,6 +69,14 @@ opens Claude Code in this folder at all — which is the gap that actually occur
 currency check on the 1st and 15th of each month independently of any session, and fires on the
 next app launch if the app was closed when it was due. It persists on disk across sessions.
 Verify it still exists with `list_scheduled_tasks` if the atlas ever goes stale again despite it.
+**A run's "succeeded" status is not proof it did anything.** A scheduled run can stall on a
+tool-permission prompt with nobody present to approve it, and still be reported as succeeded —
+the 2026-09-15 run did exactly that: `started_at` equal to `last_activity_at`, two tool calls, no
+result, no report. Verify a run by its output, via `list_task_runs` and the run's transcript: a
+run with zero elapsed activity or no closing report stalled and changed nothing. If that happens,
+run the task once by hand ("Run now" / `run_scheduled_task`) with someone present to approve each
+prompt — approvals persist on the task, and every later run inherits them. That is what fixed it
+on 2026-09-21.
 Note that Claude Code's *other* scheduling tool, `CronCreate`, is **not** suitable here and was
 deliberately not used: its jobs are session-only, in-memory, and auto-expire after 7 days, so it
 reproduces the exact failure mode this backstop exists to prevent.
