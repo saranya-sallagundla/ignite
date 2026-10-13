@@ -8,11 +8,10 @@
 
 > One line, overwritten every session — not appended to. This is what gets read first.
 
-Topic 11 — COMPLETE (90/100). Phase 1 complete; Phase 2 (Containers, Kubernetes & CI/CD) underway
-at 3 of 11. Topic 12 — Kubernetes — Architecture & Core Concepts — day 1 of 2 done (architecture
-taught, local 2-node `kind` cluster set up and verified); Day 2 + quiz still ahead. The prior
-58-day session gap ended today. Behind by ~22 core days; deadline still fits, with 6 days of slack
-left. (SSH hands-on deferral and the full recalibration are in roadmap.md's Pacing Layer.)
+Topic 12 — Kubernetes — Architecture & Core Concepts — day 1 of 2 done (Session 18, 2026-09-22:
+architecture taught, local 2-node `kind` cluster set up and verified); Day 2 + quiz next. Topics
+1-11 cleared; Phase 2 at 3 of 11. Behind by ~25 core days; the deadline still fits with 3 days of
+slack (roadmap.md's Pacing Layer). 5 open items below.
 
 ## Quiz record index
 

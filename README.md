@@ -16,7 +16,7 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 
 ## Where this stands
 
-**State as of Session 18 · 2026-09-22 IST.** All dates in this repo are IST (UTC+5:30), `YYYY-MM-DD`.
+**State as of 2026-09-25 IST — last session: 18, on 2026-09-22.** All dates in this repo are IST (UTC+5:30), `YYYY-MM-DD`.
 
 | | |
 |---|---|
@@ -26,9 +26,10 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 | First-attempt pass rate | **10 of 11** |
 | Sessions logged | **18**, one commit per session, no batching |
 | Roadmap days consumed | **19 of 98 core days** |
-| Pace | **Behind by ~22 core days** — a 58-day gap, 2026-07-25 → 2026-09-21, now ended |
+| Pace | **Behind by ~25 core days** — mostly a 58-day gap (2026-07-25 → 2026-09-21); 3 days of slack left before the Jan 2027 deadline moves |
 | Study notebooks | **12 files, 6,197 lines** of commands actually run and real output |
 | Field reference | **577 lines**, continuously updated, with per-claim confidence levels |
+| Audits | **4** run, **112** findings filed by subject in [`audits/`](audits/), each with a status |
 
 Next up: Topic 12 — Kubernetes — Architecture & Core Concepts, Day 2 + quiz.
 
@@ -109,8 +110,8 @@ lowest in the repo — and it stays visible. A record with no failures in it is 
 
 **A full repo audit every 10 topics.** Line by line, every subfolder. Findings are reviewed before a
 single fix is applied, and genuinely topic-specific improvements are deliberately *deferred* to the
-session that teaches them — so they get learned hands-on rather than found pre-fixed. Audit records
-live in [`audits/`](audits/).
+session that teaches them — so they get learned hands-on rather than found pre-fixed. Audit findings
+live in [`audits/`](audits/), filed by subject.
 
 The rules the AI actually follows are in [`rules.md`](rules.md) — all of them, in one file, written
 once. It is the most interesting file here if you want to run something like this yourself.
@@ -130,7 +131,7 @@ ignite/
 ├── .gitignore  .gitattributes
 ├── learning/                  the record — how the learning actually went
 │   ├── roadmap.md             fixed 53-topic / 120-day baseline + a living pacing layer
-│   ├── progress.md            session log, quiz record index, deferred-mastery tracker
+│   ├── progress.md            session log, quiz index, deferred mastery, open items
 │   ├── handbook_status.md     per-topic scores with a one-line reason each
 │   ├── field_atlas.md         living map of the DevOps/SRE field, with sourced confidence levels
 │   ├── notes/                 one detailed study notebook per topic, filed by phase
@@ -142,9 +143,9 @@ ignite/
 │   ├── docs/                  the capstone concept
 │   └── docker-compose.yml
 ├── engine/                    the Ignition Engine — the teaching protocol, packaged to fork
-├── audits/                    periodic whole-repo audits, dated, with an index
+├── audits/                    audit findings filed by subject in four files, with an index
 ├── docs/                      the method, and future project ideas
-└── .github/                   CI and issue-form scaffolding — populated from Topic 15
+└── .github/                   CI workflows — populated from Topic 15
 ```
 
 [`orbit/README.md`](orbit/README.md) lists every part the project will have and which topic builds
@@ -161,6 +162,7 @@ end. What runs today:
 - A **multi-stage** image that hands a virtualenv between stages, drops to a non-root user, serves
   through **gunicorn** rather than the development server, and declares its own `HEALTHCHECK`
 - One-command bring-up via Compose against a pinned `orbit-app:2.1` tag
+- A two-node local Kubernetes cluster (kind), set up and verified — nothing deployed on it yet
 
 ```bash
 cd orbit && docker compose up --build
@@ -169,8 +171,9 @@ curl http://localhost:5000/health   # {"status":"ok","version":"2.1"}
 
 The application is **deliberately minimal**. It exists to be a genuine deployment target for the
 containerisation, CI/CD, Kubernetes, Terraform and observability work — the engineering worth looking
-at is in how it gets built, shipped and operated, not in the request handlers. Kubernetes, Terraform,
-Ansible and the monitoring stack arrive as the phases that teach them are reached.
+at is in how it gets built, shipped and operated, not in the request handlers. Terraform, Ansible
+and the monitoring stack arrive as the phases that teach them are reached; deploying the app onto
+Kubernetes starts at Topic 13.
 
 The end goal is documented in [`orbit/docs/concept.md`](orbit/docs/concept.md): an autonomous SRE
 agent that watches metrics, logs and traces on the running service, correlates them against recent
@@ -184,7 +187,7 @@ capstone) and a local AWS emulator instead of billed cloud services.
 
 The teaching protocol is packaged for exactly this. [`engine/`](engine/) — the **Ignition
 Engine** — is the whole system with the DevOps removed: a portable `rules.md` you copy unedited,
-the one-line `CLAUDE.md` that loads it, a `MISSION.md` template where you define your own topics,
+the short `CLAUDE.md` that loads it, a `MISSION.md` template where you define your own topics,
 phases and deadline, and blank record templates. [`engine/README.md` → Quickstart](engine/README.md#quickstart) goes from nothing to "start session 1"
 in about five minutes, editing exactly one file. Ignite itself is mission #1 running on it, and
 [`docs/why-this-works.md`](docs/why-this-works.md) explains the learning science behind the rules

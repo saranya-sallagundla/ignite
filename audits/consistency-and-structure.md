@@ -311,7 +311,7 @@ problem `public-readiness.md`'s C-6/H-12 findings warned about.
   at" — the identical bug class, reintroduced later in the same audit session, uncaught since.
 
 ### FS-I-22 — Topic 11 — H1 wording vs the roadmap
-> From: Final sign-off audit, 2026-08-31 · Original section: Important · **Notebook technical accuracy** (each verified by direct reproduction or against primary documentation, not just read for plausibility) · Severity: important · Status: open — the H1 now says 'and' while the roadmap says '&' (checked 2026-09-25)
+> From: Final sign-off audit, 2026-08-31 · Original section: Important · **Notebook technical accuracy** (each verified by direct reproduction or against primary documentation, not just read for plausibility) · Severity: important · Status: fixed 2026-09-25 — the H1 now matches the roadmap's '&'
 
 - **Topic 11** (H1, line 1): titled "...Best Practices" with an ampersand; the fixed topic-name
   list spells it "...Best Practices" with the word "and" — a topic-name exact-wording violation.

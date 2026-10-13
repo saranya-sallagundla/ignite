@@ -101,14 +101,14 @@
   Using that slack is normal; it does not count as falling behind.
 - **Last recalibrated**: 2026-09-21, per `rules.md` §6's 5+ days behind rule. The check that
   triggers this now runs every session — see `rules.md` §2.
-- **Calendar Day since Day 1**: 79 (2026-09-22), of a 184-day total span to the outer deadline
+- **Calendar Day since Day 1**: 82 (2026-09-25), of a 184-day total span to the outer deadline
 - **Session count completed**: 18 teaching sessions. Audits (2026-08-13, 2026-08-26, 2026-08-31)
   aren't counted here since they don't advance the roadmap.
-- **Active calendar days**: 18 of 79 — a day counts active if a session's heading is dated that
+- **Active calendar days**: 18 of 82 — a day counts active if a session's heading is dated that
   day (matching the rule that Session/Day headings show only the start date). Inside the first 20
   days there were 3 gaps (2026-07-15, 2026-07-17, 2026-07-25). The 58-day gap (2026-07-25 →
   2026-09-21) ended with Session 18 starting 2026-09-22 — Topic 12 (Kubernetes) Day 1 taught,
-  no longer an ongoing gap.
+  no longer an ongoing gap. No session since: 2026-09-23 → 2026-09-25 are 3 inactive days.
 - **Roadmap days used**: 19 of 98 **core** days (Topics 1-11 complete, per fixed baseline
   allocation; Topic 12 Day 1 of 2 in progress, not yet a completed roadmap day) — 79 core days
   remain. Stated against the 98-day core figure deliberately, not against the 120-day total: 120
@@ -117,10 +117,12 @@
 - **Topic state**: Topic 11 — COMPLETE (90/100). Topic 12 (Kubernetes — Architecture & Core
   Concepts) — day 1 of 2 done (architecture + local 2-node `kind` cluster verified); Day 2 +
   quiz next.
-- **Pace**: Behind by ~22 core days, from the 58-day gap that just ended (2026-07-25 to
-  2026-09-21). Deadline still fits, with 6 days of slack. Not recalculated further today since a
-  single day 1 of a 2-day topic doesn't change the core-days-used figure yet.
-- **Slack remaining**: 6 of 64 days.
+- **Pace**: Behind by ~25 core days — ~22 from the 58-day gap (2026-07-25 to 2026-09-21), plus the
+  3 inactive days since Session 18. Deadline still fits, with 3 days of slack: 100 roadmap days of
+  work remain (Session 18's Topic 12 Day 1 counts as a day done, even though Roadmap days used
+  only moves when the topic completes) against 103 calendar days to 2027-01-06. Two more
+  inactive days reach the 5-day slip that calls for a fresh recalibration.
+- **Slack remaining**: 3 of 64 days.
 - **Buffer used** (the 22-day pool inside the baseline): 0 of 22 — genuinely untouched. Per
   `rules.md` §6, this figure moves only when a reserve day funds a deferred-mastery revisit or a
   topic overruns its allotted days; neither has happened (no deferred-mastery topics, and Topics
@@ -151,6 +153,8 @@
   - This gap first showed up in the 2026-08-13 audit and wasn't recalibrated until 2026-08-31 —
     the staleness check was scoped to teaching sessions only at the time; fixed 2026-08-31, see
     `rules.md` §2.
+  - **2026-09-23 → 2026-09-25: 3 inactive days after Session 18** — 3 more slack days used, 3 left.
+    Updated 2026-09-25 during a repo-maintenance session, not a recalibration.
   - Phase 1 (Linux, Git & Version Control) is now fully complete. Phase 2 (Containers,
     Kubernetes & CI/CD) is now underway.
   - SSH hands-on (local sshd) still deferred — corporate network/proxy blocks outbound WSL

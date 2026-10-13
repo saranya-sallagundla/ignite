@@ -54,7 +54,7 @@ Not out of rudeness — just so nobody spends effort on something that cannot be
 
 This is the intended reuse, and it is packaged: [`engine/`](engine/) holds the whole teaching and
 examination protocol with everything DevOps-specific removed — a portable `rules.md` you copy
-unedited, the one-line `CLAUDE.md` that loads it, a `MISSION.md` template where your own topics,
+unedited, the short `CLAUDE.md` that loads it, a `MISSION.md` template where your own topics,
 phases and deadline go, and blank templates for the record files. [`engine/README.md` → Quickstart](engine/README.md#quickstart) walks the whole
 setup in about five minutes.
 

@@ -1,4 +1,4 @@
-# Topic 11 — Docker — Multi-Stage Builds and Best Practices
+# Topic 11 — Docker — Multi-Stage Builds & Best Practices
 
 > Personal study notebook — full teaching content, commands, outputs, and explanations.
 > Distinct from `progress.md` (the session log).
