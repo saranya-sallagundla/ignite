@@ -9,8 +9,8 @@
 > One line, overwritten every session — not appended to. This is what gets read first.
 
 Topic 11 — COMPLETE (90/100). Phase 1 complete; Phase 2 (Containers, Kubernetes & CI/CD) underway
-at 3 of 11. Next: Topic 12 — Kubernetes — Architecture & Core Concepts. Behind by ~11 days due to
-a gap with no sessions (2026-07-25 to 2026-08-31); deadline still fits. (SSH hands-on deferral and
+at 3 of 11. Next: Topic 12 — Kubernetes — Architecture & Core Concepts. Behind by ~16 days due to
+an ongoing gap with no sessions since 2026-07-24; deadline still fits. (SSH hands-on deferral and
 the full recalibration are in roadmap.md's Pacing Layer.)
 
 ## Quiz record index
