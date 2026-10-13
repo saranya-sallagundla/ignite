@@ -2,7 +2,7 @@
 
 One detailed notebook per topic, filed by phase — `phase-N-name/topic-NN-name.md`, names spelled
 exactly as `MISSION.md`'s baseline table. This folder is the lasting reference; `progress.md`
-tracks, `session_notes.md` reflects, the notebooks *teach you again in six months*.
+records each session, the notebooks *teach you again in six months*.
 
 Built up day by day, a notebook holds the full explanations, the commands actually run, the real
 output, and the troubleshooting as it happened — including the dead ends. Conventions the

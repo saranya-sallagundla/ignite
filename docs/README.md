@@ -1,1 +1,0 @@
-Public-facing documentation about this repository: the teaching and testing method, and future project ideas. Distinct from `orbit/docs/`, which documents the project itself rather than the process around it.

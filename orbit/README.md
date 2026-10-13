@@ -7,81 +7,104 @@ so its structure fills in over time rather than existing complete from day one.
 ## What it will be, end to end
 A containerized application, deployed through a CI/CD pipeline, running on Kubernetes, on
 infrastructure provisioned by Terraform, with monitoring and alerting in place — all of it running
-locally at zero cost (k3s for Kubernetes, LocalStack for the AWS services). Each of those pieces
-gets added as the corresponding phase of the learning plan is reached. See
+locally at zero cost (kind while learning and k3s for the finished system, LocalStack for the AWS
+services). Each of those pieces gets added as the corresponding phase of the learning plan is
+reached. See
 [`docs/concept.md`](docs/concept.md) for the specific project concept and architecture.
-
-## Folder guide
-- `app/` — the Flask service everything else deploys. Rewritten from first principles in Phase 5
-  (Python, Topics 40-46).
-- `k8s/` — Kubernetes manifests: Deployments, Services, ConfigMaps, Secrets, Ingress, Helm charts.
-- `argocd/` — Argo CD Application definitions and GitOps delivery configuration.
-- `terraform/` — Terraform configuration for the project's AWS-shaped infrastructure, run against
-  LocalStack rather than a live account.
-- `ansible/` — configuration management playbooks.
-- `monitoring/` — Prometheus, Grafana, and ELK stack configuration for observability.
-- `docs/` — the project concept, architecture decisions, and runbooks as they are written.
-- `scripts/` — automation scripts, including Python/Boto3 AWS automation.
-
-Other than `app/` and `docs/`, every folder above is currently a placeholder — each holds a short
-README naming the phase/topic that will populate it.
 
 ## How to run it
 From `orbit/`: `docker compose up --build`, then verify with `curl http://localhost:5000/health`
 (expect `{"status":"ok",...}`). Stop with `docker compose down`.
 
-## Status
-`app/` serves a Flask service (`/health`, `/ready`) from a multi-stage, non-root image running
-gunicorn, with a HEALTHCHECK and a version-tagged image (`orbit-app:2.1`) brought up by
-`docker-compose.yml`. `k8s/` now has a real two-node local cluster config (`kind-config.yaml`),
-verified live, with no app deployed onto it yet. Phase 1 is complete; Phase 2 (Containers,
-Kubernetes & CI/CD) is underway — Topics 9-11 (Docker) are cleared, Topic 12 (Kubernetes —
-Architecture & Core Concepts) is day 1 of 2, with CI/CD (15-16), Ansible (17) and Terraform's
-introduction (18) still ahead in this same phase. Terraform is deepened in Phase 4 and
-observability follows in Phase 6.
+## Parts
 
-## Build log
+### `app/` — the Flask service everything else deploys
+- Status: built · rewritten from first principles in Topics 40-46
+- Files: `app.py`, `requirements.txt`, `Dockerfile`, `.dockerignore`
+- What was done:
+  - Session 13 · Topic 9 — first `app.py`: a Flask app with a `/health` endpoint. First
+    Dockerfile written line by line (`FROM` / `WORKDIR` / `COPY` / `RUN` / `CMD`), built as
+    `orbit-app`, run on port 5000; `/health` answered `{"status":"ok"}`.
+  - Session 14 · Topic 9 — Dockerfile reordered so dependencies install before the code is
+    copied: a code-only rebuild dropped from 13.3 s to 2.3 s. Added `/ready`. Images tagged
+    `v1` / `v2`, both run side by side to prove rollback.
+  - Session 17 · Topic 11 — rebuilt as a multi-stage build: the builder stage creates a
+    virtualenv in `/opt/venv`, and the final stage copies only that. Runs as non-root `appuser`,
+    served by gunicorn, with `EXPOSE 5000` and a `HEALTHCHECK`. A layer bug (`chown -R` after
+    `COPY --from` duplicated the venv) was fixed with `COPY --chown=` — 231 MB → 204 MB.
+- Installed & used:
+  - Docker Desktop 4.58.0 (engine 29.1.5) — builds the image and runs the container
+  - `python:3.12-slim` — the base image for both build stages
+  - Flask 3.1.1 — the web framework the endpoints are written in
+  - gunicorn 23.0.0 — the production server that runs the app, in place of Flask's dev server
+- Next: Topic 15 adds `tests/`, so CI has something real to run.
 
-### Sessions 1-12 — 2026-07-06 to 2026-07-19
-Phase 1 (Linux, Git & Version Control), Topics 1-8 — no project code yet, by design: `app/` is
-written at Topic 9, where Docker begins. The Linux, networking and Git work from this phase is
-what later operates, versions and troubleshoots everything below.
+### `app/tests/` — not built yet
+Application tests, so the CI pipeline has something real to run. Built in Topic 15.
 
-### Session 13 — 2026-07-20
-Topic 9 Day 1 (Docker — Architecture, Images, Containers) — `app/` gained its first real code, a
-Flask app with a `/health` endpoint, and its first Dockerfile, built into
-`orbit-app:latest` and run as a live container, verified serving `{"status":"ok"}`
-over HTTP.
+### `docker-compose.yml` — one-command local bring-up
+- Status: built
+- Files: `docker-compose.yml`
+- What was done:
+  - Session 16 · Topic 10 — first Compose file: builds and runs `orbit-app` with one command
+    instead of manual `docker run` flags. A second service and a named volume were added to
+    prove Compose's automatic networking and shared storage, then removed so the committed file
+    runs the single `app` service.
+  - Session 17 · Topic 11 — pinned to the version-tagged image `orbit-app:2.1`.
+- Installed & used:
+  - Docker Compose (part of Docker Desktop) — starts the app's containers from one file
+- Next: deployment moves onto Kubernetes from Topic 13.
 
-### Session 14 — 2026-07-21
-Topic 9 complete, quiz passed (Docker — Architecture, Images, Containers) — Dockerfile reordered
-so app-code changes no longer force an unnecessary dependency reinstall (proved with real build
-timings), `app/` gained a `/ready` endpoint, and the image is now properly version-tagged
-(`v1`/`v2`) with rollback proven by running both simultaneously.
+### `k8s/` — Kubernetes manifests
+- Status: started · Deployments and Services in Topic 13; config, secrets, Ingress and Helm in 14
+- Files: `kind-config.yaml`
+- What was done:
+  - Session 18 · Topic 12 — `kind-config.yaml` defines a two-node local cluster (one
+    control-plane, one worker). Created with `kind create cluster`; `kubectl get nodes` showed
+    both roles. Nothing deployed onto it yet.
+- Installed & used:
+  - kind v0.33.0 (via `winget`) — runs a Kubernetes cluster locally, each node as a Docker container
+  - kubectl v1.34.1 (bundled with Docker Desktop) — the command-line client for the cluster's
+    API server
+- Next: Topic 13 deploys `orbit-app` onto the cluster.
 
-### Session 15 — 2026-07-22
-Topic 10 Day 1 (Docker — Networking, Volumes, Docker Compose) — no project code yet, but
-container-to-container DNS resolution (bridge vs. custom network) and bind-mount persistence
-proven hands-on today are exactly what this project's future multi-container setups (app +
-database, app + cache) will depend on.
+### `k8s/helm/` — not built yet
+Helm charts packaging the deployment, once the raw manifests work. Built in Topic 14.
 
-### Session 16 — 2026-07-23
-Topic 10 complete, quiz passed (Docker — Networking, Volumes, Docker Compose) — `orbit/` gained
-its first `docker-compose.yml`, building and running `orbit-app` in one command instead
-of manual `docker run` flags, extended with a second service to prove Compose's automatic
-networking and a named volume for shared persistence. Both were lesson-scoped demonstrations and
-were removed during the Topic 10 audit cleanup — the committed file runs the single `app` service.
+### `argocd/` — not built yet
+Argo CD Applications — GitOps delivery of the `k8s/` manifests. Built in Topic 16.
 
-### Session 17 — 2026-07-24
-Topic 11 complete, quiz passed (Docker — Multi-Stage Builds & Best Practices) — `app/`'s Dockerfile
-rewritten as a real multi-stage, non-root build running gunicorn instead of Flask's dev server,
-with a healthcheck and a properly tagged image (`orbit-app:2.1`) in
-`docker-compose.yml`; a real image-size bug (a `chown -R` after `COPY --from` duplicating a layer)
-was found and fixed with a measured before/after proof.
+### `ansible/` — not built yet
+Configuration-management playbooks. Built in Topic 17.
 
-### Session 18 — 2026-09-22
-Topic 12 Day 1 (Kubernetes — Architecture & Core Concepts) — `k8s/` gained its first real content,
-`kind-config.yaml`, defining a two-node local cluster (one control-plane, one worker). The cluster
-itself was created and verified live (`kubectl get nodes` showing the control-plane/worker roles
-exactly as taught). No app deployment onto it yet — that starts with Topic 13
-(Pods, Deployments, Services).
+### `terraform/` — not built yet
+AWS-shaped infrastructure, run against LocalStack rather than a live account. Introduced in
+Topic 18, deepened in Topics 34-39.
+
+### `terraform/modules/` — not built yet
+Reusable modules, factored out of the root configuration once it works. Built in Topic 35.
+
+### `terraform/environments/` — not built yet
+Per-environment configuration and workspaces. Built in Topic 36.
+
+### `monitoring/` — not built yet
+Prometheus, Grafana and ELK configuration, then distributed tracing and on-call tooling. Built in
+Topics 47-51.
+
+### `scripts/` — not built yet
+Shell utilities, then Python/Boto3 AWS automation. Shell utilities can land any time; Boto3
+automation arrives in Topic 46.
+
+### `docs/` — project concept and architecture
+- Status: started
+- Files: `concept.md`
+- What was done:
+  - `concept.md` — the capstone concept (an autonomous SRE agent) and its zero-cost architecture.
+    Written alongside the build rather than in one session.
+- Next: architecture decisions and runbooks, added as the parts they describe are built.
+
+## Note
+- Parts marked "not built yet" have no folder yet — each is created when its topic begins.
+- `terraform/environments/` will be named that, not `env/`, so the root `.gitignore`'s
+  virtualenv rule can't hide real infrastructure config.
+- Topics 1-8 (Phase 1) added no project code, by design — `app/` starts at Topic 9.
