@@ -16,7 +16,7 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 
 ## Where this stands
 
-**State as of Session 17 · 2026-07-24 IST.** All dates in this repo are IST (UTC+5:30), `YYYY-MM-DD`.
+**State as of Session 18 · 2026-09-22 IST.** All dates in this repo are IST (UTC+5:30), `YYYY-MM-DD`.
 
 | | |
 |---|---|
@@ -24,12 +24,13 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 | Mean score | **86.5 / 100** across the 11 cleared topics |
 | Best topic | **94 / 100** — GitHub — PRs, Actions Intro, Repo Management |
 | First-attempt pass rate | **10 of 11** |
-| Sessions logged | **17**, one commit per session, no batching |
-| Roadmap days consumed | **19 of 120** |
-| Study notebooks | **11 files, 5,914 lines** of commands actually run and real output |
-| Field reference | **531 lines**, continuously updated, with per-claim confidence levels |
+| Sessions logged | **18**, one commit per session, no batching |
+| Roadmap days consumed | **19 of 98 core days** |
+| Pace | **Behind by ~22 core days** — a 58-day gap, 2026-07-25 → 2026-09-21, now ended |
+| Study notebooks | **12 files, 6,197 lines** of commands actually run and real output |
+| Field reference | **577 lines**, continuously updated, with per-claim confidence levels |
 
-Next up: Topic 12 — Kubernetes — Architecture & Core Concepts.
+Next up: Topic 12 — Kubernetes — Architecture & Core Concepts, Day 2 + quiz.
 
 > **On the scores.** They are self-assessed and AI-graded, against a fixed rubric
 > (Quiz /40 + Hands-on /30 + Depth of understanding /30). They are not externally validated and are
@@ -95,10 +96,10 @@ interviews: open-ended, "walk me through it," with follow-up pushback on anythin
 memorised. No multiple choice, ever. Interview practice therefore compounds for six months instead of
 being crammed at the end.
 
-**The 3-attempt mastery rule.** A topic gets at most three attempts, and the *teaching* must
-escalate every time — repeating an explanation is explicitly disallowed. Attempt 2 uses a different
-analogy; attempt 3 breaks the topic into its smallest components and confirms each one alone. A topic
-still not solid after three is logged as **deferred mastery** with a hard revisit deadline, and must
+**The mastery rule.** Three attempts is the default before a topic is set aside, and the *teaching*
+must escalate every time — repeating an explanation does not count as an attempt. Attempt 2 uses a
+different analogy; attempt 3 breaks the topic into its smallest components and confirms each one
+alone. A topic still not solid is logged as **deferred mastery** with a revisit deadline, and must
 be cleared before anything that depends on it. It never quietly slides forward.
 
 **The failure is on display, deliberately.** Topic 3 — Linux — Shell Scripting Basics failed its
@@ -111,8 +112,8 @@ single fix is applied, and genuinely topic-specific improvements are deliberatel
 session that teaches them — so they get learned hands-on rather than found pre-fixed. Audit records
 live in [`audits/`](audits/).
 
-The rules the AI actually follows are in [`CLAUDE.md`](CLAUDE.md). It is the most interesting file
-here if you want to run something like this yourself.
+The rules the AI actually follows are in [`rules.md`](rules.md) — all of them, in one file, written
+once. It is the most interesting file here if you want to run something like this yourself.
 
 ---
 
@@ -120,7 +121,8 @@ here if you want to run something like this yourself.
 
 ```
 ignite/
-├── CLAUDE.md                  the operating rules the AI teacher follows every session
+├── rules.md                   every rule this repo runs on, written once, in one file
+├── CLAUDE.md                  a short loader that imports rules.md at session start
 ├── README.md                  this file
 ├── CONTRIBUTING.md            which pull requests are welcome, and which are not
 ├── SECURITY.md                how to report a vulnerability, privately
@@ -130,17 +132,14 @@ ignite/
 │   ├── roadmap.md             fixed 53-topic / 120-day baseline + a living pacing layer
 │   ├── progress.md            session log, quiz record index, deferred-mastery tracker
 │   ├── handbook_status.md     per-topic scores with a one-line reason each
-│   ├── session_notes.md       short personal recap per session
 │   ├── field_atlas.md         living map of the DevOps/SRE field, with sourced confidence levels
 │   ├── notes/                 one detailed study notebook per topic, filed by phase
 │   └── LICENSE                CC BY 4.0 — covers the written material in this repository
 ├── orbit/                     the project — a real system, built incrementally
-│   ├── app/                   the service, its Dockerfile, and tests
-│   ├── k8s/  argocd/          manifests, Helm charts, GitOps delivery
-│   ├── terraform/             infrastructure, modules, per-environment config
-│   ├── ansible/  monitoring/  configuration management, observability
-│   ├── docs/                  architecture and the capstone concept
-│   ├── scripts/               automation
+│   ├── README.md              every part of the project: what was built, how, and with what
+│   ├── app/                   the service and its Dockerfile
+│   ├── k8s/                   Kubernetes — a local cluster config so far
+│   ├── docs/                  the capstone concept
 │   └── docker-compose.yml
 ├── engine/                    the Ignition Engine — the teaching protocol, packaged to fork
 ├── audits/                    periodic whole-repo audits, dated, with an index
@@ -148,8 +147,8 @@ ignite/
 └── .github/                   CI and issue-form scaffolding — populated from Topic 15
 ```
 
-Folders tied to later phases hold a short README naming the topic that will populate them, rather
-than placeholder code that pretends to work.
+[`orbit/README.md`](orbit/README.md) lists every part the project will have and which topic builds
+it. A folder appears when that topic starts, rather than as placeholder code that pretends to work.
 
 ---
 
@@ -176,16 +175,17 @@ Ansible and the monitoring stack arrive as the phases that teach them are reache
 The end goal is documented in [`orbit/docs/concept.md`](orbit/docs/concept.md): an autonomous SRE
 agent that watches metrics, logs and traces on the running service, correlates them against recent
 deploys to reach a root cause, then either remediates or escalates with a written incident report —
-engineered to cost nothing, using k3s and a local AWS emulator instead of billed cloud services.
+engineered to cost nothing — a local Kubernetes cluster (kind while learning, k3s for the finished
+capstone) and a local AWS emulator instead of billed cloud services.
 
 ---
 
 ## Using this yourself
 
 The teaching protocol is packaged for exactly this. [`engine/`](engine/) — the **Ignition
-Engine** — is the whole system with the DevOps removed: a portable `CLAUDE.md` you copy unedited,
-a `MISSION.md` template where you define your own topics, phases and deadline, and blank record
-templates. [`engine/QUICKSTART.md`](engine/QUICKSTART.md) goes from nothing to "start session 1"
+Engine** — is the whole system with the DevOps removed: a portable `rules.md` you copy unedited,
+the one-line `CLAUDE.md` that loads it, a `MISSION.md` template where you define your own topics,
+phases and deadline, and blank record templates. [`engine/README.md` → Quickstart](engine/README.md#quickstart) goes from nothing to "start session 1"
 in about five minutes, editing exactly one file. Ignite itself is mission #1 running on it, and
 [`docs/why-this-works.md`](docs/why-this-works.md) explains the learning science behind the rules
 — including their limits.
@@ -205,7 +205,7 @@ Two grants, split by what the material is:
   tree. See [`LICENSE`](LICENSE).
 - **CC BY 4.0** — the written material: `learning/`, `docs/`, `audits/`, `engine/`, and the
   Markdown documents at the repository root (this file, `CONTRIBUTING.md`, `SECURITY.md`,
-  `CLAUDE.md`). See [`learning/LICENSE`](learning/LICENSE). This is what covers `engine/` — copy
+  `rules.md`, `CLAUDE.md`). See [`learning/LICENSE`](learning/LICENSE). This is what covers `engine/` — copy
   and adapt it for your own mission, with attribution, same as any other written material here.
 
 This repository is educational reference material, not production-hardened infrastructure — do not
