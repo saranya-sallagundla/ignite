@@ -245,6 +245,11 @@ that last one because nothing else is scheduled between Topic 50 and the repo be
 audits happen whenever there's a reason. The reusable prompts and the index live in
 `audits/README.md`.
 
+**When a periodic audit is due:** the highest cleared topic has reached or passed the next
+multiple of 10 that has no audit in `audits/README.md`'s index. Not "the topic that just cleared
+is exactly a multiple of 10" — that misses the trigger when a milestone topic and the next one
+clear close together, which happened with Topics 10 and 11.
+
 Process:
 - Findings first. Fixes only after I review them — never applied silently.
 - Categorize by severity: critical / important / minor / cosmetic.

@@ -274,7 +274,7 @@ Retroactively "fixing" a real captured session to look consistent is exactly the
 problem `public-readiness.md`'s C-6/H-12 findings warned about.
 
 ### FS-I-1 — The audit-trigger bug was never fixed in `CLAUDE.md`
-> From: Final sign-off audit, 2026-08-31 · Original section: Important · **`CLAUDE.md` / process integrity** · Severity: important · Status: fixed 2026-08-31 in `CLAUDE.md`; the wording was lost in the 2026-09-25 rules rewrite — open again
+> From: Final sign-off audit, 2026-08-31 · Original section: Important · **`CLAUDE.md` / process integrity** · Severity: important · Status: fixed 2026-08-31 in `CLAUDE.md`; lost in the 2026-09-25 rules rewrite; restored in `rules.md` §8 (and the engine copy) on 2026-10-03
 
 - **`CLAUDE.md`'s own audit-trigger bug was never fixed in the file that actually governs this
   repo.** `public-readiness.md` recommended changing the trigger from "the topic that most

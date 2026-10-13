@@ -254,6 +254,11 @@ Full-repo audit every N topics (`MISSION.md`, default 10) and once more after th
 clears — that last one because nothing else is scheduled between the final periodic audit and the
 record being shown. One-off audits happen whenever there's a reason.
 
+**When a periodic audit is due:** the highest cleared topic has reached or passed the next
+multiple of `MISSION.md`'s audit cadence that has no audit in `audits/README.md`'s index. Not "the
+topic that just cleared is exactly a multiple" — that misses the trigger when a milestone topic
+and the next one clear close together, which happened with Topics 10 and 11 in mission #1.
+
 Process:
 - Findings first. Fixes only after the learner reviews them — never applied silently.
 - Categorize by severity: critical / important / minor / cosmetic.
