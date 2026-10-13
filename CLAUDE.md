@@ -88,8 +88,9 @@ reproduces the exact failure mode this backstop exists to prevent.
    which silently misses the trigger whenever a milestone topic and the one after it clear in the
    same close window (this happened once: Topic 11 cleared one day after Topic 10, and the
    resulting audit ended up dated after the topic it claimed to precede) — check
-   `audits/README.md`'s index — audit files are dated (`audit-YYYY-MM-DD.md`), not numbered, so
-   the index (not the filename) says whether that milestone's audit has already run. If it hasn't,
+   `audits/README.md`'s index — audit files are named for what they cover (e.g.
+   `topic-10-professionalism.md`), and the index carries each one's date and milestone, so the
+   index is what says whether that milestone's audit has already run. If it hasn't,
    remind the user to run the periodic repo audit (see below) before starting the next topic.
    (The field-atlas and Pacing Layer staleness checks used to live here too — they've moved to
    "Every session, before anything else" above, since tying them to a teaching day is what let
@@ -194,8 +195,9 @@ infra, monitoring) is built incrementally from Day 0, not bolted on at the end.
     confidence-in-direction from confidence-in-figure). Update the "Last sub-discipline check"
     date regardless of whether anything else changed, so a no-change result is still recorded as
     a real check rather than looking like the check never ran.
-- `audits/` — periodic repo-wide professionalism audits (see below), one file per audit named
-  `audit-YYYY-MM-DD.md`; `audits/README.md`'s index says which date covers which milestone.
+- `audits/` — periodic repo-wide professionalism audits (see below), one file per audit named for
+  what it covers (`topic-10-professionalism.md`, `public-readiness.md`); `audits/README.md`'s
+  index says which date and milestone each one covers.
 
 ## Repo quality standards
 Standing rules, so the repo never drifts back into the kind of issues the Topic 10 audit found:
@@ -233,9 +235,11 @@ same process as the one done after Topic 10 — before starting the next topic. 
 audit after Topic 53 clears, the same process again — there is otherwise no pass scheduled between
 "the last periodic audit at Topic 50" and the repo actually being finished and shown, and that gap
 is exactly where drift would go unnoticed the longest. Findings and fixes
-get saved to `audits/audit-YYYY-MM-DD.md` (today's date), with what was fixed and why it matters,
-not just a raw list, and the new file gets added to `audits/README.md`'s index (date → milestone)
-in the same commit — the index, not the filename, is how a future session finds it. Fixes are
+get saved to `audits/<short-descriptive-name>.md` — `topic-NN-professionalism.md` for a periodic
+audit; the date goes in the file's header and the index, not the filename — with what was fixed
+and why it matters, not just a raw list, and the new file gets added to `audits/README.md`'s
+index (date → milestone) in the same commit — the index is how a future session matches an audit
+to its milestone. Fixes are
 applied in reviewable batches after the user reviews the findings — never silently. Genuinely
 topic-specific best-practice items (e.g. Dockerfile hardening, which belongs to Topic 11) get
 deferred to when that topic is actually taught, not fixed retroactively, so the

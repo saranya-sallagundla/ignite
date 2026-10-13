@@ -17,7 +17,7 @@ line originally claimed.)*
 > milestone. Recorded here anyway, per `audits/README.md`'s own rule that every audit gets saved
 > and indexed, so this pass doesn't become invisible to a future session.
 
-> **On redaction.** Unlike `audit-2026-08-13.md`, nothing found here touches identity, security,
+> **On redaction.** Unlike `public-readiness.md`, nothing found here touches identity, security,
 > or anything else warranting redaction — this was an organization and consistency pass, not a
 > disclosure sweep. No unredacted external copy was made; this file is the complete record.
 
@@ -57,11 +57,11 @@ note, not by rewriting an accurate historical record.
 **Leftovers from the previous session's `audits/` rename** (`1fb1677`), found only because this
 audit re-checked that work rather than assuming it was complete:
 - `engine/CLAUDE.template.md` still taught forks the abandoned `topic-N-audit.md` naming in two
-  places, and its audit-trigger logic still carried the exact latent bug `audit-2026-08-13.md`
+  places, and its audit-trigger logic still carried the exact latent bug `public-readiness.md`
   documents (a multiple-of-10 topic clearing after its successor never fires the reminder).
   Fixed to `audit-YYYY-MM-DD.md` plus the index-lookup rule, and the trigger now keys off
   "highest cleared topic ≥ next un-audited multiple" instead of guessing a filename.
-- Two line-number citations inside `audit-2026-08-13.md` had rotted when the new index table
+- Two line-number citations inside `public-readiness.md` had rotted when the new index table
   shifted the file they pointed at. De-lined to rule names so they can't rot again.
 
 ## Batch 2 — orbit/, the showcase folder
@@ -112,7 +112,7 @@ same audit had introduced in `CLAUDE.md` during batch 1 were rewrapped.
 
 **Deliberately not resolved**: the British/American spelling split across public docs, and the
 `docs/concept.md` reword — both flagged as wording-only; neither touches the open right-to-publish
-question (`audit-2026-08-13.md`'s B-1, still the actual blocking item).
+question (`public-readiness.md`'s B-1, still the actual blocking item).
 
 ## Batch 4 — learning/ tracking hygiene
 
@@ -126,7 +126,7 @@ and the honest count: **17 of 20 active days**, three gaps named, not "19 of 20 
 (narratively dated 2026-07-24) credits work to the Topic 10 audit, which is dated 2026-07-27 —
 three days later, despite its own title claiming to precede Topic 11. Traced the real commit
 history: both were authored during the same later catch-up period already disclosed as
-`audit-2026-08-13.md`'s C-7 finding. Neither date was altered — a short header note (a 5-line
+`public-readiness.md`'s C-7 finding. Neither date was altered — a short header note (a 5-line
 blockquote, not literally one line) was added to the audit's own header explaining that "before
 Topic 11" describes scope, not calendar order.
 
@@ -176,13 +176,13 @@ Command-prompt style and output notation, split three ways across the phases —
 explicit decision, recorded as forward-only conventions (Topic 12+) in `CLAUDE.md` and the engine
 template, with **zero retroactive changes** to captured historical terminal sessions.
 Retroactively "fixing" a real captured session to look consistent is exactly the integrity
-problem `audit-2026-08-13.md`'s C-6/H-12 findings warned about.
+problem `public-readiness.md`'s C-6/H-12 findings warned about.
 
 ## What was deliberately left unfixed (summary)
 
 - `docker-compose.yml`'s `container_name: orbit-app` — real risk to already-captured commands.
 - British vs. American spelling across public docs — the user's call, not made yet.
-- The right-to-publish question (`audit-2026-08-13.md`'s B-1) — unaffected by any wording fix.
+- The right-to-publish question (`public-readiness.md`'s B-1) — unaffected by any wording fix.
 - Reordering 5 notebooks' preamble-before-agenda — would lose context in 2 of 5 cases.
 - Retrofitting Phase 2 notebooks with a label or section they never had.
 - Rewriting any notebook's historical commands, output, or prompts to match a new house style.

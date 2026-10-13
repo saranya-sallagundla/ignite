@@ -1,18 +1,21 @@
 # Repo audits
 
-Every audit in this folder is named `audit-YYYY-MM-DD.md` — the date it ran, not a topic number
-or a description. Because the filename alone doesn't say what an audit covers, **the index below
-is the source of truth** for which file covers which milestone — check it before assuming a file
-does or doesn't exist for a given topic.
+Every audit in this folder is named for what it covers — `topic-NN-professionalism.md` for a
+periodic one, a short slug like `public-readiness.md` for a one-time one — not for the date it
+ran. The date lives in each file's header and in **the index below**, which is the source of
+truth for which file covers which milestone — check it before assuming a file does or doesn't
+exist for a given topic. (Naming history, so older references make sense: `topic-N-audit.md`
+originally; dated `audit-YYYY-MM-DD.md` from commit `1fb1677` in August 2026; descriptive names
+since 2026-09-21.)
 
 ## Index
 
 | Date | Type | Milestone | File |
 |---|---|---|---|
-| 2026-07-27 | Periodic professionalism audit | after Topic 10 | [`audit-2026-07-27.md`](audit-2026-07-27.md) |
-| 2026-08-13 | Public-readiness audit (one-time) | repo already public, pre-remediation | [`audit-2026-08-13.md`](audit-2026-08-13.md) |
-| 2026-08-26 | Repo organization audit (one-time) | not tied to a topic milestone | [`audit-2026-08-26.md`](audit-2026-08-26.md) |
-| 2026-08-31 | Final sign-off audit (one-time) | not tied to a topic milestone — pre-fork/public-facing review | [`audit-2026-08-31.md`](audit-2026-08-31.md) |
+| 2026-07-27 | Periodic professionalism audit | after Topic 10 | [`topic-10-professionalism.md`](topic-10-professionalism.md) |
+| 2026-08-13 | Public-readiness audit (one-time) | repo already public, pre-remediation | [`public-readiness.md`](public-readiness.md) |
+| 2026-08-26 | Repo organization audit (one-time) | not tied to a topic milestone | [`repo-organization.md`](repo-organization.md) |
+| 2026-08-31 | Final sign-off audit (one-time) | not tied to a topic milestone — pre-fork/public-facing review | [`final-sign-off.md`](final-sign-off.md) |
 
 Two kinds of audits live here, both under the same naming scheme:
 
@@ -73,7 +76,7 @@ Every prompt below is meant to be reused verbatim next time that kind of audit i
 > that it could drift. Save findings to `audits/`, and don't apply any fixes until I review them.
 
 ## Rules for every audit
-- **Not limited to the categories/items a past audit already found.** `audit-2026-07-27.md`'s
+- **Not limited to the categories/items a past audit already found.** `topic-10-professionalism.md`'s
   (the Topic 10 audit's) findings (A-E, plus the batch structure) are a record of what that
   specific audit surfaced, not a fixed checklist future audits are confined to re-checking. Each
   new audit should look at the repo fresh, word by word, and add whatever new issues actually
@@ -95,17 +98,18 @@ Every prompt below is meant to be reused verbatim next time that kind of audit i
 - **If the in-repo record redacts anything** (e.g. employer-name instances, per the
   public-readiness audit), also save an unmodified copy of the raw, pre-redaction findings
   directly under `C:\CloudOps` — not just the scratchpad/temp location it was originally written
-  to, and not just the permanent `audits/audit-YYYY-MM-DD.md` record. Copy it as-is, no
+  to, and not just the permanent `audits/<descriptive-name>.md` record. Copy it as-is, no
   redaction. If nothing needed redacting, skip this — there's no raw version distinct from the
   permanent record to preserve — but say so explicitly in the audit file, as
-  `audit-2026-08-26.md` does, so the absence reads as a decision, not an oversight.
-- **Ownership is settled — do not re-raise the right-to-publish question.** `audit-2026-08-13.md`
+  `repo-organization.md` does, so the absence reads as a decision, not an oversight.
+- **Ownership is settled — do not re-raise the right-to-publish question.** `public-readiness.md`
   raised B-1 (whether an employment agreement blocks publishing this repo under an
-  individually-held license); `audit-2026-08-31.md` closed it — this is a self-created personal
+  individually-held license); `final-sign-off.md` closed it — this is a self-created personal
   learning project, not employer work, confirmed directly and durably recorded there. A future
   audit should not reopen this; if genuinely uncertain, read that resolution note first rather
   than asking again.
-- **Add the new file to the index table above** in the same commit — no audit is discoverable by
-  filename alone under this naming scheme, so one that isn't indexed is effectively invisible:
+- **Add the new file to the index table above** in the same commit — the filename says what an
+  audit covered, but only the index says when it ran and which milestone it belongs to, so one
+  that isn't indexed can't be matched to a milestone and is effectively invisible:
   to a future session checking whether a periodic milestone is already covered, and to anyone
   just trying to find out what's in this folder at all.

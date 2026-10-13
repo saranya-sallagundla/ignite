@@ -25,7 +25,7 @@ between `origin/main`, `personal/main`, and the local `main` actually reviewed.
 **Status**: **FINDINGS ONLY — no fixes applied.** Per `audits/README.md`, nothing changes until
 these are reviewed.
 
-**On redaction**: like `audit-2026-08-13.md`, this file discusses an identity exposure without
+**On redaction**: like `public-readiness.md`, this file discusses an identity exposure without
 naming the employer or reproducing the leaked strings — describing them abstractly instead.
 Unlike that file, nothing here required generating an unredacted version to begin with (this
 audit never wrote the literal strings down anywhere, including in scratch output kept outside
@@ -48,7 +48,7 @@ need to be pulled apart before anything else:
    predates almost all of that refinement, and it currently exposes the real name and corporate
    email address of the repo's author across dozens of commits, plus a folder of AI-memory notes
    about the author that the private copy has since removed entirely. This was already found and
-   fully diagnosed by this repo's own `audit-2026-08-13.md` a month ago. **The fix it prescribed
+   fully diagnosed by this repo's own `public-readiness.md` a month ago. **The fix it prescribed
    was applied to the private copy only. The public copy was never touched.**
 
 Sign-off cannot mean "the private copy looks good." The public copy is the actual product being
@@ -72,7 +72,7 @@ Verified live, today, via `git fetch` against both remotes and `gh api`:
 | `claude-memory/` folder (AI notes about the author) | Absent — removed from the current lineage entirely | **Present**, 5 files, still live |
 | `LICENSE` / `SECURITY.md` / `CONTRIBUTING.md` / `audits/` / `engine/` / `docs/` | All present | **None of them exist yet** |
 
-None of this is a new discovery — `audit-2026-08-13.md` diagnosed the identity exposure in
+None of this is a new discovery — `public-readiness.md` diagnosed the identity exposure in
 exhaustive detail (its C-1 through C-6, H-1 through H-5) and prescribed the exact fix: "**One**
 history rewrite covering the corporate email, the org name, and the user ID... Publish as a
 **fresh, unforked** repo under the personal account — never by flipping visibility on the
@@ -87,7 +87,7 @@ been live for 31 days already. Every day it stays this way is 31 more days of a 
 real corporate email address sitting in a public commit history, searchable and scrapeable, plus
 an AI-generated behavioral characterization of the account holder sitting in a folder next to it.
 
-**Fix**: execute Gate 1 of `audit-2026-08-13.md`'s own remediation sequence, specifically against
+**Fix**: execute Gate 1 of `public-readiness.md`'s own remediation sequence, specifically against
 the `personal` remote — not `origin`. The clean lineage already exists locally (`main`, 76
 commits, verified free of the employer string). Force-pushing that lineage to `personal` (after
 setting repo-local commit identity to a personal name/no-reply address, per that audit's step 6)
@@ -97,15 +97,15 @@ doing until it's answered.
 
 ### 2. B-1 — the right-to-publish question is still open, per the repo's own last review of it
 
-`audit-2026-08-13.md`'s B-1 finding — whether an employment agreement's IP-assignment terms mean
+`public-readiness.md`'s B-1 finding — whether an employment agreement's IP-assignment terms mean
 the repo's author isn't actually free to grant the MIT/CC BY licenses this repo publishes — is
-explicitly listed as still open in `audit-2026-08-26.md`'s own "What was deliberately left
-unfixed" section: *"The right-to-publish question (`audit-2026-08-13.md`'s B-1) — unaffected by
+explicitly listed as still open in `repo-organization.md`'s own "What was deliberately left
+unfixed" section: *"The right-to-publish question (`public-readiness.md`'s B-1) — unaffected by
 any wording fix."* Nothing in the repo shows this has been resolved since (it wouldn't
 necessarily show in a committed file either way, which is exactly why it needs a direct answer
 rather than a file-based check).
 
-**Why it matters**: `audit-2026-08-13.md` put this ahead of everything else for a reason —
+**Why it matters**: `public-readiness.md` put this ahead of everything else for a reason —
 "Publishing a licence you cannot back is worse than publishing none." Every fix elsewhere in this
 report, including Finding 1's remediation, is worth doing regardless of the answer, but a public
 LICENSE grant only means what it says if this question has an actual yes behind it.
@@ -171,7 +171,7 @@ before Day 1, or explicitly state that push is a no-op/skippable until a remote 
 
 ### 5. `CLAUDE.md`'s git-metadata exemption — the policy that let Finding 1 happen — was never removed
 
-`audit-2026-08-13.md`'s own "Rule changes this audit recommends" list, item 1: *"Remove the
+`public-readiness.md`'s own "Rule changes this audit recommends" list, item 1: *"Remove the
 git-metadata exemption. It was correct for a private repo and is now the largest exposure in a
 public one."* Verified today: `CLAUDE.md` line 136 still reads *"the git remote/metadata is
 exempt — only file content matters."* `engine/CLAUDE.template.md` line 134 carries the identical,
@@ -198,10 +198,10 @@ review agent whose specific claim I checked before including it here.
 
 **`CLAUDE.md` / process integrity**
 - **`CLAUDE.md`'s own audit-trigger bug was never fixed in the file that actually governs this
-  repo.** `audit-2026-08-13.md` recommended changing the trigger from "the topic that most
+  repo.** `public-readiness.md` recommended changing the trigger from "the topic that most
   recently cleared is a multiple of 10" to "highest cleared topic ≥ next un-audited multiple of
-  10" (the phrasing bug that caused `audit-2026-07-27.md` to be dated after the topic it claims to
-  precede). `audit-2026-08-26.md` says it fixed "the exact latent bug" — but its own text scopes
+  10" (the phrasing bug that caused `topic-10-professionalism.md` to be dated after the topic it claims to
+  precede). `repo-organization.md` says it fixed "the exact latent bug" — but its own text scopes
   that fix to `engine/CLAUDE.template.md` only. Verified today: the live root `CLAUDE.md`, line
   30, still reads the old, buggy phrasing. The fork template is now *more correct* than the file
   this repo itself reads every session. **Fix**: apply the identical phrasing fix already made in
@@ -219,19 +219,19 @@ review agent whose specific claim I checked before including it here.
 **`audits/` self-consistency** (found by this audit's dedicated cross-check of all three prior
 audit files against each other and the live repo)
 - **`audits/README.md`'s index — its own stated "source of truth" — mischaracterizes
-  `audit-2026-08-13.md`.** The Milestone column calls it "pre-publish, Stage 1," but that audit's
+  `public-readiness.md`.** The Milestone column calls it "pre-publish, Stage 1," but that audit's
   own headline finding is *"the repo is already public"* — the opposite claim — and its Gate 0
   even suggests taking the repo private during remediation. No "Stage 2" exists anywhere to make
   "Stage 1" meaningful. A reader who trusts only the index (which is the whole point of the
   index) comes away believing the opposite of that audit's actual finding.
-- **`audit-2026-08-13.md`'s own line-number citations into `audit-2026-07-27.md` have rotted.**
-  `audit-2026-08-26.md`'s Batch 4 inserted a 6-line blockquote into that file's header, shifting
-  every line after it down by 6 — including the four places `audit-2026-08-13.md` cites by line
+- **`public-readiness.md`'s own line-number citations into `topic-10-professionalism.md` have rotted.**
+  `repo-organization.md`'s Batch 4 inserted a 6-line blockquote into that file's header, shifting
+  every line after it down by 6 — including the four places `public-readiness.md` cites by line
   number, one of which (C-5) is specifically the citation to where the employer-name disclosure
-  lived. Ironically, `audit-2026-08-26.md`'s own Batch 1 claims to have already fixed "two
+  lived. Ironically, `repo-organization.md`'s own Batch 1 claims to have already fixed "two
   line-number citations [that] had rotted when the new index table shifted the file they pointed
   at" — the identical bug class, reintroduced later in the same audit session, uncaught since.
-- **`audit-2026-08-26.md` claims its five fix batches happened in "one continuous session";** its
+- **`repo-organization.md` claims its five fix batches happened in "one continuous session";** its
   own cited commit list shows batches 1–4 committed 2026-08-20 and batch 5 committed 2026-08-26 —
   a 6-day gap, not one session.
 - **That same audit fixed the root `LICENSE` file's GitHub-detectability** (so the license facet
@@ -239,8 +239,8 @@ audit files against each other and the live repo)
   gating all licensing work ("Gate 3... blocked on B-1"). Making the license cleanly
   machine-readable is precisely the public-facing signal that gate exists to hold back until B-1
   resolves — the fix and the gate point in opposite directions.
-- **`audit-2026-07-27.md`'s own stated agent count doesn't match its own breakdown** (says
-  "14-agent audit," breakdown sums to 17) — already flagged by `audit-2026-08-13.md`'s M-tier and
+- **`topic-10-professionalism.md`'s own stated agent count doesn't match its own breakdown** (says
+  "14-agent audit," breakdown sums to 17) — already flagged by `public-readiness.md`'s M-tier and
   still uncorrected through two further audit passes, including one that edited this exact file's
   header.
 
@@ -256,7 +256,7 @@ audit files against each other and the live repo)
   language... references to this file"). It calls itself "the vehicle used to drive hands-on
   learning through the roadmap," times its own revisit to "the end of the learning journey (all 53
   topics complete)," and dates a design decision to "before Topic 9 began." Found independently by
-  two separate review agents (the `docs/` and `orbit/` passes). `audit-2026-08-26.md` flagged "the
+  two separate review agents (the `docs/` and `orbit/` passes). `repo-organization.md` flagged "the
   `docs/concept.md` reword" as a known open item and deliberately left it as "the user's call" —
   this is likely the same underlying item, not a new regression, but it remains unresolved in the
   file today and the specific curriculum-language framing doesn't appear to have been spelled out
@@ -320,7 +320,7 @@ documentation, not just read for plausibility)
   current `docker-compose.yml` sets `container_name: orbit-app` explicitly — so the actual
   container is named `orbit-app`, with no numeric suffix. Re-running the notebook's exact commands
   against today's file would fail with "No such container: orbit-app-1." This is a fresh instance
-  of the same class of problem `audit-2026-08-13.md`'s H-15/H-16 already found and considered
+  of the same class of problem `public-readiness.md`'s H-15/H-16 already found and considered
   resolved elsewhere in this same file.
 
 **`field_atlas.md` currency** (see the dedicated section below — summarized here as findings)
@@ -383,7 +383,7 @@ being a one-off.
   noting it's still Sandbox-tier, not Incubating; the GitOps adoption figure now has a better
   primary source available (CNCF's own July 2025 announcement) than the secondary-source hedge
   currently used.
-- **A carryover from `audit-2026-08-13.md`'s M-tier that's still present**: `session_notes.md`'s
+- **A carryover from `public-readiness.md`'s M-tier that's still present**: `session_notes.md`'s
   Session 1 entry and `progress.md`'s Session 1 Check-in note both still name a "night-shift"
   personal-schedule detail, which that audit recommended removing or reframing as neutral. Not
   re-litigated here as a fresh finding — flagged only because it's still live, unlike most of that
@@ -394,7 +394,7 @@ being a one-off.
 - Topic 8's quiz answer restates a mitigation using `@latest` as its floating-tag example where
   the body text (and the actual GitHub Actions ecosystem) uses `@v4`/`@main` — `@latest` is a
   Docker/npm convention, not one Actions pins against.
-- `audit-2026-08-26.md` describes its own header addition to `audit-2026-07-27.md` as "a one-line
+- `repo-organization.md` describes its own header addition to `topic-10-professionalism.md` as "a one-line
   note"; the actual insertion is a 5-line blockquote.
 - Placeholder `README.md` files under `orbit/`'s not-yet-built folders (nine of them, plus
   `app/tests/`) are single untitled paragraphs, while every folder with real content opens with an
@@ -427,7 +427,7 @@ happens. No teaching session has run since Session 17 (2026-07-24). Two audit se
 gap (2026-08-13, 2026-08-26) — neither is a "daily session" under that heading, and neither
 triggered the check. The date simply never came up again until this audit went looking for it.
 
-**This is the identical root cause behind `audit-2026-08-13.md`'s C-7 finding** — the Pacing
+**This is the identical root cause behind `public-readiness.md`'s C-7 finding** — the Pacing
 Layer in `learning/roadmap.md` still reads "Calendar Day 20 (2026-07-25), Pace: on track, Last
 recalibrated: — (not yet due)" today, unchanged since that audit flagged it a month ago at Day 39
 (it's now Day 57). Both mechanisms rely entirely on a teaching session happening to notice they've
@@ -567,12 +567,12 @@ it guaranteed on the day it was built.
 A audit that only lists new findings misleads about what's actually been fixed. Checked
 specifically:
 
-- **All 8 items `audit-2026-07-27.md` deferred to Topic 11 are genuinely resolved** — verified
+- **All 8 items `topic-10-professionalism.md` deferred to Topic 11 are genuinely resolved** — verified
   directly against the live `orbit/app/Dockerfile`, `requirements.txt`, and
   `orbit/docker-compose.yml`: non-root `USER`, gunicorn, `EXPOSE`, `HEALTHCHECK`,
   `--no-cache-dir`, `PYTHONUNBUFFERED=1`, tagged image, Flask patch bump. Matches the Topic 11
   notebook word for word.
-- **`audit-2026-08-13.md`'s H-6 (licensing), H-9 (README rewrite), H-14 (the stray fence),
+- **`public-readiness.md`'s H-6 (licensing), H-9 (README rewrite), H-14 (the stray fence),
   community-files gap, and most of its M-tier presentation items are resolved** — verified: LICENSE
   is byte-identical MIT, `learning/LICENSE` is CC BY 4.0, `README.md` now states scores are
   "self-assessed and AI-graded... not externally validated," `CONTRIBUTING.md`/`SECURITY.md` now
@@ -585,7 +585,7 @@ specifically:
   Topic 12 is the very next topic on the roadmap). Per this repo's own defer-to-topic philosophy,
   this shouldn't be silently pre-fixed — but it should be taught knowing it's already diagnosed,
   not discovered mid-session as a surprise.
-- **`audit-2026-08-26.md`'s own five batches hold up well on inspection** — the LICENSE-detection
+- **`repo-organization.md`'s own five batches hold up well on inspection** — the LICENSE-detection
   fix, the `orbit/` reconciliation between `README.md` and `docs/concept.md`, and the
   `learning/` tracking-hygiene fixes were all independently re-verified against the live files
   during this audit and found accurate. Its self-consistency gaps are listed under Important
@@ -608,9 +608,9 @@ specifically:
 - **The redaction convention is genuinely followed in captured output** — spot-checked
   `devuser`/`devuser` placeholders in Topic 1's filesystem listings; consistent with
   `CONTRIBUTING.md`'s stated convention.
-- **The public-readiness audit's own required raw-copy rule was followed** — `audit-2026-08-13.md`
+- **The public-readiness audit's own required raw-copy rule was followed** — `public-readiness.md`
   did produce and preserve an unredacted external copy under `C:\CloudOps`, as its own redaction
-  note promises; `audit-2026-08-26.md` correctly stated no such copy was needed and said so
+  note promises; `repo-organization.md` correctly stated no such copy was needed and said so
   explicitly, matching the standing rule.
 - **`orbit/app/`'s code and Dockerfile carry no debugging or teaching-style comments**, and no
   reference to `CLAUDE.md` — the interview-facing-folder rule is genuinely held to in the code

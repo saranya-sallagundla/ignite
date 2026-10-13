@@ -10,7 +10,7 @@ batches, not 4-file, to avoid agent stalls).
 > **Title vs. date, explained.** "before Topic 11" describes this audit's *scope* — it covers the
 > repo as it stood once Topic 10 cleared, before Topic 11's work began — not a calendar claim.
 > This audit's own date (07-27) falls after Topic 11's session-log date (07-24) because both were
-> authored during the same catch-up period; see the pacing gap `audit-2026-08-13.md`'s finding
+> authored during the same catch-up period; see the pacing gap `public-readiness.md`'s finding
 > C-7 documents. Neither date has been altered to make the two agree.
 
 **Overall result going in**: fundamentally strong — clean linear git history, no secrets ever

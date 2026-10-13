@@ -159,8 +159,8 @@ before creating anything.
   concrete example.
 - `learning/session_notes.md` — short personal recap per session, for review only, never for
   logic.
-- `audits/` — one file per audit, named `audit-YYYY-MM-DD.md`, plus a `README.md` whose index
-  table maps each date to the milestone it covers.
+- `audits/` — one file per audit, named for what it covers (e.g. `topic-10-professionalism.md`),
+  plus a `README.md` whose index table maps each file to its date and milestone.
 - Optional, if the mission wants it: a living field atlas (`learning/field_atlas.md`) mapping the
   field itself — sub-disciplines, how topics connect, production reality — always current, never
   forked into a v2, every claim sourced with a confidence level.
@@ -199,7 +199,8 @@ Every N topics (`MISSION.md`, default 10), run a full repo professionalism audit
 the next topic — every subfolder, every file, line by line. Also run one final audit after the
 last topic clears — there is otherwise no pass scheduled between the last periodic audit and the
 record actually being finished and shown, and that gap is exactly where drift would go unnoticed
-longest. Findings are saved to `audits/audit-YYYY-MM-DD.md`, added to `audits/README.md`'s index
+longest. Findings are saved to `audits/<short-descriptive-name>.md` (the date goes in the file's
+header and the index, not the filename), added to `audits/README.md`'s index
 in the same commit, and **reviewed by the learner before any fix is applied** — never silently.
 Genuinely topic-specific improvements get deferred to the session that teaches that topic, not
 fixed retroactively, so they are learned hands-on rather than found pre-fixed. If an audit redacts

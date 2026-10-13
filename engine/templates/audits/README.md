@@ -1,9 +1,10 @@
 # Repo audits
 
-Every audit in this folder is named `audit-YYYY-MM-DD.md` — the date it ran, not a topic number
-or a description. Because the filename alone doesn't say what an audit covers, **the index below
-is the source of truth** for which file covers which milestone — check it before assuming a file
-does or doesn't exist for a given topic.
+Every audit in this folder is named for what it covers — `topic-NN-professionalism.md` for a
+periodic one, a short slug like `public-readiness.md` for a one-time one — not for the date it
+ran. The date lives in each file's header and in **the index below**, which is the source of
+truth for which file covers which milestone — check it before assuming a file does or doesn't
+exist for a given topic.
 
 ## Index
 
@@ -42,8 +43,9 @@ Two kinds of audits belong here, both under the same naming scheme:
   also save an unmodified copy of the raw, pre-redaction findings somewhere outside this repo —
   as-is, no redaction. If nothing needed redacting, skip this, but say so explicitly in the audit
   file so the absence reads as a decision, not an oversight.
-- **Add the new file to the index table above** in the same commit — no audit is discoverable by
-  filename alone under this naming scheme, so one that isn't indexed is effectively invisible.
+- **Add the new file to the index table above** in the same commit — the filename says what an
+  audit covered, but only the index says when it ran and which milestone it belongs to, so one
+  that isn't indexed can't be matched to a milestone and is effectively invisible.
 - **Once something is genuinely settled — an ownership question, a design decision revisited and
   closed — record the resolution durably in a committed file, not only in session memory.**
   Memory doesn't carry across a fresh session or a different AI account; a committed resolution
