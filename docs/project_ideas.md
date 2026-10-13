@@ -362,7 +362,7 @@ keywords.
 **MVP, solo, zero cloud cost.** A failure-pattern schema (trigger, propagation mechanism, symptom
 signature, mitigations); a local-LLM pipeline that extracts it from ~100 public postmortems into
 a graph; a matcher that takes a live incident description (or orbit's alert payloads) and returns
-ranked pattern matches with provenance. Ignite's own `field_atlas.md` — a sourced,
+ranked pattern matches with provenance. Ignite's own field atlas — a sourced,
 confidence-rated map of the field — is the editorial prototype for the discipline this needs.
 
 **The demo moment.** Paste a raw, messy incident description mid-firefight; get back "split

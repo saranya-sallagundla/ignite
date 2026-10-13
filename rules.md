@@ -43,9 +43,9 @@ Before anything else, work out today's real date in IST, then run both checks. T
 **every** session — teaching, audit, or a one-off question. Scoping them to teaching days lets them
 go unnoticed whenever teaching pauses.
 
-1. **Field atlas currency.** Read the "Last sub-discipline check" date in `learning/field_atlas.md`.
-   More than 14 days old: say so up front and offer to run the check. The threshold is 14 days
-   because a reminder that fires every session gets ignored.
+1. **Field atlas currency.** Read the "Last sub-discipline check" date in
+   `learning/field_atlas/field-map.md`. More than 14 days old: say so up front and offer to run
+   the check. The threshold is 14 days because a reminder that fires every session gets ignored.
 2. **Pacing currency.** Recompute Calendar Day from Day 1 and compare it against the figure
    written in `learning/roadmap.md`'s Pacing Layer. If they differ, `Pace` and `Last recalibrated`
    are stale by exactly that much. Check the written number, never the derived verdict — a verdict
@@ -139,7 +139,7 @@ land in `orbit/` instead of a disposable practice folder, put it there.
 | `learning/progress.md` | Current status line, quiz index, deferred mastery, open items, light days, and the full session log — one detailed entry per session (§6) |
 | `learning/handbook_status.md` | Per-topic checklist with score and reason |
 | `learning/notes/phase-N/topic-NN-*.md` | The detailed study notebook — the lasting reference |
-| `learning/field_atlas.md` | Living map of the field itself. Not a session log |
+| `learning/field_atlas/` | Living map of the field itself, in two files: `field-map.md` (the field, plus the atlas's maintenance rules) and `topic-map.md` (topics covered). Not a session log |
 | `audits/` | Findings filed by subject in four files; index, history and prompts in `audits/README.md` |
 
 The roadmap's baseline table is the plan of record. Change it deliberately if the curriculum
@@ -152,7 +152,8 @@ exists for. The sub-discipline check researches whether a genuinely new sub-disc
 or an existing entry needs a sourced update: a named primary source beats a secondary summary, say
 plainly when nothing reliable was found, and separate confidence-in-direction from
 confidence-in-figure. Update the check date even when nothing changed, so a no-change result reads
-as a real check. It's one file today; split it if it outgrows that.
+as a real check. It's two files: `field-map.md` holds Part 1 and the maintenance rules,
+`topic-map.md` holds Part 2.
 
 ## 6. Logging, after every session
 

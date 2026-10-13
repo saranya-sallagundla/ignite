@@ -28,7 +28,7 @@ sessions where nothing got built. Nothing is reconstructed after the fact.
 | Roadmap days consumed | **19 of 98 core days** |
 | Pace | **Ahead by ~5 core days** — 56 days of slack left before the Mar 2027 deadline moves |
 | Study notebooks | **12 files, 6,202 lines** of commands actually run and real output |
-| Field reference | **399 lines**, continuously updated, with per-claim confidence levels |
+| Field reference | **2 files, 726 lines**, continuously updated, with per-claim confidence levels |
 | Audits | **4** run, **112** findings filed by subject in [`audits/`](audits/), each with a status |
 
 Next up: Topic 12 — Kubernetes — Architecture & Core Concepts, Day 2 + quiz.
@@ -133,7 +133,9 @@ ignite/
 │   ├── roadmap.md             fixed 53-topic / 120-day baseline + a living pacing layer
 │   ├── progress.md            session log, quiz index, deferred mastery, open items
 │   ├── handbook_status.md     per-topic scores with a one-line reason each
-│   ├── field_atlas.md         living map of the DevOps/SRE field, with sourced confidence levels
+│   ├── field_atlas/           living map of the DevOps/SRE field, with sourced confidence levels
+│   │   ├── field-map.md       the field right now: roles, what changed, sub-disciplines, and the atlas rules
+│   │   └── topic-map.md       one section per topic covered: the problem, why it matters, how it connects
 │   ├── notes/                 one detailed study notebook per topic, filed by phase
 │   └── LICENSE                CC BY 4.0 — covers the written material in this repository
 ├── orbit/                     the project — a real system, built incrementally

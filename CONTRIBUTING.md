@@ -14,7 +14,7 @@ the reasoning, or fills in a gap does not make it better; it stops it being a re
 
 ## What is genuinely welcome
 
-**Factual errors in a notebook or in `field_atlas.md` — open an issue.**
+**Factual errors in a notebook or in the field atlas — open an issue.**
 This is the most useful thing you can do here. Notebooks are technical reference material, and a wrong
 rule recorded confidently is worse than no rule at all. Please include:
 
